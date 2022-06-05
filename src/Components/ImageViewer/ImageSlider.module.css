@@ -1,0 +1,55 @@
+.leftArrow,
+.rightArrow {
+    font-size: 2.5em;
+    color: #6c757d;
+    font-weight: bolder;
+    padding-top: 40%;
+    text-decoration: none;
+}
+.leftArrow:hover,
+.rightArrow:hover {
+    color: #23e6ef;
+    cursor: pointer;
+    border-radius: .5em;
+}
+.leftArrow {
+    text-align: center;
+    padding-left: 0em;
+    padding-right: 0em;
+}
+.rightArrow {
+    text-align: center;
+    padding-left: 0em;
+    padding-right: 0em;
+}
+.slide {
+    opacity: 0;
+    transition-duration: 1s ease;
+}
+.slide.active {
+    opacity: 1;
+    transition-duration: 1s;
+    transform: scale(1.08);
+}
+.imageSlider{
+    margin: 1em 1em 0em;
+    text-align: center;
+}
+.thumbnailBar{
+    background-color: rgba(186, 194, 201, 0.5);
+    padding: 0.5em;
+    box-shadow: 0 2px 8px rgb(35 230 239 / 45%);
+    border-radius: .5em;
+    border: 1px #23e6ef inset;
+    text-align: center;
+}
+.image,
+.thumbnail {
+    box-shadow: 0 2px 8px rgb(35 230 239 / 45%);
+    border: 1px #ffffff ridge;
+    border-radius: .5em;
+}
+
+.thumbnail {
+    margin: .1em .45em;
+}
