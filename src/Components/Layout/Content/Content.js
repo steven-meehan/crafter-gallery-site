@@ -33,7 +33,8 @@ const Content = (props) => {
                         <Gallery />
                     </Route>
                     <Route
-                        path="/" >
+                        path="*" 
+                        status={404} >
                         <NotFound />
                     </Route>
                 </Switch>

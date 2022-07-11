@@ -12,6 +12,7 @@ const ImageSlider = (props) => {
 
     const imageSliderClasses = `${props.classes ? props.classes : ''}`;
     const imagesCount = props.images && props.images.length ? parseInt(props.images.length) : 0;
+    const localImages = imagesCount > 0 ? props.images : null;
 
     const renderImageUrls = props.renderImageUrls && !props.autoTransition ? true : false;
     const autoTransition = props.autoTransition ? true : false;
@@ -21,7 +22,7 @@ const ImageSlider = (props) => {
     const initialImage = `${props.initialImage ? props.initialImage : ''}`;
     const startingImageindex = props.images.findIndex((image) => {
         return image.fileName === initialImage;
-    });
+    }) ;
 
     const galleryTitle = `${props.galleryTitle ? props.galleryTitle : ''}`;
     const arrowIcon = `${props.arrowIcon ? props.arrowIcon : 'fas fa-angle'}`
@@ -32,13 +33,17 @@ const ImageSlider = (props) => {
     const imageSize = `${props.imageSize ? props.imageSize : '65%'}`
     
     useEffect(() => {
-        const localImages = imagesCount > 0 ? props.images : null;
+        
         if(localImages){
             setImages(localImages);
         }
 
         if(startWithImage){
-            setCurrentImageIndex(startingImageindex);
+            if(startingImageindex < 0){
+                setCurrentImageIndex(0);
+            } else {
+                setCurrentImageIndex(startingImageindex);
+            }
         }
 
         if(autoTransition){
@@ -48,7 +53,8 @@ const ImageSlider = (props) => {
         
             return () => clearInterval(interval);
         }
-    }, [imagesCount, startWithImage, startingImageindex, autoTransition, autoTransitionTimer, images, currentImageIndex, imagesCount]);
+    }, [startWithImage, startingImageindex, autoTransition, autoTransitionTimer, currentImageIndex, localImages]);
+    //imagesCount, startWithImage, startingImageindex, autoTransition, autoTransitionTimer, images, currentImageIndex, localImages
 
     const prevSlideHandler = () =>{
         let newImageIndex = currentImageIndex === 0 ? imagesCount-1 : currentImageIndex - 1;
@@ -105,7 +111,7 @@ const ImageSlider = (props) => {
                         imageWidth={imageSize}
                         displayBlurb={true}
                         displayTitle={!disableTitle}
-                        title={`Here is an example of my ${galleryTitle}`} />
+                        title={``} />
                 )}
             </div>
         )

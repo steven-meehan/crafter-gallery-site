@@ -48,18 +48,18 @@ const Gallery = () => {
                     defaultPage="/gallery/sublimation/"
                     fontAwesomeArrowIcons={`fas fa-arrow-circle`} />
             </Route>
-            <Route path="/gallery/kitchenware" exact >
+            <Route path="/gallery/other" exact >
                 <Carousel
-                    configSettingFile="config-gallery-kitchenware.json"
-                    imagesObject="kitchenware"
-                    defaultPage="/gallery/kitchenware/"
+                    configSettingFile="config-gallery-other.json"
+                    imagesObject="other"
+                    defaultPage="/gallery/other/"
                     fontAwesomeArrowIcons={`fas fa-arrow-circle`} />
             </Route>
-            <Route path="/gallery/kitchenware/:imageName" >
+            <Route path="/gallery/other/:imageName" >
                 <Carousel
-                    configSettingFile="config-gallery-kitchenware.json"
-                    imagesObject="kitchenware"
-                    defaultPage="/gallery/kitchenware/"
+                    configSettingFile="config-gallery-other.json"
+                    imagesObject="other"
+                    defaultPage="/gallery/other/"
                     fontAwesomeArrowIcons={`fas fa-arrow-circle`} />
             </Route>
             <Route path="/gallery/etchings" exact >
@@ -91,7 +91,7 @@ const Gallery = () => {
                     fontAwesomeArrowIcons={`fas fa-arrow-circle`} />
             </Route>
             <Route path="/gallery/:galleryName" >
-                <Redirect to={"/gallery/glitter-tumblers"} />
+                <Redirect to={"/gallery/pens"} />
             </Route>
         </Switch>
     );

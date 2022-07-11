@@ -6,6 +6,8 @@ import ImageSlider from '../Components/ImageViewer/ImageSlider';
 
 import useHttp from '../Hooks/useHttp';
 
+import classes from './Home.module.css';
+
 const Home = () => {
     const { sendRequest: fetchParagraphs } = useHttp();
     const [ paragraphs, setParagraphs ] = useState([]);
@@ -22,6 +24,7 @@ const Home = () => {
                         order: data.paragraphs[item].order,
                         display: data.paragraphs[item].display,
                         text: data.paragraphs[item].text,
+                        empahsis: data.paragraphs[item].empahsis ? true : false
                     });
                 }
             };
@@ -31,8 +34,10 @@ const Home = () => {
                     title: data.homeSliderImages[image].title,
                     altText: data.homeSliderImages[image].altText,
                     fileName: data.homeSliderImages[image].fileName,
+                    externalLink: data.homeSliderImages[image].externalLink,
                     order: data.homeSliderImages[image].order,
-                    url:`${data.baseUrl}${data.homeSliderImages[image].fileName}`
+                    url:`${data.baseUrl}${data.homeSliderImages[image].fileName}`,
+                    landscape: data.homeSliderImages[image].landscape ? true : false
                 })
             }
 
@@ -48,7 +53,7 @@ const Home = () => {
         }
 
         fetchParagraphs(
-            { url: 'http://s3.us-east-1.amazonaws.com/www.handmadehighjinks.com/configs/config-page-home.json' },
+            { url: 'https://s3.us-east-1.amazonaws.com/www.handmadehighjinks.com/configs/config-page-home.json' },
             transformData
         );
     }, [fetchParagraphs]);
@@ -56,10 +61,11 @@ const Home = () => {
     return (
         <Fragment>
             <div className={`row`} >
-                <Info infoClasses={`col-xs-12 col-xl-6`} >
+                <Info infoClasses={`col-xs-12 col-xl-6 ${classes.centeredParagraphs}`} >
                     {paragraphs.map((item, index) => 
                         <p
-                            key={index} >
+                            key={index} 
+                            className={`${item.empahsis ? classes.empahsis : ''}`}>
                             {parse(`
                                 ${item.text}
                             `)}
@@ -74,7 +80,8 @@ const Home = () => {
                         autoTransition={true}
                         autoTransitionTimer={30000}
                         galleryTitle={`home`}
-                        imageSize={`95%`} />}
+                        imageSize={`95%`}
+                        arrowIcon={`fas fa-arrow-circle`} />}
                 </div>
             </div>
         </Fragment>

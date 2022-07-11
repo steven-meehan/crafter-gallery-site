@@ -63,7 +63,7 @@ const Header = (props) => {
         }
     
         fetchConfigs(
-            { url: 'http://s3.us-east-1.amazonaws.com/www.handmadehighjinks.com/configs/config-navigation.json' },
+            { url: 'https://s3.us-east-1.amazonaws.com/www.handmadehighjinks.com/configs/config-navigation.json' },
             transformData
         );
     }, [fetchConfigs]);

@@ -7,26 +7,23 @@ import useHttp from '../../Hooks/useHttp';
 import classes from './Carousel.module.css';
 
 const Carousel = (props) => {
-    const [ imageReferences, setImageReferences ] = useState([]);
-    const [ selectedImage, setselectedImage ] = useState('');
-    const [ pageHeader, setpageHeader ] = useState(null);
+    const [ selectedImageName, setSelectedImageName ] = useState('');
+    const [ galleryImages, setGalleryImages ] = useState([]);
+    const [ galleryConfiguration, setGalleryConfiguration ] = useState({});
+
     const { sendRequest: fetchImageReferences } = useHttp();
     const params = useParams();
     const navigate = useHistory();
 
-    const galleryConfiguration = `http://s3.us-east-1.amazonaws.com/www.handmadehighjinks.com/configs/${props.configSettingFile}`;
+    const galleryConfigurationUrl = `https://s3.us-east-1.amazonaws.com/www.handmadehighjinks.com/configs/${props.configSettingFile}`;
     const responseImageObject = props.imagesObject;
     const defaultPage = props.defaultPage;
     const fontAwesomeArrowIcons = `${props.fontAwesomeArrowIcons ? props.fontAwesomeArrowIcons : 'fas fa-angle'}`
     const imageName = params.imageName ? params.imageName : '';
-
+    
     useEffect(() => {
         const transformData = data =>{
-            const loadedGalleryConfiguration = [];
-            const baseUrl = data.baseUrl;
-            setpageHeader(data.pageHeader);
-            
-            const transformImageData = (item, baseUrl) => {
+            const processingGalleryImages = (item, baseUrl) => {
                 return {
                     title: item.title,
                     altText: item.altText,
@@ -34,54 +31,84 @@ const Carousel = (props) => {
                     order: item.order,
                     description: item.description,
                     url: `${baseUrl}${item.fileName}`,
-                    externalLink: `${item.etsyLink && item.etsyLink.trim() !== '' ? item.etsyLink : ''}`
+                    externalLink: `${item.externalLink && item.externalLink.trim() !== '' ? item.externalLink : ''}`,
+                    landscape: item.landscape
                 }
             }
+
+            const baseUrl = data.baseUrl;
+            const folderName = data.folderName;
+            const pageHeader = data.pageHeader;
+
+            setGalleryConfiguration({
+                baseUrl,
+                folderName,
+                pageHeader
+            });
             
-            const localSelectedImage = transformImageData(data[responseImageObject][0], baseUrl);
-            setselectedImage(localSelectedImage.fileName);
-
+            const galleryImages = [];
+            
             for (const item in data[responseImageObject]) {
-                loadedGalleryConfiguration.push(transformImageData(data[responseImageObject][item], baseUrl));
-
-                if(imageName && data[responseImageObject][item].fileName === imageName){
-                    setselectedImage(data[responseImageObject][item].fileName);
-                }
+                galleryImages.push(processingGalleryImages(data[responseImageObject][item], baseUrl)); 
             }
 
-            const notFound = loadedGalleryConfiguration.filter((item) => {
+            const notFound = galleryImages.filter((item) => {
                 return item.fileName === imageName;
             });
-
+    
             if(notFound.length === 0 && imageName){
                 navigate.push(defaultPage);
             }
 
-            const sortedGalleryConfiguration = loadedGalleryConfiguration.sort((a, b) => {
+            const initialImage = galleryImages.filter((item) => {
+                return parseInt(item.order) === 1;
+            });
+
+            if(initialImage === 1){
+                setSelectedImageName(initialImage[0].fileName);
+            }            
+
+            const sortedGalleryImages = galleryImages.sort((a, b) => {
                 return a.order - b.order;
             });
 
-            setImageReferences(sortedGalleryConfiguration);
+            setGalleryImages(sortedGalleryImages);
         }
     
         fetchImageReferences(
-            { url: galleryConfiguration },
+            { url: galleryConfigurationUrl },
             transformData
         );
-    }, [galleryConfiguration, responseImageObject, defaultPage, imageName, imageReferences, selectedImage, pageHeader, fetchImageReferences]);
+    }, [fetchImageReferences, galleryConfigurationUrl, responseImageObject, imageName]);
+
+    useEffect(() => {
+        const localImages = galleryImages && galleryImages.length > 0 ? galleryImages : null;
+    
+        if (localImages) {
+            if(imageName){
+                const selectedImage = localImages.filter((item) => {
+                    return item.fileName === imageName;
+                });
+    
+                if(selectedImage.length === 1){
+                    setSelectedImageName(selectedImage[0].fileName);
+                }
+            }
+        }
+    }, [galleryImages, selectedImageName, imageName])
 
     return (
         <Fragment>
             <ImageSlider 
-                images={imageReferences}
+                images={galleryImages}
                 defaultPage={defaultPage}
                 galleryTitle={responseImageObject}
                 arrowIcon={fontAwesomeArrowIcons} 
-                startWithImage={selectedImage ? true : false}
+                startWithImage={selectedImageName ? true : false}
                 renderImageUrls={true}
-                initialImage={selectedImage} />
+                initialImage={selectedImageName} />
             <ImageSlider 
-                images={imageReferences}
+                images={galleryImages}
                 defaultPage={defaultPage}
                 isThumbnailBar={true} />  
         </Fragment>

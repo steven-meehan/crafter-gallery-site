@@ -1,4 +1,13 @@
 .titleSection,
 .blurbSection {
-    text-align: left;
+    text-align: center;
+}
+.blurbSection {
+    font-size: 1.5em;
+}
+.landscapeImage {
+    margin-top: 30%;
+}
+.portraitImage {
+    margin-top: 0%;
 }

@@ -31,12 +31,14 @@ const NotFound = () => {
                     localFirstParagraph = {
                         order: data.paragraphs[item].order,
                         display: data.paragraphs[item].display,
+                        empahsis: data.paragraphs[item].empahsis,
                         text: data.paragraphs[item].text,
                     };
                 } else if (data.paragraphs[item].display) {
                     localRemainingParagraphs.push({
                         order: data.paragraphs[item].order,
                         display: data.paragraphs[item].display,
+                        empahsis: data.paragraphs[item].empahsis,
                         text: data.paragraphs[item].text,
                     });
                 }
@@ -51,7 +53,7 @@ const NotFound = () => {
         }
 
         fetchImage(
-            { url: 'http://s3.us-east-1.amazonaws.com/www.handmadehighjinks.com/configs/config-page-notfound.json' },
+            { url: 'https://s3.us-east-1.amazonaws.com/www.handmadehighjinks.com/configs/config-page-notfound.json' },
             transformData
         );
     }, [fetchImage]);
@@ -59,20 +61,21 @@ const NotFound = () => {
     return (
         <div className={`row justify-content-center`}>
             <Info className={`col-8`}>
-                <p className={`${classes.notfoundInfo}`}>
+                <p className={`${classes.notfoundInfo} ${firstParagraph.empahsis ? classes.empahsis : ''} ${classes.centeredParagraphs}`}>
                     {parse(`
                         ${firstParagraph.text}
                     `)}
                 </p>
             </Info>
-            {image && <div className={`col-8 ${classes.centered} ${classes.centeredImage}`}>
+            {image && <div 
+                className={`col-8 ${classes.centered} ${classes.centeredImage}`}>
                 <Image 
                     image={image}
                     classes={classes.notFoundImage}
                     isStandAlone={true}
                     linkImageToContent={true}
                     isContentInternal={true}
-                    linkTitle={`Check out my Gallery of Tumblers.`}
+                    linkTitle={`Check out my Galleries.`}
                     urlForLinkedContent={`/gallery`} 
                     imageWidth={'85%'}
                     displayBlurb={false}
@@ -82,7 +85,8 @@ const NotFound = () => {
                 <p className={`${classes.notfoundInfo}`}>
                     {remainingParagraphs.map((item, index) => 
                         <p
-                            key={index} >
+                            key={index}
+                            className={`${item.empahsis ? classes.empahsis : ''} ${classes.centeredParagraphs}`} >
                             {parse(`
                                 ${item.text}
                             `)}

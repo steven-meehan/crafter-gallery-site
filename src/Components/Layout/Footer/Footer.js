@@ -13,7 +13,7 @@ const Footer = (props) => {
                     <p style={{
                             fontSize:'.75em'
                         } }>
-                        An SM Designs website
+                        Site designed by SM Designs.
                     </p>
                 </footer>
             </div>

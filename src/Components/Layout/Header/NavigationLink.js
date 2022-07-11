@@ -7,7 +7,9 @@ import classes from './NavigationLink.module.css';
 
 const NavigationLink = (props) => {
     const navLinkClasses = `${props.navLinkClasses ? props.navLinkClasses : ''} ${classes.navigationLinks}`;
-    const childLinks = props.item.childLinks;
+    const childLinks = props.item.childLinks.sort((a, b) => {
+        return a.order - b.order;
+    });
 
     const link = childLinks && childLinks.length > 0 && props.item.active ? (
             <Fragment>

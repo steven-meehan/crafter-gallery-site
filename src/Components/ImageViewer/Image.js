@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
+import parse from 'html-react-parser';
 
 import classes from './Image.module.css';
 
@@ -30,15 +31,16 @@ const Image = (props) => {
             alt={image.altText}
             title={linkTitle ? 
                 linkTitle : 
-                image.externalLink && image.externalLink !== '' ? 
-                    'Purchase ' + image.title + ' from my shop.' : 
+                image.externalLink && image.externalLink.includes('www.etsy.com') ? 
+                    'Purchase ' + image.title + ' from my shop.' : image.externalLink && image.externalLink.includes('forms.gle') ?
+                    'Request a custom order' :
                     'Click for a better look at ' + image.title }
-            className={`${imageCssClasses}`} 
+            className={`${imageCssClasses} ${image.landscape ? classes.landscapeImage : classes.portraitImage}`} 
             style={imageWidth ? { width:imageWidth } : {}} />
     )
     const processedTitle = (
         <h1
-            className={`${titleblurbCssClasses} row justify-content-start`} >
+            className={`${titleblurbCssClasses} row justify-content-center`} >
             <div className={`col ${classes.titleSection}`}>
                 {title}<b><i>{image.title}</i></b>
             </div>
@@ -56,7 +58,9 @@ const Image = (props) => {
             <p
                 key={`image-blurb-paragraph-${index}`}
                 className={`${blurbCssClasses} ${classes.blurbParagraph} col-8`} >
-                {item.text}
+                {parse(`
+                    ${item.text}
+                `)}
             </p>
         )
     });
@@ -86,7 +90,7 @@ const Image = (props) => {
                     className={`row justify-content-center ${isThumbnail || isStandAlone ? '' : 'mt-5'}`}>
                     {isThumbnail && processedImage}
                     {!isThumbnail && (
-                        <div>
+                        <div className={`col`}>
                             {processedImage}
                         </div>
                     )}

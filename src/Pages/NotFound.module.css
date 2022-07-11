@@ -21,3 +21,10 @@
     border: 1px #23e6ef solid;
     box-shadow: 0px 0px 15px rgb(35 230 239 / 45%);
 }
+.empahsis {
+    font-weight: bolder;
+    font-size: 2.25em;
+}
+.centeredParagraphs {
+    text-align: center;
+}
