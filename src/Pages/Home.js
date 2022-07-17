@@ -3,10 +3,12 @@ import parse from 'html-react-parser';
 
 import Info from '../Components/UI/Info';
 import ImageSlider from '../Components/ImageViewer/ImageSlider';
-
 import useHttp from '../Hooks/useHttp';
-
 import classes from './Home.module.css';
+
+import data from '../Configs/ConfigFileLocations.json';
+
+const configUrl = data.find(item=>item.configuration==='home').url;
 
 const Home = () => {
     const { sendRequest: fetchParagraphs } = useHttp();
@@ -53,7 +55,7 @@ const Home = () => {
         }
 
         fetchParagraphs(
-            { url: 'https://s3.us-east-1.amazonaws.com/www.handmadehighjinks.com/configs/config-page-home.json' },
+            { url: configUrl },
             transformData
         );
     }, [fetchParagraphs]);

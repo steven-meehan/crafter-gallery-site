@@ -6,6 +6,10 @@ import Navbar from './Navbar';
 import useHttp from '../../../Hooks/useHttp';
 import classes from './Header.module.css';
 
+import data from '../../../Configs/ConfigFileLocations.json';
+
+const configUrl = data.find(item=>item.configuration==='navigation').url;
+
 const Header = (props) => {
     const headerClasses = `${props.headerClasses ? props.headerClasses : ''} ${classes.header}`;
 
@@ -65,7 +69,7 @@ const Header = (props) => {
         }
     
         fetchConfigs(
-            { url: 'https://s3.us-east-1.amazonaws.com/www.handmadehighjinks.com/configs/config-navigation.json' },
+            { url: configUrl },
             transformData
         );
     }, [fetchConfigs]);
