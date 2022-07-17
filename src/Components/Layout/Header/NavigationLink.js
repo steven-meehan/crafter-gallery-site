@@ -20,7 +20,7 @@ const NavigationLink = (props) => {
                     id={props.id}
                     role={`button`}
                     data-bs-toggle={`dropdown`} 
-                    aria-expanded={`false`}>
+                    aria-expanded={false}>
                     {props.item.name}
                 </Link>
                 <DropDownLink
@@ -40,6 +40,7 @@ const NavigationLink = (props) => {
                 href={props.item.url} 
                 title={props.item.title} 
                 target={'_blank'}
+                rel={'noreferrer'}
                 className={`${navLinkClasses} ${classes.socialIcons} btn btn-secondary nav-link`}
                 id={props.id}>
                 <span className={props.item.icon}></span>
@@ -57,6 +58,7 @@ const NavigationLink = (props) => {
                 href={props.item.url} 
                 title={props.item.title} 
                 target={'_blank'} 
+                rel={'noreferrer'}
                 className={`${navLinkClasses} btn btn-secondary nav-link`}
                 id={props.id}>
                 {props.item.name}

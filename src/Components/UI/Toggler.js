@@ -13,7 +13,7 @@ const Toggler = (props) => {
             data-bs-toggle={`collapse`} 
             data-bs-target={`#${navbarTogglerTarget}`} 
             aria-controls={navbarTogglerTarget} 
-            aria-expanded={`false`} 
+            aria-expanded={false} 
             aria-label={`Toggle navigation`}>
             <span className={`navbar-toggler-icon`}></span>
         </button>
