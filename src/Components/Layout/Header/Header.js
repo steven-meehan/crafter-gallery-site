@@ -11,6 +11,7 @@ const Header = (props) => {
 
     const [navigationLinks, setNavigationLinks] = useState([]);
     const [socialLinks, setSocialLinks] = useState([]);
+    const [logoAltText, setLogoAltText] = useState([]);
 
     const { sendRequest: fetchConfigs } = useHttp();
 
@@ -60,6 +61,7 @@ const Header = (props) => {
            
             setNavigationLinks(sortedNavigationList);
             setSocialLinks(sortedSocialList.sort());
+            setLogoAltText(data.logoAltText);
         }
     
         fetchConfigs(
@@ -73,7 +75,7 @@ const Header = (props) => {
             <Card
                 cardClasses={`${headerClasses}`}
                 cardColor={`light`} >
-                <Navbar navlinks={navigationLinks} socialNavLinks={socialLinks} />
+                <Navbar navlinks={navigationLinks} socialNavLinks={socialLinks} logoAltText={logoAltText}/>
             </Card>
         </header>
     );
