@@ -1,4 +1,4 @@
-# Handmade Highjinks
+# Crafter Gallery Site
 
 A simple gallery site created and designed for crafters so they can display their wares. This is a [React](https://reactjs.org/) application bootstrapped using [Create React App](https://create-react-app.dev/). Instead of reaching out to a database, or back-end service, this application uses configuration files for everything from the navigation to the galleries and their contents. 
 
