@@ -1,14 +1,16 @@
+@import "../../Configs/Variables.scss";
+
 .leftArrow,
 .rightArrow {
     font-size: 2.5em;
-    color: #6c757d;
+    color: $navLinkColor;
     font-weight: bolder;
     padding-top: 30%;
     text-decoration: none;
 }
 .leftArrow:hover,
 .rightArrow:hover {
-    color: #23e6ef;
+    color: $highlightColor;
     cursor: pointer;
     border-radius: .5em;
 }
@@ -36,17 +38,17 @@
     text-align: center;
 }
 .thumbnailBar{
-    background-color: rgba(186, 194, 201, 0.5);
+    background-color: $thumbnailColor;
     padding: 0.5em;
-    box-shadow: 0 2px 8px rgb(35 230 239 / 45%);
+    box-shadow: 0 2px 8px $highlightColorDimmed;
     border-radius: .5em;
-    border: 1px #23e6ef inset;
+    border: 1px $highlightColor inset;
     text-align: center;
 }
 .image,
 .thumbnail {
-    box-shadow: 0 2px 8px rgb(35 230 239 / 45%);
-    border: 1px #ffffff ridge;
+    box-shadow: 0 2px 8px $highlightColorDimmed;
+    border: 1px $navFontColor ridge;
     border-radius: .5em;
 }
 

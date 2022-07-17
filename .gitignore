@@ -24,6 +24,11 @@ yarn-error.log*
 
 # Individual Site Route Configurations
 /src/Configs/*.json
+/src/Configs/*.scss
 
 # Client Specific Files
 /public/index.html
+
+# Compiled CSS Files
+*.css
+*.css.map

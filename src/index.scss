@@ -1,0 +1,7 @@
+@import "./Configs/Variables.scss";
+
+body {
+    font-family: $defaultFont;
+    margin: 0;
+    background-color: $secondaryColor;
+}

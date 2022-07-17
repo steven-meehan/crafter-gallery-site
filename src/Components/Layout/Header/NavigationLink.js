@@ -16,7 +16,7 @@ const NavigationLink = (props) => {
                 <Link 
                     to={`#`} 
                     title={props.item.title} 
-                    className={`${navLinkClasses} btn btn-secondary nav-link dropdown-toggle`}
+                    className={`${navLinkClasses} btn nav-link dropdown-toggle`}
                     id={props.id}
                     role={`button`}
                     data-bs-toggle={`dropdown`} 
@@ -31,7 +31,7 @@ const NavigationLink = (props) => {
             <Link
                 to={props.item.url} 
                 title={props.item.title} 
-                className={`${navLinkClasses} ${classes.socialIcons} btn btn-secondary nav-link`}
+                className={`${navLinkClasses} ${classes.socialIcons} btn nav-link`}
                 id={props.id}>
                 <span className={props.item.icon}></span>
             </Link>
@@ -41,7 +41,7 @@ const NavigationLink = (props) => {
                 title={props.item.title} 
                 target={'_blank'}
                 rel={'noreferrer'}
-                className={`${navLinkClasses} ${classes.socialIcons} btn btn-secondary nav-link`}
+                className={`${navLinkClasses} ${classes.socialIcons} btn nav-link`}
                 id={props.id}>
                 <span className={props.item.icon}></span>
             </a>
@@ -49,7 +49,7 @@ const NavigationLink = (props) => {
             <Link 
                 to={props.item.url} 
                 title={props.item.title} 
-                className={`${navLinkClasses} btn btn-secondary nav-link`}
+                className={`${navLinkClasses} btn nav-link`}
                 id={props.id}>
                 {props.item.name}
             </Link>
@@ -59,7 +59,7 @@ const NavigationLink = (props) => {
                 title={props.item.title} 
                 target={'_blank'} 
                 rel={'noreferrer'}
-                className={`${navLinkClasses} btn btn-secondary nav-link`}
+                className={`${navLinkClasses} btn nav-link`}
                 id={props.id}>
                 {props.item.name}
             </a>
