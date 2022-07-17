@@ -2,11 +2,117 @@
 
 A simple gallery site created and designed for crafters so they can display their wares. This is a [React](https://reactjs.org/) application bootstrapped using [Create React App](https://create-react-app.dev/). Instead of reaching out to a database, or back-end service, this application uses configuration files for everything from the navigation to the galleries and their contents. 
 
-## Site Configurations
+## Site Configuration
 
-In order to set up a new site, clone the repository create the configuration files for the Routes and the `index.html`.
+After cloning this repository for a new client, there are several things that need to be done in order to get a new site up and running. First the Navigation and Gallery Configuration Files need to be created and placed into the configs folder in the S3 bucket. Once the files have been created and placed, you need to transfer the images into their gallery specific folders under the gallery folder in the S3 bucket. Next You need to configure the Routes and CSS and create the `index.html` file.
 
-### Routes
+### Navigation Config
+
+```JSON
+
+{
+    "navigation": [
+        {
+            "url": "/gallery",
+            "order": 1,
+            "name": "Gallery",
+            "title": "Check out my Galleries",
+            "active": true,
+            "internalLink": true,
+            "social": false,
+            "icon": "",
+            "childLinks": [
+                {
+                    "url": "/gallery/pens",
+                    "order": 1,
+                    "name": "Pens",
+                    "title": "Examples of my Glitter Pens",
+                    "active": true,
+                    "internalLink": true,
+                    "social": false,
+                    "icon": "",
+                    "childLinks": []
+                },
+                .
+                .
+                .
+            ]                  
+        },
+        .
+        .
+        .
+    ],
+    "logoAltText": "{Place Alt Text for Logo Here}"
+}
+
+```
+
+- `navigation`: Is an array of complex objects. (Required)
+    - `url`: (`string`) This is the url for the route. (Required)
+    - `order`: (`number`) This is the order used for displaying the routes. (Required)
+    - `name`: (`string`) This is the display name for the route. (Required)
+    - `title`: (`string`) This is the title for the link. (Required)
+    - `active`: (`bool`) This determines if the route will be displayed.
+    - `internalLink`: (`bool`) This determines if the link is internal to the application.
+    - `social`: (`bool`) This determines if the link is for social media.
+    - `icon`: (`string`) This specifies the font awesome icon to use for social media links.
+    - `childLinks`: Is an array of complex objects (All the same as `navigation`)
+- `logoAltText`: (`string`) This is the Alternative Text for the main logo. (Required)
+
+### Gallery Configs
+
+```JSON
+
+{
+    "baseUrl": "URL Goes Here",
+    "folderName": "Folder Name Goes Here",
+    "pageHeader": "Header Title Goes Here",
+    "images": [
+        {
+            "title": "Image TItle Goes Here",
+            "altText": "Image ALt Text Goes Here",
+            "fileName": "Image Filename Goes Here",
+            "order": 1,
+            "externalLink": "External Email Goes Here",
+            "landscape": false,
+            "description": {
+                "paragraphs": [
+                    {
+                        "text": "Blurb Goes Here",
+                        "order": 1,
+                        "active": true
+                    },
+                    .
+                    .
+                    .
+                ]
+            }
+        }
+        .
+        .
+        .
+    ]
+}
+
+```
+
+- `baseUrl`: (`string`) This is the base URL for all the images in the configuration file. (Required)
+- `folderName`: (`string`) This is the sub-folder containing the images in the S3 bucket. (Required)
+- `pageHeader`: (`string`) This is hte header for the gallery. (Required)
+- `images`: Is an array of complex objects, but the name should be specific to the collection of images held within. (Required)
+    - `title`: (`string`) This is the title of the image. (Required)
+    - `altText`: (`string`) This is the alternate text for the image. (Required)
+    - `fileName`: (`string`) This is the name of the image's file in the S3 bucket. (Required)
+    - `order`: (`number`) This is the order used to display the image. (Required)
+    - `externalLink`: (`string`) This is the external link to be used for the image. If there is no external link leave empty or set to null.
+    - `landscape`: (`bool`) Tells the application if the image was taken using landscape view.
+    - `description`: Is a complex object.
+        - `paragraphs` : Is an array of complex objects. You can make as many of these paragraphs as you want.
+            - `text`: (`string`) This is a paragraph for the description of the image. (Required)
+            - `order`: (`number`) This is the paragraph's order in the description. (Required)
+            - `active`: (`bool`) This determins if the paragraph is displayed on the web page. (Required)
+
+### Route Configs
 
 In conjunction with the Navigation Configuration file this application uses two JSON files to create the Routing tree.
 
@@ -108,6 +214,57 @@ The `Gallery` component pulls this configuration file to establish the routes fo
 - `redirect`: is a complex object that configures a redirection route
     - `enabled`: (`bool`) tells the router that the incoming route needs to be redirected
     - `path`: (`string`) is the route for the given entry
+
+
+
+### CSS Config
+
+```SCSS
+
+// Color Palette
+$primaryColor: #ffffff;
+$secondaryColor: #6c757d80;
+$highlightColor: #23e6ef;
+$highlightColorDimmed: #23e6ef73;
+$navLinkColor: #6c757d;
+$altNavLinkColor: #50555a;
+$thumbnailColor: #bac2c980;
+
+// Font Colors
+$navFontColor: #ffffff;
+$fontColor: #000000;
+$notFoundPrimaryColor: #40e6ef;
+$notFoundSecondaryColor: #243ebd;
+
+// Font Selection
+$headerFont: 'Shadows Into Light Two', cursive;
+$titleFont: 'Shadows Into Light Two', cursive;
+$defaultFont: 'Shadows Into Light Two', cursive;
+
+```
+
+#### Color Palette
+
+- `$primaryColor`: This takes care of the background color for the `Card` Component
+- `$secondaryColor`: This takes care of the background color for the `body` element
+- `$highlightColor`: This takes care of the Highlight Color, used for thin borders, the nav link's font pop, etc...
+- `$highlightColorDimmed`: This takes care of the box shadow
+- `$navLinkColor`: This takes care of the background color for the nav links
+- `$altNavLinkColor`: This takes care of the hover color for the nav links
+- `$thumbnailColor`: This takes care of the background color of the thumbnail bar
+
+#### Font Color
+
+- `$navFontColor`: This takes care of the primary font color for the nav links 
+- `$fontColor`: This takes care of the primary font color for text on the page
+- `$notFoundPrimaryColor`: The default link color on the not found page
+- `$notFoundSecondaryColor`: The hover link color on the not found page
+
+#### Font Selection
+
+- `$headerFont`: This takes care of the font family for the header
+- `$titleFont`: This takes care of the font family for the title
+- `$defaultFont`: This takes care of the font family for the page
 
 ### index.html
 
