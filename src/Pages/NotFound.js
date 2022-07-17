@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import parse from 'html-react-parser';
 
 import Image from '../Components/ImageViewer/Image';

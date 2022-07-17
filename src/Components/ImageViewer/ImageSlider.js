@@ -54,7 +54,6 @@ const ImageSlider = (props) => {
             return () => clearInterval(interval);
         }
     }, [startWithImage, startingImageindex, autoTransition, autoTransitionTimer, currentImageIndex, localImages]);
-    //imagesCount, startWithImage, startingImageindex, autoTransition, autoTransitionTimer, images, currentImageIndex, localImages
 
     const prevSlideHandler = () =>{
         let newImageIndex = currentImageIndex === 0 ? imagesCount-1 : currentImageIndex - 1;

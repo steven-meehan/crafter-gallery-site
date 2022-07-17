@@ -9,7 +9,6 @@ import classes from './Carousel.module.css';
 const Carousel = (props) => {
     const [ selectedImageName, setSelectedImageName ] = useState('');
     const [ galleryImages, setGalleryImages ] = useState([]);
-    const [ galleryConfiguration, setGalleryConfiguration ] = useState({});
 
     const { sendRequest: fetchImageReferences } = useHttp();
     const params = useParams();
@@ -37,14 +36,6 @@ const Carousel = (props) => {
             }
 
             const baseUrl = data.baseUrl;
-            const folderName = data.folderName;
-            const pageHeader = data.pageHeader;
-
-            setGalleryConfiguration({
-                baseUrl,
-                folderName,
-                pageHeader
-            });
             
             const galleryImages = [];
             
@@ -79,7 +70,7 @@ const Carousel = (props) => {
             { url: galleryConfigurationUrl },
             transformData
         );
-    }, [fetchImageReferences, galleryConfigurationUrl, responseImageObject, imageName]);
+    }, [fetchImageReferences, galleryConfigurationUrl, responseImageObject, imageName, defaultPage, navigate]);
 
     useEffect(() => {
         const localImages = galleryImages && galleryImages.length > 0 ? galleryImages : null;

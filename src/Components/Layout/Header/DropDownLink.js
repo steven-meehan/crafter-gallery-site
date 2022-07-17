@@ -8,7 +8,7 @@ const DropDownLink = (props) => {
     const dropDownLinkClasses = `${props.dropDownLinkClasses ? props.dropDownLinkClasses : ''} `;
     const dropdownListLinks = props.children.map((item, index) => {
         if(!item.active){
-            return;
+            return null;
         }
         
         return (
@@ -18,7 +18,7 @@ const DropDownLink = (props) => {
                     cardRounded={true} 
                     cardHover={true} >
                     <NavigationLink 
-                        navLinkClasses={`col dropdown-item ${classes.dropdownNavigationLinks}`} 
+                        navLinkClasses={`col dropdown-item ${classes.dropdownNavigationLinks} ${dropDownLinkClasses}`} 
                         item={item} 
                         index={index} />
                 </Card>
