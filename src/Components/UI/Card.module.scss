@@ -1,8 +1,8 @@
 @import "../../Configs/Variables.scss";
 
 .card{
-    border: 1px #23e6ef ridge;
-    box-shadow: 0 2px 8px rgb(35 230 239 / 25%);
+    border: 1px $highlightColor ridge;
+    box-shadow: 0 2px 8px $highlightColorDimmed;
 }
 .cardRounded{
     border-radius: .3em;
@@ -14,12 +14,10 @@
     border-radius: 1em;
 }
 .cardHover:hover {
-    box-shadow: 0 2px 8px rgb(35 230 239 / 45%);
-    color: #23e6ef;
+    box-shadow: 0 2px 8px $highlightColorDimmed;
+    color: $highlightColor;
 }
 .light{
-    background-color: #ffffff;
-    color: #000000;
 }
 .medium {
     background-color: #b5b9bd;
@@ -28,4 +26,6 @@
 .dark{
     background-color: #6c757d;
     color: #ffffff;
+    background-color: $primaryColor;
+    color: $fontColor;
 }

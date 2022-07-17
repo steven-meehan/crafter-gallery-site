@@ -1,7 +1,7 @@
 @import "../../Configs/Variables.scss";
 
 .dropdownNavigationLinks {
-    background-color: #6c757d;
+    background-color: $navLinkColor;
     text-align: center;
     min-width: 10em;
 }
