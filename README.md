@@ -1,8 +1,113 @@
 # Handmade Highjinks
 
-A site created to display and promote the various crafts and good for Handmade Highjinks.
+A simple gallery site created and designed for crafters so they can display their wares. This is a [React](https://reactjs.org/) application bootstrapped using [Create React App](https://create-react-app.dev/). Instead of reaching out to a database, or back-end service, this application uses configuration files for everything from the navigation to the galleries and their contents. 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Site Configurations
+
+In order to set up a new site, clone the repository and create the configuration files for the Routes.
+
+### Routes
+
+In conjunction with the Navigation Configuration file this application uses two JSON files to create the Routing tree.
+
+#### Top Level Routes
+
+The `Content` component pulls this configuration file to establish the main routes for the application.
+
+> `TopLevelRoutes.json` This configuration file handles the top-level routes for the application. At minimum, you need an entry to for the Home, Gallery and Not Found routes.
+
+```JSON
+
+[
+    {
+        "path":"/",
+        "exact":true,
+        "component":"Home",
+        "componentOptions":null,
+        "status":null,
+        "redirect":{
+            "enabled":false,
+            "path":null
+        }
+    }
+    .
+    .
+    .
+]
+
+```
+
+#### Gallery Routes
+
+The `Gallery` component pulls this configuration file to establish the routes for all the galleries in the application.
+
+> `GalleryRoutes.json`  This configuration handles the navigation for all the galleries. You will need two entries for each gallery. One for the main gallery and the other for the specific image files. It is highly recommended that you add a final entry to redirect any non-existing galleries to one of the existing ones.
+
+```JSON
+
+[
+    {
+        "path":"/gallery/pens",
+        "exact":true,
+        "component":"Carousel",
+        "componentOptions": {
+            "configSettingFile":"config-gallery-pens.json",
+            "imagesObject":"pens",
+            "defaultPage":"/gallery/pens/",
+            "fontAwesomeArrowIcons":"fas fa-arrow-circle"
+        },
+        "status":null,
+        "redirect":{
+            "behavior":false,
+            "path":null
+        }
+    },
+    {
+        "path":"/gallery/pens/:imageName",
+        "exact":false,
+        "component":"Carousel",
+        "componentOptions": {
+            "configSettingFile":"config-gallery-pens.json",
+            "imagesObject":"pens",
+            "defaultPage":"/gallery/pens/",
+            "fontAwesomeArrowIcons":"fas fa-arrow-circle"
+        },
+        "status":null,
+        "redirect":{
+            "behavior":false,
+            "path":null
+        }
+    }
+    .
+    .
+    .
+    {
+        "path":"/gallery/:galleryName",
+        "exact":false,
+        "component":null,
+        "componentOptions": null,
+        "status":null,
+        "redirect":{
+            "behavior":true,
+            "path":"/gallery/pens"
+        }
+    }
+]
+
+```
+
+- `path`: (`string`) is the route for the given entry
+- `exact`: (`bool`) tells the router that the incoming route must be an exact match
+- `component`: (`string`) details the component that will be used for the route
+- `componentOptions`: is a complex object that configures the `Carousel` component
+    - `configSettingFile`: (`string`) is the location for the gallery's configuration file
+    - `imagesObject`: (`string`) is the name of the images in the configuration file
+    - `defaultPage`: (`string`) is the base portion of the url for the images in the configuration file
+    - `fontAwesomeArrowIcons`: (`string`) details the icons used for the arrows to cycle through the images in the gallery
+- `status`: (`number`) this number is used when a required route needs a different status code
+- `redirect`: is a complex object that configures a redirection route
+    - `enabled`: (`bool`) tells the router that the incoming route needs to be redirected
+    - `path`: (`string`) is the route for the given entry
 
 ## Available Scripts
 
