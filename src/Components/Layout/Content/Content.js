@@ -8,6 +8,8 @@ import NotFound from '../../../Pages/NotFound';
 import classes from './Content.module.css';
 import Card from '../../UI/Card';
 
+import data from '../../../Configs/TopLevelRoutes.json';
+
 const Content = (props) => {
     const contentClasses = `${props.contentClasses ? props.contentClasses : ''} ${classes.content}`;
 
@@ -18,25 +20,25 @@ const Content = (props) => {
                 cardRounded={true}
                 cardColor={`light`} >
                 <Switch>
-                    <Route
-                        path="/" 
-                        exact >
-                        <Home />
-                    </Route>
-                    <Route
-                        path="/gallery" 
-                        exact >
-                        <Redirect to={"/gallery/pens"} />
-                    </Route>
-                    <Route
-                        path="/gallery/:galleryName" >
-                        <Gallery />
-                    </Route>
-                    <Route
-                        path="*" 
-                        status={404} >
-                        <NotFound />
-                    </Route>
+                    {data.map((route, index) => {
+                        return route.redirect.behavior && route.exact ? 
+                            <Route key={`main-route-${index}`} path={route.path} exact >
+                                <Redirect to={route.redirect.path} />
+                            </Route> : route.redirect.behavior && !route.exact ? 
+                            <Route key={`main-route-${index}`} path={route.path} >
+                                <Redirect to={route.redirect.path} />
+                            </Route> : route.component === "Home" ?
+                            <Route key={`main-route-${index}`} path={route.path} exact >
+                                <Home />
+                            </Route> : route.component === "Gallery" ?
+                            <Route key={`main-route-${index}`} path={route.path} >
+                                <Gallery />
+                            </Route> : 
+                            <Route key={`main-route-${index}`} path={route.path} status={route.status}>
+                                <NotFound />
+                            </Route>;
+                        })
+                    }
                 </Switch>
             </Card>
         </main>
