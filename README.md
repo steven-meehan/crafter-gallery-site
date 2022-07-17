@@ -1,10 +1,10 @@
-# Handmade Highjinks
+# Crafter Gallery Site
 
 A simple gallery site created and designed for crafters so they can display their wares. This is a [React](https://reactjs.org/) application bootstrapped using [Create React App](https://create-react-app.dev/). Instead of reaching out to a database, or back-end service, this application uses configuration files for everything from the navigation to the galleries and their contents. 
 
 ## Site Configurations
 
-In order to set up a new site, clone the repository and create the configuration files for the Routes.
+In order to set up a new site, clone the repository create the configuration files for the Routes and the `index.html`.
 
 ### Routes
 
@@ -108,6 +108,33 @@ The `Gallery` component pulls this configuration file to establish the routes fo
 - `redirect`: is a complex object that configures a redirection route
     - `enabled`: (`bool`) tells the router that the incoming route needs to be redirected
     - `path`: (`string`) is the route for the given entry
+
+### index.html
+
+Create an `index.html` file in the public folder before attempting to build. See sample below.
+
+```HTML
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="{Description goes here}"
+    />
+    <link href="https://use.fontawesome.com/releases/v6.1.1/css/all.css" rel="stylesheet">
+    <title>{Title goes here}</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+  </body>
+</html>
+
+```
 
 ## Available Scripts
 

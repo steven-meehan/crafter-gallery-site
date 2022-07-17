@@ -11,6 +11,7 @@ import logoAlt from '../../../assets/LogoAlt.png';
 
 const Navbar = (props) => {
     const navbarClasses = `${props.navbarClasses ? props.navbarClasses : ''}`;
+    const logoAltText = `${props.logoAltText ? props.logoAltText : 'My Crafts'}`;
 
     const navigationLinks = props.navlinks.map((item, index) => {
         return (
@@ -51,11 +52,11 @@ const Navbar = (props) => {
                     maxwidth: "100%"
                 } } >
                 <Link to={`/`} title={`Home Page`} className='col-3'>
-                    <img src={logo} alt='Hommade Hijinks' className={`${classes.logo} d-none d-xl-block`} />
-                    <img src={logoAlt} alt='Hommade Hijinks' className={`${classes.logoAlt} d-xl-none`} />
+                    <img src={logo} alt={`${logoAltText}`} className={`${classes.logo} d-none d-xl-block`} />
+                    <img src={logoAlt} alt={`${logoAltText}`} className={`${classes.logoAlt} d-xl-none`} />
                 </Link>
-                <Toggler navbarTogglerTarget={`handmadeHighjinksNavigationBar`} classes={`offset-7 col-2 dmd-none ${classes.navigationBarToggler}`}/>
-                <div className={`col-9 collapse navbar-collapse`} id={`handmadeHighjinksNavigationBar`}>
+                <Toggler navbarTogglerTarget={`navigationBar`} classes={`offset-7 col-2 dmd-none ${classes.navigationBarToggler}`}/>
+                <div className={`col-9 collapse navbar-collapse`} id={`navigationBar`}>
                     <ul 
                         className={`navbar-nav ${classes.navigationWrapper}`}
                         style={{
