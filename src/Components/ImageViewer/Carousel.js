@@ -6,6 +6,10 @@ import ImageSlider from './ImageSlider';
 import useHttp from '../../Hooks/useHttp';
 import classes from './Carousel.module.css';
 
+import data from '../../Configs/ConfigFileLocations.json';
+
+const configUrl = data.find(item=>item.configuration==='gallery').url;
+
 const Carousel = (props) => {
     const [ selectedImageName, setSelectedImageName ] = useState('');
     const [ galleryImages, setGalleryImages ] = useState([]);
@@ -14,7 +18,7 @@ const Carousel = (props) => {
     const params = useParams();
     const navigate = useHistory();
 
-    const galleryConfigurationUrl = `https://s3.us-east-1.amazonaws.com/www.handmadehighjinks.com/configs/${props.configSettingFile}`;
+    const galleryConfigurationUrl = `${configUrl}${props.configSettingFile}`;
     const responseImageObject = props.imagesObject;
     const defaultPage = props.defaultPage;
     const fontAwesomeArrowIcons = `${props.fontAwesomeArrowIcons ? props.fontAwesomeArrowIcons : 'fas fa-angle'}`

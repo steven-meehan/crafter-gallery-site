@@ -3,9 +3,12 @@ import parse from 'html-react-parser';
 
 import Image from '../Components/ImageViewer/Image';
 import Info from '../Components/UI/Info';
-
 import useHttp from '../Hooks/useHttp';
 import classes from './NotFound.module.css';
+
+import data from '../Configs/ConfigFileLocations.json';
+
+const configUrl = data.find(item=>item.configuration==='notFound').url;
 
 const NotFound = () => {
     const { sendRequest: fetchImage } = useHttp();
@@ -53,7 +56,7 @@ const NotFound = () => {
         }
 
         fetchImage(
-            { url: 'https://s3.us-east-1.amazonaws.com/www.handmadehighjinks.com/configs/config-page-notfound.json' },
+            { url: configUrl },
             transformData
         );
     }, [fetchImage]);

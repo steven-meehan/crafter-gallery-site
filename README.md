@@ -293,6 +293,31 @@ Create an `index.html` file in the public folder before attempting to build. See
 
 ```
 
+### File Config Urls
+
+```JSON
+
+[
+    {
+        "configuration":"navigation",
+        "url":"URL Goes Here"
+    },
+    {
+        "configuration":"gallery",
+        "url":"URL Goes Here"
+    },
+    {
+        "configuration":"home",
+        "url":"URL Goes Here"
+    },
+    {
+        "configuration":"notFound",
+        "url":"URL Goes Here"
+    }
+]
+
+```
+
 ## Available Scripts
 
 In the project directory, you can run:
