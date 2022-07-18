@@ -1,0 +1,18 @@
+[
+    {
+        "configuration":"navigation",
+        "url":""
+    },
+    {
+        "configuration":"gallery",
+        "url":""
+    },
+    {
+        "configuration":"home",
+        "url":""
+    },
+    {
+        "configuration":"notFound",
+        "url":""
+    }
+]

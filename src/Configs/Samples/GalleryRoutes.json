@@ -1,0 +1,45 @@
+[
+    {
+        "path":"/gallery/items",
+        "exact":true,
+        "component":"Carousel",
+        "componentOptions": {
+            "configSettingFile":"config-gallery-items.json",
+            "imagesObject":"items",
+            "defaultPage":"/gallery/items/",
+            "fontAwesomeArrowIcons":"fas fa-arrow-circle"
+        },
+        "status":null,
+        "redirect":{
+            "behavior":false,
+            "path":null
+        }
+    },
+    {
+        "path":"/gallery/items/:imageName",
+        "exact":false,
+        "component":"Carousel",
+        "componentOptions": {
+            "configSettingFile":"config-gallery-items.json",
+            "imagesObject":"items",
+            "defaultPage":"/gallery/items/",
+            "fontAwesomeArrowIcons":"fas fa-arrow-circle"
+        },
+        "status":null,
+        "redirect":{
+            "behavior":false,
+            "path":null
+        }
+    },
+    {
+        "path":"/gallery/:galleryName",
+        "exact":false,
+        "component":null,
+        "componentOptions": null,
+        "status":null,
+        "redirect":{
+            "behavior":true,
+            "path":"/gallery/items"
+        }
+    }
+]
