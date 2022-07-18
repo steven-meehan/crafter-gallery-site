@@ -6,6 +6,8 @@ A simple gallery site created and designed for crafters so they can display thei
 
 After cloning this repository for a new client, there are several things that need to be done in order to get a new site up and running. First the Navigation and Gallery Configuration Files need to be created and placed into the configs folder in the S3 bucket. Once the files have been created and placed, you need to transfer the images into their gallery specific folders under the gallery folder in the S3 bucket. Next You need to configure the Routes and CSS and create the `index.html` file.
 
+The application is built with Sass so you will need something to compile the CSS files. For Visual Studio you can use a couple of extensions [Saas](https://marketplace.visualstudio.com/items?itemName=Syler.sass-indented) & [Live Sass Compiler](https://marketplace.visualstudio.com/items?itemName=glenn2223.live-sass)
+
 ### Navigation Config
 
 ```JSON
