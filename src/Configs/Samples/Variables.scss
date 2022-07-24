@@ -17,3 +17,18 @@ $notFoundSecondaryColor: #243ebd;
 $headerFont: "Times New Roman", Times, serif;
 $titleFont: "Times New Roman", Times, serif;
 $defaultFont: "Times New Roman", Times, serif;
+
+// Site Mixins
+@mixin background ($fileName:""){
+    font-family: $defaultFont;
+    margin: 0;
+
+    @if $fileName == ""{
+        background-color: $secondaryColor;
+    }
+    @else {
+        background-image: url(#{$fileName});
+        background-size: cover;
+        background-position: center;
+    }
+}
