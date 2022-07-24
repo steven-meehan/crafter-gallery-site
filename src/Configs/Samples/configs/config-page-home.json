@@ -1,0 +1,31 @@
+{
+    "pageHeader": "Explore a sample of my work",
+    "layout": {
+        "columns": {
+            "number": 1,
+            "components": [
+                {
+                    "active": true,
+                    "order": 1,
+                    "component": "image",
+                    "baseUrl": "{URL Goes Here}/gallery/home/",
+                    "images": [
+                        {
+                            "title": "Title Goes Here",
+                            "altText": "Alternate Text Goes Here",
+                            "fileName": "Filename Goes Here",
+                            "order": 1,
+                            "externalLink": "",
+                            "landscape": false,
+                            "description": null
+                        }
+                    ],
+                    "slider": {
+                        "auto":true,
+                        "timer":30000
+                    }
+                }
+            ]
+        }
+    }
+}

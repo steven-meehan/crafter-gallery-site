@@ -1,0 +1,39 @@
+{
+    "navigation": [
+        {
+            "url": "/gallery",
+            "order": 1,
+            "name": "Gallery",
+            "title": "Check out my Galleries",
+            "active": false,
+            "internalLink": true,
+            "social": false,
+            "icon": "",
+            "childLinks": [
+                {
+                    "url": "/gallery/items",
+                    "order": 1,
+                    "name": "Items",
+                    "title": "Examples of my Items",
+                    "active": true,
+                    "internalLink": true,
+                    "social": false,
+                    "icon": "",
+                    "childLinks": []
+                }
+            ]                  
+        },
+        {
+            "url": "",
+            "order": 1,
+            "name": "Facebook",
+            "title": "Follow me on Facebook",
+            "active": false,
+            "internalLink": false,
+            "social": true,
+            "icon": "fab fa-facebook",
+            "childLinks": []
+        }
+    ],
+    "logoAltText": "Alternate Text Goes Here"
+}
