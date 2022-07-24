@@ -303,6 +303,37 @@ The `Gallery` component pulls this configuration file to establish the routes fo
     - `path`: (`string`) is the route for the given entry
 
 
+### Footer Config
+
+Create a `Footer.json` file with the following structure.
+
+```JSON
+
+{
+    "copyrightInfo": {
+        "name": "NAME Goes Here",
+        "url": "URL Goes Here",
+        "title": "Title Goes Here"
+    },
+    "siteDesignInfo": {
+        "display":true,
+        "name":"Site Designer Goes Here",
+        "url": "URL Goes Here",
+        "title": "Title Goes Here"
+    }
+}
+
+```
+
+- `copyrightInfo`: Complex object to configure the copyright section of the footer.
+    - `name`: {`string`} This is the crafter's name.
+    - `url`: {`string`} This is used a url for the crafter. If empty the name will NOT be a link.
+    - `title`: {`string`} This is the title for the link. If the url is empty or null this will not be used. 
+- `siteDesignInfo`: Complex object to configure the site designer section of the footer.
+    - `display`: {`bool`} Determines if the site designer information will be displayed.
+    - `name`: {`string`} This is the site designer's name.
+    - `url`: {`string`} This is used a url for the site designer. If empty the name will NOT be a link.
+    - `title`: {`string`} This is the title for the link. If the url is empty or null this will not be used.
 
 ### CSS Config
 
