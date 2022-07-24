@@ -87,7 +87,7 @@ const Home = () => {
                                     linkImageToContent={true}
                                     isContentInternal={false}
                                     urlForLinkedContent={images[0].externalLink && images[0].externalLink !== '' ? images[0].externalLink : images[0].url} 
-                                    imageWidth={`95%`}
+                                    imageWidth={`100%`}
                                     displayBlurb={false}
                                     displayTitle={false}
                                     title={images[0].title} />}
