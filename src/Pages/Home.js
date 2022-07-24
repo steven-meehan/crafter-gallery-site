@@ -3,6 +3,7 @@ import parse from 'html-react-parser';
 
 import Info from '../Components/UI/Info';
 import ImageSlider from '../Components/ImageViewer/ImageSlider';
+import Image from '../Components/ImageViewer/Image';
 import useHttp from '../Hooks/useHttp';
 import classes from './Home.module.css';
 
@@ -12,46 +13,95 @@ const configUrl = data.find(item=>item.configuration==='home').url;
 
 const Home = () => {
     const { sendRequest: fetchParagraphs } = useHttp();
-    const [ paragraphs, setParagraphs ] = useState([]);
-    const [ images, setImages ] = useState([]);
+    const [ components, setComponents ] = useState([]);
 
     useEffect(() => {
         const transformData = data =>{
-            const loadedParagraphs = [];
-            const loadedImages = [];
+            const processedComponents = [];
+            const numberOfColumns = data.layout.columns.number;
+            const configComponents = data.layout.columns.components;
 
-            for (const item in data.paragraphs) {
-                if(data.paragraphs[item].display){
-                    loadedParagraphs.push({
-                        order: data.paragraphs[item].order,
-                        display: data.paragraphs[item].display,
-                        text: data.paragraphs[item].text,
-                        empahsis: data.paragraphs[item].empahsis ? true : false
-                    });
+            const orderedComponents = configComponents.sort((a, b) => {
+                return a.order - b.order;
+            });
+
+            for (const item in orderedComponents) {
+                const component = orderedComponents[item];
+
+                if(component.component === "info" && component.active){
+                    const infoComponent = (
+                        <Info
+                            key={`home-component-${component.order}`} 
+                            infoClasses={`col-xs-12 col-xl-${12/numberOfColumns} ${classes.centeredParagraphs}`} >
+                            {component.paragraphs.map((item, index) => 
+                                <p
+                                    key={index} 
+                                    className={`${item.empahsis ? classes.empahsis : ''}`}>
+                                    {parse(`
+                                        ${item.text}
+                                    `)}
+                                </p>
+                            )}
+                        </Info>
+                    );
+                    processedComponents.push(infoComponent);
+                } else if(component.component === "image" && component.active) {
+                    const images = [];
+                    const baseUrl = component.baseUrl;
+                    const autoSlider = component.slider.auto;
+                    const autoSliderTimer = component.slider.timer;
+
+                    if(component.images.length >= 1) {
+                        for (const item in component.images) {
+                            const image = component.images[item];
+                            images.push({
+                                title: image.title,
+                                altText: image.altText,
+                                fileName: image.fileName,
+                                externalLink: image.externalLink,
+                                order: image.order,
+                                url:`${baseUrl}${image.fileName}`,
+                                landscape: image.landscape ? true : false
+                            });
+                        }
+
+                        const imageComponent = images.length > 1 ? (
+                            <div
+                                key={`home-component-${component.order}`} 
+                                className={`col-xs-12  col-xl-${12/numberOfColumns}`}>
+                                {images.length > 0 && <ImageSlider 
+                                images={images}
+                                disableTitle={true}
+                                autoTransition={autoSlider}
+                                autoTransitionTimer={autoSliderTimer}
+                                galleryTitle={`home`}
+                                imageSize={`95%`}
+                                arrowIcon={`fas fa-arrow-circle`} />}
+                            </div> 
+                        ) : images.length === 1 ? (
+                            <div
+                                key={`home-component-${component.order}`} 
+                                className={`col-xs-12  col-xl-${12/numberOfColumns}`}>
+                                {images.length === 1 && <Image 
+                                    image={images[0]}
+                                    linkImageToContent={true}
+                                    isContentInternal={false}
+                                    urlForLinkedContent={images[0].externalLink && images[0].externalLink !== '' ? images[0].externalLink : images[0].url} 
+                                    imageWidth={`95%`}
+                                    displayBlurb={false}
+                                    displayTitle={false}
+                                    title={images[0].title} />}
+                            </div> 
+                        ) : null;
+
+                        if(imageComponent){
+                            processedComponents.push(imageComponent);
+                        }
+                    } 
                 }
-            };
+            } 
 
-            for (const image in data.homeSliderImages) {
-                loadedImages.push({
-                    title: data.homeSliderImages[image].title,
-                    altText: data.homeSliderImages[image].altText,
-                    fileName: data.homeSliderImages[image].fileName,
-                    externalLink: data.homeSliderImages[image].externalLink,
-                    order: data.homeSliderImages[image].order,
-                    url:`${data.baseUrl}${data.homeSliderImages[image].fileName}`,
-                    landscape: data.homeSliderImages[image].landscape ? true : false
-                })
-            }
-
-            const sortedParagraphs = loadedParagraphs.sort((a, b) => {
-                return a.order - b.order;
-            });
-            const sortedImages = loadedImages.sort((a, b) => {
-                return a.order - b.order;
-            });
-        
-            setImages(sortedImages);
-            setParagraphs(sortedParagraphs);
+            setComponents(processedComponents);
         }
 
         fetchParagraphs(
@@ -61,32 +111,9 @@ const Home = () => {
     }, [fetchParagraphs]);
 
     return (
-        <Fragment>
-            <div className={`row`} >
-                <Info infoClasses={`col-xs-12 col-xl-6 ${classes.centeredParagraphs}`} >
-                    {paragraphs.map((item, index) => 
-                        <p
-                            key={index} 
-                            className={`${item.empahsis ? classes.empahsis : ''}`}>
-                            {parse(`
-                                ${item.text}
-                            `)}
-                        </p>
-                    )}
-                </Info>
-                <div
-                className={`col-xs-12  col-xl-6`}>
-                    {images.length > 0 && <ImageSlider 
-                        images={images}
-                        disableTitle={true}
-                        autoTransition={true}
-                        autoTransitionTimer={30000}
-                        galleryTitle={`home`}
-                        imageSize={`95%`}
-                        arrowIcon={`fas fa-arrow-circle`} />}
-                </div>
-            </div>
-        </Fragment>
+        <div className={`row`} >
+            {components && components}
+        </div>
     );
 };
 

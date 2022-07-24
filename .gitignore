@@ -28,6 +28,8 @@ yarn-error.log*
 
 # Client Specific Files
 /public/index.html
+/public/manifest.json
+/public/favicon.png
 
 # Compiled CSS Files
 *.css

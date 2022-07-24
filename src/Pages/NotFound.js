@@ -85,7 +85,7 @@ const NotFound = () => {
                     displayTitle={false} />
             </div>}
             <Info className={`col-8`}>
-                <p className={`${classes.notfoundInfo}`}>
+                <div className={`${classes.notfoundInfo}`}>
                     {remainingParagraphs.map((item, index) => 
                         <p
                             key={index}
@@ -95,7 +95,7 @@ const NotFound = () => {
                             `)}
                         </p>
                     )}
-                </p>
+                </div>
             </Info>
         </div>
     );
