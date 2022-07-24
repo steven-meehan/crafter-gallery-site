@@ -380,6 +380,26 @@ Create an `index.html` file in the public folder before attempting to build. See
 
 ```
 
+### index.scss
+
+Create an `index.scss` file and insert the following code to have a simple background.
+
+```scss
+
+@import "./Configs/Variables.scss";
+
+body {
+    @include background();
+}
+
+```
+
+If you want to have an image add the photo's url (`'https://www.sample.com/test/test.jpg'`) into the parentheses.
+
+### Logo
+
+Add the main Logo for the site in the assets folder named `Logo.png` and then for mobile add another named `LogoAlt.png`.
+
 ### Google Analytics
 
 In order to connect the website to Google Analytics, you must first create the site's `index.html` file. After that you will need to create or log into a Google analytics account and then create the new property. Once complete, expand the `Global site tag` section under the `Tagging Instructions` heading and copy the block of code and paste it into the `<head>` section of the new site's `index.html` file.
