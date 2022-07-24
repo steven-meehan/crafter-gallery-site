@@ -114,6 +114,91 @@ The application is built with Sass so you will need something to compile the CSS
             - `order`: (`number`) This is the paragraph's order in the description. (Required)
             - `active`: (`bool`) This determins if the paragraph is displayed on the web page. (Required)
 
+### Home Config
+
+This page is written to use either a collection of `Info`, `ImageSlider`, or `Image` components. Use the following configuration file to tweak the layout of the `Home` page. To render an `Image` component only include a single image in the `images` field of the JSON. 
+
+```JSON
+
+{
+    "layout": {
+        "columns": {
+            "number": 2,
+            "components": [
+                {
+                    "active": true,
+                    "order": 1,
+                    "component": "info",
+                    "embedImage": false,
+                    "paragraphs" : [
+                        {
+                            "order": 1,
+                            "display": true,
+                            "empahsis" : true,
+                            "text": "TEXT Goes Here"
+                        },
+                        .
+                        .
+                        .
+                    ]
+                },
+                {
+                    "active": true,
+                    "order": 2,
+                    "component": "image",
+                    "baseUrl": "URL Goes Here",
+                    "images": [
+                        {
+                            "title": "Title Goes Here",
+                            "altText": "Alternate Text Goes Here",
+                            "fileName": "File Name Goes Here",
+                            "order": 1,
+                            "externalLink": "External Link Goes Here",
+                            "landscape": false
+                        },
+                        .
+                        .
+                        .
+                    ],
+                    "slider": {
+                        "auto":true,
+                        "timer":30000
+                    }
+                }
+            ]
+        }
+    }
+}
+
+```
+
+### Not Found Config
+
+```JSON
+
+{
+    "paragraphs" : [
+        {
+	    "order": 1,
+	    "display": true,
+	    "empahsis" : true,
+	    "text": "Text Goes Here"
+        }
+        .
+        .
+        .
+    ],
+    "image" : {
+	    "title": "Insert Title Here",
+        "altText": "Insert Alternative Text Here",
+        "fileName": "Insert filename Here",
+        "url": "Insert URL Here"  
+	}
+}
+
+
+```
+
 ### Route Configs
 
 In conjunction with the Navigation Configuration file this application uses two JSON files to create the Routing tree.
