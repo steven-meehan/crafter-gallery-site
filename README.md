@@ -380,6 +380,11 @@ Create an `index.html` file in the public folder before attempting to build. See
 
 ```
 
+### Google Analytics
+
+In order to connect the website to Google Analytics, you must first create the site's `index.html` file. After that you will need to create or log into a Google analytics account and then create the new property. Once complete, expand the `Global site tag` section under the `Tagging Instructions` heading and copy the block of code and paste it into the `<head>` section of the new site's `index.html` file.
+
+
 ### File Config Urls
 
 ```JSON
