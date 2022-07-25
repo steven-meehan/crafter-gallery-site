@@ -27,9 +27,13 @@ yarn-error.log*
 /src/Configs/*.scss
 
 # Client Specific Files
+/src/assets
+/src/index.scss
 /public/index.html
 /public/manifest.json
 /public/favicon.png
+/public/configs/**/*.json
+/public/gallery/**/*.jpg
 
 # Compiled CSS Files
 *.css

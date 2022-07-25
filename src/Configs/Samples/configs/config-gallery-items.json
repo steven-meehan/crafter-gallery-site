@@ -1,0 +1,24 @@
+{
+    "baseUrl": "URL to collection of images",
+    "folderName": "Folder name",
+    "pageHeader": "Header Goes Here",
+    "items": [
+        {
+            "title": "Title Goes Here",
+            "altText": "Alternate Text Goes Here",
+            "fileName": "Filename Goes Here",
+            "order": 1,
+            "externalLink": "",
+            "landscape": false,
+            "description": {
+                "paragraphs": [
+                    {
+                        "text": "Text Goes Here",
+                        "order": 1,
+                        "active": true
+                    }
+                ]
+            }
+        }
+    ]
+}

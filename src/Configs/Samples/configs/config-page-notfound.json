@@ -1,0 +1,17 @@
+{
+    "paragraphs" : [
+        {
+	    "order": 1,
+	    "display": true,
+	    "empahsis" : true,
+	    "text": "The page or content you're searching for couldn't be found..."
+        }
+    ],
+    "image" : {
+		"title": "Title Goes Here",
+		"altText": "Alternate Text Goes Here",
+		"fileName": "Filename Goes Here",
+        "description": null,
+        "url": "URL Goes Here"  
+	}
+}
