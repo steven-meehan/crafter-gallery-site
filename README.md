@@ -114,6 +114,25 @@ The application is built with Sass so you will need something to compile the CSS
             - `order`: (`number`) This is the paragraph's order in the description. (Required)
             - `active`: (`bool`) This determins if the paragraph is displayed on the web page. (Required)
 
+#### Gallery Options for arrows
+
+When filling out the Gallery Route configuration use the following values for the `fontAwesomeArrowIcons` field to deviate from the default pointer (`fas fa-angle`) used in the gallery. Each Gallery route can have its own defined value for the `fontAwesomeArrowIcons`.
+
+- `fas fa-angle`
+- `fas fa-angle-double`
+- `fas fa-arrow`
+- `fas fa-arrow-alt-circle`
+- `fas fa-arrow-circle`
+- `fas fa-arrow-rotate`
+- `fas fa-long-arrow`
+- `fas fa-long-arrow-alt`
+- `fas fa-caret`
+- `fas fa-chevron`
+- `fas fa-chevron-circle`
+- `fas fa-hand-point`
+- `fa-solid fa-circle`
+- `fa-solid fa-square-caret`
+
 ### Home Config
 
 This page is written to use either a collection of `Info`, `ImageSlider`, or `Image` components. Use the following configuration file to tweak the layout of the `Home` page. To render an `Image` component only include a single image in the `images` field of the JSON. 
@@ -162,7 +181,8 @@ This page is written to use either a collection of `Info`, `ImageSlider`, or `Im
                     ],
                     "slider": {
                         "auto":true,
-                        "timer":30000
+                        "timer":30000,
+            			"arrowIcons": "Font Awsome Arrow Info Goes Here"
                     }
                 }
             ]
@@ -171,6 +191,8 @@ This page is written to use either a collection of `Info`, `ImageSlider`, or `Im
 }
 
 ```
+
+See Gallery Options for arrows to see the options available from Font Awesome.
 
 ### Not Found Config
 
