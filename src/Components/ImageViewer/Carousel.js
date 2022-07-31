@@ -21,6 +21,7 @@ const Carousel = (props) => {
     const galleryConfigurationUrl = `${configUrl}${props.configSettingFile}`;
     const responseImageObject = props.imagesObject;
     const defaultPage = props.defaultPage;
+    const routeToNotFoundPage = props.routeToNotFoundPage ? true : false;
     const fontAwesomeArrowIcons = `${props.fontAwesomeArrowIcons ? props.fontAwesomeArrowIcons : 'fas fa-angle'}`
     const imageName = params.imageName ? params.imageName : '';
     
