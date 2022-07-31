@@ -53,7 +53,11 @@ const Carousel = (props) => {
             });
     
             if(notFound.length === 0 && imageName){
-                navigate.push(defaultPage);
+                if(routeToNotFoundPage){
+                    navigate.push('/image-not-found');
+                } else {
+                    navigate.push(defaultPage);
+                }
             }
 
             const initialImage = galleryImages.filter((item) => {
