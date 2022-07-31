@@ -50,6 +50,7 @@ const Home = () => {
                     const baseUrl = component.baseUrl;
                     const autoSlider = component.slider.auto;
                     const autoSliderTimer = component.slider.timer;
+                    const autoSliderArrowIcons = component.slider.arrowIcons;
 
                     if(component.images.length >= 1) {
                         for (const item in component.images) {
@@ -76,7 +77,7 @@ const Home = () => {
                                 autoTransitionTimer={autoSliderTimer}
                                 galleryTitle={`home`}
                                 imageSize={`95%`}
-                                arrowIcon={`fas fa-arrow-circle`} />}
+                                arrowIcon={autoSliderArrowIcons} />}
                             </div> 
                         ) : images.length === 1 ? (
                             <div
