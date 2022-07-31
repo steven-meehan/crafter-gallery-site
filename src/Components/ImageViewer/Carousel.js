@@ -21,6 +21,7 @@ const Carousel = (props) => {
     const galleryConfigurationUrl = `${configUrl}${props.configSettingFile}`;
     const responseImageObject = props.imagesObject;
     const defaultPage = props.defaultPage;
+    const routeToNotFoundPage = props.routeToNotFoundPage ? true : false;
     const fontAwesomeArrowIcons = `${props.fontAwesomeArrowIcons ? props.fontAwesomeArrowIcons : 'fas fa-angle'}`
     const imageName = params.imageName ? params.imageName : '';
     
@@ -52,7 +53,11 @@ const Carousel = (props) => {
             });
     
             if(notFound.length === 0 && imageName){
-                navigate.push(defaultPage);
+                if(routeToNotFoundPage){
+                    navigate.push('/image-not-found');
+                } else {
+                    navigate.push(defaultPage);
+                }
             }
 
             const initialImage = galleryImages.filter((item) => {

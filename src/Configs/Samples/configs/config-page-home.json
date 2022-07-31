@@ -22,7 +22,8 @@
                     ],
                     "slider": {
                         "auto":true,
-                        "timer":30000
+                        "timer":30000,
+			            "arrowIcons": "fas fa-chevron-circle"
                     }
                 }
             ]

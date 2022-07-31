@@ -24,6 +24,7 @@ const Gallery = () => {
                             configSettingFile={route.componentOptions.configSettingFile}
                             imagesObject={route.componentOptions.imagesObject}
                             defaultPage={route.componentOptions.defaultPage}
+                            routeToNotFoundPage={route.componentOptions.routeToNotFoundPage}
                             fontAwesomeArrowIcons={route.componentOptions.fontAwesomeArrowIcons} />
                     </Route>;
                 })

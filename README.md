@@ -247,6 +247,7 @@ The `Gallery` component pulls this configuration file to establish the routes fo
             "configSettingFile":"config-gallery-pens.json",
             "imagesObject":"pens",
             "defaultPage":"/gallery/pens/",
+            "routeToNotFoundPage": true,
             "fontAwesomeArrowIcons":"fas fa-arrow-circle"
         },
         "status":null,
@@ -263,6 +264,7 @@ The `Gallery` component pulls this configuration file to establish the routes fo
             "configSettingFile":"config-gallery-pens.json",
             "imagesObject":"pens",
             "defaultPage":"/gallery/pens/",
+            "routeToNotFoundPage": true,
             "fontAwesomeArrowIcons":"fas fa-arrow-circle"
         },
         "status":null,
@@ -296,6 +298,7 @@ The `Gallery` component pulls this configuration file to establish the routes fo
     - `configSettingFile`: (`string`) is the location for the gallery's configuration file
     - `imagesObject`: (`string`) is the name of the images in the configuration file
     - `defaultPage`: (`string`) is the base portion of the url for the images in the configuration file
+    - 'routeToNotFoundPage': (`bool`) determines if the image gallery will route the user to the gallery's default page or the not found page when an image is not found within the collection
     - `fontAwesomeArrowIcons`: (`string`) details the icons used for the arrows to cycle through the images in the gallery
 - `status`: (`number`) this number is used when a required route needs a different status code
 - `redirect`: is a complex object that configures a redirection route

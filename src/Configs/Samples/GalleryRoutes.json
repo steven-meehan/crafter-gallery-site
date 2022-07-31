@@ -7,6 +7,7 @@
             "configSettingFile":"config-gallery-items.json",
             "imagesObject":"items",
             "defaultPage":"/gallery/items/",
+            "routeToNotFoundPage": true,
             "fontAwesomeArrowIcons":"fas fa-arrow-circle"
         },
         "status":null,
@@ -23,6 +24,7 @@
             "configSettingFile":"config-gallery-items.json",
             "imagesObject":"items",
             "defaultPage":"/gallery/items/",
+            "routeToNotFoundPage": true,
             "fontAwesomeArrowIcons":"fas fa-arrow-circle"
         },
         "status":null,
