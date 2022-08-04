@@ -2,14 +2,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import NavigationLink from './NavigationLink';
-import Toggler from '../../UI/Toggler';
-import Card from '../../UI/Card';
+import Toggler from '../../UI/Toggler/Toggler';
+import Card from '../../UI/Card/Card';
 
 import classes from './Navbar.module.css';
 import logo from '../../../assets/Logo.png';
 import logoAlt from '../../../assets/LogoAlt.png';
+import NavbarProps from './NavbarProps';
 
-const Navbar = (props) => {
+const Navbar: React.FC<NavbarProps> = (props) => {
     const navbarClasses = `${props.navbarClasses ? props.navbarClasses : ''}`;
     const logoAltText = `${props.logoAltText ? props.logoAltText : 'My Crafts'}`;
 
@@ -23,7 +24,7 @@ const Navbar = (props) => {
                     cardHover={true} >
                     <NavigationLink 
                         item={item} 
-                        index={index} /> 
+                        id={index} /> 
                 </Card>
             </li>
         );
@@ -38,7 +39,7 @@ const Navbar = (props) => {
                     cardHover={true} >
                     <NavigationLink 
                         item={item} 
-                        index={index} /> 
+                        id={index} /> 
                 </Card>
         );
     })
@@ -46,26 +47,26 @@ const Navbar = (props) => {
     return (
         <nav className={`container-fluid navbar navbar-light navbar-expand-md ${navbarClasses}`}>
             <div 
-                className={`row`}
+                className={`row `}
                 style={{
                     width:"100%",
-                    maxwidth: "100%"
-                } } >
+                    maxWidth:"100%"
+                }} >
                 <Link to={`/`} title={`Home Page`} className='col-3'>
                     <img src={logo} alt={`${logoAltText}`} className={`${classes.logo} d-none d-xl-block`} />
                     <img src={logoAlt} alt={`${logoAltText}`} className={`${classes.logoAlt} d-xl-none`} />
                 </Link>
-                <Toggler navbarTogglerTarget={`navigationBar`} classes={`offset-7 col-2 dmd-none ${classes.navigationBarToggler}`}/>
+                <Toggler navbarTogglerTarget={`navigationBar`} togglerClasses={`offset-7 col-2 dmd-none ${classes.navigationBarToggler}`}/>
                 <div className={`col-9 collapse navbar-collapse`} id={`navigationBar`}>
                     <ul 
                         className={`navbar-nav ${classes.navigationWrapper}`}
                         style={{
                             width:"100%",
-                            maxwidth: "100%"
+                            maxWidth:"100%"
                         }} >
                         {navigationLinks}
                         <li className={`offset-md-${8-(props.navlinks.length*2)} offset-lg-${9-(props.navlinks.length*2)} nav-item col col-md-4 col-lg-3 mt-2`}>
-                            <div className={`row justify-content-center`}>
+                            <div className={`row justify-content-end`}>
                                 {socialNavLinks}
                             </div>
                         </li>

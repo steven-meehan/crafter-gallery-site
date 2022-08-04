@@ -2,11 +2,16 @@ import { useState, useCallback } from 'react';
 
 const useHttp = () => {
     const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState(null);
+    const [error, setError] = useState("");
 
-    const sendRequest = useCallback(async (requestConfig, applyData) => {
+    const sendRequest = useCallback(async (requestConfig: {
+        url: string,
+        method?: string,
+        headers?: HeadersInit,
+        body?: any
+    }, applyData: any) => {
         setIsLoading(true);
-        setError(null);
+        setError("");
 
         try {
             const response = await fetch(requestConfig.url, {
@@ -22,7 +27,7 @@ const useHttp = () => {
             const data = await response.json();
             applyData(data);
         } catch (err) {
-            setError(err.message || 'Something went wrong!');
+            setError('Something went wrong with the request. Please try again later.');
         }
 
         setIsLoading(false);

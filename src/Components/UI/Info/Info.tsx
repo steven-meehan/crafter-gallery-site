@@ -1,8 +1,9 @@
 import React from 'react';
 
 import classes from './Info.module.css';
+import InfoProps from './InfoProps';
 
-const Info = (props) => {
+const Info: React.FC<InfoProps> = (props) => {
     const infoClasses = `${classes.info} ${props.infoClasses ? props.infoClasses : ''}`
 
     return (

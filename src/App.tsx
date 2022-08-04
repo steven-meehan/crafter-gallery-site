@@ -9,7 +9,7 @@ function App() {
     <Fragment>
       <Header />
       <Content 
-        contentClasses={`container`}/>
+        contentClasses={`container`} />
       <Footer />
     </Fragment>
   );

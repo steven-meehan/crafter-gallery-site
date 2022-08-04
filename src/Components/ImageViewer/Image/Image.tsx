@@ -4,7 +4,9 @@ import parse from 'html-react-parser';
 
 import classes from './Image.module.css';
 
-const Image = (props) => {
+import ImageProps from './ImageProps';
+
+const Image: React.FC<ImageProps>  = (props) => {
     const imageCssClasses = `${props.classes ? props.classes : ''}`;
     const blurbCssClasses = `${props.blurbCssClasses ? props.blurbCssClasses : ''}`;
     const titleblurbCssClasses = `${props.titleblurbCssClasses ? props.titleblurbCssClasses : ''}`;
@@ -50,14 +52,17 @@ const Image = (props) => {
     const blurb = image.description && 
         image.description.paragraphs && 
         image.description.paragraphs.filter((item) => {
-        return item.active;
+        return item.display;
     }).sort((a, b) => {
         return a.order - b.order;
     }).map((item, index) => {
         return (
             <p
                 key={`image-blurb-paragraph-${index}`}
-                className={`${blurbCssClasses} ${classes.blurbParagraph} col-8`} >
+                className={`${blurbCssClasses} ${classes.blurbParagraph} col-8`}
+                style={{
+                    textAlign: item.alignment === "left" ? "left" : item.alignment === "right" ? "right" : "center"
+                }} >
                 {parse(`
                     ${item.text}
                 `)}
@@ -78,14 +83,16 @@ const Image = (props) => {
                 {htmlImage}
             </a>
         ) : (
-            {htmlImage}
+            <div>
+                {htmlImage}
+            </div>
     );
 
     return (
         <Fragment>
-            {displayTitle && !isThumbnail && processedTitle}
-            {isThumbnail && processedImage}
-            {!isThumbnail && (
+            <>{displayTitle && !isThumbnail && processedTitle}</>
+            <>{isThumbnail && processedImage}</>
+            <>{!isThumbnail && (
                 <div
                     className={`row justify-content-center ${isThumbnail || isStandAlone ? '' : 'mt-5'}`}>
                     {isThumbnail && processedImage}
@@ -95,13 +102,13 @@ const Image = (props) => {
                         </div>
                     )}
                 </div>
-            )}
-            {displayBlurb && !isThumbnail && (
+            )}</>
+            <>{displayBlurb && !isThumbnail && (
                 <div
                     className={`${classes.blurbSection} row justify-content-center ${isThumbnail ? '' : 'mt-5'}`}>
                     {blurb}
                 </div>
-            )}
+            )}</>
         </Fragment>
     );
 }

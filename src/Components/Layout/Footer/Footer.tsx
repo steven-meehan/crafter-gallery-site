@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
 import classes from './Footer.module.css';
 
@@ -7,7 +7,10 @@ import data from '../../../Configs/Footer.json';
 const copyrightInfo = data.copyrightInfo;
 const siteDesignInfo = data.siteDesignInfo;
 
-const Footer = (props) => {
+const Footer: React.FC<{
+    footerClasses?: string,
+    children?: ReactNode;
+}> = (props) => {
     const footerClasses =  `${props.footerClasses ? props.footerClasses : ''}`;
     
     const copyrightNotice = copyrightInfo.url ? 

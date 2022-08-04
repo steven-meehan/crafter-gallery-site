@@ -1,8 +1,9 @@
 import React from 'react';
 
 import classes from './Spinner.module.css';
+import SpinnerProps from './SpinnerProps';
 
-const Spinner = (props) => {
+const Spinner: React.FC<SpinnerProps> = (props) => {
     return (
         <div className={`row justify-content-center`}>
             <div className={`col-xs-4`}>

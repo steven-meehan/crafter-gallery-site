@@ -1,33 +1,53 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 
-import ImageSlider from './ImageSlider';
+import ImageSlider from '../ImageSlider/ImageSlider';
+import CarouselParam from './CarouselParam';
+import CarouselProps from './CarouselProps';
 
-import useHttp from '../../Hooks/useHttp';
+import useHttp from '../../../Hooks/useHttp';
 import classes from './Carousel.module.css';
 
-import data from '../../Configs/ConfigFileLocations.json';
+import data from '../../../Configs/ConfigFileLocations.json';
+import ConfigFile from '../../../models/configs/ConfigFileLocation/ConfigFile';
+import ImageFile from '../../../models/ImageFile';
+import Description from '../../../models/Description';
+import GalleryRequestConfig from '../../../models/configs/GalleryRequestConfigs/GalleryRequestConfig';
 
-const configUrl = data.find(item=>item.configuration==='gallery').url;
+const configUrl = data
+    .map(item => new ConfigFile(item))
+    .find(item=>item.configuration==="gallery")!.url;
 
-const Carousel = (props) => {
-    const [ selectedImageName, setSelectedImageName ] = useState('');
-    const [ galleryImages, setGalleryImages ] = useState([]);
+const Carousel: React.FC<CarouselProps> = (props) => {
+    const [ selectedImageName, setSelectedImageName ] = useState("");
+    const [ galleryImages, setGalleryImages ] = useState<ImageFile[]>([]);
 
     const { sendRequest: fetchImageReferences } = useHttp();
-    const params = useParams();
+
+    const params = useParams<CarouselParam>();
     const navigate = useHistory();
 
     const galleryConfigurationUrl = `${configUrl}${props.configSettingFile}`;
     const responseImageObject = props.imagesObject;
     const defaultPage = props.defaultPage;
-    const routeToNotFoundPage = props.routeToNotFoundPage ? true : false;
-    const fontAwesomeArrowIcons = `${props.fontAwesomeArrowIcons ? props.fontAwesomeArrowIcons : 'fas fa-angle'}`
+    const routeToNotFoundPage = props.routeToNotFoundPage;
+    const fontAwesomeArrowIcons = props.fontAwesomeArrowIcons;
+
     const imageName = params.imageName ? params.imageName : '';
     
     useEffect(() => {
-        const transformData = data =>{
-            const processingGalleryImages = (item, baseUrl) => {
+        const transformData = (data: GalleryRequestConfig) => {
+            const processingGalleryImages = (
+                item: {
+                    title: string,
+                    altText: string,
+                    fileName: string,
+                    order: number,
+                    externalLink: string,
+                    landscape: boolean,
+                    description: Description
+                }, 
+                baseUrl: string): ImageFile => {
                 return {
                     title: item.title,
                     altText: item.altText,
@@ -42,10 +62,10 @@ const Carousel = (props) => {
 
             const baseUrl = data.baseUrl;
             
-            const galleryImages = [];
+            const galleryImages: ImageFile[] = [];
             
-            for (const item in data[responseImageObject]) {
-                galleryImages.push(processingGalleryImages(data[responseImageObject][item], baseUrl)); 
+            for (const item in data.items) {
+                galleryImages.push(processingGalleryImages(data.items[item], baseUrl)); 
             }
 
             const notFound = galleryImages.filter((item) => {
@@ -61,10 +81,10 @@ const Carousel = (props) => {
             }
 
             const initialImage = galleryImages.filter((item) => {
-                return parseInt(item.order) === 1;
+                return item.order === 1;
             });
 
-            if(initialImage === 1){
+            if(initialImage.length === 1){
                 setSelectedImageName(initialImage[0].fileName);
             }            
 
@@ -76,7 +96,12 @@ const Carousel = (props) => {
         }
     
         fetchImageReferences(
-            { url: galleryConfigurationUrl },
+            {
+                url: galleryConfigurationUrl,
+                method: 'GET',
+                headers: {},
+                body: null
+            },
             transformData
         );
     }, [fetchImageReferences, galleryConfigurationUrl, responseImageObject, imageName, defaultPage, navigate]);
@@ -103,7 +128,7 @@ const Carousel = (props) => {
                 images={galleryImages}
                 defaultPage={defaultPage}
                 galleryTitle={responseImageObject}
-                arrowIcon={fontAwesomeArrowIcons} 
+                arrowIcon={fontAwesomeArrowIcons}
                 startWithImage={selectedImageName ? true : false}
                 renderImageUrls={true}
                 initialImage={selectedImageName} />

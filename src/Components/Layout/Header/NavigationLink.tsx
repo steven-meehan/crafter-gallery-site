@@ -4,8 +4,9 @@ import { Link } from 'react-router-dom';
 import DropDownLink from './DropDownLink';
 
 import classes from './NavigationLink.module.css';
+import NavigationLinkProps from './NavigationLinkProps';
 
-const NavigationLink = (props) => {
+const NavigationLink: React.FC<NavigationLinkProps> = (props) => {
     const navLinkClasses = `${props.navLinkClasses ? props.navLinkClasses : ''} ${classes.navigationLinks}`;
     const childLinks = props.item.childLinks.sort((a, b) => {
         return a.order - b.order;
@@ -17,14 +18,14 @@ const NavigationLink = (props) => {
                     to={`#`} 
                     title={props.item.title} 
                     className={`${navLinkClasses} btn nav-link dropdown-toggle`}
-                    id={props.id}
+                    itemID={`${props.id}`}
                     role={`button`}
                     data-bs-toggle={`dropdown`} 
                     aria-expanded={false}>
                     {props.item.name}
                 </Link>
                 <DropDownLink
-                    children={childLinks}
+                    childLinks={childLinks}
                     bindingKey={`${props.id}`} />
             </Fragment>
         ) : props.item.social && props.item.internalLink && props.item.active ? (
@@ -32,7 +33,7 @@ const NavigationLink = (props) => {
                 to={props.item.url} 
                 title={props.item.title} 
                 className={`${navLinkClasses} ${classes.socialIcons} btn nav-link`}
-                id={props.id}>
+                itemID={`${props.id}`}>
                 <span className={props.item.icon}></span>
             </Link>
         ) : props.item.social && !props.item.internalLink && props.item.active ? (
@@ -42,7 +43,7 @@ const NavigationLink = (props) => {
                 target={'_blank'}
                 rel={'noreferrer'}
                 className={`${navLinkClasses} ${classes.socialIcons} btn nav-link`}
-                id={props.id}>
+                itemID={`${props.id}`}>
                 <span className={props.item.icon}></span>
             </a>
         ) : props.item.internalLink && props.item.active ? (
@@ -50,7 +51,7 @@ const NavigationLink = (props) => {
                 to={props.item.url} 
                 title={props.item.title} 
                 className={`${navLinkClasses} btn nav-link`}
-                id={props.id}>
+                itemID={`${props.id}`}>
                 {props.item.name}
             </Link>
         ) :  props.item.active ? (
@@ -60,7 +61,7 @@ const NavigationLink = (props) => {
                 target={'_blank'} 
                 rel={'noreferrer'}
                 className={`${navLinkClasses} btn nav-link`}
-                id={props.id}>
+                itemID={`${props.id}`}>
                 {props.item.name}
             </a>
         ) : (

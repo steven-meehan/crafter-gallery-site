@@ -1,9 +1,10 @@
 import React from 'react';
 
 import classes from './Toggler.module.css';
+import TogglerProps from './TogglerProps';
 
-const Toggler = (props) => {
-    const navbarTogglerClasses = `${props.classes ? props.classes : ''} ${classes.navbarToggler} navbar-toggler`;
+const Toggler: React.FC<TogglerProps> = (props) => {
+    const navbarTogglerClasses = `${props.togglerClasses ? props.togglerClasses : ''} ${classes.navbarToggler} navbar-toggler`;
     const navbarTogglerTarget = `${props.navbarTogglerTarget ? props.navbarTogglerTarget : ''}`;
 
     return (

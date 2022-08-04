@@ -1,28 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ReactNode } from 'react';
 
-import Card from '../../UI/Card';
+import Card from '../../UI/Card/Card';
 import Navbar from './Navbar';
 
 import useHttp from '../../../Hooks/useHttp';
 import classes from './Header.module.css';
 
 import data from '../../../Configs/ConfigFileLocations.json';
+import NavigationConfigFile from '../../../models/configs/NavigationConfigs/NavigationConfigFile';
+import NavigationConfig from '../../../models/configs/NavigationConfigs/NavigationConfig';
 
-const configUrl = data.find(item=>item.configuration==='navigation').url;
+const configUrl = data.find(item=>item.configuration==='navigation')!.url;
 
-const Header = (props) => {
+const Header: React.FC<{
+    headerClasses?: string,
+    children?: ReactNode
+}> = (props) => {
     const headerClasses = `${props.headerClasses ? props.headerClasses : ''} ${classes.header}`;
 
-    const [navigationLinks, setNavigationLinks] = useState([]);
-    const [socialLinks, setSocialLinks] = useState([]);
-    const [logoAltText, setLogoAltText] = useState([]);
+    const [navigationLinks, setNavigationLinks] = useState<NavigationConfig[]>([]);
+    const [socialLinks, setSocialLinks] = useState<NavigationConfig[]>([]);
+    const [logoAltText, setLogoAltText] = useState("");
 
     const { sendRequest: fetchConfigs } = useHttp();
 
     useEffect(() => {
-        const transformData = data =>{
-            const loadedNavigationLinks = [];
-            const loadedSocialLinks = [];
+        const transformData = (data: NavigationConfigFile) =>{
+            const loadedNavigationLinks: NavigationConfig[] = [];
+            const loadedSocialLinks: NavigationConfig[] = [];
 
             for (const item in data.navigation) {
                 if(data.navigation[item].social && data.navigation[item].active){
@@ -67,9 +72,14 @@ const Header = (props) => {
             setSocialLinks(sortedSocialList.sort());
             setLogoAltText(data.logoAltText);
         }
-    
+
         fetchConfigs(
-            { url: configUrl },
+            {
+                url: configUrl,
+                method: '',
+                headers: {},
+                body: undefined
+            },
             transformData
         );
     }, [fetchConfigs]);
@@ -79,7 +89,10 @@ const Header = (props) => {
             <Card
                 cardClasses={`${headerClasses}`}
                 cardColor={`light`} >
-                <Navbar navlinks={navigationLinks} socialNavLinks={socialLinks} logoAltText={logoAltText}/>
+                <Navbar 
+                    logoAltText={logoAltText}
+                    navlinks={navigationLinks}
+                    socialNavLinks={socialLinks} />
             </Card>
         </header>
     );

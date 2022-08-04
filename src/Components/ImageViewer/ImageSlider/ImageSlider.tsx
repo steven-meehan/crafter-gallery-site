@@ -1,22 +1,24 @@
 import React, { useState, useEffect} from 'react';
 import { useHistory } from 'react-router-dom';
 
-import Image from './Image';
+import Image from '../Image/Image';
+import ImageFile from '../../../models/ImageFile';
+import ImageSliderProps from './ImageSliderProps'
 
 import classes from './ImageSlider.module.css';
 
-const ImageSlider = (props) => {
-    const [ images, setImages ] = useState([]);
+const ImageSlider: React.FC<ImageSliderProps> = (props) => {
+    const [ images, setImages ] = useState<ImageFile[]>([]);
     const [ currentImageIndex, setCurrentImageIndex ] = useState(0);
     const navigate = useHistory();
 
     const imageSliderClasses = `${props.classes ? props.classes : ''}`;
-    const imagesCount = props.images && props.images.length ? parseInt(props.images.length) : 0;
+    const imagesCount = props.images && props.images.length > 0 ? props.images.length : 0;
     const localImages = imagesCount > 0 ? props.images : null;
 
     const renderImageUrls = props.renderImageUrls && !props.autoTransition ? true : false;
     const autoTransition = props.autoTransition ? true : false;
-    const autoTransitionTimer = props.autoTransitionTimer ? parseInt(props.autoTransitionTimer) : 60000;
+    const autoTransitionTimer = props.autoTransitionTimer ? props.autoTransitionTimer : 60000;
     
     const startWithImage = props.startWithImage ? true : false;
     const initialImage = `${props.initialImage ? props.initialImage : ''}`;
@@ -83,34 +85,39 @@ const ImageSlider = (props) => {
                     return (
                         <Image 
                             key={`thumbnail-${index}`}
-                            classes={`${classes.thumbnail}`}
+                            classes={classes.thumbnail}
                             image={slide}
                             linkImageToContent={true}
                             isContentInternal={true}
-                            urlForLinkedContent={`${defaultPage}${slide.fileName}`} 
-                            imageWidth={`80px`} 
-                            isThumbnail={true} />
+                            urlForLinkedContent={`${defaultPage}${slide.fileName}`}
+                            imageWidth={`80px`}
+                            isThumbnail={true}
+                            title={''}
+                            isStandAlone={false} />
                         )
                     }
                 )
             }
         </div>
     ) : images.map((slide, index) => {
+        
         return (
             <div 
                 className={`${index === currentImageIndex ? 'slide active' : 'slide'}`}
                 key={`mainimage-${index}`} >
                 {index === currentImageIndex && (
                     <Image 
-                        classes={`${classes.image}`}
+                        classes={classes.image}
                         image={slide}
                         linkImageToContent={true}
                         isContentInternal={false}
-                        urlForLinkedContent={slide.externalLink && slide.externalLink !== '' ? slide.externalLink : slide.url} 
+                        urlForLinkedContent={`${slide.externalLink && slide.externalLink !== '' ? slide.externalLink : slide.url}`}
                         imageWidth={imageSize}
                         displayBlurb={true}
                         displayTitle={!disableTitle}
-                        title={``} />
+                        title={``}
+                        isThumbnail={false}
+                        isStandAlone={false} />
                 )}
             </div>
         )
