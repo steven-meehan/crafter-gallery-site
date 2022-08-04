@@ -1,13 +1,13 @@
 @import "../../../Configs/Variables.scss";
 
 .navigationLinks {
-    font-size: 1.75em;
-    background-color: $navLinkColor;
+    font-size: 1.75em !important;
+    background-color: $navLinkColor !important;
     color: $navFontColor !important;
 }
 .navigationLinks:hover {
     font-weight: bolder;
-    background-color: $altNavLinkColor;
+    background-color: $altNavLinkColor !important;
     color: $highlightColor !important;
     border: 1px $highlightColor solid;
 }

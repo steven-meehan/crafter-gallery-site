@@ -1,0 +1,23 @@
+@import "../../../Configs//Variables.scss";
+
+.card{
+    border: 1px $highlightColor ridge;
+    box-shadow: 0 2px 8px $highlightColorDimmed;
+}
+.cardRounded{
+    border-radius: .3em;
+}
+.cardRoundedModerate{
+    border-radius: .75em;
+}
+.cardRoundedHeavy{
+    border-radius: 1em;
+}
+.cardHover:hover {
+    box-shadow: 0 2px 8px $highlightColorDimmed;
+    color: $highlightColor;
+}
+.light{
+    background-color: $primaryColor;
+    color: $fontColor;
+}
