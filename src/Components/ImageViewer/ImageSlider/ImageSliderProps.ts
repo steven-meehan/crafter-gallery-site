@@ -8,7 +8,6 @@ class ImageSliderProps {
     autoTransitionTimer?: number = 60000;
     startWithImage?: boolean = false;
     initialImage?: string = "";
-    galleryTitle?: string = "";
     arrowIcon?: string = "fas fa-angle";
     defaultPage?: string = "";
     isThumbnailBar?: boolean = false;
@@ -23,7 +22,6 @@ class ImageSliderProps {
         autoTransitionTimer: number,
         startWithImage: boolean,
         initialImage: string,
-        galleryTitle: string,
         arrowIcon: string,
         defaultPage: string,
         isThumbnailBar: boolean,
@@ -38,7 +36,6 @@ class ImageSliderProps {
             this.autoTransitionTimer = imageSliderProps.autoTransitionTimer ? imageSliderProps.autoTransitionTimer : 60000;
             this.startWithImage = imageSliderProps.startWithImage ? imageSliderProps.startWithImage : false;
             this.initialImage = imageSliderProps.initialImage ? imageSliderProps.initialImage : "";
-            this.galleryTitle = imageSliderProps.galleryTitle ? imageSliderProps.galleryTitle : "";
             this.arrowIcon = imageSliderProps.arrowIcon ? imageSliderProps.arrowIcon : "fas fa-angle";
             this.defaultPage = imageSliderProps.defaultPage ? imageSliderProps.defaultPage : "";
             this.isThumbnailBar = imageSliderProps.isThumbnailBar ? imageSliderProps.isThumbnailBar : false;
@@ -52,7 +49,6 @@ class ImageSliderProps {
             this.autoTransitionTimer =  60000;
             this.startWithImage =  false;
             this.initialImage =  "";
-            this.galleryTitle =  "";
             this.arrowIcon = "fas fa-angle";
             this.defaultPage =  "";
             this.isThumbnailBar =  false;

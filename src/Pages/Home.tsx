@@ -85,7 +85,6 @@ const Home = () => {
                                 disableTitle={true}
                                 autoTransition={autoSlider}
                                 autoTransitionTimer={autoSliderTimer}
-                                galleryTitle={`home`}
                                 imageSize={autoSliderSize}
                                 arrowIcon={autoSliderArrowIcons} />}
                             </div> 

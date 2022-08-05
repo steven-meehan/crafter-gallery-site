@@ -26,7 +26,6 @@ const ImageSlider: React.FC<ImageSliderProps> = (props) => {
         return image.fileName === initialImage;
     }) ;
 
-    const galleryTitle = `${props.galleryTitle ? props.galleryTitle : ''}`;
     const arrowIcon = `${props.arrowIcon ? props.arrowIcon : 'fas fa-angle'}`
     const defaultPage = `${props.defaultPage ? props.defaultPage : ''}`;
 
