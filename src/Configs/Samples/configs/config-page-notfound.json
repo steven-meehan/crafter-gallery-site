@@ -3,7 +3,7 @@
         {
 			"order": 1,
 			"display": true,
-			"empahsis" : true,
+			"emphasis" : true,
 			"text": "The page or content you're searching for couldn't be found...",
 			"alignment": "center"
         }

@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import parse from 'html-react-parser';
 
-import Image from '../Components/ImageViewer/Image/Image';
-import Info from '../Components/UI/Info/Info';
-import useHttp from '../Hooks/useHttp';
+import Image from '../ImageViewer/Image/Image';
+import Info from '../UI/Info/Info';
+import useHttp from '../../Hooks/useHttp';
 import classes from './NotFound.module.css';
 
-import data from '../Configs/ConfigFileLocations.json';
-import NotFoundConfig from '../models/configs/NotFoundConfig/NotFoundConfig';
-import Paragraph from '../models/Paragraph';
-import ImageFile from '../models/ImageFile';
+import data from '../../Configs/ConfigFileLocations.json';
+import NotFoundConfig from '../../models/configs/NotFoundConfig/NotFoundConfig';
+import Paragraph from '../../models/Paragraph';
+import ImageFile from '../../models/ImageFile';
 
 const configUrl = data.find(item=>item.configuration==='notFound')!.url;
 
@@ -42,7 +42,7 @@ const NotFound = () => {
                     localFirstParagraph = {
                         order: data.paragraphs[item].order,
                         display: data.paragraphs[item].display,
-                        empahsis: data.paragraphs[item].empahsis,
+                        emphasis: data.paragraphs[item].emphasis,
                         text: data.paragraphs[item].text,
                         alignment: data.paragraphs[item].alignment
                     };
@@ -50,7 +50,7 @@ const NotFound = () => {
                     localRemainingParagraphs.push({
                         order: data.paragraphs[item].order,
                         display: data.paragraphs[item].display,
-                        empahsis: data.paragraphs[item].empahsis,
+                        emphasis: data.paragraphs[item].emphasis,
                         text: data.paragraphs[item].text,
                         alignment: data.paragraphs[item].alignment
                     });
@@ -74,7 +74,7 @@ const NotFound = () => {
     return (
         <div className={`row justify-content-center`}>
             <Info infoClasses={`col-12`}>
-                <p className={`${classes.notfoundInfo} ${firstParagraph.empahsis ? classes.empahsis : ''} ${classes.centeredParagraphs}`}>
+                <p className={`${classes.notfoundInfo} ${firstParagraph.emphasis ? classes.emphasis : ''} ${classes.centeredParagraphs}`}>
                     {parse(`
                         ${firstParagraph.text}
                     `)}
@@ -100,7 +100,7 @@ const NotFound = () => {
                     {remainingParagraphs.map((item, index) => 
                         <p
                             key={index}
-                            className={`${item.empahsis ? classes.empahsis : ''} ${classes.centeredParagraphs}`} >
+                            className={`${item.emphasis ? classes.emphasis : ''} ${classes.centeredParagraphs}`} >
                             {parse(`
                                 ${item.text}
                             `)}

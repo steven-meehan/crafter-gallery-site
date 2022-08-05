@@ -1,16 +1,16 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import parse from 'html-react-parser';
 
-import Info from '../Components/UI/Info/Info';
-import ImageSlider from '../Components/ImageViewer/ImageSlider/ImageSlider';
-import Image from '../Components/ImageViewer/Image/Image';
-import useHttp from '../Hooks/useHttp';
+import Info from '../UI/Info/Info';
+import ImageSlider from '../ImageViewer/ImageSlider/ImageSlider';
+import Image from '../ImageViewer/Image/Image';
+import useHttp from '../../Hooks/useHttp';
 import classes from './Home.module.css';
 
-import data from '../Configs/ConfigFileLocations.json';
-import HomeConfig from '../models/configs/HomeConfig/HomeConfig';
-import ComponentType from '../models/configs/ComponentType';
-import ImageFile from '../models/ImageFile';
+import data from '../../Configs/ConfigFileLocations.json';
+import HomeConfig from '../../models/configs/HomeConfig/HomeConfig';
+import ComponentType from '../../models/configs/ComponentType';
+import ImageFile from '../../models/ImageFile';
 
 const configUrl = data.find(item=>item.configuration==='home')!.url;
 
@@ -39,7 +39,7 @@ const Home = () => {
                             {component.paragraphs.map((item, index) => 
                                 <p
                                     key={index} 
-                                    className={`${item.empahsis ? classes.empahsis : ''}`}
+                                    className={`${item.emphasis ? classes.emphasis : ''}`}
                                     style={{
                                         textAlign: item.alignment === "left" ? "left" : item.alignment === "right" ? "right" : "center"
                                     }} >

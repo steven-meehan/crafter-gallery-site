@@ -1,14 +1,14 @@
 import React, { Fragment } from 'react'
 
-import Content from './Components/Layout/Content/Content';
-import Header from './Components/Layout/Header/Header';
-import Footer from './Components/Layout/Footer/Footer';
+import Main from './Components/Structure/Main/Main';
+import Header from './Components/Structure/Header/Header/Header';
+import Footer from './Components/Structure/Footer/Footer';
 
 function App() {
   return (
     <Fragment>
       <Header />
-      <Content 
+      <Main 
         contentClasses={`container`} />
       <Footer />
     </Fragment>
