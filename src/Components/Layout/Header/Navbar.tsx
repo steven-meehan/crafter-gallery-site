@@ -18,7 +18,7 @@ const Navbar: React.FC<NavbarProps> = (props) => {
         return (
             <li 
                 key={`${item.id}-${index}`} 
-                className={`nav-item dropdown col col-lg-2 mt-2 ${navbarClasses} ${classes.navigationLinks}`}>
+                className={`nav-item dropdown col col-lg-2 ${navbarClasses} ${classes.navigationLinks}`}>
                 <Card
                     cardRounded={true} 
                     cardHover={true} >
@@ -65,7 +65,11 @@ const Navbar: React.FC<NavbarProps> = (props) => {
                             maxWidth:"100%"
                         }} >
                         {navigationLinks}
-                        <li className={`offset-md-${8-(props.navlinks.length*2)} offset-lg-${9-(props.navlinks.length*2)} nav-item col col-md-4 col-lg-3 mt-2`}>
+                        <li 
+                            className={`offset-md-${8-(props.navlinks.length*2)} offset-lg-${9-(props.navlinks.length*2)} nav-item col col-md-4 col-lg-3`}
+                            style={{
+                                paddingTop: '.1em'
+                            }} >
                             <div className={`row justify-content-end`}>
                                 {socialNavLinks}
                             </div>

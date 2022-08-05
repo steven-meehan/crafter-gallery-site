@@ -25,14 +25,12 @@ const Gallery = () => {
                     <Route key={`gallery-route-${index}`} path={route.path} exact >
                         <Carousel
                             configSettingFile={route.componentOptions.configSettingFile}
-                            imagesObject={route.componentOptions.imagesObject}
                             defaultPage={route.componentOptions.defaultPage}
                             fontAwesomeArrowIcons={route.componentOptions.fontAwesomeArrowIcons} />
                     </Route> : 
                     <Route key={`gallery-route-${index}`} path={route.path}>
                         <Carousel
                             configSettingFile={route.componentOptions!.configSettingFile}
-                            imagesObject={route.componentOptions!.imagesObject}
                             defaultPage={route.componentOptions!.defaultPage}
                             routeToNotFoundPage={route.componentOptions!.routeToNotFoundPage}
                             fontAwesomeArrowIcons={route.componentOptions!.fontAwesomeArrowIcons} />

@@ -4,7 +4,11 @@ A simple gallery site created and designed for crafters so they can display thei
 
 ## Site Configuration
 
-After cloning this repository for a new client, there are several things that need to be done in order to get a new site up and running. First the Navigation and Gallery Configuration Files need to be created and placed into the configs folder in the S3 bucket. Once the files have been created and placed, you need to transfer the images into their gallery specific folders under the gallery folder in the S3 bucket. Next You need to configure the Routes and CSS and create the `index.html` file.
+After cloning this repository for a new client, there are several things that need to be done in order to get a new site up and running. First the Navigation and Gallery Configuration Files need to be created and placed into the configs folder in the S3 bucket. Once the files have been created and placed, you need to transfer the images into their gallery specific folders under the gallery folder in the S3 bucket. 
+
+You need to ensure the route structure for the site and the S3 buckets do not match. If they do, when you try to visit the page for a specific image, you will not be routed through the website. Instead you will be served the image from the S3 bucket.
+
+With that done you will have to configure the Routes, the SCASS variables, and create the `index.html` file.
 
 The application is built with Sass so you will need something to compile the CSS files. For Visual Studio you can use a couple of extensions [Saas](https://marketplace.visualstudio.com/items?itemName=Syler.sass-indented) & [Live Sass Compiler](https://marketplace.visualstudio.com/items?itemName=glenn2223.live-sass)
 
@@ -69,7 +73,7 @@ The application is built with Sass so you will need something to compile the CSS
     "baseUrl": "URL Goes Here",
     "folderName": "Folder Name Goes Here",
     "pageHeader": "Header Title Goes Here",
-    "images": [
+    "items": [
         {
             "title": "Image TItle Goes Here",
             "altText": "Image ALt Text Goes Here",
@@ -101,7 +105,7 @@ The application is built with Sass so you will need something to compile the CSS
 - `baseUrl`: (`string`) This is the base URL for all the images in the configuration file. (Required)
 - `folderName`: (`string`) This is the sub-folder containing the images in the S3 bucket. (Required)
 - `pageHeader`: (`string`) This is hte header for the gallery. (Required)
-- `images`: Is an array of complex objects, but the name should be specific to the collection of images held within. (Required)
+- `items`: Is an array of complex objects, but the name should be specific to the collection of images held within. (Required)
     - `title`: (`string`) This is the title of the image. (Required)
     - `altText`: (`string`) This is the alternate text for the image. (Required)
     - `fileName`: (`string`) This is the name of the image's file in the S3 bucket. (Required)
@@ -154,7 +158,8 @@ This page is written to use either a collection of `Info`, `ImageSlider`, or `Im
                             "order": 1,
                             "display": true,
                             "empahsis" : true,
-                            "text": "TEXT Goes Here"
+                            "text": "TEXT Goes Here",
+                            "alignment": "Alignment Goes Here"
                         },
                         .
                         .
@@ -201,10 +206,11 @@ See Gallery Options for arrows to see the options available from Font Awesome.
 {
     "paragraphs" : [
         {
-	    "order": 1,
-	    "display": true,
-	    "empahsis" : true,
-	    "text": "Text Goes Here"
+            "order": 1,
+            "display": true,
+            "empahsis" : true,
+            "text": "Text Goes Here",
+            "alignment": "Alignment Goes Here"
         }
         .
         .
@@ -267,7 +273,6 @@ The `Gallery` component pulls this configuration file to establish the routes fo
         "component":"Carousel",
         "componentOptions": {
             "configSettingFile":"config-gallery-pens.json",
-            "imagesObject":"pens",
             "defaultPage":"/gallery/pens/",
             "routeToNotFoundPage": true,
             "fontAwesomeArrowIcons":"fas fa-arrow-circle"
@@ -284,7 +289,6 @@ The `Gallery` component pulls this configuration file to establish the routes fo
         "component":"Carousel",
         "componentOptions": {
             "configSettingFile":"config-gallery-pens.json",
-            "imagesObject":"pens",
             "defaultPage":"/gallery/pens/",
             "routeToNotFoundPage": true,
             "fontAwesomeArrowIcons":"fas fa-arrow-circle"
@@ -318,7 +322,6 @@ The `Gallery` component pulls this configuration file to establish the routes fo
 - `component`: (`string`) details the component that will be used for the route
 - `componentOptions`: is a complex object that configures the `Carousel` component
     - `configSettingFile`: (`string`) is the location for the gallery's configuration file
-    - `imagesObject`: (`string`) is the name of the images in the configuration file
     - `defaultPage`: (`string`) is the base portion of the url for the images in the configuration file
     - 'routeToNotFoundPage': (`bool`) determines if the image gallery will route the user to the gallery's default page or the not found page when an image is not found within the collection
     - `fontAwesomeArrowIcons`: (`string`) details the icons used for the arrows to cycle through the images in the gallery

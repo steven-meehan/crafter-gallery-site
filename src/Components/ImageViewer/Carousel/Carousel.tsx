@@ -28,7 +28,6 @@ const Carousel: React.FC<CarouselProps> = (props) => {
     const navigate = useHistory();
 
     const galleryConfigurationUrl = `${configUrl}${props.configSettingFile}`;
-    const responseImageObject = props.imagesObject;
     const defaultPage = props.defaultPage;
     const routeToNotFoundPage = props.routeToNotFoundPage;
     const fontAwesomeArrowIcons = props.fontAwesomeArrowIcons;
@@ -104,7 +103,7 @@ const Carousel: React.FC<CarouselProps> = (props) => {
             },
             transformData
         );
-    }, [fetchImageReferences, galleryConfigurationUrl, responseImageObject, imageName, defaultPage, navigate]);
+    }, [fetchImageReferences, galleryConfigurationUrl, imageName, defaultPage, navigate]);
 
     useEffect(() => {
         const localImages = galleryImages && galleryImages.length > 0 ? galleryImages : null;
@@ -127,7 +126,6 @@ const Carousel: React.FC<CarouselProps> = (props) => {
             <ImageSlider 
                 images={galleryImages}
                 defaultPage={defaultPage}
-                galleryTitle={responseImageObject}
                 arrowIcon={fontAwesomeArrowIcons}
                 startWithImage={selectedImageName ? true : false}
                 renderImageUrls={true}

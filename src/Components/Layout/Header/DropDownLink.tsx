@@ -16,7 +16,8 @@ const DropDownLink: React.FC<DropDownLinkProps> = (props) => {
             <li
                 key={`${props.bindingKey}-${item.id}-${index}`}
                 style={{
-                    textAlign:'center'
+                    textAlign:'center',
+                    marginLeft:'.1em'
                 }} >
                 <Card 
                     cardRounded={true} 

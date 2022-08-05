@@ -7,8 +7,23 @@
                 {
                     "active": true,
                     "order": 1,
+                    "component": "info",
+                    "baseUrl": "{URL GOES HERE}",
+                    "paragraphs": [
+                        {
+                            "order": 1,
+                            "display": true,
+                            "empahsis": true,
+                            "text": "{TEXT GOES HERE}",
+			                "alignment": "center"
+                        }
+                    ]
+                },
+                {
+                    "active": true,
+                    "order": 2,
                     "component": "image",
-                    "baseUrl": "{URL Goes Here}/gallery/home/",
+                    "baseUrl": "{URL GOES HERE}",
                     "images": [
                         {
                             "title": "Title Goes Here",
@@ -23,7 +38,8 @@
                     "slider": {
                         "auto":true,
                         "timer":30000,
-			            "arrowIcons": "fas fa-chevron-circle"
+			            "arrowIcons": "fas fa-chevron-circle",
+                        "size": "70%"
                     }
                 }
             ]

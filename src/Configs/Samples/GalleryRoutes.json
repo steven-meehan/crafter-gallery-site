@@ -2,10 +2,9 @@
     {
         "path":"/gallery/items",
         "exact":true,
-        "component":"Carousel",
+        "component":"carousel",
         "componentOptions": {
             "configSettingFile":"config-gallery-items.json",
-            "imagesObject":"items",
             "defaultPage":"/gallery/items/",
             "routeToNotFoundPage": true,
             "fontAwesomeArrowIcons":"fas fa-arrow-circle"
@@ -19,10 +18,9 @@
     {
         "path":"/gallery/items/:imageName",
         "exact":false,
-        "component":"Carousel",
+        "component":"carousel",
         "componentOptions": {
             "configSettingFile":"config-gallery-items.json",
-            "imagesObject":"items",
             "defaultPage":"/gallery/items/",
             "routeToNotFoundPage": true,
             "fontAwesomeArrowIcons":"fas fa-arrow-circle"
