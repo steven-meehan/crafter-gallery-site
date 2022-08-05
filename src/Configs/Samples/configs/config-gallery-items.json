@@ -13,9 +13,11 @@
             "description": {
                 "paragraphs": [
                     {
-                        "text": "Text Goes Here",
                         "order": 1,
-                        "active": true
+                        "display": true,
+                        "empahsis": false,
+                        "text": "Text Goes Here",
+                        "alignment": "center"
                     }
                 ]
             }

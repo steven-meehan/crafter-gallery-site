@@ -2,7 +2,7 @@
     {
         "path":"/gallery/items",
         "exact":true,
-        "component":"Carousel",
+        "component":"carousel",
         "componentOptions": {
             "configSettingFile":"config-gallery-items.json",
             "defaultPage":"/gallery/items/",
@@ -18,7 +18,7 @@
     {
         "path":"/gallery/items/:imageName",
         "exact":false,
-        "component":"Carousel",
+        "component":"carousel",
         "componentOptions": {
             "configSettingFile":"config-gallery-items.json",
             "defaultPage":"/gallery/items/",
