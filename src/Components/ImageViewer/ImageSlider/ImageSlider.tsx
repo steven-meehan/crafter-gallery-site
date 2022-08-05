@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import Image from '../Image/Image';
 import ImageFile from '../../../models/ImageFile';
@@ -10,7 +10,7 @@ import classes from './ImageSlider.module.css';
 const ImageSlider: React.FC<ImageSliderProps> = (props) => {
     const [ images, setImages ] = useState<ImageFile[]>([]);
     const [ currentImageIndex, setCurrentImageIndex ] = useState(0);
-    const navigate = useHistory();
+    const navigate = useNavigate();
 
     const imageSliderClasses = `${props.classes ? props.classes : ''}`;
     const imagesCount = props.images && props.images.length > 0 ? props.images.length : 0;
@@ -60,7 +60,7 @@ const ImageSlider: React.FC<ImageSliderProps> = (props) => {
         let newImageIndex = currentImageIndex === 0 ? imagesCount-1 : currentImageIndex - 1;
         if(renderImageUrls) {
             const redirectUrl = `${defaultPage}${images[newImageIndex].fileName}`; 
-            navigate.push(redirectUrl);
+            navigate(redirectUrl);
         } else {
             setCurrentImageIndex(newImageIndex);
         }
@@ -70,7 +70,7 @@ const ImageSlider: React.FC<ImageSliderProps> = (props) => {
         let newImageIndex = currentImageIndex === imagesCount-1 ? 0 : currentImageIndex + 1;
         if(renderImageUrls) {
             const redirectUrl = `${defaultPage}${images[newImageIndex].fileName}`; 
-            navigate.push(redirectUrl);
+            navigate(redirectUrl);
         } else {
             setCurrentImageIndex(newImageIndex);
         }

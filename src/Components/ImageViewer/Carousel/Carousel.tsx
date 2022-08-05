@@ -1,8 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 import ImageSlider from '../ImageSlider/ImageSlider';
-import CarouselParam from './CarouselParam';
 import CarouselProps from './CarouselProps';
 
 import useHttp from '../../../Hooks/useHttp';
@@ -24,8 +23,8 @@ const Carousel: React.FC<CarouselProps> = (props) => {
 
     const { sendRequest: fetchImageReferences } = useHttp();
 
-    const params = useParams<CarouselParam>();
-    const navigate = useHistory();
+    const params = useParams();
+    const navigate = useNavigate();
 
     const galleryConfigurationUrl = `${configUrl}${props.configSettingFile}`;
     const defaultPage = props.defaultPage;
@@ -73,9 +72,9 @@ const Carousel: React.FC<CarouselProps> = (props) => {
     
             if(notFound.length === 0 && imageName){
                 if(routeToNotFoundPage){
-                    navigate.push('/image-not-found');
+                    navigate('/image-not-found');
                 } else {
-                    navigate.push(defaultPage);
+                    navigate(defaultPage);
                 }
             }
 
