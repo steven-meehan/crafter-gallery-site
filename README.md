@@ -242,7 +242,7 @@ The `Content` component pulls this configuration file to establish the main rout
 [
     {
         "path":"/",
-        "exact":true,
+        "sectionRoot":true,
         "component":"Home",
         "componentOptions":null,
         "status":null,
@@ -269,7 +269,7 @@ The `Gallery` component pulls this configuration file to establish the routes fo
 [
     {
         "path":"/gallery/pens",
-        "exact":true,
+        "sectionRoot":true,
         "component":"Carousel",
         "componentOptions": {
             "configSettingFile":"config-gallery-pens.json",
@@ -285,7 +285,7 @@ The `Gallery` component pulls this configuration file to establish the routes fo
     },
     {
         "path":"/gallery/pens/:imageName",
-        "exact":false,
+        "sectionRoot":false,
         "component":"Carousel",
         "componentOptions": {
             "configSettingFile":"config-gallery-pens.json",
@@ -304,7 +304,7 @@ The `Gallery` component pulls this configuration file to establish the routes fo
     .
     {
         "path":"/gallery/:galleryName",
-        "exact":false,
+        "sectionRoot":false,
         "component":null,
         "componentOptions": null,
         "status":null,
@@ -318,7 +318,7 @@ The `Gallery` component pulls this configuration file to establish the routes fo
 ```
 
 - `path`: (`string`) is the route for the given entry
-- `exact`: (`bool`) tells the router that the incoming route must be an exact match
+- `sectionRoot`: (`bool`) tells the router that the incoming route must be an sectionRoot match
 - `component`: (`string`) details the component that will be used for the route
 - `componentOptions`: is a complex object that configures the `Carousel` component
     - `configSettingFile`: (`string`) is the location for the gallery's configuration file
