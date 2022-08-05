@@ -6,7 +6,6 @@ import Card from '../../UI/Card/Card';
 import Spinner from '../../UI/Spinner/Spinner';
 
 import data from '../../../Configs/TopLevelRoutes.json';
-import RouteDefinition from '../../../models/configs/NavigationConfigs/RouteDefinition';
 import CardProps from '../../UI/Card/CardProps';
 import ComponentType from '../../../models/configs/ComponentType';
 import ComponentOptions from '../../../models/configs/NavigationConfigs/ComponentOptions';
