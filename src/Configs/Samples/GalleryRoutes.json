@@ -5,7 +5,6 @@
         "component":"Carousel",
         "componentOptions": {
             "configSettingFile":"config-gallery-items.json",
-            "imagesObject":"items",
             "defaultPage":"/gallery/items/",
             "routeToNotFoundPage": true,
             "fontAwesomeArrowIcons":"fas fa-arrow-circle"
@@ -22,7 +21,6 @@
         "component":"Carousel",
         "componentOptions": {
             "configSettingFile":"config-gallery-items.json",
-            "imagesObject":"items",
             "defaultPage":"/gallery/items/",
             "routeToNotFoundPage": true,
             "fontAwesomeArrowIcons":"fas fa-arrow-circle"
