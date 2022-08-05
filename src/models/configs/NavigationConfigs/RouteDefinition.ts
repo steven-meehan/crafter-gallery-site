@@ -4,7 +4,7 @@ import RedirectOptions from './RedirectOptions';
 
 class RouteDefinition {
     path: string = "";
-    exact: boolean = false;
+    sectionRoot: boolean = false;
     component: ComponentType = ComponentType.Undefined;
     componentOptions: ComponentOptions | null = null;
     status: number = 200;
@@ -12,7 +12,7 @@ class RouteDefinition {
 
     constructor(routeDefinition?: {
         path: string,
-        exact: boolean,
+        sectionRoot: boolean,
         component: string,
         componentOptions: ComponentOptions | null,
         status: number,
@@ -20,7 +20,7 @@ class RouteDefinition {
     }){
         if(routeDefinition){
             this.path = routeDefinition.path ? routeDefinition.path : "";
-            this.exact = routeDefinition.exact ? routeDefinition.exact : false;
+            this.sectionRoot = routeDefinition.sectionRoot ? routeDefinition.sectionRoot : false;
 
             switch (routeDefinition.component) {
                 case ComponentType.Info:
@@ -48,7 +48,7 @@ class RouteDefinition {
             this.redirect = routeDefinition.redirect ? new RedirectOptions(routeDefinition.redirect) : null;
         } else {
             this.path = "";
-            this.exact = false;
+            this.sectionRoot = false;
             this.component = ComponentType.Undefined;
             this.componentOptions = null;
             this.status = 200;
