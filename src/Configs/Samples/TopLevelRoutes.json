@@ -1,40 +1,29 @@
 [
     {
         "path":"/",
-        "exact":true,
+        "sectionRoot":true,
         "component":"Home",
         "componentOptions":null,
-        "status":null,
+        "status":200,
         "redirect":{
             "behavior":false,
-            "path":null
+            "path":""
         }
     },
     {
-        "path":"/gallery",
-        "exact":true,
-        "component":null,
+        "path":"/galleries/*",
+        "sectionRoot":false,
+        "component":"gallery",
         "componentOptions":null,
-        "status":null,
-        "redirect":{
-            "behavior":true,
-            "path":"/gallery/item"
-        }
-    },
-    {
-        "path":"/gallery/:galleryName",
-        "exact":false,
-        "component":"Gallery",
-        "componentOptions":null,
-        "status":null,
+        "status":200,
         "redirect":{
             "behavior":false,
-            "path":null
+            "path":""
         }
     },
     {
         "path":"*",
-        "exact":false,
+        "sectionRoot":false,
         "component":"NotFound",
         "componentOptions":null,
         "status":404,

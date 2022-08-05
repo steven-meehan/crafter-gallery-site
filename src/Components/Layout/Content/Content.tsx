@@ -1,5 +1,5 @@
 import React, { ReactNode, Suspense } from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 
 import classes from './Content.module.css';
 import Card from '../../UI/Card/Card';
@@ -18,7 +18,7 @@ const NotFound = React.lazy(() => import('../../../Pages/NotFound'));
 
 const topLevelRoutes: {
     path: string,
-    exact: boolean,
+    sectionRoot: boolean,
     component: string,
     componentOptions: ComponentOptions | null,
     status: number,
@@ -47,39 +47,34 @@ const Content: React.FC<{
                 cardColor={`light`} >
                 <Suspense
                     fallback={<Spinner />}>
-                    <Switch>
-                        {topLevelRoutes.map((route, index) => {
-                            return route.redirect?.behavior && route.exact ? 
-                                <Route 
-                                    key={`main-route-${index}`} 
-                                    path={route.path} 
-                                    exact >
-                                    <Redirect to={route.redirect.path} />
-                                </Route> : route.redirect?.behavior && !route.exact ? 
-                                <Route 
-                                    key={`main-route-${index}`} 
-                                    path={route.path} >
-                                    <Redirect to={route.redirect?.path} />
-                                </Route> : route.component === ComponentType.Home ?
-                                <Route 
-                                    key={`main-route-${index}`} 
-                                    path={route.path} 
-                                    exact >
-                                    <Home />
-                                </Route> : route.component === ComponentType.Gallery ?
-                                <Route 
-                                    key={`main-route-${index}`} 
-                                    path={route.path} >
-                                    <Gallery />
-                                </Route> : 
-                                <Route 
-                                    key={`main-route-${index}`} 
-                                    path={route.path} >
-                                    <NotFound />
-                                </Route>;
-                            })
+                    <Routes>
+                        {
+                            topLevelRoutes.map((route, index) => {
+                                return route.redirect?.behavior && route.sectionRoot ? 
+                                    <Route 
+                                        key={`main-route-${index}`} 
+                                        path={route.path} 
+                                        element={<Navigate replace to={route.redirect.path} />} /> : route.redirect?.behavior && !route.sectionRoot ? 
+                                    <Route 
+                                        key={`main-route-${index}`} 
+                                        path={route.path} 
+                                        element={<Navigate replace to={route.redirect.path} />} /> : route.component === ComponentType.Home ?
+                                    <Route 
+                                        key={`main-route-${index}`} 
+                                        path={route.path} 
+                                        element={<Home />} /> : route.component === ComponentType.Gallery ?
+                                    <Route 
+                                        key={`main-route-${index}`} 
+                                        path={route.path}
+                                        element={<Gallery />} /> : 
+                                    <Route 
+                                        key={`main-route-${index}`} 
+                                        path={route.path} 
+                                        element={<NotFound />} />;
+                                }
+                            )
                         }
-                    </Switch>
+                    </Routes>
                 </Suspense>
             </Card>
         </main>

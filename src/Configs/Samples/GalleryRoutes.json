@@ -1,45 +1,68 @@
 [
     {
-        "path":"/gallery/items",
-        "exact":true,
-        "component":"carousel",
-        "componentOptions": {
-            "configSettingFile":"config-gallery-items.json",
-            "defaultPage":"/gallery/items/",
-            "routeToNotFoundPage": true,
-            "fontAwesomeArrowIcons":"fas fa-arrow-circle"
-        },
-        "status":null,
-        "redirect":{
-            "behavior":false,
-            "path":null
-        }
-    },
-    {
-        "path":"/gallery/items/:imageName",
-        "exact":false,
-        "component":"carousel",
-        "componentOptions": {
-            "configSettingFile":"config-gallery-items.json",
-            "defaultPage":"/gallery/items/",
-            "routeToNotFoundPage": true,
-            "fontAwesomeArrowIcons":"fas fa-arrow-circle"
-        },
-        "status":null,
-        "redirect":{
-            "behavior":false,
-            "path":null
-        }
-    },
-    {
-        "path":"/gallery/:galleryName",
-        "exact":false,
-        "component":null,
+        "path":"gallery/",
+        "sectionRoot":true,
+        "component":"",
         "componentOptions": null,
         "status":null,
         "redirect":{
             "behavior":true,
-            "path":"/gallery/items"
+            "path":"/galleries/gallery/section"
+        }
+    },
+    {
+        "path":"gallery/section/",
+        "sectionRoot":false,
+        "component":"carousel",
+        "componentOptions": {
+            "configSettingFile":"config-gallery-items.json",
+            "defaultPage":"/galleries/gallery/section/",
+            "routeToNotFoundPage": true,
+            "fontAwesomeArrowIcons":"fas fa-arrow-circle"
+        },
+        "status":null,
+        "redirect":{
+            "behavior":false,
+            "path":""
+        }
+    },
+    {
+        "path":"gallery/section/:imageName",
+        "sectionRoot":false,
+        "component":"carousel",
+        "componentOptions": {
+            "configSettingFile":"config-gallery-items.json",
+            "defaultPage":"/galleries/gallery/section/",
+            "routeToNotFoundPage": true,
+            "fontAwesomeArrowIcons":"fas fa-arrow-circle"
+        },
+        "status":200,
+        "redirect":{
+            "behavior":false,
+            "path":""
+        }
+    },
+    {
+        "path":"gallery/:galleryName",
+        "sectionRoot":false,
+        "component":"",
+        "componentOptions": null,
+        "status":200,
+        "redirect":{
+            "behavior":true,
+            "path":"/galleries/gallery/section"
+        }
+    },
+    {
+        "path":"*",
+        "sectionRoot":false,
+        "component":"",
+        "componentOptions":null,
+        "status":200,
+        "redirect":{
+            "behavior":true,
+            "path":"/galleries/gallery/section"
         }
     }
 ]
+
