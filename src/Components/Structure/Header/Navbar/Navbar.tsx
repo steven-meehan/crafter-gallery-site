@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import NavigationLink from './NavigationLink';
-import Toggler from '../../UI/Toggler/Toggler';
-import Card from '../../UI/Card/Card';
+import NavigationLink from '../NavigationLink/NavigationLink';
+import Toggler from '../../../UI/Toggler/Toggler';
+import Card from '../../../UI/Card/Card';
 
 import classes from './Navbar.module.css';
-import logo from '../../../assets/Logo.png';
-import logoAlt from '../../../assets/LogoAlt.png';
+import logo from '../../../../assets/Logo.png';
+import logoAlt from '../../../../assets/LogoAlt.png';
 import NavbarProps from './NavbarProps';
 
 const Navbar: React.FC<NavbarProps> = (props) => {

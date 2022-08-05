@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import NavigationConfig from "../../../models/configs/NavigationConfigs/NavigationConfig";
+import NavigationConfig from "../../../../models/configs/NavigationConfigs/NavigationConfig";
 
 class NavbarProps {
     navbarClasses?: string = "";

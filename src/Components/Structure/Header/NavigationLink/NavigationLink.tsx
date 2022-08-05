@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
-import DropDownLink from './DropDownLink';
+import DropDownLink from '../DropDownLink/DropDownLink';
 
 import classes from './NavigationLink.module.css';
 import NavigationLinkProps from './NavigationLinkProps';

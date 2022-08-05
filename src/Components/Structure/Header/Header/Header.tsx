@@ -1,14 +1,14 @@
 import React, { useState, useEffect, ReactNode } from 'react';
 
-import Card from '../../UI/Card/Card';
-import Navbar from './Navbar';
+import Card from '../../../UI/Card/Card';
+import Navbar from '../Navbar/Navbar';
 
-import useHttp from '../../../Hooks/useHttp';
+import useHttp from '../../../../Hooks/useHttp';
 import classes from './Header.module.css';
 
-import data from '../../../Configs/ConfigFileLocations.json';
-import NavigationConfigFile from '../../../models/configs/NavigationConfigs/NavigationConfigFile';
-import NavigationConfig from '../../../models/configs/NavigationConfigs/NavigationConfig';
+import data from '../../../../Configs/ConfigFileLocations.json';
+import NavigationConfigFile from '../../../../models/configs/NavigationConfigs/NavigationConfigFile';
+import NavigationConfig from '../../../../models/configs/NavigationConfigs/NavigationConfig';
 
 const configUrl = data.find(item=>item.configuration==='navigation')!.url;
 

@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import parse from 'html-react-parser';
 
-import Image from '../Components/ImageViewer/Image/Image';
-import Info from '../Components/UI/Info/Info';
-import useHttp from '../Hooks/useHttp';
+import Image from '../ImageViewer/Image/Image';
+import Info from '../UI/Info/Info';
+import useHttp from '../../Hooks/useHttp';
 import classes from './NotFound.module.css';
 
-import data from '../Configs/ConfigFileLocations.json';
-import NotFoundConfig from '../models/configs/NotFoundConfig/NotFoundConfig';
-import Paragraph from '../models/Paragraph';
-import ImageFile from '../models/ImageFile';
+import data from '../../Configs/ConfigFileLocations.json';
+import NotFoundConfig from '../../models/configs/NotFoundConfig/NotFoundConfig';
+import Paragraph from '../../models/Paragraph';
+import ImageFile from '../../models/ImageFile';
 
 const configUrl = data.find(item=>item.configuration==='notFound')!.url;
 
