@@ -39,7 +39,7 @@ const Home = () => {
                             {component.paragraphs.map((item, index) => 
                                 <p
                                     key={index} 
-                                    className={`${item.empahsis ? classes.empahsis : ''}`}
+                                    className={`${item.emphasis ? classes.emphasis : ''}`}
                                     style={{
                                         textAlign: item.alignment === "left" ? "left" : item.alignment === "right" ? "right" : "center"
                                     }} >

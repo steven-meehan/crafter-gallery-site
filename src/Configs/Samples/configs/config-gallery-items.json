@@ -15,7 +15,7 @@
                     {
                         "order": 1,
                         "display": true,
-                        "empahsis": false,
+                        "emphasis": false,
                         "text": "Text Goes Here",
                         "alignment": "center"
                     }
