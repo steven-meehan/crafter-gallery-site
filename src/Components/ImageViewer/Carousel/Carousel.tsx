@@ -46,12 +46,28 @@ const Carousel: React.FC<CarouselProps> = (props) => {
                     description: Description
                 }, 
                 baseUrl: string): ImageFile => {
+
+                let fullDescription = "";
+
+                item.description.paragraphs.forEach(item => {
+                    if(fullDescription.length < 160){
+                        const strippedString = item.text.replace(/(<([^>]+)>)/gi, "");
+
+                        if(strippedString.length <= 160){
+                            fullDescription = fullDescription + strippedString + " ";
+                        } else {
+                            fullDescription = fullDescription + strippedString.substring(0,(160-fullDescription.length))
+                        }
+                    }
+                });
+
                 return {
                     title: item.title,
                     altText: item.altText,
                     fileName: item.fileName,
                     order: item.order,
                     description: item.description,
+                    fullDescription: fullDescription,
                     url: `${baseUrl}${item.fileName}`,
                     externalLink: `${item.externalLink && item.externalLink.trim() !== '' ? item.externalLink : ''}`,
                     landscape: item.landscape
@@ -125,6 +141,7 @@ const Carousel: React.FC<CarouselProps> = (props) => {
             <ImageSlider 
                 images={galleryImages}
                 defaultPage={defaultPage}
+                setHelmetInfo={true}
                 arrowIcon={fontAwesomeArrowIcons}
                 startWithImage={selectedImageName ? true : false}
                 renderImageUrls={true}
