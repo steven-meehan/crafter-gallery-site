@@ -4,6 +4,7 @@ class ImageProps {
     classes?: string = "";
     blurbCssClasses?: string = "";
     titleblurbCssClasses?: string = "";
+    setHelmetInfo?: boolean = false;
     linkImageToContent?: boolean = false;
     isContentInternal?: boolean = false;
     linkTitle?: string = "";
@@ -20,6 +21,7 @@ class ImageProps {
         classes?: string,
         blurbCssClasses?: string,
         titleblurbCssClasses?: string,
+        setHelmetInfo?: boolean,
         linkImageToContent?: boolean,
         isContentInternal?: boolean,
         linkTitle?: string,
@@ -36,6 +38,7 @@ class ImageProps {
             this.classes = imageProps.classes ? imageProps.classes : "";
             this.blurbCssClasses = imageProps.blurbCssClasses ? imageProps.blurbCssClasses : "";
             this.titleblurbCssClasses = imageProps.titleblurbCssClasses ? imageProps.titleblurbCssClasses : "";
+            this.setHelmetInfo = imageProps.setHelmetInfo ? imageProps.setHelmetInfo : false;
             this.linkImageToContent = imageProps.linkImageToContent ? imageProps.linkImageToContent : false;
             this.isContentInternal = imageProps.isContentInternal ? imageProps.isContentInternal : false;
             this.linkTitle = imageProps.linkTitle ? imageProps.linkTitle : "";
@@ -51,6 +54,7 @@ class ImageProps {
             this.classes = "";
             this.blurbCssClasses = "";
             this.titleblurbCssClasses = "";
+            this.setHelmetInfo = false;
             this.linkImageToContent = false;
             this.isContentInternal = false;
             this.linkTitle = "";

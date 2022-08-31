@@ -31,6 +31,7 @@ const ImageSlider: React.FC<ImageSliderProps> = (props) => {
 
     const isThumbnailBar = props.isThumbnailBar ? true : false;
     const disableTitle = props.disableTitle ? true : false;
+    const setHelmetInfo = props.setHelmetInfo ? true : false;
     const imageSize = `${props.imageSize ? props.imageSize : '65%'}`
     
     useEffect(() => {
@@ -86,6 +87,7 @@ const ImageSlider: React.FC<ImageSliderProps> = (props) => {
                             key={`thumbnail-${index}`}
                             classes={classes.thumbnail}
                             image={slide}
+                            setHelmetInfo={setHelmetInfo}
                             linkImageToContent={true}
                             isContentInternal={true}
                             urlForLinkedContent={`${defaultPage}${slide.fileName}`}
@@ -108,6 +110,7 @@ const ImageSlider: React.FC<ImageSliderProps> = (props) => {
                     <Image 
                         classes={classes.image}
                         image={slide}
+                        setHelmetInfo={setHelmetInfo}
                         linkImageToContent={true}
                         isContentInternal={false}
                         urlForLinkedContent={`${slide.externalLink && slide.externalLink !== '' ? slide.externalLink : slide.url}`}

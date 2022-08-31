@@ -3,6 +3,7 @@ import ImageFile from "../../../models/ImageFile";
 class ImageSliderProps {
     classes?: string = "";
     images: ImageFile[] = [];
+    setHelmetInfo?: boolean = false;
     renderImageUrls?: boolean = false;
     autoTransition?: boolean = false;
     autoTransitionTimer?: number = 60000;
@@ -17,6 +18,7 @@ class ImageSliderProps {
     constructor(imageSliderProps?: {
         classes: string,
         images: ImageFile[],
+        setHelmetInfo: boolean
         renderImageUrls: boolean,
         autoTransition: boolean,
         autoTransitionTimer: number,
@@ -31,6 +33,7 @@ class ImageSliderProps {
         if(imageSliderProps){
             this.classes = imageSliderProps.classes ? imageSliderProps.classes : "";
             this.images = imageSliderProps.images ? imageSliderProps.images.map(item => new ImageFile(item)) : [];
+            this.setHelmetInfo = imageSliderProps.setHelmetInfo ? imageSliderProps.setHelmetInfo : false;
             this.renderImageUrls = imageSliderProps.renderImageUrls ? imageSliderProps.renderImageUrls : false;
             this.autoTransition = imageSliderProps.autoTransition ? imageSliderProps.autoTransition : false;
             this.autoTransitionTimer = imageSliderProps.autoTransitionTimer ? imageSliderProps.autoTransitionTimer : 60000;
@@ -44,6 +47,7 @@ class ImageSliderProps {
         } else {
             this.classes =  "";
             this.images =  [];
+            this.setHelmetInfo = false;
             this.renderImageUrls =  false;
             this.autoTransition =  false;
             this.autoTransitionTimer =  60000;
