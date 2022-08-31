@@ -9,6 +9,7 @@ class ImageFile {
     externalLink: string = "";
     landscape: boolean = false;
     description: Description = new Description();
+    fullDescription: string = "";
 
     constructor(imageFile?: {
         title: string,
@@ -18,7 +19,8 @@ class ImageFile {
         url: string;
         externalLink: string,
         landscape: boolean,
-        description: Description
+        description: Description,
+        fullDescription: string
     }){
         if(imageFile){
             this.title = imageFile.title ? imageFile.title : "";
@@ -29,6 +31,7 @@ class ImageFile {
             this.externalLink = imageFile.externalLink ? imageFile.externalLink : "";
             this.landscape = imageFile.landscape ? imageFile.landscape : false;
             this.description = imageFile.description ? imageFile.description : new Description();
+            this.fullDescription = imageFile.fullDescription ? imageFile.fullDescription : "";
         } else {
             this.title = "";
             this.altText = "";
@@ -38,6 +41,7 @@ class ImageFile {
             this.externalLink = "";
             this.landscape = false;
             this.description = new Description();
+            this.fullDescription = "";
         }
     }
 }

@@ -34,6 +34,7 @@ const NavigationLink: React.FC<NavigationLinkProps> = (props) => {
                 title={props.item.title} 
                 className={`${navLinkClasses} ${classes.socialIcons} btn nav-link`}
                 itemID={`${props.id}`}>
+                <span style={{display: "none"}}>{props.item.name}</span>
                 <span className={props.item.icon}></span>
             </Link>
         ) : props.item.social && !props.item.internalLink && props.item.active ? (
@@ -44,6 +45,7 @@ const NavigationLink: React.FC<NavigationLinkProps> = (props) => {
                 rel={'noreferrer'}
                 className={`${navLinkClasses} ${classes.socialIcons} btn nav-link`}
                 itemID={`${props.id}`}>
+                <span style={{display: "none"}}>{props.item.name}</span>
                 <span className={props.item.icon}></span>
             </a>
         ) : props.item.internalLink && props.item.active ? (

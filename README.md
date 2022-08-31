@@ -12,6 +12,7 @@ A simple gallery site created and designed for crafters so they can display thei
             - [Top Level Routes](#top-level-routes)
             - [Gallery Routes](#gallery-routes)
                 - [Gallery Options for arrows](#gallery-options-for-arrows)
+    - [SEO Configuration](#seo-configuration)
     - [Content Configuration](#content-configuration)
         - [Gallery Config](#gallery-configs)
         - [Home Config](#home-config)
@@ -200,7 +201,7 @@ Definition for Route Definition in `TopLevelRoutes.json` and `GalleryRoutes.json
 - `path`: (Required) `string` Is the route definition.
 - `sectionRoot`: (Required) `bool` Tells the router that the incoming route must be an sectionRoot match.
 - `component`: (Required) `string` Details the component that will be used for the route.
-- `componentOptions`: (Optiona ) s a complex object that configures the `Carousel` component.
+- `componentOptions`: (Optional) This is a complex object that configures the `Carousel` component.
     - `configSettingFile`: (Required) `string` Is the location for the gallery's configuration file.
     - `defaultPage`: (Required) `string` Is the base portion of the url for the images in the configuration file.
     - `routeToNotFoundPage`: (Required) `bool` Determines if the image gallery will route the user to the gallery's default page or the not found page when an image is not found within the collection.
@@ -373,6 +374,44 @@ When filling out the Gallery Route configuration use the following values for th
 - `fa-solid fa-square-caret`
 
 [Route Config](#route-configs) : [Gallery Routes](#gallery-routes) : [Back to Top](#table-of-contents)
+
+### SEO Configuration
+
+In order to configure the site for SEO you will need a `SeoConfig.json` file for the static pages in the site. You will need an entry for each static page that will be served. 
+
+```JSON
+
+{
+    "site": "Handmade Hijinks",
+    "pageSettings": [
+        {
+            "page": "home",
+            "title": "{Title Goes Here}",
+            "description": "{Description Goes Here}",
+            "imageUrl": "{Image URL Goes Here}",
+            "imageAltText": "{Image AltText Goes Here}"
+        },
+        {
+            "page": "notFound",
+            "title": "{Title Goes Here}",
+            "description": "{Description Goes Here}",
+            "imageUrl": "{Image URL Goes Here}",
+            "imageAltText": "{Image AltText Goes Here}"
+        }
+    ]
+}
+
+```
+
+- `site`: (Required) This is used to set the Open Graph site name meta tag.
+- `pageSettings`: (Required) This is an array of complex objects that will configure the meta tags for static pages in the site.
+    - `page`: (Required) `string` This is the page that uses the rest of the values.
+    - `title`: (Required) `string` This is used to set the page's title and Open Graph title meta tags.  
+    - `description`: (Required) `string` This is used to set the page's description meta tag.
+    - `imageUrl`: (Required) `string` This is used to set the image, Open Graph image and secure image, and the Twitter image meta tags.
+    - `imageAltText`: (Required) `string` This is used to set the twitter alternate text meta tag. 
+
+[Back to Top](#table-of-contents)
 
 ### Content Configuration
 
