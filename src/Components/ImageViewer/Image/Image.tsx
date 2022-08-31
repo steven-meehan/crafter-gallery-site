@@ -5,11 +5,19 @@ import parse from 'html-react-parser';
 import classes from './Image.module.css';
 
 import ImageProps from './ImageProps';
+import { Helmet } from 'react-helmet';
+import HelmetSettings from '../../Structure/Helmet/helmetSettings';
+import HelmetConfiguration from '../../../models/configs/HelmetConfiguration';
+
+import seoData from '../../../Configs/SeoConfig.json';
+const seoSiteInfo = seoData.site;
 
 const Image: React.FC<ImageProps>  = (props) => {
     const imageCssClasses = `${props.classes ? props.classes : ''}`;
     const blurbCssClasses = `${props.blurbCssClasses ? props.blurbCssClasses : ''}`;
     const titleblurbCssClasses = `${props.titleblurbCssClasses ? props.titleblurbCssClasses : ''}`;
+
+    const renderHelmetInfo = props.setHelmetInfo ? true : false;
 
     const linkImageToContent = props.linkImageToContent ? true : false;
     const isContentInternal = props.isContentInternal ? true : false;
@@ -31,6 +39,7 @@ const Image: React.FC<ImageProps>  = (props) => {
         <img
             src={image.url}
             alt={image.altText}
+            loading="eager"
             title={linkTitle ? 
                 linkTitle : 
                 image.externalLink && image.externalLink.includes('www.etsy.com') ? 
@@ -40,6 +49,7 @@ const Image: React.FC<ImageProps>  = (props) => {
             className={`${imageCssClasses} ${image.landscape ? classes.landscapeImage : classes.portraitImage}`} 
             style={imageWidth ? { width:imageWidth } : {}} />
     )
+
     const processedTitle = (
         <h1
             className={`${titleblurbCssClasses} row justify-content-center`} >
@@ -88,8 +98,23 @@ const Image: React.FC<ImageProps>  = (props) => {
             </div>
     );
 
+    const helmetConfiguration: HelmetConfiguration = {
+        page: window.location.href,
+        title: image.title,
+        description: image.fullDescription,
+        imageUrl: image.url,
+        imageAltText: image.altText,
+        errorPage: false
+    }
+
     return (
         <Fragment>
+            {renderHelmetInfo && (
+                <HelmetSettings 
+                    helmetConfiguration={helmetConfiguration} 
+                    seoSiteUrl={seoSiteInfo} />
+            )}
+
             <>{displayTitle && !isThumbnail && processedTitle}</>
             <>{isThumbnail && processedImage}</>
             <>{!isThumbnail && (

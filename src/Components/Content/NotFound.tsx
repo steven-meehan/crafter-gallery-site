@@ -6,12 +6,17 @@ import Info from '../UI/Info/Info';
 import useHttp from '../../Hooks/useHttp';
 import classes from './NotFound.module.css';
 
-import data from '../../Configs/ConfigFileLocations.json';
 import NotFoundConfig from '../../models/configs/NotFoundConfig/NotFoundConfig';
 import Paragraph from '../../models/Paragraph';
 import ImageFile from '../../models/ImageFile';
+import HelmetSettings from '../Structure/Helmet/helmetSettings';
+
+import data from '../../Configs/ConfigFileLocations.json';
+import seoData from '../../Configs/SeoConfig.json';
 
 const configUrl = data.find(item=>item.configuration==='notFound')!.url;
+const seoConfig = seoData.pageSettings.find(item=>item.page==='notFound')!;
+const seoSiteInfo = seoData.site;
 
 const NotFound = () => {
     const { sendRequest: fetchImage } = useHttp();
@@ -32,7 +37,8 @@ const NotFound = () => {
                 url: data.image.url,
                 order: 0,
                 externalLink: '',
-                landscape: false
+                landscape: false,
+                fullDescription: ""
             }));
 
             for (const item in data.paragraphs) {
@@ -73,12 +79,15 @@ const NotFound = () => {
 
     return (
         <div className={`row justify-content-center`}>
+            <HelmetSettings 
+                helmetConfiguration={seoConfig} 
+                seoSiteUrl={seoSiteInfo} />
             <Info infoClasses={`col-12`}>
-                <p className={`${classes.notfoundInfo} ${firstParagraph.emphasis ? classes.emphasis : ''} ${classes.centeredParagraphs}`}>
+                <h1 className={`${classes.notfoundInfo} ${classes.centeredParagraphs}`}>
                     {parse(`
                         ${firstParagraph.text}
                     `)}
-                </p>
+                </h1>
             </Info>
             {image && <div 
                 className={`col-8 ${classes.centered} ${classes.centeredImage}`}>

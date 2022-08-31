@@ -5,14 +5,19 @@ import Info from '../UI/Info/Info';
 import ImageSlider from '../ImageViewer/ImageSlider/ImageSlider';
 import Image from '../ImageViewer/Image/Image';
 import useHttp from '../../Hooks/useHttp';
+import HelmetSettings from '../Structure/Helmet/helmetSettings';
 import classes from './Home.module.css';
 
-import data from '../../Configs/ConfigFileLocations.json';
 import HomeConfig from '../../models/configs/HomeConfig/HomeConfig';
 import ComponentType from '../../models/configs/ComponentType';
 import ImageFile from '../../models/ImageFile';
 
+import data from '../../Configs/ConfigFileLocations.json';
+import seoData from '../../Configs/SeoConfig.json';
+
 const configUrl = data.find(item=>item.configuration==='home')!.url;
+const seoConfig = seoData.pageSettings.find(item=>item.page==='home')!;
+const seoSiteInfo = seoData.site;
 
 const Home = () => {
     const { sendRequest: fetchParagraphs } = useHttp();
@@ -72,7 +77,8 @@ const Home = () => {
                                 landscape: image.landscape ? true : false,
                                 description: {
                                     paragraphs: []
-                                }
+                                },
+                                fullDescription: ""
                             });
                         }
 
@@ -83,6 +89,7 @@ const Home = () => {
                                 {images.length > 0 && <ImageSlider 
                                 images={images}
                                 disableTitle={true}
+                                setHelmetInfo={false}
                                 autoTransition={autoSlider}
                                 autoTransitionTimer={autoSliderTimer}
                                 imageSize={autoSliderSize}
@@ -94,6 +101,7 @@ const Home = () => {
                                 className={`col-xs-12  col-xl-${12/numberOfColumns}`}>
                                 {images.length === 1 && <Image 
                                     image={images[0]}
+                                    setHelmetInfo={false}
                                     linkImageToContent={true}
                                     isContentInternal={false}
                                     urlForLinkedContent={images[0].externalLink && images[0].externalLink !== '' ? images[0].externalLink : images[0].url} 
@@ -124,6 +132,9 @@ const Home = () => {
 
     return (
         <div className={`row`} >
+            <HelmetSettings 
+                helmetConfiguration={seoConfig} 
+                seoSiteUrl={seoSiteInfo} />
             {components && components}
         </div>
     );
