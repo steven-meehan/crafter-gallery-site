@@ -1,0 +1,21 @@
+{
+    "site": "",
+    "pageSettings": [
+        {
+            "page": "home",
+            "title": "",
+            "description": "",
+            "imageUrl": "",
+            "imageAltText": "",
+            "errorPage": false
+        },
+        {
+            "page": "notFound",
+            "title": "",
+            "description": "",
+            "imageUrl": "",
+            "imageAltText": "",
+            "errorPage": true
+        }
+    ]
+}
