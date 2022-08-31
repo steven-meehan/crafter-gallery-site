@@ -48,11 +48,11 @@ After cloning this repository for a new client, there are several things that ne
 
 You need to ensure the route structure for the site and the S3 buckets do not match. If they do, when you try to visit the page for a specific image, you will not be routed through the website. Instead you will be served the image from the S3 bucket.
 
-With that done you will have to configure the Routes, the SCASS variables, and create the `index.html` file.
+With that done you will have to configure the Routes, the SASS variables, and create the `index.html` file.
 
 The application is built with Sass so you will need something to compile the CSS files. For Visual Studio you can use a couple of extensions [Saas](https://marketplace.visualstudio.com/items?itemName=Syler.sass-indented) & [Live Sass Compiler](https://marketplace.visualstudio.com/items?itemName=glenn2223.live-sass)
 
-(There is a folder within config that contains sample configuuration files that will satisfy the vast majority of the  site's configuration.)
+(There is a folder within config that contains sample configuration files that will satisfy the vast majority of the  site's configuration.)
 
 [Back to Top](#table-of-contents)
 
@@ -205,7 +205,7 @@ Definition for Route Definition in `TopLevelRoutes.json` and `GalleryRoutes.json
     - `configSettingFile`: (Required) `string` Is the location for the gallery's configuration file.
     - `defaultPage`: (Required) `string` Is the base portion of the url for the images in the configuration file.
     - `routeToNotFoundPage`: (Required) `bool` Determines if the image gallery will route the user to the gallery's default page or the not found page when an image is not found within the collection.
-    - `fontAwesomeArrowIcons`: (optional) `string` Details the icons used for the arrows to cycle through the images in the gallery.[details](#gallery-options-for-arrows)
+    - `fontAwesomeArrowIcons`: (Optional) `string` Details the icons used for the arrows to cycle through the images in the gallery.[details](#gallery-options-for-arrows)
 - `status`: (Optional) `number` This number is used when a required route needs a different status code.
 - `redirect`: (Optional) Is a complex object that configures a redirection route.
     - `enabled`: (Required) `bool` Tells the router that the incoming route needs to be redirected.
@@ -423,7 +423,7 @@ Each type of file will be hosted online and pulled into the application while ru
 
 #### Gallery Configs
 
-These files contain all the required infomation to generate a specific image gallery. You will a seperate configuration file for every requested gallery.
+These files contain all the required information to generate a specific image gallery. You will a separate configuration file for every requested gallery.
 
 ```JSON
 
@@ -475,10 +475,10 @@ Definition for `config-{galleryName}.json`:
     - `description`: (Optional) Is a complex object.
         - `paragraphs`: (Optional) Is an array of complex objects. You can make as many of these paragraphs as you want.
             - `order`: (Required) `number` This is the paragraph's order in the description.
-            - `display`: (Required) `bool` This determins if the paragraph is displayed on the web page.
-            - `emphasis`: (Required) `bool` This determins if the paragraph is bolded.
+            - `display`: (Required) `bool` This determines if the paragraph is displayed on the web page.
+            - `emphasis`: (Required) `bool` This determines if the paragraph is bolded.
             - `text`: (Required) `string` This is a paragraph for the description of the image.
-            - `alignment`: (Required) `string` This determins how the text is aligned on screen.
+            - `alignment`: (Required) `string` This determines how the text is aligned on screen.
 
 [Content Configuration](#content-configuration) : [Back to Top](#table-of-contents)
 
@@ -532,7 +532,7 @@ This page is written to use a collection of `Info`, `ImageSlider`, or `Image` co
                     "slider": {
                         "auto":true,
                         "timer":30000,
-            			"arrowIcons": "Font Awsome Arrow Info Goes Here"
+            			"arrowIcons": "Font Awesome Arrow Info Goes Here"
                     }
                 }
             ]
@@ -557,7 +557,7 @@ Definition for `config-page-home.json`:
                 - `emphasis`: (Optional) `boolean` Determines if the paragraph will be bolded.
                 - `text`: (Required) `string` The text to be rendered on the page.
                 - `alignment`: (Optional) `string` Determines the alignment of the text.
-            - `images`: (Optional) An array of complex onjects consisting of the images to display.
+            - `images`: (Optional) An array of complex objects consisting of the images to display.
                 - `title`: (Required) `string` This will be used for the title of the rendered image.
                 - `altText`: (Required) `string` This will be used for the alternate text of the rendered image.
                 - `fileName`: (Required) `string` This is the name of the file to be rendered and is used to build the image's url. 
@@ -610,7 +610,7 @@ Definition for `config-page-home.json`:
     - `emphasis`: (Optional) `boolean` Determines if the paragraph will be bolded.
     - `text`: (Required) `string` The text to be rendered on the page.
     - `alignment`: (Optional) `string` Determines the alignment of the text.
-- `images`: (Optional) A complex onjects for an image.
+- `images`: (Optional) A complex object for an image.
     - `title`: (Required) `string` This will be used for the title of the rendered image.
     - `altText`: (Required) `string` This will be used for the alternate text of the rendered image.
     - `fileName`: (Required) `string` This is the name of the file to be rendered and is used to build the image's url. 
@@ -626,13 +626,13 @@ The following sections detail the instructions to complete setting up a site for
 
 #### Index Pages
 
-In order to keep this project from becoming tieds to a specific client, the `index.html` and `index.scss` files have been removed from the repository and added to the do not track list. As a result once you clone the repo, you will need to recreate these two files, see below for examples. 
+In order to keep this project from becoming tied to a specific client, the `index.html` and `index.scss` files have been removed from the repository and added to the do not track list. As a result once you clone the repo, you will need to recreate these two files, see below for examples. 
 
-[HTML](#html) : [SCSS](scss)
+[HTML](#html) : [SCSS](#scss)
 
 ##### HTML
 
-The `index.html` requires one element with the id of root in order to work. See the indcluded example for a starting point.
+The `index.html` requires one element with the id of root in order to work. See the included example for a starting point.
 
 ```HTML
 
@@ -673,7 +673,7 @@ body {
 
 ```
 
-As written above the resulting site will have a solid background. If instead you want to use a background image add the photo's url, i.e. `'https://www.sample.com/test/test.jpg'` as a paramater.
+As written above the resulting site will have a solid background. If instead you want to use a background image add the photo's url, i.e. `'https://www.sample.com/test/test.jpg'` as a parameter.
 
 ```scss
 
