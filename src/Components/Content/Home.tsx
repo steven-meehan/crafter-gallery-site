@@ -41,18 +41,35 @@ const Home = () => {
                         <Info
                             key={`home-component-${component.order}`} 
                             infoClasses={`col-xs-12 col-xl-${12/numberOfColumns} ${classes.centeredParagraphs}`} >
-                            {component.paragraphs.map((item, index) => 
-                                <p
-                                    key={index} 
-                                    className={`${item.emphasis ? classes.emphasis : ''}`}
-                                    style={{
-                                        textAlign: item.alignment === "left" ? "left" : item.alignment === "right" ? "right" : "center"
-                                    }} >
-                                    {parse(`
-                                        ${item.text}
-                                    `)}
-                                </p>
-                            )}
+                            {component.paragraphs.map((item, index) => {
+                                if (index===0){
+                                    return (
+                                        <h1
+                                            key={index} 
+                                            className={`${item.emphasis ? classes.emphasis : ''} mb-5`}
+                                            style={{
+                                                textAlign: item.alignment === "left" ? "left" : item.alignment === "right" ? "right" : "center"
+                                            }} >
+                                            {parse(`
+                                                ${item.text}
+                                            `)}
+                                        </h1>
+                                    );
+                                } else {
+                                    return (
+                                        <p
+                                            key={index} 
+                                            className={`${item.emphasis ? classes.emphasis : ''}`}
+                                            style={{
+                                                textAlign: item.alignment === "left" ? "left" : item.alignment === "right" ? "right" : "center"
+                                            }} >
+                                            {parse(`
+                                                ${item.text}
+                                            `)}
+                                        </p>
+                                    );
+                                }
+                            })}
                         </Info>
                     );
                     processedComponents.push(infoComponent);

@@ -53,11 +53,29 @@ const Navbar: React.FC<NavbarProps> = (props) => {
                     maxWidth:"100%"
                 }} >
                 <Link to={`/`} title={`Home Page`} className='col-3'>
-                    <img src={logo} alt={`${logoAltText}`} className={`${classes.logo} d-none d-xl-block`} />
-                    <img src={logoAlt} alt={`${logoAltText}`} className={`${classes.logoAlt} d-xl-none`} />
+                    <img 
+                        src={logo} 
+                        width={`260`} 
+                        height={`105`} 
+                        alt={`${logoAltText}`} 
+                        className={`${classes.logo} d-none d-xl-block`} 
+                        title={`Home`} 
+                        loading="eager" />
+                    <img 
+                        src={logoAlt} 
+                        width={`130`} 
+                        height={`105`} 
+                        alt={`${logoAltText}`} 
+                        className={`${classes.logoAlt} d-xl-none`} 
+                        title={`Home`} 
+                        loading="eager" />
                 </Link>
-                <Toggler navbarTogglerTarget={`navigationBar`} togglerClasses={`offset-7 col-2 dmd-none ${classes.navigationBarToggler}`}/>
-                <div className={`col-9 collapse navbar-collapse`} id={`navigationBar`}>
+                <Toggler 
+                    navbarTogglerTarget={`navigationBar`} 
+                    togglerClasses={`offset-7 col-2 dmd-none ${classes.navigationBarToggler}`}/>
+                <div 
+                    className={`col-9 collapse navbar-collapse`} 
+                    id={`navigationBar`}>
                     <ul 
                         className={`navbar-nav ${classes.navigationWrapper}`}
                         style={{
