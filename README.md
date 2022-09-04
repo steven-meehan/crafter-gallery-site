@@ -1,22 +1,23 @@
 # Crafter Gallery Site
 
-A simple gallery site created and designed for crafters so they can display their wares. This is a [React](https://reactjs.org/) application bootstrapped using [Create React App](https://create-react-app.dev/). Instead of reaching out to a database, or back-end service, this application uses configuration files for everything from the navigation to the galleries and their contents. 
+A simple gallery site designed to be a public portfolio for crafters. This is a [React](https://reactjs.org/) application bootstrapped with [Create React App](https://create-react-app.dev/). Instead of reaching out to a database, or back-end service, this application uses configuration files pulled from the web server to render everything from the navigation to the galleries and their contents.
+
+While the code was initially created to run out of an Amazon S3 bucket, you do not have to utilize that technology stack, though for the purpose of this documentation I will assume you are using an S3 bucket and CloudFront to run your crafter's site.
 
 ## Table of Contents
 
 - [Site Configuration](#site-configuration)
-    - [File Config Urls](#file-config-urls)
+    - [Data File Locations](#data-file-locations)
     - [Navigation and Routing](#navigation-and-routing)
-        - [Navigation Config](#navigation-config)
-        - [Route Config](#route-configs)
+        - [Navigation](#navigation)
+        - [Routing](#routing)
             - [Top Level Routes](#top-level-routes)
             - [Gallery Routes](#gallery-routes)
                 - [Gallery Options for arrows](#gallery-options-for-arrows)
-    - [SEO Configuration](#seo-configuration)
     - [Content Configuration](#content-configuration)
-        - [Gallery Config](#gallery-configs)
-        - [Home Config](#home-config)
-        - [Not Found Config](#not-found-config)
+        - [Gallery Data Files](#gallery-data-files)
+        - [Home](#home)
+        - [Not Found](#not-found)
     - [Misc Content](#misc-content)
         - [Index Pages](#index-pages)
             - [HTML](#html)
@@ -28,6 +29,7 @@ A simple gallery site created and designed for crafters so they can display thei
             - [Font Color](#font-color)
             - [Font Selection](#font-selection)
             - [Site Mixins](#site-mixins)
+    - [SEO Configuration](#seo-configuration)
     - [Google Analytics](#google-analytics)
 - [Available Scripts](#available-scripts)
     - [Start](#start)
@@ -44,77 +46,65 @@ A simple gallery site created and designed for crafters so they can display thei
 
 ## Site Configuration
 
-After cloning this repository for a new client, there are several things that need to be done in order to get a new site up and running. First the Navigation and Gallery Configuration Files need to be created and placed into the configs folder in the S3 bucket. Once the files have been created and placed, you need to transfer the images into their gallery specific folders under the gallery folder in the S3 bucket. 
+The application is built with Sass so you will need something to compile the CSS files. For Visual Studio you can use a couple of extensions [Sass](https://marketplace.visualstudio.com/items?itemName=Syler.sass-indented) & [Live Sass Compiler](https://marketplace.visualstudio.com/items?itemName=glenn2223.live-sass)
 
-You need to ensure the route structure for the site and the S3 buckets do not match. If they do, when you try to visit the page for a specific image, you will not be routed through the website. Instead you will be served the image from the S3 bucket.
+After cloning this repository for a new client, there are several steps that need to be taken to successfully run the new site. 
+- First there are several configuration files the application requires. 
+    - Copy the contents of the `ConfigurationFiles` folder from `NewSiteSampleFiles` to the `ConfigurationFiles` folder in the `scr` folder.
+    - Copy the contents of the `data-files` folder from `NewSiteSampleFiles` to the `public` folder.
+    - Copy the contents of the `Variable.scss` file from `NewSiteSampleFiles` to the `scr` folder.
 
-With that done you will have to configure the Routes, the SASS variables, and create the `index.html` file.
+With the configuration files copied, update them with the client specific information (see below sections to fully configure). Once the files have been created and placed, you need to transfer the images into their gallery specific folders under the gallery folder in the S3 bucket. You need to ensure the route structure for the site and the S3 buckets do not match. If they do, when you try to visit the page for a specific image, you will not be routed through the website. Instead you will be served the image from the S3 bucket.
 
-The application is built with Sass so you will need something to compile the CSS files. For Visual Studio you can use a couple of extensions [Saas](https://marketplace.visualstudio.com/items?itemName=Syler.sass-indented) & [Live Sass Compiler](https://marketplace.visualstudio.com/items?itemName=glenn2223.live-sass)
-
-(There is a folder within config that contains sample configuration files that will satisfy the vast majority of the  site's configuration.)
+Finally create the `index.html` file in the `public` folder and add the `favicon.png` as well.
 
 [Back to Top](#table-of-contents)
 
-### File Config Urls
+### Data File Locations
 
-In an effort to keep the repository from being tied to a specific implementation, the `ConfigFileLocations.json` was created. It is an array of object with a `configuration` and `url` attribute.
-
-```JSON
-
-{
-    "configuration":"Config Type Goes Here",
-    "url":"URL Goes Here"
-}
-
-```
-
-There are four required types:
-
-- `navigation`: Details where the navigation config file is located. 
-- `gallery`: Details where the gallery configuration files are located.
-- `home`: : Details where the Home Page config file is located.
-- `notFound`: : Details where the Not Found Page config file is located.
+In an effort to keep the repository from being tied to a specific implementation, key aspects of certain pages and their contents are reliant upon data files. In order for the application to pull the correct file update the `data-file-locations.json` file. The JSON file is an array of objects with the following properties: `configuration` and `url`.
 
 ```JSON
 
 [
     {
-        "configuration":"navigation",
-        "url":"https://www.example.com/configs/config-navigation.json"
+        "contentType":"{Config Type GOES HERE}",
+        "url":"{URL GOES HERE}"
     },
-    {
-        "configuration":"gallery",
-        "url":"https://www.example.com/configs/"
-    },
-    {
-        "configuration":"home",
-        "url":"https://www.example.com/configs/config-page-home.json"
-    },
-    {
-        "configuration":"notFound",
-        "url":"https://www.example.com/configs/config-page-notFound.json"
-    }
+    .
+    .
+    .
 ]
 
 ```
+
+- `contentType`: (Required) This specifies which section of the application to configure. Currently there are four required types to define in this file.
+    - `navigation`: Details where the navigation config file is located. 
+    - `gallery`: Details where the gallery configuration files are located.
+    - `home`: : Details where the Home Page config file is located.
+    - `notFound`: : Details where the Not Found Page config file is located.
+- `url`: (Required) `string` This is URL where the data file is stored.
 
 [Back to Top](#table-of-contents)
 
 ### Navigation and Routing
 
-In addition to the `config-navigation` file [see above](#file-config-urls) which contains all the definitions for the links in the navigation, there are two additional files that define and create the application's Route Tree, `GalleryRoutes.json` and `TopLevelRoutes.json`. 
+To fully setup the site's routing and navigation, you will need to update the `routes-gallery.json`, `routes-top-level.json`, and `navigation.json` files.
 
-[Navigation Config](#navigation-config) : [Route Config](#route-configs) : [Back to Top](#table-of-contents)
+The `navigation.json` [file] (#navigation-config) is the data file that details all the information needed for building the navigation bar.
 
-#### Navigation Config
+Where as `routes-gallery.json` and `routes-top-level.json` are configuration files used to create the site's Routing Table see [below](#routing) for the full details.
 
-Once retrieved, the application parses the JSON file and dynamically builds out the links for the navbar. See below for an example of the config file.
+[Back to Top](#table-of-contents)
+
+#### Navigation
+
+The `Header` component uses the [`data-file-locations.json`](#data-file-locations) to retrieve the `navigation.json` file. Once pulled, the application parses the file and dynamically builds out the links required for the navbar. See below for an example of the config file.
 
 ```JSON
 
 {
-    "navigation": [
+    "links": [
         {
             "url": "/gallery",
             "order": 1,
@@ -150,9 +140,9 @@ Once retrieved, the application parses the JSON file and dynamically builds out 
 
 ```
 
-Definition of the `config-navigation`:
+Definition of the `navigation.json`:
 
-- `navigation`: (Required) The root of the JSON response which contains an array of complex objects.
+- `links`: (Required) The root of the JSON response which contains an array of complex objects.
     - `url`: (Required) `string` This is the url for the route.
     - `order`: (Required) `number` This is the order used for displaying the routes.
     - `name`: (Required) `string` This is the display name for the route.
@@ -166,14 +156,9 @@ Definition of the `config-navigation`:
 
 [Navigation and Routing](#navigation-and-routing) : [Back to Top](#table-of-contents)
 
-#### Route Configs
+#### Routing
 
-In conjunction with the `config-navigation.json` file this application uses two local JSON files to create its Routing tree: `TopLevelRoutes.json` [details](#top-level-routes) & `GalleryRoutes.json` [details](#gallery-routes).
-
-[Top Level Routing](#top-level-routes) : [Gallery Routing](#gallery-routes) : [Back to Top](#table-of-contents)
-
-
-Both files are arrays of complex objects with the following definition:
+In order to build out the Routing Tree the application requires the [`routes-gallery.json`](#gallery-routes) and [`routes-top-level.json`](#top-level-routes) files. Both files are arrays of complex objects with the following definition:
 
 ```JSON
 
@@ -183,7 +168,6 @@ Both files are arrays of complex objects with the following definition:
         "sectionRoot":true,
         "component":"home",
         "componentOptions":null,
-        "status":null,
         "redirect":{
             "enabled":false,
             "path":null
@@ -196,7 +180,7 @@ Both files are arrays of complex objects with the following definition:
 
 ```
 
-Definition for Route Definition in `TopLevelRoutes.json` and `GalleryRoutes.json`:
+Definition for Route Definition in `routes-gallery.json` and `routes-top-level.json`:
 
 - `path`: (Required) `string` Is the route definition.
 - `sectionRoot`: (Required) `bool` Tells the router that the incoming route must be an sectionRoot match.
@@ -206,7 +190,6 @@ Definition for Route Definition in `TopLevelRoutes.json` and `GalleryRoutes.json
     - `defaultPage`: (Required) `string` Is the base portion of the url for the images in the configuration file.
     - `routeToNotFoundPage`: (Required) `bool` Determines if the image gallery will route the user to the gallery's default page or the not found page when an image is not found within the collection.
     - `fontAwesomeArrowIcons`: (Optional) `string` Details the icons used for the arrows to cycle through the images in the gallery.[details](#gallery-options-for-arrows)
-- `status`: (Optional) `number` This number is used when a required route needs a different status code.
 - `redirect`: (Optional) Is a complex object that configures a redirection route.
     - `enabled`: (Required) `bool` Tells the router that the incoming route needs to be redirected.
     - `path`: (Required) `string` Is the route to be redirected to.
@@ -215,9 +198,9 @@ Definition for Route Definition in `TopLevelRoutes.json` and `GalleryRoutes.json
 
 ##### Top Level Routes
 
-The `Main` component consumes this configuration file and uses it to define the top level of the Route Tree.
+The `routes-top-level.json` file is consumed by the `Main`.
 
-> `TopLevelRoutes.json` This configuration file handles the top-level routes for the application. At minimum, you need an entry to for the Home, Galleries, and Not Found routes.
+> `routes-top-level.json` This configuration file handles the top-level routes for the application. At minimum, you need an entry to for the Home, Galleries, and Not Found routes.
 
 ```JSON
 
@@ -227,7 +210,6 @@ The `Main` component consumes this configuration file and uses it to define the 
         "sectionRoot":true,
         "component":"Home",
         "componentOptions":null,
-        "status":200,
         "redirect":{
             "behavior":false,
             "path":""
@@ -238,7 +220,6 @@ The `Main` component consumes this configuration file and uses it to define the 
         "sectionRoot":false,
         "component":"gallery",
         "componentOptions":null,
-        "status":200,
         "redirect":{
             "behavior":false,
             "path":""
@@ -252,7 +233,6 @@ The `Main` component consumes this configuration file and uses it to define the 
         "sectionRoot":false,
         "component":"NotFound",
         "componentOptions":null,
-        "status":404,
         "redirect":{
             "behavior":false,
             "path":null
@@ -262,13 +242,13 @@ The `Main` component consumes this configuration file and uses it to define the 
 
 ```
 
-[Route Config](#route-configs) : [Back to Top](#table-of-contents)
+[Navigation and Routing](#navigation-and-routing) : [Back to Top](#table-of-contents)
 
 ##### Gallery Routes
 
-The `Gallery` component pulls this configuration file to establish the routes for all the galleries in the application.
+The `routes-gallery.json` file is consumed by the `Gallery` component.
 
-> `GalleryRoutes.json`  This configuration handles the navigation for every gallery you put on the site. You will need to have four entries per gallery for complete coverage with the following paths:
+> `routes-gallery.json`  This configuration handles the navigation for every gallery you put on the site. You will need to have four entries per gallery for complete coverage with the following paths:
 
 - `"path":"gallery/"`: This entry will form the base for the gallery and is a redirecting entry to the first section.
 - `"path":"gallery/section/"`: This entry will load the image gallery for the given section.
@@ -285,7 +265,6 @@ It is highly recommended that you add a final entry to redirect any non-existing
         "sectionRoot":true,
         "component":"",
         "componentOptions": null,
-        "status":null,
         "redirect":{
             "behavior":true,
             "path":"/galleries/gallery/section"
@@ -301,7 +280,6 @@ It is highly recommended that you add a final entry to redirect any non-existing
             "routeToNotFoundPage": true,
             "fontAwesomeArrowIcons":"fas fa-arrow-circle"
         },
-        "status":null,
         "redirect":{
             "behavior":false,
             "path":""
@@ -317,7 +295,6 @@ It is highly recommended that you add a final entry to redirect any non-existing
             "routeToNotFoundPage": true,
             "fontAwesomeArrowIcons":"fas fa-arrow-circle"
         },
-        "status":200,
         "redirect":{
             "behavior":false,
             "path":""
@@ -328,7 +305,6 @@ It is highly recommended that you add a final entry to redirect any non-existing
         "sectionRoot":false,
         "component":"",
         "componentOptions": null,
-        "status":200,
         "redirect":{
             "behavior":true,
             "path":"/galleries/gallery/section"
@@ -342,7 +318,6 @@ It is highly recommended that you add a final entry to redirect any non-existing
         "sectionRoot":false,
         "component":"",
         "componentOptions":null,
-        "status":200,
         "redirect":{
             "behavior":true,
             "path":"/galleries/gallery/section"
@@ -352,11 +327,11 @@ It is highly recommended that you add a final entry to redirect any non-existing
 
 ```
 
-[Route Config](#route-configs) : [Gallery Routes](#gallery-routes) : [Back to Top](#table-of-contents)
+[Navigation and Routing](#navigation-and-routing) : [Back to Top](#table-of-contents)
 
 ###### Gallery Options for arrows
 
-When filling out the Gallery Route configuration use the following values for the `fontAwesomeArrowIcons` field to deviate from the default pointer (`fas fa-angle`) used in the gallery. Each Gallery route can have its own defined value for the `fontAwesomeArrowIcons`.
+When filling out the `routes-gallery.json` file use the following values for the `fontAwesomeArrowIcons` field to deviate from the default pointer (`fas fa-angle`) used in the gallery. Each Gallery route can have its own defined value.
 
 - `fas fa-angle`
 - `fas fa-angle-double`
@@ -373,76 +348,38 @@ When filling out the Gallery Route configuration use the following values for th
 - `fa-solid fa-circle`
 - `fa-solid fa-square-caret`
 
-[Route Config](#route-configs) : [Gallery Routes](#gallery-routes) : [Back to Top](#table-of-contents)
-
-### SEO Configuration
-
-In order to configure the site for SEO you will need a `SeoConfig.json` file for the static pages in the site. You will need an entry for each static page that will be served. 
-
-```JSON
-
-{
-    "site": "Handmade Hijinks",
-    "pageSettings": [
-        {
-            "page": "home",
-            "title": "{Title Goes Here}",
-            "description": "{Description Goes Here}",
-            "imageUrl": "{Image URL Goes Here}",
-            "imageAltText": "{Image AltText Goes Here}"
-        },
-        {
-            "page": "notFound",
-            "title": "{Title Goes Here}",
-            "description": "{Description Goes Here}",
-            "imageUrl": "{Image URL Goes Here}",
-            "imageAltText": "{Image AltText Goes Here}"
-        }
-    ]
-}
-
-```
-
-- `site`: (Required) This is used to set the Open Graph site name meta tag.
-- `pageSettings`: (Required) This is an array of complex objects that will configure the meta tags for static pages in the site.
-    - `page`: (Required) `string` This is the page that uses the rest of the values.
-    - `title`: (Required) `string` This is used to set the page's title and Open Graph title meta tags.  
-    - `description`: (Required) `string` This is used to set the page's description meta tag.
-    - `imageUrl`: (Required) `string` This is used to set the image, Open Graph image and secure image, and the Twitter image meta tags.
-    - `imageAltText`: (Required) `string` This is used to set the twitter alternate text meta tag. 
-
-[Back to Top](#table-of-contents)
+[Routing](#routing) : [Gallery Routes](#gallery-routes) : [Back to Top](#table-of-contents)
 
 ### Content Configuration
 
-With the [Navigation & Routing](#navigation-and-routing) configured, you need to focus on creating the config files that power the Site's content. Currently there are three types of required config files: [Gallery Configs](#gallery-configs), [Home Config](#home-config), and the [NotFound Config](#not-found-config).
+With the [Navigation & Routing](#navigation-and-routing) configured, you need to focus on creating the Data files that are used to render the site's content. Currently there are three types of required data files: [Gallery Data Files](#gallery-data-files), [Home](#home), and the [NotFound](#not-found).
 
-Each type of file will be hosted online and pulled into the application while running, which will allow for dynamically updating these pages.
+Various components will use the [`data-file-locations.json`](#data-file-locations) to dynamically pull each of these Data files and render the content.
 
 [Back to Top](#table-of-contents)
 
-#### Gallery Configs
+#### Gallery Data Files
 
-These files contain all the required information to generate a specific image gallery. You will a separate configuration file for every requested gallery.
+Each individual gallery will have its own Data file and the file name must begin with 'galley-' see below for an example.
 
 ```JSON
 
 {
-    "baseUrl": "URL Goes Here",
-    "folderName": "Folder Name Goes Here",
-    "pageHeader": "Header Title Goes Here",
+    "baseUrl": "{URL GOES HERE}",
+    "folderName": "{Folder Name GOES HERE}",
+    "pageHeader": "{Page Header GOES HERE}",
     "items": [
         {
-            "title": "Image TItle Goes Here",
-            "altText": "Image ALt Text Goes Here",
-            "fileName": "Image Filename Goes Here",
+            "title": "{Image TItle GOES HERE}",
+            "altText": "{Image ALt Text GOES HERE}",
+            "fileName": "{Image Filename GOES HERE}",
             "order": 1,
-            "externalLink": "External Email Goes Here",
+            "externalLink": "{External Email GOES HERE}",
             "landscape": false,
             "description": {
                 "paragraphs": [
                     {
-                        "text": "Blurb Goes Here",
+                        "text": "{Blurb GOES HERE}",
                         "order": 1,
                         "active": true
                     },
@@ -460,7 +397,7 @@ These files contain all the required information to generate a specific image ga
 
 ```
 
-Definition for `config-{galleryName}.json`:
+Definition for `gallery-{galleryName}.json`:
 
 - `baseUrl`: (Required) `string` This is the base URL for all the images in the configuration file.
 - `folderName`: (Required) `string` This is the sub-folder containing the images in the S3 bucket.
@@ -482,9 +419,9 @@ Definition for `config-{galleryName}.json`:
 
 [Content Configuration](#content-configuration) : [Back to Top](#table-of-contents)
 
-#### Home Config
+#### Home
 
-This page is written to use a collection of `Info`, `ImageSlider`, or `Image` components. Use the following configuration file to tweak the layout of the `Home` page as needed for a client's request. To render an `Image` component only include a single image in the `images` field of the JSON. 
+This page has been coded to render a collection of `Info`, `ImageSlider`, or `Image` components. Use the following Data file to tweak the layout of the `Home` page as needed for the client. To render an `Image` component only include a single image in the `images` field of the JSON. 
 
 ```JSON
 
@@ -503,8 +440,8 @@ This page is written to use a collection of `Info`, `ImageSlider`, or `Image` co
                             "order": 1,
                             "display": true,
                             "emphasis" : true,
-                            "text": "TEXT Goes Here",
-                            "alignment": "Alignment Goes Here"
+                            "text": "TEXT GOES HERE",
+                            "alignment": "Alignment GOES HERE"
                         },
                         .
                         .
@@ -515,14 +452,14 @@ This page is written to use a collection of `Info`, `ImageSlider`, or `Image` co
                     "active": true,
                     "order": 2,
                     "component": "image",
-                    "baseUrl": "URL Goes Here",
+                    "baseUrl": "URL GOES HERE",
                     "images": [
                         {
-                            "title": "Title Goes Here",
-                            "altText": "Alternate Text Goes Here",
-                            "fileName": "File Name Goes Here",
+                            "title": "Title GOES HERE",
+                            "altText": "Alternate Text GOES HERE",
+                            "fileName": "File Name GOES HERE",
                             "order": 1,
-                            "externalLink": "External Link Goes Here",
+                            "externalLink": "External Link GOES HERE",
                             "landscape": false
                         },
                         .
@@ -532,7 +469,7 @@ This page is written to use a collection of `Info`, `ImageSlider`, or `Image` co
                     "slider": {
                         "auto":true,
                         "timer":30000,
-            			"arrowIcons": "Font Awesome Arrow Info Goes Here"
+            			"arrowIcons": "Font Awesome Arrow Info GOES HERE"
                     }
                 }
             ]
@@ -542,7 +479,7 @@ This page is written to use a collection of `Info`, `ImageSlider`, or `Image` co
 
 ```
 
-Definition for `config-page-home.json`:
+Definition for `page-home.json`:
 
 - `layout`: (Required) This is the root node of the configuration file.
     - `columns`: (Required) A complex object that details how the columns will be rendered on the home page.
@@ -573,9 +510,9 @@ Definition for `config-page-home.json`:
 
 [Content Configuration](#content-configuration) : [Back to Top](#table-of-contents)
 
-#### Not Found Config
+#### Not Found
 
-Upon consumption the `config-page-notfound.json` file will be used to build out the custom Not Found page. Currently, if you include an image, it will be inserted after the first paragraph.
+This page will use the `page-notfound.json` Data file and will build out the custom Not Found page. Currently, if you include an image, it will be inserted after the first paragraph.
 
 ```JSON
 
@@ -585,24 +522,24 @@ Upon consumption the `config-page-notfound.json` file will be used to build out 
             "order": 1,
             "display": true,
             "emphasis" : true,
-            "text": "Text Goes Here",
-            "alignment": "Alignment Goes Here"
+            "text": "{Text GOES HERE}",
+            "alignment": "{Alignment GOES HERE}"
         }
         .
         .
         .
     ],
     "image" : {
-	    "title": "Insert Title Here",
-        "altText": "Insert Alternative Text Here",
-        "fileName": "Insert filename Here",
-        "url": "Insert URL Here"  
+	    "title": "{Image Title GOES HERE}",
+        "altText": "{Image Alternative Text GOES HERE}",
+        "fileName": "{Image Filename GOES HERE}",
+        "url": "{Image URL GOES HERE}"  
 	}
 }
 
 ```
 
-Definition for `config-page-home.json`:
+Definition for `page-notfound.json`:
 
 - `paragraphs`: (Required) An array of complex objects that specify what text should be rendered in the component.
     - `order`: (Required) `number` Determines the order of the paragraphs.
@@ -618,7 +555,7 @@ Definition for `config-page-home.json`:
     - `externalLink`: (Optional) `string` Used to make the image a link to another location on the internet.
     - `landscape`: (Optional) `boolean` Used to adjust the display of narrow images.
 
-[Back to Top](#table-of-contents)
+[Content Configuration](#content-configuration) : [Back to Top](#table-of-contents)
 
 ### Misc Content
 
@@ -697,21 +634,21 @@ Add the mobile Logo for the site (saved as a png) to the assets folder with the 
 
 #### Footer Config
 
-Create a `Footer.json` file with the following structure.
+Create a `footer.json` file with the following structure.
 
 ```JSON
 
 {
     "copyrightInfo": {
-        "name": "NAME Goes Here",
-        "url": "URL Goes Here",
-        "title": "Title Goes Here"
+        "name": "{Crafter Name GOES HERE}",
+        "url": "{URL GOES HERE}",
+        "title": "{Title GOES HERE}"
     },
     "siteDesignInfo": {
         "display":true,
-        "name":"Site Designer Goes Here",
-        "url": "URL Goes Here",
-        "title": "Title Goes Here"
+        "name":"{Site Designer GOES HERE}",
+        "url": "{URL GOES HERE}",
+        "title": "{Title GOES HERE}"
     }
 }
 
@@ -823,6 +760,44 @@ This section contains all the mixins for the site. Currently there is only one u
 
 ```
 [Misc Content](#misc-content) : [CSS Config](#css-config) : [Back to Top](#table-of-contents)
+
+### SEO Configuration
+
+In order to configure the site for SEO you will need a `seo-config.json` file for the static pages in the site. You will need an entry for each static page that will be served. 
+
+```JSON
+
+{
+    "site": "{Site name GOES Here}",
+    "pageSettings": [
+        {
+            "page": "home",
+            "title": "{Title GOES HERE}",
+            "description": "{Description GOES HERE}",
+            "imageUrl": "{Image URL GOES HERE}",
+            "imageAltText": "{Image AltText GOES HERE}"
+        },
+        {
+            "page": "notFound",
+            "title": "{Title GOES HERE}",
+            "description": "{Description GOES HERE}",
+            "imageUrl": "{Image URL GOES HERE}",
+            "imageAltText": "{Image AltText GOES HERE}"
+        }
+    ]
+}
+
+```
+
+- `site`: (Required) This is used to set the Open Graph site name meta tag.
+- `pageSettings`: (Required) This is an array of complex objects that will configure the meta tags for static pages in the site.
+    - `page`: (Required) `string` This is the page that uses the rest of the values.
+    - `title`: (Required) `string` This is used to set the page's title and Open Graph title meta tags.  
+    - `description`: (Required) `string` This is used to set the page's description meta tag.
+    - `imageUrl`: (Required) `string` This is used to set the image, Open Graph image and secure image, and the Twitter image meta tags.
+    - `imageAltText`: (Required) `string` This is used to set the twitter alternate text meta tag. 
+
+[Back to Top](#table-of-contents)
 
 ### Google Analytics
 
