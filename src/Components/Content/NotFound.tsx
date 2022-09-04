@@ -74,7 +74,7 @@ const NotFound = () => {
         fetchImage(
             { 
                 url: config.url,
-                cacheExpiration: config.cacheAge
+                cacheAge: config.cacheAge
             },
             transformData
         );

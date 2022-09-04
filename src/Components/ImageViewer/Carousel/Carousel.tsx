@@ -110,7 +110,7 @@ const Carousel: React.FC<CarouselProps> = (props) => {
         fetchImageReferences(
             {
                 url: galleryConfigurationUrl,
-                cacheExpiration: config.cacheAge
+                cacheAge: config.cacheAge
             },
             transformData
         );

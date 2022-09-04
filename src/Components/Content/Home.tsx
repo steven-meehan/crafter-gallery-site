@@ -144,7 +144,7 @@ const Home = () => {
         fetchParagraphs(
             { 
                 url: config.url,
-                cacheExpiration: config.cacheAge
+                cacheAge: config.cacheAge
             },
             transformData
         );

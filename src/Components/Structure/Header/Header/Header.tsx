@@ -77,7 +77,7 @@ const Header: React.FC<{
         fetchConfigs(
             {
                 url: config.url,
-                cacheExpiration: config.cacheAge
+                cacheAge: config.cacheAge
             },
             transformData
         );
