@@ -13,9 +13,7 @@ import data from '../../../ConfigurationFiles/data-file-locations.json';
 
 import classes from './Carousel.module.css';
 
-const configUrl = data
-    .map(item => new ConfigFile(item))
-    .find(item=>item.configuration==="gallery")!.url;
+const configUrl = data.find(item=>item.contentType==='gallery')!.url;
 
 const Carousel: React.FC<CarouselProps> = (props) => {
     const [ selectedImageName, setSelectedImageName ] = useState("");

@@ -8,14 +8,14 @@ import useHttp from '../../Hooks/useHttp';
 import HelmetSettings from '../Structure/Helmet/HelmetSettings';
 import HomeConfig from '../../Models/DataFiles/Home/Home';
 import ComponentType from '../../Models/DataFiles/Home/ComponentType';
-import ImageFile from '../../models/ImageFile';
+import ImageFile from '../../Models/ImageFile';
 
 import data from '../../ConfigurationFiles/data-file-locations.json';
 import seoData from '../../ConfigurationFiles/seo-config.json';
 
 import classes from './Home.module.css';
 
-const configUrl = data.find(item=>item.configuration==='home')!.url;
+const configUrl = data.find(item=>item.contentType==='home')!.url;
 const seoConfig = seoData.pageSettings.find(item=>item.page==='home')!;
 const seoSiteInfo = seoData.site;
 

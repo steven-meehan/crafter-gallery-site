@@ -11,7 +11,7 @@ import data from '../../../../ConfigurationFiles/data-file-locations.json';
 
 import classes from './Header.module.css';
 
-const configUrl = data.find(item=>item.contentType==='links')!.url;
+const configUrl = data.find(item=>item.contentType==='navigation')!.url;
 
 const Header: React.FC<{
     headerClasses?: string,

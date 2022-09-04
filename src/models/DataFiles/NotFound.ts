@@ -1,5 +1,5 @@
-import ImageFile from "../../ImageFile";
-import Paragraph from "../../Paragraph";
+import ImageFile from "../ImageFile";
+import Paragraph from "../Paragraph";
 
 class NotFound {
     paragraphs: Paragraph[] = [];
