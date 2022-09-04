@@ -3,19 +3,17 @@ import { useParams, useNavigate } from 'react-router-dom';
 
 import ImageSlider from '../ImageSlider/ImageSlider';
 import CarouselProps from './CarouselProps';
-
 import useHttp from '../../../Hooks/useHttp';
+import ConfigFile from '../../../Models/ConfigurationFiles/ConfigFile';
+import ImageFile from '../../../Models/ImageFile';
+import Description from '../../../Models/Description';
+import GalleryRequestConfig from '../../../Models/DataFiles/GalleryRequestConfig';
+
+import data from '../../../ConfigurationFiles/data-file-locations.json';
+
 import classes from './Carousel.module.css';
 
-import data from '../../../Configs/ConfigFileLocations.json';
-import ConfigFile from '../../../models/configs/ConfigFileLocation/ConfigFile';
-import ImageFile from '../../../models/ImageFile';
-import Description from '../../../models/Description';
-import GalleryRequestConfig from '../../../models/configs/GalleryRequestConfigs/GalleryRequestConfig';
-
-const configUrl = data
-    .map(item => new ConfigFile(item))
-    .find(item=>item.configuration==="gallery")!.url;
+const configUrl = data.find(item=>item.contentType==='gallery')!.url;
 
 const Carousel: React.FC<CarouselProps> = (props) => {
     const [ selectedImageName, setSelectedImageName ] = useState("");

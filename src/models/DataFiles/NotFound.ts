@@ -1,7 +1,7 @@
-import ImageFile from "../../ImageFile";
-import Paragraph from "../../Paragraph";
+import ImageFile from "../ImageFile";
+import Paragraph from "../Paragraph";
 
-class NotFoundConfig {
+class NotFound {
     paragraphs: Paragraph[] = [];
     image: ImageFile = new ImageFile();
 
@@ -19,4 +19,4 @@ class NotFoundConfig {
     }
 }
 
-export default NotFoundConfig;
+export default NotFound;

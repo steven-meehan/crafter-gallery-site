@@ -2,7 +2,7 @@ import React, { useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Image from '../Image/Image';
-import ImageFile from '../../../models/ImageFile';
+import ImageFile from '../../../Models/ImageFile';
 import ImageSliderProps from './ImageSliderProps'
 
 import classes from './ImageSlider.module.css';
@@ -22,7 +22,7 @@ const ImageSlider: React.FC<ImageSliderProps> = (props) => {
     
     const startWithImage = props.startWithImage ? true : false;
     const initialImage = `${props.initialImage ? props.initialImage : ''}`;
-    const startingImageindex = props.images.findIndex((image) => {
+    const startingImageIndex = props.images.findIndex((image) => {
         return image.fileName === initialImage;
     }) ;
 
@@ -41,10 +41,10 @@ const ImageSlider: React.FC<ImageSliderProps> = (props) => {
         }
 
         if(startWithImage){
-            if(startingImageindex < 0){
+            if(startingImageIndex < 0){
                 setCurrentImageIndex(0);
             } else {
-                setCurrentImageIndex(startingImageindex);
+                setCurrentImageIndex(startingImageIndex);
             }
         }
 
@@ -55,7 +55,7 @@ const ImageSlider: React.FC<ImageSliderProps> = (props) => {
         
             return () => clearInterval(interval);
         }
-    }, [startWithImage, startingImageindex, autoTransition, autoTransitionTimer, currentImageIndex, localImages]);
+    }, [startWithImage, startingImageIndex, autoTransition, autoTransitionTimer, currentImageIndex, localImages]);
 
     const prevSlideHandler = () =>{
         let newImageIndex = currentImageIndex === 0 ? imagesCount-1 : currentImageIndex - 1;
@@ -105,7 +105,7 @@ const ImageSlider: React.FC<ImageSliderProps> = (props) => {
         return (
             <div 
                 className={`${index === currentImageIndex ? 'slide active' : 'slide'}`}
-                key={`mainimage-${index}`} >
+                key={`main-image-${index}`} >
                 {index === currentImageIndex && (
                     <Image 
                         classes={classes.image}

@@ -1,4 +1,4 @@
-class Slider {
+class SliderInfo {
     auto: boolean = false;
     timer: number = 0;
     arrowIcons: string = "";
@@ -24,4 +24,4 @@ class Slider {
     }
 }
 
-export default Slider
+export default SliderInfo

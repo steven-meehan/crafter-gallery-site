@@ -1,11 +1,12 @@
 import { ReactNode } from "react";
-import NavigationConfig from "../../../../models/configs/NavigationConfigs/NavigationConfig";
+
+import LinkConfig from "../../../../Models/DataFiles/Navigation/LinkConfig";
 
 class NavbarProps {
     navbarClasses?: string = "";
     logoAltText: string = "My Crafts";
-    navlinks: NavigationConfig[] = [];
-    socialNavLinks: NavigationConfig[] = [];
+    navlinks: LinkConfig[] = [];
+    socialNavLinks: LinkConfig[] = [];
     children?: ReactNode;
 }
 

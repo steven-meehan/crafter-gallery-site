@@ -1,15 +1,15 @@
 import React, { ReactNode, Suspense } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-
-import classes from './Main.module.css';
 import Card from '../../UI/Card/Card';
 import Spinner from '../../UI/Spinner/Spinner';
 
-import ComponentType from '../../../models/configs/ComponentType';
-import ComponentOptions from '../../../models/configs/NavigationConfigs/ComponentOptions';
-import RedirectOptions from '../../../models/configs/NavigationConfigs/RedirectOptions';
+import ComponentType from '../../../Models/DataFiles/Home/ComponentType';
+import ComponentOptions from '../../../Models/DataFiles/Navigation/ComponentOptions';
+import RedirectOptions from '../../../Models/DataFiles/Navigation/RedirectOptions';
 
-import data from '../../../Configs/TopLevelRoutes.json';
+import data from '../../../ConfigurationFiles/routes-top-level.json';
+
+import classes from './Main.module.css';
 
 const Home = React.lazy(() => import('../../Content/Home'));
 const Gallery = React.lazy(() => import('../../Content/Gallery'));
@@ -20,7 +20,6 @@ const topLevelRoutes: {
     sectionRoot: boolean,
     component: string,
     componentOptions: ComponentOptions | null,
-    status: number,
     redirect: RedirectOptions | null }[] = data;
 
 const Main: React.FC<{

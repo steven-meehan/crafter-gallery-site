@@ -4,17 +4,17 @@ import parse from 'html-react-parser';
 import Image from '../ImageViewer/Image/Image';
 import Info from '../UI/Info/Info';
 import useHttp from '../../Hooks/useHttp';
+import NotFoundConfig from '../../Models/DataFiles/NotFound';
+import Paragraph from '../../Models/Paragraph';
+import ImageFile from '../../Models/ImageFile';
+import HelmetSettings from '../Structure/Helmet/HelmetSettings';
+
+import data from '../../ConfigurationFiles/data-file-locations.json';
+import seoData from '../../ConfigurationFiles/seo-config.json';
+
 import classes from './NotFound.module.css';
 
-import NotFoundConfig from '../../models/configs/NotFoundConfig/NotFoundConfig';
-import Paragraph from '../../models/Paragraph';
-import ImageFile from '../../models/ImageFile';
-import HelmetSettings from '../Structure/Helmet/helmetSettings';
-
-import data from '../../Configs/ConfigFileLocations.json';
-import seoData from '../../Configs/SeoConfig.json';
-
-const configUrl = data.find(item=>item.configuration==='notFound')!.url;
+const configUrl = data.find(item=>item.contentType==='notFound')!.url;
 const seoConfig = seoData.pageSettings.find(item=>item.page==='notFound')!;
 const seoSiteInfo = seoData.site;
 

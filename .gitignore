@@ -22,17 +22,14 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Individual Site Route Configurations
-/src/Configs/*.json
-/src/Configs/*.scss
-
 # Client Specific Files
 /src/assets
-/src/index.scss
+/src/*.scss
+/src/ConfigurationFiles/*.json
 /public/index.html
 /public/manifest.json
 /public/favicon.png
-/public/configs/**/*.json
+/public/data-files/**/*.json
 /public/images/**/*.jpg
 /public/images/**/*.png
 /public/sitemap.xml

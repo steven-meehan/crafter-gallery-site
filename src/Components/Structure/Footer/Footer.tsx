@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 
 import classes from './Footer.module.css';
 
-import data from '../../../Configs/Footer.json';
+import data from '../../../ConfigurationFiles/Footer.json';
 
 const copyrightInfo = data.copyrightInfo;
 const siteDesignInfo = data.siteDesignInfo;

@@ -1,4 +1,4 @@
-import ImageFile from "../../ImageFile";
+import ImageFile from '../ImageFile';
 
 class GalleryRequestConfig {
     baseUrl: string = "";

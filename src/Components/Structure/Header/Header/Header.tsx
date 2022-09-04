@@ -4,13 +4,14 @@ import Card from '../../../UI/Card/Card';
 import Navbar from '../Navbar/Navbar';
 
 import useHttp from '../../../../Hooks/useHttp';
+import LinkConfig from '../../../../Models/DataFiles/Navigation/LinkConfig';
+import NavigationConfigFile from '../../../../Models/DataFiles/Navigation/NavigationConfigFile';
+
+import data from '../../../../ConfigurationFiles/data-file-locations.json';
+
 import classes from './Header.module.css';
 
-import data from '../../../../Configs/ConfigFileLocations.json';
-import NavigationConfigFile from '../../../../models/configs/NavigationConfigs/NavigationConfigFile';
-import NavigationConfig from '../../../../models/configs/NavigationConfigs/NavigationConfig';
-
-const configUrl = data.find(item=>item.configuration==='navigation')!.url;
+const configUrl = data.find(item=>item.contentType==='navigation')!.url;
 
 const Header: React.FC<{
     headerClasses?: string,
@@ -18,44 +19,44 @@ const Header: React.FC<{
 }> = (props) => {
     const headerClasses = `${props.headerClasses ? props.headerClasses : ''} ${classes.header}`;
 
-    const [navigationLinks, setNavigationLinks] = useState<NavigationConfig[]>([]);
-    const [socialLinks, setSocialLinks] = useState<NavigationConfig[]>([]);
+    const [navigationLinks, setNavigationLinks] = useState<LinkConfig[]>([]);
+    const [socialLinks, setSocialLinks] = useState<LinkConfig[]>([]);
     const [logoAltText, setLogoAltText] = useState("");
 
     const { sendRequest: fetchConfigs } = useHttp();
 
     useEffect(() => {
         const transformData = (data: NavigationConfigFile) =>{
-            const loadedNavigationLinks: NavigationConfig[] = [];
-            const loadedSocialLinks: NavigationConfig[] = [];
+            const loadedNavigationLinks: LinkConfig[] = [];
+            const loadedSocialLinks: LinkConfig[] = [];
 
-            for (const item in data.navigation) {
-                if(data.navigation[item].social && data.navigation[item].active){
+            for (const item in data.links) {
+                if(data.links[item].social && data.links[item].active){
                     loadedSocialLinks.push({ 
-                        url: data.navigation[item].url,
-                        id: data.navigation[item].url,
-                        name: data.navigation[item].name,
-                        title: data.navigation[item].title,
-                        active: data.navigation[item].active,
-                        order: data.navigation[item].order,
-                        social: data.navigation[item].social,
-                        icon: data.navigation[item].icon,
-                        internalLink: data.navigation[item].internalLink,
-                        childLinks: data.navigation[item].childLinks
+                        url: data.links[item].url,
+                        id: data.links[item].url,
+                        name: data.links[item].name,
+                        title: data.links[item].title,
+                        active: data.links[item].active,
+                        order: data.links[item].order,
+                        social: data.links[item].social,
+                        icon: data.links[item].icon,
+                        internalLink: data.links[item].internalLink,
+                        childLinks: data.links[item].childLinks
                     });
                 } else {
-                    if(data.navigation[item].active){
+                    if(data.links[item].active){
                         loadedNavigationLinks.push({ 
-                            url: data.navigation[item].url,
-                            id: data.navigation[item].url.substring(1),
-                            name: data.navigation[item].name,
-                            title: data.navigation[item].title,
-                            active: data.navigation[item].active,
-                            order: data.navigation[item].order,
-                            social: data.navigation[item].social,
-                            icon: data.navigation[item].icon,
-                            internalLink: data.navigation[item].internalLink,
-                            childLinks: data.navigation[item].childLinks
+                            url: data.links[item].url,
+                            id: data.links[item].url.substring(1),
+                            name: data.links[item].name,
+                            title: data.links[item].title,
+                            active: data.links[item].active,
+                            order: data.links[item].order,
+                            social: data.links[item].social,
+                            icon: data.links[item].icon,
+                            internalLink: data.links[item].internalLink,
+                            childLinks: data.links[item].childLinks
                         });
                     }
                 }

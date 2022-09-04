@@ -1,7 +1,8 @@
 import React from 'react';
 
-import classes from './Spinner.module.css';
 import SpinnerProps from './SpinnerProps';
+
+import classes from './Spinner.module.css';
 
 const Spinner: React.FC<SpinnerProps> = (props) => {
     return (

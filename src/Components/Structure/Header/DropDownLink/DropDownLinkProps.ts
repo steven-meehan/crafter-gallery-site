@@ -1,9 +1,10 @@
 import { ReactNode } from "react";
-import NavigationConfig from "../../../../models/configs/NavigationConfigs/NavigationConfig";
+
+import LinkConfig from "../../../../Models/DataFiles/Navigation/LinkConfig";
 
 class DropDownLinkProps {
     dropDownLinkClasses?: string = "";
-    childLinks: NavigationConfig[] = [];
+    childLinks: LinkConfig[] = [];
     bindingKey: string = ""
     children?: ReactNode;
 }
