@@ -1,4 +1,9 @@
 @import "../../../Variables.scss";
 
 .navbarToggler {
+    font-weight: bolder;
+    box-shadow: 0 1px 8px $highlightColorDimmed;
+}
+.navbarToggler:hover {
+    border: 2px $highlightColor solid;
 }
