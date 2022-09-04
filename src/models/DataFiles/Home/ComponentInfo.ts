@@ -1,7 +1,7 @@
 import ComponentType from "../ComponentType";
 import ImageFile from "../../ImageFile";
 import Paragraph from "../../Paragraph";
-import Slider from "./Slider";
+import Slider from "./SliderInfo";
 
 class ComponentInfo {
     active: boolean = false;

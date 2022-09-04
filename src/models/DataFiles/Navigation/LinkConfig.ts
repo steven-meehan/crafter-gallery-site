@@ -1,4 +1,4 @@
-class NavigationConfig {
+class LinkConfig {
     url: string = "";
     id: string = "";
     order: number = 0;
@@ -8,7 +8,7 @@ class NavigationConfig {
     internalLink: boolean = false;
     social: boolean = false;
     icon: string = "";
-    childLinks: NavigationConfig[] = [];
+    childLinks: LinkConfig[] = [];
 
     constructor(navigationConfig?: {
         url: string,
@@ -20,7 +20,7 @@ class NavigationConfig {
         internalLink: boolean,
         social: boolean,
         icon: string,
-        childLinks: NavigationConfig[]
+        childLinks: LinkConfig[]
     }){
         if(navigationConfig){
             this.url = navigationConfig.url ? navigationConfig.url : "";
@@ -32,7 +32,7 @@ class NavigationConfig {
             this.internalLink = navigationConfig.internalLink ? navigationConfig.internalLink : false;
             this.social = navigationConfig.social ? navigationConfig.social : false;
             this.icon = navigationConfig.icon ? navigationConfig.icon : "";
-            this.childLinks = navigationConfig.childLinks ? navigationConfig.childLinks.map(item => new NavigationConfig(item)) : [];
+            this.childLinks = navigationConfig.childLinks ? navigationConfig.childLinks.map(item => new LinkConfig(item)) : [];
         } else {
             this.url = "";
             this.id = "";
@@ -48,4 +48,4 @@ class NavigationConfig {
     }
 }
 
-export default NavigationConfig;
+export default LinkConfig;
