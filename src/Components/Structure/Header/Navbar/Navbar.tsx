@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom';
 import NavigationLink from '../NavigationLink/NavigationLink';
 import Toggler from '../../../UI/Toggler/Toggler';
 import Card from '../../../UI/Card/Card';
-
-import classes from './Navbar.module.css';
 import logo from '../../../../assets/Logo.png';
 import logoAlt from '../../../../assets/LogoAlt.png';
 import NavbarProps from './NavbarProps';
+
+import classes from './Navbar.module.css';
 
 const Navbar: React.FC<NavbarProps> = (props) => {
     const navbarClasses = `${props.navbarClasses ? props.navbarClasses : ''}`;

@@ -1,7 +1,8 @@
 import React from 'react';
 
-import classes from './Card.module.css';
 import CardProps from './CardProps';
+
+import classes from './Card.module.css';
 
 const Card: React.FC<CardProps> = (props) => {
     const cardRounded = `${props.cardRounded ? classes.cardRounded : 

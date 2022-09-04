@@ -1,4 +1,4 @@
-import HelmetConfiguration from "../../../models/configs/HelmetConfiguration";
+import HelmetConfiguration from "../../../Models/ConfigurationFiles/HelmetConfiguration";
 
 class HelmetSettingsProps {
     seoSiteUrl: string = "";

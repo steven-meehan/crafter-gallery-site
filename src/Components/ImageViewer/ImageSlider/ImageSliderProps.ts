@@ -1,4 +1,4 @@
-import ImageFile from "../../../models/ImageFile";
+import ImageFile from "../../../Models/ImageFile";
 
 class ImageSliderProps {
     classes?: string = "";

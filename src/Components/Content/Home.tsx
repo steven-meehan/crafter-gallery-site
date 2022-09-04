@@ -5,15 +5,15 @@ import Info from '../UI/Info/Info';
 import ImageSlider from '../ImageViewer/ImageSlider/ImageSlider';
 import Image from '../ImageViewer/Image/Image';
 import useHttp from '../../Hooks/useHttp';
-import HelmetSettings from '../Structure/Helmet/helmetSettings';
-import classes from './Home.module.css';
-
-import HomeConfig from '../../models/configs/HomeConfig/HomeConfig';
-import ComponentType from '../../models/configs/ComponentType';
+import HelmetSettings from '../Structure/Helmet/HelmetSettings';
+import HomeConfig from '../../Models/DataFiles/Home/Home';
+import ComponentType from '../../Models/DataFiles/Home/ComponentType';
 import ImageFile from '../../models/ImageFile';
 
-import data from '../../Configs/ConfigFileLocations.json';
-import seoData from '../../Configs/SeoConfig.json';
+import data from '../../ConfigurationFiles/data-file-locations.json';
+import seoData from '../../ConfigurationFiles/seo-config.json';
+
+import classes from './Home.module.css';
 
 const configUrl = data.find(item=>item.configuration==='home')!.url;
 const seoConfig = seoData.pageSettings.find(item=>item.page==='home')!;

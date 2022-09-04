@@ -1,9 +1,10 @@
 import React from 'react';
-import Card from '../../../UI/Card/Card';
 
-import classes from './DropDownLink.module.css';
+import Card from '../../../UI/Card/Card';
 import DropDownLinkProps from './DropDownLinkProps';
 import NavigationLink from '../NavigationLink/NavigationLink';
+
+import classes from './DropDownLink.module.css';
 
 const DropDownLink: React.FC<DropDownLinkProps> = (props) => {
     const dropDownLinkClasses = `${props.dropDownLinkClasses ? props.dropDownLinkClasses : ''} `;

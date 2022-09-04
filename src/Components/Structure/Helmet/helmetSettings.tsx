@@ -1,4 +1,5 @@
 import { Helmet } from "react-helmet";
+
 import HelmetSettingsProps from "./helmetSettingsProps";
 
 const HelmetSettings: React.FC<HelmetSettingsProps> = (props) => {

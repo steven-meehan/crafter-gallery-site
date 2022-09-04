@@ -1,9 +1,10 @@
 import { ReactNode } from "react";
-import NavigationConfig from "../../../../models/configs/NavigationConfigs/NavigationConfig";
+
+import LinkConfig from "../../../../Models/DataFiles/Navigation/LinkConfig";
 
 class NavigationLinkProps {
     navLinkClasses?: string = "";
-    item: NavigationConfig = new NavigationConfig();
+    item: LinkConfig = new LinkConfig();
     id: number = 0;
     children?: ReactNode;
 }

@@ -1,16 +1,16 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import parse from 'html-react-parser';
-
-import classes from './Image.module.css';
+import { Helmet } from 'react-helmet';
 
 import ImageProps from './ImageProps';
-import { Helmet } from 'react-helmet';
-import HelmetSettings from '../../Structure/Helmet/helmetSettings';
-import HelmetConfiguration from '../../../models/configs/HelmetConfiguration';
+import HelmetSettings from '../../Structure/Helmet/HelmetSettings';
+import HelmetConfiguration from '../../../Models/ConfigurationFiles/HelmetConfiguration';
 
-import seoData from '../../../Configs/SeoConfig.json';
+import seoData from '../../../ConfigurationFiles/seo-config.json';
 const seoSiteInfo = seoData.site;
+
+import classes from './Image.module.css';
 
 const Image: React.FC<ImageProps>  = (props) => {
     const imageCssClasses = `${props.classes ? props.classes : ''}`;

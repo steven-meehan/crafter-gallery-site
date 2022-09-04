@@ -2,16 +2,16 @@ import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
 import Carousel from '../ImageViewer/Carousel/Carousel';
-import ComponentOptions from '../../models/configs/NavigationConfigs/ComponentOptions';
-import RedirectOptions from '../../models/configs/NavigationConfigs/RedirectOptions';
-import data from '../../Configs/GalleryRoutes.json';
+import ComponentOptions from '../../Models/DataFiles/Navigation/ComponentOptions';
+import RedirectOptions from '../../Models/DataFiles/Navigation//RedirectOptions';
+
+import data from '../../ConfigurationFiles/routes-gallery.json';
 
 const galleryRoutes: {
     path: string,
     sectionRoot: boolean,
     component: string,
     componentOptions: ComponentOptions | null,
-    status: number,
     redirect: RedirectOptions | null }[] = data;
 
 const Gallery = () => {

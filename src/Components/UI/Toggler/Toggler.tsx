@@ -1,7 +1,8 @@
 import React from 'react';
 
-import classes from './Toggler.module.css';
 import TogglerProps from './TogglerProps';
+
+import classes from './Toggler.module.css';
 
 const Toggler: React.FC<TogglerProps> = (props) => {
     const navbarTogglerClasses = `${props.togglerClasses ? props.togglerClasses : ''} ${classes.navbarToggler} navbar-toggler`;
