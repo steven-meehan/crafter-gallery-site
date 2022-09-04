@@ -15,7 +15,7 @@ import seoData from '../../ConfigurationFiles/seo-config.json';
 
 import classes from './Home.module.css';
 
-const configUrl = data.find(item=>item.contentType==='home')!.url;
+const config = data.find(item=>item.contentType==='home')!;
 const seoConfig = seoData.pageSettings.find(item=>item.page==='home')!;
 const seoSiteInfo = seoData.site;
 
@@ -142,7 +142,10 @@ const Home = () => {
         }
 
         fetchParagraphs(
-            { url: configUrl },
+            { 
+                url: config.url,
+                cacheExpiration: config.cacheAge
+            },
             transformData
         );
     }, [fetchParagraphs]);

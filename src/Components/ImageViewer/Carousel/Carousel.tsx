@@ -13,7 +13,7 @@ import data from '../../../ConfigurationFiles/data-file-locations.json';
 
 import classes from './Carousel.module.css';
 
-const configUrl = data.find(item=>item.contentType==='gallery')!.url;
+const config = data.find(item=>item.contentType==='gallery')!;
 
 const Carousel: React.FC<CarouselProps> = (props) => {
     const [ selectedImageName, setSelectedImageName ] = useState("");
@@ -24,7 +24,7 @@ const Carousel: React.FC<CarouselProps> = (props) => {
     const params = useParams();
     const navigate = useNavigate();
 
-    const galleryConfigurationUrl = `${configUrl}${props.configSettingFile}`;
+    const galleryConfigurationUrl = `${config.url}${props.configSettingFile}`;
     const defaultPage = props.defaultPage;
     const routeToNotFoundPage = props.routeToNotFoundPage;
     const fontAwesomeArrowIcons = props.fontAwesomeArrowIcons;
@@ -110,9 +110,7 @@ const Carousel: React.FC<CarouselProps> = (props) => {
         fetchImageReferences(
             {
                 url: galleryConfigurationUrl,
-                method: 'GET',
-                headers: {},
-                body: null
+                cacheExpiration: config.cacheAge
             },
             transformData
         );
