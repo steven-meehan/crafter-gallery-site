@@ -2,7 +2,9 @@
 
 A simple gallery site designed to be a public portfolio for crafters. This is a [React](https://reactjs.org/) application bootstrapped with [Create React App](https://create-react-app.dev/). Instead of reaching out to a database, or back-end service, this application uses configuration files pulled from the web server to render everything from the navigation to the galleries and their contents.
 
-While the code was initially created to run out of an Amazon S3 bucket, you do not have to utilize that technology stack, though for the purpose of this documentation I will assume you are using an S3 bucket and CloudFront to run your crafter's site.
+While the code was initially created to run out of an Amazon S3 bucket, you do not have to utilize that technology stack, though for the purpose of this documentation I will assume you are using a combination of an S3 bucket and CloudFront to run your crafter's site.
+
+The system's `uesHttp` hook has been designed to cache the results for the web requests to retrieve the data files needed, see [Data File Locations](#data-file-locations) for full details.
 
 ## Table of Contents
 
@@ -69,7 +71,8 @@ In an effort to keep the repository from being tied to a specific implementation
 [
     {
         "contentType":"{Config Type GOES HERE}",
-        "url":"{URL GOES HERE}"
+        "url":"{URL GOES HERE}",
+        "cacheAge": 900000
     },
     .
     .
@@ -84,6 +87,7 @@ In an effort to keep the repository from being tied to a specific implementation
     - `home`: : Details where the Home Page config file is located.
     - `notFound`: : Details where the Not Found Page config file is located.
 - `url`: (Required) `string` This is URL where the data file is stored.
+- `cacheAge`: (Required) `number` This is used to specify how long the application should cache the results for the request is milliseconds. A good default value is about 15 minutes or 900000 milliseconds. 
 
 [Back to Top](#table-of-contents)
 

@@ -11,7 +11,7 @@ import data from '../../../../ConfigurationFiles/data-file-locations.json';
 
 import classes from './Header.module.css';
 
-const configUrl = data.find(item=>item.contentType==='navigation')!.url;
+const config = data.find(item=>item.contentType==='navigation')!;
 
 const Header: React.FC<{
     headerClasses?: string,
@@ -76,10 +76,8 @@ const Header: React.FC<{
 
         fetchConfigs(
             {
-                url: configUrl,
-                method: '',
-                headers: {},
-                body: undefined
+                url: config.url,
+                cacheExpiration: config.cacheAge
             },
             transformData
         );

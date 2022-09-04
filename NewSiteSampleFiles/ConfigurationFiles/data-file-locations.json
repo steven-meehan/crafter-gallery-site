@@ -1,18 +1,22 @@
 [
     {
         "configuration":"navigation",
-        "url":""
+        "url":"",
+        "cacheAge": 900000
     },
     {
         "configuration":"gallery",
-        "url":""
+        "url":"",
+        "cacheAge": 900000
     },
     {
         "configuration":"home",
-        "url":""
+        "url":"",
+        "cacheAge": 900000
     },
     {
         "configuration":"notFound",
-        "url":""
+        "url":"",
+        "cacheAge": 900000
     }
 ]

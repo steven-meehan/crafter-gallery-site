@@ -14,7 +14,7 @@ import seoData from '../../ConfigurationFiles/seo-config.json';
 
 import classes from './NotFound.module.css';
 
-const configUrl = data.find(item=>item.contentType==='notFound')!.url;
+const config = data.find(item=>item.contentType==='notFound')!;
 const seoConfig = seoData.pageSettings.find(item=>item.page==='notFound')!;
 const seoSiteInfo = seoData.site;
 
@@ -72,7 +72,10 @@ const NotFound = () => {
         }
 
         fetchImage(
-            { url: configUrl },
+            { 
+                url: config.url,
+                cacheExpiration: config.cacheAge
+            },
             transformData
         );
     }, [fetchImage]);
