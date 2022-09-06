@@ -1,48 +1,49 @@
 {
-    "pageHeader": "Explore a sample of my work",
+    "name": "home",
+    "header": "",
     "layout": {
         "columns": {
-            "number": 1,
-            "components": [
+            "numberOfColumns": 1
+        }
+    },
+    "components": [
+        {
+            "active": true,
+            "order": 1,
+            "columnPosition": "left",
+            "componentType": "info",
+            "paragraphs": [
                 {
-                    "active": true,
                     "order": 1,
-                    "component": "info",
-                    "baseUrl": "{URL GOES HERE}",
-                    "paragraphs": [
-                        {
-                            "order": 1,
-                            "display": true,
-                            "emphasis": true,
-                            "text": "{TEXT GOES HERE}",
-			                "alignment": "center"
-                        }
-                    ]
-                },
-                {
-                    "active": true,
-                    "order": 2,
-                    "component": "image",
-                    "baseUrl": "{URL GOES HERE}",
-                    "images": [
-                        {
-                            "title": "Title Goes Here",
-                            "altText": "Alternate Text Goes Here",
-                            "fileName": "Filename Goes Here",
-                            "order": 1,
-                            "externalLink": "",
-                            "landscape": false,
-                            "description": null
-                        }
-                    ],
-                    "slider": {
-                        "auto":true,
-                        "timer":30000,
-			            "arrowIcons": "fas fa-chevron-circle",
-                        "size": "70%"
-                    }
+                    "display": true,
+                    "emphasis": false,
+                    "text": "",
+                    "alignment": "center"
                 }
             ]
+	},
+        {
+            "active": true,
+            "order": 2,
+            "columnPosition": "image",
+            "componentType": "image",
+            "imageFiles": [
+                {
+                    "htmlTitle": "",
+                    "htmlAltText": "",
+                    "fileName": "",
+                    "externalUrl": "",
+                    "landscape": false,
+                    "imageUrl": "",
+                    "description": null
+                }
+            ],
+            "imageSlider": {
+                "auto":true,
+                "timer":30000,
+                "arrowIcons": "fas fa-chevron-circle",
+                "size": "70%"
+            }
         }
-    }
+    ]
 }

@@ -4,10 +4,9 @@ import { useParams, useNavigate } from 'react-router-dom';
 import ImageSlider from '../ImageSlider/ImageSlider';
 import CarouselProps from './CarouselProps';
 import useHttp from '../../../Hooks/useHttp';
-import ConfigFile from '../../../Models/ConfigurationFiles/ConfigFile';
 import ImageFile from '../../../Models/ImageFile';
-import Description from '../../../Models/Description';
 import GalleryRequestConfig from '../../../Models/DataFiles/GalleryRequestConfig';
+import Paragraph from '../../../Models/Paragraph';
 
 import data from '../../../ConfigurationFiles/data-file-locations.json';
 
@@ -35,49 +34,37 @@ const Carousel: React.FC<CarouselProps> = (props) => {
         const transformData = (data: GalleryRequestConfig) => {
             const processingGalleryImages = (
                 item: {
-                    title: string,
-                    altText: string,
+                    htmlTitle: string,
+                    htmlAltText: string,
                     fileName: string,
-                    order: number,
-                    externalLink: string,
+                    externalUrl: string,
                     landscape: boolean,
-                    description: Description
+                    imageUrl?: string,
+                    description?: Paragraph[],
+                    fullDescription?: string
                 }, 
                 baseUrl: string): ImageFile => {
 
-                let fullDescription = "";
-
-                item.description.paragraphs.forEach(item => {
-                    if(fullDescription.length < 160){
-                        const strippedString = item.text.replace(/(<([^>]+)>)/gi, "");
-
-                        if(strippedString.length <= 160){
-                            fullDescription = fullDescription + strippedString + " ";
-                        } else {
-                            fullDescription = fullDescription + strippedString.substring(0,(160-fullDescription.length))
-                        }
-                    }
-                });
-
                 return {
-                    title: item.title,
-                    altText: item.altText,
+                    htmlTitle: item.htmlTitle,
+                    htmlAltText: item.htmlAltText,
+                    imageUrl: `${baseUrl}${item.fileName}`,
                     fileName: item.fileName,
-                    order: item.order,
-                    description: item.description,
-                    fullDescription: fullDescription,
-                    url: `${baseUrl}${item.fileName}`,
-                    externalLink: `${item.externalLink && item.externalLink.trim() !== '' ? item.externalLink : ''}`,
-                    landscape: item.landscape
+                    externalUrl: `${item.externalUrl && item.externalUrl.trim() !== '' ? item.externalUrl : ''}`,
+                    landscape: item.landscape,
+                    description: item.description ? item.description : [],
+                    fullDescription: item.fullDescription ? 
+                        item.fullDescription.replace(/(<([^>]+)>)/gi, "").substring(0,160) : 
+                        `Check out my ${item.htmlTitle}`
                 }
             }
 
             const baseUrl = data.baseUrl;
-            
             const galleryImages: ImageFile[] = [];
             
             for (const item in data.items) {
-                galleryImages.push(processingGalleryImages(data.items[item], baseUrl)); 
+                const image = data.items[item];
+                galleryImages.push(processingGalleryImages(image, baseUrl)); 
             }
 
             const notFound = galleryImages.filter((item) => {
@@ -91,20 +78,9 @@ const Carousel: React.FC<CarouselProps> = (props) => {
                     navigate(defaultPage);
                 }
             }
-
-            const initialImage = galleryImages.filter((item) => {
-                return item.order === 1;
-            });
-
-            if(initialImage.length === 1){
-                setSelectedImageName(initialImage[0].fileName);
-            }            
-
-            const sortedGalleryImages = galleryImages.sort((a, b) => {
-                return a.order - b.order;
-            });
-
-            setGalleryImages(sortedGalleryImages);
+            
+            setSelectedImageName(galleryImages[0].fileName);
+            setGalleryImages(galleryImages);
         }
     
         fetchImageReferences(

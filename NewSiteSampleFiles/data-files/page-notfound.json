@@ -1,18 +1,49 @@
 {
-    "paragraphs" : [
-        {
-			"order": 1,
-			"display": true,
-			"emphasis" : true,
-			"text": "The page or content you're searching for couldn't be found...",
-			"alignment": "center"
+    "name": "notFound",
+    "header": "Content Not Found",
+    "layout": {
+        "columns": {
+            "numberOfColumns": 1
         }
-    ],
-    "image" : {
-		"title": "Title Goes Here",
-		"altText": "Alternate Text Goes Here",
-		"fileName": "Filename Goes Here",
-        "description": null,
-        "url": "URL Goes Here"  
-	}
+    },
+    "components": [
+        {
+            "active": true,
+            "order": 1,
+            "columnPosition": "left",
+            "componentType": "info",
+            "paragraphs": [
+                {
+                    "order": 1,
+                    "display": true,
+                    "emphasis": false,
+                    "text": "There was a problem finding the page or content you're searching for...",
+                    "alignment": "center"
+                }
+            ]
+	},
+        {
+            "active": true,
+            "order": 2,
+            "columnPosition": "image",
+            "componentType": "image",
+            "imageFiles": [
+                {
+                    "htmlTitle": "Not Found",
+                    "htmlAltText": "Page Not Found",
+                    "fileName": "",
+                    "externalUrl": "",
+                    "landscape": false,
+                    "imageUrl": "",
+                    "description": null
+                }
+            ],
+            "imageSlider": {
+                "auto":true,
+                "timer":30000,
+                "arrowIcons": "fas fa-chevron-circle",
+                "size": "70%"
+            }
+        }
+    ]
 }

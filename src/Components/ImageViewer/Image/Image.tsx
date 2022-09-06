@@ -37,15 +37,15 @@ const Image: React.FC<ImageProps>  = (props) => {
 
     const htmlImage = (
         <img
-            src={image.url}
-            alt={image.altText}
+            src={image.imageUrl}
+            alt={image.htmlAltText}
             loading="eager"
             title={linkTitle ? 
                 linkTitle : 
-                image.externalLink && image.externalLink.includes('www.etsy.com') ? 
-                    'Purchase ' + image.title + ' from my shop.' : image.externalLink && image.externalLink.includes('forms.gle') ?
+                image.externalUrl && image.externalUrl.includes('www.etsy.com') ? 
+                    'Purchase ' + image.htmlTitle + ' from my shop.' : image.externalUrl && image.externalUrl.includes('forms.gle') ?
                     'Request a custom order' :
-                    'Click for a better look at ' + image.title }
+                    'Click for a better look at ' + image.htmlTitle }
             className={`${imageCssClasses} ${image.landscape ? classes.landscapeImage : classes.portraitImage}`} 
             style={imageWidth ? { width:imageWidth } : {}} />
     )
@@ -54,17 +54,15 @@ const Image: React.FC<ImageProps>  = (props) => {
         <h1
             className={`${titleblurbCssClasses} row justify-content-center`} >
             <div className={`col ${classes.titleSection}`}>
-                {title}<b><i>{image.title}</i></b>
+                {title}<b><i>{image.htmlTitle}</i></b>
             </div>
         </h1>
     )
 
     const blurb = image.description && 
-        image.description.paragraphs && 
-        image.description.paragraphs.filter((item) => {
+        image.description && 
+        image.description.filter((item) => {
         return item.display;
-    }).sort((a, b) => {
-        return a.order - b.order;
     }).map((item, index) => {
         return (
             <p
@@ -100,10 +98,10 @@ const Image: React.FC<ImageProps>  = (props) => {
 
     const helmetConfiguration: HelmetConfiguration = {
         page: window.location.href,
-        title: image.title,
-        description: image.fullDescription,
-        imageUrl: image.url,
-        imageAltText: image.altText,
+        title: image.htmlTitle,
+        description: image.fullDescription ? image.fullDescription : "",
+        imageUrl: image.imageUrl!,
+        imageAltText: image.htmlAltText,
         errorPage: false
     }
 

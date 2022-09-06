@@ -1,46 +1,41 @@
-import Description from "./Description";
+import Paragraph from "./Paragraph";
 
 class ImageFile {
-    title: string = "";
-    altText: string = "";
+    htmlTitle: string = "";
+    htmlAltText: string = "";
     fileName: string = "";
-    order: number = 0;
-    url: string = "";
-    externalLink: string = "";
+    externalUrl: string = "";
     landscape: boolean = false;
-    description: Description = new Description();
-    fullDescription: string = "";
-
+    imageUrl?: string = "";
+    description?: Paragraph[];
+    fullDescription?: string = "";
+    
     constructor(imageFile?: {
-        title: string,
-        altText: string,
+        htmlTitle: string,
+        htmlAltText: string,
         fileName: string,
-        order: number,
-        url: string;
-        externalLink: string,
+        externalUrl: string,
         landscape: boolean,
-        description: Description,
-        fullDescription: string
+        imageUrl?: string,
+        description?: Paragraph[]
     }){
         if(imageFile){
-            this.title = imageFile.title ? imageFile.title : "";
-            this.altText = imageFile.altText ? imageFile.altText : "";
-            this.fileName = imageFile.fileName ? imageFile.fileName : "";
-            this.order = imageFile.order ? imageFile.order : 0;
-            this.url = imageFile.url ? imageFile.url : "";
-            this.externalLink = imageFile.externalLink ? imageFile.externalLink : "";
+            this.htmlTitle = imageFile.htmlTitle ? imageFile.htmlTitle : "";
+            this.htmlAltText = imageFile.htmlAltText ? imageFile.htmlAltText : "";
+            this.imageUrl = imageFile.imageUrl ? imageFile.imageUrl : "";
+            this.externalUrl = imageFile.externalUrl ? imageFile.externalUrl : "";
             this.landscape = imageFile.landscape ? imageFile.landscape : false;
-            this.description = imageFile.description ? imageFile.description : new Description();
-            this.fullDescription = imageFile.fullDescription ? imageFile.fullDescription : "";
+            this.fileName = imageFile.fileName ? imageFile.fileName : "";
+            this.description = imageFile.description ? imageFile.description.map(item => new Paragraph(item)) : [];
+            this.fullDescription = imageFile.description ? imageFile.description.map(item => `${item.text} `).join('') : "";
         } else {
-            this.title = "";
-            this.altText = "";
+            this.htmlTitle = "";
+            this.htmlAltText = "";
             this.fileName = "";
-            this.order = 0;
-            this.url = "";
-            this.externalLink = "";
+            this.externalUrl = "";
             this.landscape = false;
-            this.description = new Description();
+            this.imageUrl = "";
+            this.description = [];
             this.fullDescription = "";
         }
     }

@@ -2,9 +2,8 @@
     {
         "path":"/",
         "sectionRoot":true,
-        "component":"Home",
+        "component":"home",
         "componentOptions":null,
-        "status":200,
         "redirect":{
             "behavior":false,
             "path":""
@@ -15,7 +14,6 @@
         "sectionRoot":false,
         "component":"gallery",
         "componentOptions":null,
-        "status":200,
         "redirect":{
             "behavior":false,
             "path":""
@@ -24,12 +22,11 @@
     {
         "path":"*",
         "sectionRoot":false,
-        "component":"NotFound",
+        "component":"notFound",
         "componentOptions":null,
-        "status":404,
         "redirect":{
             "behavior":false,
-            "path":null
+            "path":""
         }
     }
 ]

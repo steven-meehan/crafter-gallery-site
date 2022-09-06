@@ -1,28 +1,31 @@
+import Alignment from "./DataFiles/PageData/Alignment";
+
 class Paragraph {
-    order: number = 0;
     display: boolean = false;
+    header: boolean = false;
     emphasis: boolean = false;
     text: string = "";
-    alignment: string = "";
-
-    constructor(item?: {
-        order: number,
+    alignment: Alignment = Alignment.Left;
+    
+    constructor(paragraph?: {
         display: boolean,
+        header: boolean,
         emphasis: boolean,
         text: string,
-        alignment: string
+        alignment: Alignment
     }){
-        if(item){
-            this.order = item.order ? item.order : 0;
-            this.display = item.display ? item.display : false;
-            this.emphasis = item.emphasis ? item.emphasis : false;
-            this.text = item.text ? item.text : "";
-            this.alignment = item.alignment ? item.alignment : "left";
+        if(paragraph){
+            this.display = paragraph.display ? paragraph.display : false;
+            this.header = paragraph.header ? paragraph.header : false;
+            this.emphasis = paragraph.emphasis ? paragraph.emphasis : false;
+            this.text = paragraph.text ? paragraph.text : "";
+            this.alignment = paragraph.alignment ?  paragraph.alignment : Alignment.Left;
         } else {
-            this.order = 0;
             this.display = false;
+            this.header = false;
             this.emphasis = false;
-            this.text = "left";
+            this.text = "";
+            this.alignment = Alignment.Left;
         }
     }
 }
