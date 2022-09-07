@@ -51,10 +51,12 @@ The system's `uesHttp` hook has been designed to cache the results for the web r
 The application is built with Sass so you will need something to compile the CSS files. For Visual Studio you can use a couple of extensions [Sass](https://marketplace.visualstudio.com/items?itemName=Syler.sass-indented) & [Live Sass Compiler](https://marketplace.visualstudio.com/items?itemName=glenn2223.live-sass)
 
 After cloning this repository for a new client, there are several steps that need to be taken to successfully run the new site. 
-- First there are several configuration files the application requires. 
+- First there are several configuration files the application requires.
+    - Copy the contents of the `assets` folder from `NewSiteSampleFiles` to the `assets` folder under `src` (These are sample logos that should be replaced with the crafter's logo).
     - Copy the contents of the `ConfigurationFiles` folder from `NewSiteSampleFiles` to the `ConfigurationFiles` folder in the `scr` folder.
-    - Copy the contents of the `data-files` folder from `NewSiteSampleFiles` to the `public` folder.
-    - Copy the contents of the `Variable.scss` file from `NewSiteSampleFiles` to the `scr` folder.
+    - Copy the contents of the `data-files` folder from `NewSiteSampleFiles\public` to the `public\data-files` folder.
+    - Copy the loose files of the `NewSiteSampleFiles\public` to the `public` folder (This includes a sample favicon icon that should be replaced with the crafter's logo).
+    - Copy the contents of the `Variable.scss` & `index.scss` file from `NewSiteSampleFiles` to the `scr` folder.
 
 With the configuration files copied, update them with the client specific information (see below sections to fully configure). Once the files have been created and placed, you need to transfer the images into their gallery specific folders under the gallery folder in the S3 bucket. You need to ensure the route structure for the site and the S3 buckets do not match. If they do, when you try to visit the page for a specific image, you will not be routed through the website. Instead you will be served the image from the S3 bucket.
 
@@ -65,6 +67,8 @@ Finally create the `index.html` file in the `public` folder and add the `favicon
 ### Data File Locations
 
 In an effort to keep the repository from being tied to a specific implementation, key aspects of certain pages and their contents are reliant upon data files. In order for the application to pull the correct file update the `data-file-locations.json` file. The JSON file is an array of objects with the following properties: `configuration` and `url`.
+
+At minimum there needs to be an entry for `navigation`, `galleries`, `home` and `notFound` (These are included in the sample file).
 
 ```JSON
 
@@ -108,6 +112,7 @@ The `Header` component uses the [`data-file-locations.json`](#data-file-location
 ```JSON
 
 {
+    "logoAltText": "{Place Alt Text for Logo Here}",
     "links": [
         {
             "url": "/gallery",
@@ -138,14 +143,14 @@ The `Header` component uses the [`data-file-locations.json`](#data-file-location
         .
         .
         .
-    ],
-    "logoAltText": "{Place Alt Text for Logo Here}"
+    ]
 }
 
 ```
 
 Definition of the `navigation.json`:
 
+- `logoAltText`: (Required) `string` This is the Alternative Text for the main logo.
 - `links`: (Required) The root of the JSON response which contains an array of complex objects.
     - `url`: (Required) `string` This is the url for the route.
     - `order`: (Required) `number` This is the order used for displaying the routes.
@@ -156,7 +161,6 @@ Definition of the `navigation.json`:
     - `social`: (Required) `bool` This determines if the link is for social media.
     - `icon`: (Optional) `string` This specifies the font awesome icon to use for social media links.
     - `childLinks`: (Optional) Is an array of complex objects, the same used within `navigation`
-- `logoAltText`: (Required) `string` This is the Alternative Text for the main logo.
 
 [Navigation and Routing](#navigation-and-routing) : [Back to Top](#table-of-contents)
 
@@ -169,6 +173,7 @@ In order to build out the Routing Tree the application requires the [`routes-gal
 [
     {
         "path":"/",
+        "page":"home",
         "sectionRoot":true,
         "component":"home",
         "componentOptions":null,
@@ -187,6 +192,7 @@ In order to build out the Routing Tree the application requires the [`routes-gal
 Definition for Route Definition in `routes-gallery.json` and `routes-top-level.json`:
 
 - `path`: (Required) `string` Is the route definition.
+- `page`: (Required) `string` This is the page that will be rendered and it should be an empty string if the route is item specific or a redirect.
 - `sectionRoot`: (Required) `bool` Tells the router that the incoming route must be an sectionRoot match.
 - `component`: (Required) `string` Details the component that will be used for the route.
 - `componentOptions`: (Optional) This is a complex object that configures the `Carousel` component.
@@ -211,21 +217,23 @@ The `routes-top-level.json` file is consumed by the `Main`.
 [
     {
         "path":"/",
+        "page":"home",
         "sectionRoot":true,
         "component":"Home",
         "componentOptions":null,
         "redirect":{
-            "behavior":false,
+            "enabled":false,
             "path":""
         }
     },
     {
         "path":"/galleries/*",
+        "page":"galleries",
         "sectionRoot":false,
         "component":"gallery",
         "componentOptions":null,
         "redirect":{
-            "behavior":false,
+            "enabled":false,
             "path":""
         }
     },
@@ -234,11 +242,12 @@ The `routes-top-level.json` file is consumed by the `Main`.
     .
     {
         "path":"*",
+        "page":"notFound",
         "sectionRoot":false,
         "component":"NotFound",
         "componentOptions":null,
         "redirect":{
-            "behavior":false,
+            "enabled":false,
             "path":null
         }
     }
@@ -266,16 +275,18 @@ It is highly recommended that you add a final entry to redirect any non-existing
 [
     {
         "path":"gallery/",
+        "page":"",
         "sectionRoot":true,
         "component":"",
         "componentOptions": null,
         "redirect":{
-            "behavior":true,
+            "enabled":true,
             "path":"/galleries/gallery/section"
         }
     },
     {
         "path":"gallery/section/",
+        "page":"section",
         "sectionRoot":false,
         "component":"carousel",
         "componentOptions": {
@@ -285,12 +296,13 @@ It is highly recommended that you add a final entry to redirect any non-existing
             "fontAwesomeArrowIcons":"fas fa-arrow-circle"
         },
         "redirect":{
-            "behavior":false,
+            "enabled":false,
             "path":""
         }
     },
     {
         "path":"gallery/section/:imageName",
+        "page":"",
         "sectionRoot":false,
         "component":"carousel",
         "componentOptions": {
@@ -300,17 +312,18 @@ It is highly recommended that you add a final entry to redirect any non-existing
             "fontAwesomeArrowIcons":"fas fa-arrow-circle"
         },
         "redirect":{
-            "behavior":false,
+            "enabled":false,
             "path":""
         }
     },
     {
         "path":"gallery/:galleryName",
+        "page":"",
         "sectionRoot":false,
         "component":"",
         "componentOptions": null,
         "redirect":{
-            "behavior":true,
+            "enabled":true,
             "path":"/galleries/gallery/section"
         }
     },
@@ -319,11 +332,12 @@ It is highly recommended that you add a final entry to redirect any non-existing
     .
     {
         "path":"*",
+        "page":"",
         "sectionRoot":false,
         "component":"",
         "componentOptions":null,
         "redirect":{
-            "behavior":true,
+            "enabled":true,
             "path":"/galleries/gallery/section"
         }
     }
@@ -430,136 +444,102 @@ This page has been coded to render a collection of `Info`, `ImageSlider`, or `Im
 ```JSON
 
 {
+    "name": "home",
+    "header": "",
     "layout": {
         "columns": {
-            "number": 2,
-            "components": [
+            "numberOfColumns": 1
+        }
+    },
+    "components": [
+        {
+            "active": true,
+            "order": 1,
+            "columnPosition": "left",
+            "componentType": "info",
+            "paragraphs": [
                 {
-                    "active": true,
                     "order": 1,
-                    "component": "info",
-                    "embedImage": false,
-                    "paragraphs" : [
-                        {
-                            "order": 1,
-                            "display": true,
-                            "emphasis" : true,
-                            "text": "TEXT GOES HERE",
-                            "alignment": "Alignment GOES HERE"
-                        },
-                        .
-                        .
-                        .
-                    ]
-                },
-                {
-                    "active": true,
-                    "order": 2,
-                    "component": "image",
-                    "baseUrl": "URL GOES HERE",
-                    "images": [
-                        {
-                            "title": "Title GOES HERE",
-                            "altText": "Alternate Text GOES HERE",
-                            "fileName": "File Name GOES HERE",
-                            "order": 1,
-                            "externalLink": "External Link GOES HERE",
-                            "landscape": false
-                        },
-                        .
-                        .
-                        .
-                    ],
-                    "slider": {
-                        "auto":true,
-                        "timer":30000,
-            			"arrowIcons": "Font Awesome Arrow Info GOES HERE"
-                    }
+                    "display": true,
+                    "emphasis": false,
+                    "text": "",
+                    "alignment": "center"
                 }
             ]
+	    },
+        .
+        .
+        .
+        {
+            "active": true,
+            "order": 2,
+            "columnPosition": "image",
+            "componentType": "image",
+            "imageFiles": [
+                {
+                    "htmlTitle": "",
+                    "htmlAltText": "",
+                    "fileName": "",
+                    "externalUrl": "",
+                    "landscape": false,
+                    "imageUrl": "",
+                    "description": null
+                }
+            ],
+            "imageSlider": {
+                "auto":true,
+                "timer":30000,
+                "arrowIcons": "fas fa-chevron-circle",
+                "size": "70%"
+            }
         }
-    }
+    ]
 }
 
 ```
 
-Definition for `page-home.json`:
+Definition for `page-{PageName}.json`:
 
+- `name`: (Required) `string` This is the name of the page being configured.
+- `header`: (Required) `string` This is the header for the page.
 - `layout`: (Required) This is the root node of the configuration file.
     - `columns`: (Required) A complex object that details how the columns will be rendered on the home page.
-        - `number`: (Required) `number` Details how many columns to render.
-        - `components`: (Required) A complex array of objects that details the types of components to dynamically render on the home page.
-            - `active`: (Required) `boolean` Determines if the component will be rendered. 
-            - `order`: (Required) `number` Determines the order of the component.
-            - `component`: (Required) `string` Tells the home page what component to render. It must be either `info` or `image`.
-            - `paragraphs`: (Optional) An array of complex objects that specify what text should be rendered in the component.
-                - `order`: (Required) `number` Determines the order of the paragraphs.
-                - `display`: (Required) `boolean` Determines if the paragraph will be rendered.
-                - `emphasis`: (Optional) `boolean` Determines if the paragraph will be bolded.
-                - `text`: (Required) `string` The text to be rendered on the page.
-                - `alignment`: (Optional) `string` Determines the alignment of the text.
-            - `images`: (Optional) An array of complex objects consisting of the images to display.
-                - `title`: (Required) `string` This will be used for the title of the rendered image.
-                - `altText`: (Required) `string` This will be used for the alternate text of the rendered image.
-                - `fileName`: (Required) `string` This is the name of the file to be rendered and is used to build the image's url. 
-                - `order`: (Required) `number` Determines the order of the images.
-                - `externalLink`: (Optional) `string` Used to make the image a link to another location on the internet.
-                - `landscape`: (Optional) `boolean` Used to adjust the display of narrow images.
-            - `baseUrl`: (Optional) `string` This is the base url for the images, only used when rendering images.
-            - `slider`: (Optional) This is used when rendering images.
-                - `auto`: (Required) `boolean` Turns the automatic transition on or off.
-                - `timer`: (Required) `number` If configured this establishes the timer for the transition.
-                - `arrowIcons`: (Optional) `string` This specifies what arrows will be used when building the `ImageSlider`. See [Gallery Options for arrows](#gallery-options-for-arrows) for arrows to see the options available from Font Awesome.
-                - `size`: (Optional) `string` Determines the size of the rendered image(s)
+        - `numberOfColumns`: (Required) `number` Details how many columns to render.
+- `components`: (Required) A complex array of objects that details the types of components to dynamically render on the home page.
+    - `active`: (Required) `boolean` Determines if the component will be rendered. 
+    - `order`: (Required) `number` Determines the order of the component.
+    - `columnPosition`: (Required) `string` Determines which column the component should be rendered in (defaults to left).
+    - `componentType`: (Required) `string` Determines the type of component to render. It must be either `info` or `image`.
+    - `paragraphs`: (Optional) An array of complex objects that specify what text should be rendered in the component.
+        - `order`: (Required) `number` Determines the order of the paragraphs.
+        - `display`: (Required) `boolean` Determines if the paragraph will be rendered.
+        - `emphasis`: (Optional) `boolean` Determines if the paragraph will be bolded.
+        - `text`: (Required) `string` The text to be rendered on the page.
+        - `alignment`: (Optional) `string` Determines the alignment of the text.
+    - `imageFiles`: (Optional) An array of complex objects consisting of the images to display.
+        - `htmlTitle`: (Required) `string` This will be used for the title of the rendered image.
+        - `htmlAltText`: (Required) `string` This will be used for the alternate text of the rendered image.
+        - `fileName`: (Required) `string` This is the name of the file to be rendered and is used to build the image's url. 
+        - `externalUrl`: (Optional) `string` Used to make the image a link to another location on the internet.
+        - `landscape`: (Optional) `boolean` Used to adjust the display of narrow images.
+        - `imageUrl`: (Optional) `string` This is the base url for the images, only used when rendering images.
+        - `description`: (Optional) An array of complex objects that specify what text should be rendered in the component.
+            - `order`: (Required) `number` Determines the order of the paragraphs.
+            - `display`: (Required) `boolean` Determines if the paragraph will be rendered.
+            - `emphasis`: (Optional) `boolean` Determines if the paragraph will be bolded.
+            - `text`: (Required) `string` The text to be rendered on the page.
+            - `alignment`: (Optional) `string` Determines the alignment of the text.
+    - `imageSlider`: (Optional) This is used when rendering images.
+        - `auto`: (Required) `boolean` Turns the automatic transition on or off.
+        - `timer`: (Required) `number` If configured this establishes the timer for the transition.
+        - `arrowIcons`: (Optional) `string` This specifies what arrows will be used when building the `ImageSlider`. See [Gallery Options for arrows](#gallery-options-for-arrows) for arrows to see the options available from Font Awesome.
+        - `size`: (Optional) `string` Determines the size of the rendered image(s)
 
 [Content Configuration](#content-configuration) : [Back to Top](#table-of-contents)
 
 #### Not Found
 
 This page will use the `page-notfound.json` Data file and will build out the custom Not Found page. Currently, if you include an image, it will be inserted after the first paragraph.
-
-```JSON
-
-{
-    "paragraphs" : [
-        {
-            "order": 1,
-            "display": true,
-            "emphasis" : true,
-            "text": "{Text GOES HERE}",
-            "alignment": "{Alignment GOES HERE}"
-        }
-        .
-        .
-        .
-    ],
-    "image" : {
-	    "title": "{Image Title GOES HERE}",
-        "altText": "{Image Alternative Text GOES HERE}",
-        "fileName": "{Image Filename GOES HERE}",
-        "url": "{Image URL GOES HERE}"  
-	}
-}
-
-```
-
-Definition for `page-notfound.json`:
-
-- `paragraphs`: (Required) An array of complex objects that specify what text should be rendered in the component.
-    - `order`: (Required) `number` Determines the order of the paragraphs.
-    - `display`: (Required) `boolean` Determines if the paragraph will be rendered.
-    - `emphasis`: (Optional) `boolean` Determines if the paragraph will be bolded.
-    - `text`: (Required) `string` The text to be rendered on the page.
-    - `alignment`: (Optional) `string` Determines the alignment of the text.
-- `images`: (Optional) A complex object for an image.
-    - `title`: (Required) `string` This will be used for the title of the rendered image.
-    - `altText`: (Required) `string` This will be used for the alternate text of the rendered image.
-    - `fileName`: (Required) `string` This is the name of the file to be rendered and is used to build the image's url. 
-    - `order`: (Required) `number` Determines the order of the images.
-    - `externalLink`: (Optional) `string` Used to make the image a link to another location on the internet.
-    - `landscape`: (Optional) `boolean` Used to adjust the display of narrow images.
-
-[Content Configuration](#content-configuration) : [Back to Top](#table-of-contents)
 
 ### Misc Content
 
@@ -629,10 +609,10 @@ As written above the resulting site will have a solid background. If instead you
 You will need two logo images, one for use on desktops and a second for use on mobile.
 
 ##### Desktop Version:
-Add the main Logo for the site (saved as a png) to the assets folder with the name `Logo.png`. 
+Add the main Logo for the site (saved as a png with a resolution of 260x105) to the assets folder with the name `Logo.png`. 
 
 ##### Mobile Version:
-Add the mobile Logo for the site (saved as a png) to the assets folder with the name `LogoAlt.png`. 
+Add the mobile Logo for the site (saved as a png with a resolution of 130x105) to the assets folder with the name `LogoAlt.png`. 
 
 [Misc Content](#misc-content) : [Back to Top](#table-of-contents)
 
@@ -767,7 +747,9 @@ This section contains all the mixins for the site. Currently there is only one u
 
 ### SEO Configuration
 
-In order to configure the site for SEO you will need a `seo-config.json` file for the static pages in the site. You will need an entry for each static page that will be served. 
+The images held within the galleries will have their SEO data built from the data files powering the given gallery. However, for best results all pages should have certain elements in the `<head>` section of the page.
+
+So, for those static pages you will need a `seo-config.json` file. You will need one entry for each static page to be served. 
 
 ```JSON
 
@@ -779,14 +761,16 @@ In order to configure the site for SEO you will need a `seo-config.json` file fo
             "title": "{Title GOES HERE}",
             "description": "{Description GOES HERE}",
             "imageUrl": "{Image URL GOES HERE}",
-            "imageAltText": "{Image AltText GOES HERE}"
+            "imageAltText": "{Image AltText GOES HERE}",
+            "errorPage": false
         },
         {
             "page": "notFound",
             "title": "{Title GOES HERE}",
             "description": "{Description GOES HERE}",
             "imageUrl": "{Image URL GOES HERE}",
-            "imageAltText": "{Image AltText GOES HERE}"
+            "imageAltText": "{Image AltText GOES HERE}",
+            "errorPage": false
         }
     ]
 }
@@ -800,6 +784,7 @@ In order to configure the site for SEO you will need a `seo-config.json` file fo
     - `description`: (Required) `string` This is used to set the page's description meta tag.
     - `imageUrl`: (Required) `string` This is used to set the image, Open Graph image and secure image, and the Twitter image meta tags.
     - `imageAltText`: (Required) `string` This is used to set the twitter alternate text meta tag. 
+    - `errorPage`: (Required) `boolean` This tells the system if the page requires additional error information.
 
 [Back to Top](#table-of-contents)
 
