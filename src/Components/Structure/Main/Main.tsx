@@ -36,7 +36,7 @@ const Main: React.FC<{
                     <Routes>
                         {
                             topLevelRoutes.map((route, index) => {
-                                return route.redirect?.behavior && route.sectionRoot ? 
+                                return route.redirect?.enabled && route.sectionRoot ? 
                                     <Route 
                                         key={`main-route-${index}`} 
                                         path={route.path} 
@@ -44,7 +44,7 @@ const Main: React.FC<{
                                             <Navigate 
                                                 replace 
                                                 to={route.redirect.path} />
-                                        } /> : route.redirect?.behavior && !route.sectionRoot ? 
+                                        } /> : route.redirect?.enabled && !route.sectionRoot ? 
                                     <Route 
                                         key={`main-route-${index}`} 
                                         path={route.path} 

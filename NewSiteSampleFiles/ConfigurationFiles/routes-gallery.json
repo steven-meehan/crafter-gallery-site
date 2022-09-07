@@ -6,7 +6,7 @@
         "componentOptions": null,
         "status":null,
         "redirect":{
-            "behavior":true,
+            "enabled":true,
             "path":"/galleries/gallery/section"
         }
     },
@@ -22,7 +22,7 @@
         },
         "status":null,
         "redirect":{
-            "behavior":false,
+            "enabled":false,
             "path":""
         }
     },
@@ -38,7 +38,7 @@
         },
         "status":200,
         "redirect":{
-            "behavior":false,
+            "enabled":false,
             "path":""
         }
     },
@@ -49,7 +49,7 @@
         "componentOptions": null,
         "status":200,
         "redirect":{
-            "behavior":true,
+            "enabled":true,
             "path":"/galleries/gallery/section"
         }
     },
@@ -60,7 +60,7 @@
         "componentOptions":null,
         "status":200,
         "redirect":{
-            "behavior":true,
+            "enabled":true,
             "path":"/galleries/gallery/section"
         }
     }

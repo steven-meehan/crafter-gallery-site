@@ -19,7 +19,7 @@ const Gallery = () => {
         <Routes>
             {
                 galleryRoutes.map((route, index: number) => {
-                    return ((route.redirect && route.redirect.behavior) ? 
+                    return ((route.redirect && route.redirect.enabled) ? 
                     <Route 
                         key={`gallery-route-${index}`} 
                         path={route.path}

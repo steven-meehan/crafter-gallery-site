@@ -6,7 +6,7 @@
         "component":"home",
         "componentOptions":null,
         "redirect":{
-            "behavior":false,
+            "enabled":false,
             "path":""
         }
     },
@@ -17,7 +17,7 @@
         "component":"gallery",
         "componentOptions":null,
         "redirect":{
-            "behavior":false,
+            "enabled":false,
             "path":""
         }
     },
@@ -28,7 +28,7 @@
         "component":"page",
         "componentOptions":null,
         "redirect":{
-            "behavior":false,
+            "enabled":false,
             "path":""
         }
     }
