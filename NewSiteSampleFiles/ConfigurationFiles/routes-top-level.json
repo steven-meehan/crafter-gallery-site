@@ -1,6 +1,7 @@
 [
     {
         "path":"/",
+        "page":"home",
         "sectionRoot":true,
         "component":"home",
         "componentOptions":null,
@@ -10,7 +11,8 @@
         }
     },
     {
-        "path":"/galleries/*",
+        "path":"/examples/*",
+        "page":"examples",
         "sectionRoot":false,
         "component":"gallery",
         "componentOptions":null,
@@ -21,8 +23,9 @@
     },
     {
         "path":"*",
+        "page":"notFound",
         "sectionRoot":false,
-        "component":"notFound",
+        "component":"page",
         "componentOptions":null,
         "redirect":{
             "behavior":false,
