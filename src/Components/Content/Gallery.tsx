@@ -9,6 +9,7 @@ import data from '../../ConfigurationFiles/routes-gallery.json';
 
 const galleryRoutes: {
     path: string,
+    page: string,
     sectionRoot: boolean,
     component: string,
     componentOptions: ComponentOptions | null,
