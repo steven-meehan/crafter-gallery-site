@@ -11,7 +11,9 @@ const Card: React.FC<CardProps> = (props) => {
 
     const cardHover = `${props.cardHover ? classes.cardHover : ''}`;
 
-    const cardColoring = `${props.cardColor === 'light' ? classes.light : ''}`;
+    const cardColoring = `${props.cardColor === 'primary' ? classes.primary :
+                            props.cardColor === 'altPrimary' ? classes.altPrimary :
+                            props.cardColor === 'none' ? classes.none : classes.primary}`;
 
     const cardClasses = `${props.cardClasses ? props.cardClasses : ''} ${classes.card} ${cardColoring} ${cardHover} ${cardRounded}`;
     

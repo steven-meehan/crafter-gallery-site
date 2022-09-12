@@ -5,7 +5,7 @@ class CardProps {
     cardRoundedModerate?: boolean = false;
     cardRoundedHeavy?: boolean = false;
     cardHover?: boolean = false;
-    cardColor?: string = "light";
+    cardColor?: string = "primary";
     cardClasses?: string = "";
     children?: ReactNode;
 }

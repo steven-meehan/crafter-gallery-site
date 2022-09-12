@@ -30,7 +30,7 @@ const Main: React.FC<{
             <Card 
                 cardClasses={contentClasses}
                 cardRounded={true}
-                cardColor={`light`} >
+                cardColor={`primary`} >
                 <Suspense
                     fallback={<Spinner />}>
                     <Routes>

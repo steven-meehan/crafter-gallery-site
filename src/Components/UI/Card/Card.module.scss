@@ -1,8 +1,8 @@
 @import "../../../Variables.scss";
 
 .card{
-    border: 1px $highlightColor ridge;
-    box-shadow: 0 2px 8px $highlightColorDimmed;
+    border: 1px $accentColor ridge;
+    box-shadow: 0 2px 8px $accentColorDimmed;
 }
 .cardRounded{
     border-radius: .3em;
@@ -14,10 +14,18 @@
     border-radius: 1em;
 }
 .cardHover:hover {
-    box-shadow: 0 2px 8px $highlightColorDimmed;
-    color: $highlightColor;
+    box-shadow: 0 2px 8px $accentColorDimmed;
+    color: $accentColor;
 }
-.light{
+.primary{
     background-color: $primaryColor;
+    color: $fontColor;
+}
+.altPrimary{
+    background-color: $altPrimaryColor;
+    color: $fontColor;
+}
+.none{
+    background-color: transparent;
     color: $fontColor;
 }

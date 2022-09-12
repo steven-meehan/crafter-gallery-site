@@ -113,6 +113,7 @@ The `Header` component uses the [`data-file-locations.json`](#data-file-location
 
 {
     "logoAltText": "{Place Alt Text for Logo Here}",
+    "backgroundColor": "altPrimary",
     "links": [
         {
             "url": "/gallery",
@@ -151,6 +152,7 @@ The `Header` component uses the [`data-file-locations.json`](#data-file-location
 Definition of the `navigation.json`:
 
 - `logoAltText`: (Required) `string` This is the Alternative Text for the main logo.
+- `backgroundColor`: (Required) `string` This is responsible for the color of the navbar's background. The only values allowed are `primary`, `altPrimary`, and `none`.
 - `links`: (Required) The root of the JSON response which contains an array of complex objects.
     - `url`: (Required) `string` This is the url for the route.
     - `order`: (Required) `number` This is the order used for displaying the routes.
@@ -589,7 +591,7 @@ With the `index.html` file created, you can turn to the `index.scss` file. At mi
 @import "./Configs/Variables.scss";
 
 body {
-    @include background();
+    @include bodyBackgroundColor();
 }
 
 ```
@@ -598,7 +600,7 @@ As written above the resulting site will have a solid background. If instead you
 
 ```scss
 
-@include background('https://www.sample.com/test/test.jpg');
+@include bodyBackgroundColor('https://www.sample.com/test/test.jpg');
 
 ```
 
@@ -623,6 +625,7 @@ Create a `footer.json` file with the following structure.
 ```JSON
 
 {
+    "fontColor": "secondary",
     "copyrightInfo": {
         "name": "{Crafter Name GOES HERE}",
         "url": "{URL GOES HERE}",
@@ -638,6 +641,7 @@ Create a `footer.json` file with the following structure.
 
 ```
 
+- `fontColor`: (Required) `string` This field determines the footer's font color. There are only two valid options are `primary` and `secondary`. 
 - `copyrightInfo`: (Required) A complex object used to configure the copyright section of the footer.
     - `name`: (Required) `string` This is the crafter's name.
     - `url`: (Optional) `string` This is used a url for the crafter. If empty the name will NOT be a link.
@@ -662,22 +666,22 @@ This section details the main color scheme of the website.
 
 // Color Palette
 $primaryColor: #ffffff;
-$secondaryColor: #6c757d80;
-$highlightColor: #23e6ef;
-$highlightColorDimmed: #23e6ef73;
+$secondaryColor: #6c757d;
+$secondaryColorDimmed: #6c757d80;
+$accentColor: #23e6ef;
+$accentColorDimmed: #23e6ef73;
 $navLinkColor: #6c757d;
 $altNavLinkColor: #50555a;
-$thumbnailColor: #bac2c980;
 
 ```
 
 - `$primaryColor`: This takes care of the background color for the `Card` Component
 - `$secondaryColor`: This takes care of the background color for the `body` element
-- `$highlightColor`: This takes care of the Highlight Color, used for thin borders, the nav link's font pop, etc...
-- `$highlightColorDimmed`: This takes care of the box shadow
+- `$secondaryColorDimmed`: This takes care of the background color of the thumbnail bar
+- `$accentColor`: This takes care of the Highlight Color, used for thin borders, the nav link's font pop, etc...
+- `$accentColorDimmed`: This takes care of the box shadow
 - `$navLinkColor`: This takes care of the background color for the nav links
 - `$altNavLinkColor`: This takes care of the hover color for the nav links
-- `$thumbnailColor`: This takes care of the background color of the thumbnail bar
 
 [Misc Content](#misc-content) : [CSS Config](#css-config) : [Back to Top](#table-of-contents)
 
