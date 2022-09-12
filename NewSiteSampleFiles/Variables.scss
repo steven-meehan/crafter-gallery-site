@@ -1,15 +1,17 @@
 // Color Palette
 $primaryColor: #ffffff;
-$secondaryColor: #6c757d80;
-$highlightColor: #23e6ef;
-$highlightColorDimmed: #23e6ef73;
+$altPrimaryColor: #f1fcff44;
+$secondaryColor: #6c757d;
+$secondaryColorDimmed: #6c757d80;
+$accentColor: #23e6ef;
+$accentColorDimmed: #23e6ef73;
 $navLinkColor: #6c757d;
 $altNavLinkColor: #50555a;
-$thumbnailColor: #bac2c980;
 
 // Font Colors
 $navFontColor: #ffffff;
 $fontColor: #000000;
+$secondaryFontColor: #ffffff;
 $notFoundPrimaryColor: #40e6ef;
 $notFoundSecondaryColor: #243ebd;
 
@@ -18,8 +20,10 @@ $headerFont: "Times New Roman", Times, serif;
 $titleFont: "Times New Roman", Times, serif;
 $defaultFont: "Times New Roman", Times, serif;
 
-// Site Mixins
-@mixin background ($fileName:""){
+////// Site Mixins //////
+
+// Background Colors //
+@mixin bodyBackgroundColor ($fileName:""){
     font-family: $defaultFont;
     margin: 0;
 

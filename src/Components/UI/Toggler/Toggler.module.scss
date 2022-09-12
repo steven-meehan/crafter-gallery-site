@@ -2,8 +2,8 @@
 
 .navbarToggler {
     font-weight: bolder;
-    box-shadow: 0 1px 8px $highlightColorDimmed;
+    box-shadow: 0 1px 8px $accentColorDimmed;
 }
 .navbarToggler:hover {
-    border: 2px $highlightColor solid;
+    border: 2px $accentColor solid;
 }
