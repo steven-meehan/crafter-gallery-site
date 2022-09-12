@@ -10,6 +10,7 @@ import NavigationConfigFile from '../../../../Models/DataFiles/Navigation/Naviga
 import data from '../../../../ConfigurationFiles/data-file-locations.json';
 
 import classes from './Header.module.css';
+import BackgroundColor from '../../../../Models/DataFiles/Navigation/BackgroundColor';
 
 const config = data.find(item=>item.contentType==='navigation')!;
 
@@ -22,6 +23,7 @@ const Header: React.FC<{
     const [navigationLinks, setNavigationLinks] = useState<LinkConfig[]>([]);
     const [socialLinks, setSocialLinks] = useState<LinkConfig[]>([]);
     const [logoAltText, setLogoAltText] = useState("");
+    const [backgroundColor, setBackgroundColor] = useState<BackgroundColor>()
 
     const { sendRequest: fetchConfigs } = useHttp();
 
@@ -72,6 +74,7 @@ const Header: React.FC<{
             setNavigationLinks(sortedNavigationList);
             setSocialLinks(sortedSocialList.sort());
             setLogoAltText(data.logoAltText);
+            setBackgroundColor(data.backgroundColor);
         }
 
         fetchConfigs(
@@ -85,14 +88,12 @@ const Header: React.FC<{
     
     return (    
         <header>
-            <Card
-                cardClasses={`${headerClasses}`}
-                cardColor={`light`} >
-                <Navbar 
-                    logoAltText={logoAltText}
-                    navlinks={navigationLinks}
-                    socialNavLinks={socialLinks} />
-            </Card>
+            <Navbar 
+                logoAltText={logoAltText}
+                navlinks={navigationLinks}
+                socialNavLinks={socialLinks}
+                backgroundColor={backgroundColor}
+                headerCssClasses={`${headerClasses}`} />
         </header>
     );
 };

@@ -45,62 +45,66 @@ const Navbar: React.FC<NavbarProps> = (props) => {
     })
     
     return (
-        <nav className={`container-fluid navbar navbar-light navbar-expand-md ${navbarClasses}`}>
-            <div 
-                className={`row `}
-                style={{
-                    width:"100%",
-                    maxWidth:"100%"
-                }} >
-                <div className='col-3'>
-                    <Link 
-                        to={`/`} 
-                        title={`Home Page`}
-                        style={{display:"inline-block"}} >
-                        <img 
-                            src={logo} 
-                            width={`260`} 
-                            height={`105`} 
-                            alt={`${logoAltText}`} 
-                            className={`${classes.logo} d-none d-xl-block`} 
-                            title={`Home`} 
-                            loading="eager" />
-                        <img 
-                            src={logoAlt} 
-                            width={`130`} 
-                            height={`105`} 
-                            alt={`${logoAltText}`} 
-                            className={`${classes.logoAlt} d-xl-none`} 
-                            title={`Home`} 
-                            loading="eager" />
-                    </Link>
-                </div>
-                <Toggler 
-                    navbarTogglerTarget={`navigationBar`} 
-                    togglerClasses={`offset-7 col-2 dmd-none ${classes.navigationBarToggler}`}/>
+        <Card
+            cardClasses={`${props.headerCssClasses}`}
+            cardColor={props.backgroundColor} >
+            <nav className={`container-fluid navbar navbar-light navbar-expand-md ${navbarClasses}`}>
                 <div 
-                    className={`col-9 collapse navbar-collapse`} 
-                    id={`navigationBar`}>
-                    <ul 
-                        className={`navbar-nav ${classes.navigationWrapper}`}
-                        style={{
-                            width:"100%",
-                            maxWidth:"100%"
-                        }} >
-                        {navigationLinks}
-                        <li 
-                            className={`offset-md-${8-(props.navlinks.length*2)} offset-lg-${9-(props.navlinks.length*2)} nav-item col col-md-4 col-lg-3`}
+                    className={`row `}
+                    style={{
+                        width:"100%",
+                        maxWidth:"100%"
+                    }} >
+                    <div className='col-3'>
+                        <Link 
+                            to={`/`} 
+                            title={`Home Page`}
+                            style={{display:"inline-block"}} >
+                            <img 
+                                src={logo} 
+                                width={`260`} 
+                                height={`105`} 
+                                alt={`${logoAltText}`} 
+                                className={`${classes.logo} d-none d-xl-block`} 
+                                title={`Home`} 
+                                loading="eager" />
+                            <img 
+                                src={logoAlt} 
+                                width={`130`} 
+                                height={`105`} 
+                                alt={`${logoAltText}`} 
+                                className={`${classes.logoAlt} d-xl-none`} 
+                                title={`Home`} 
+                                loading="eager" />
+                        </Link>
+                    </div>
+                    <Toggler 
+                        navbarTogglerTarget={`navigationBar`} 
+                        togglerClasses={`offset-7 col-2 dmd-none ${classes.navigationBarToggler}`}/>
+                    <div 
+                        className={`col-9 collapse navbar-collapse`} 
+                        id={`navigationBar`}>
+                        <ul 
+                            className={`navbar-nav ${classes.navigationWrapper}`}
                             style={{
-                                paddingTop: '.1em'
+                                width:"100%",
+                                maxWidth:"100%"
                             }} >
-                            <div className={`row justify-content-end`}>
-                                {socialNavLinks}
-                            </div>
-                        </li>
-                    </ul>
+                            {navigationLinks}
+                            <li 
+                                className={`offset-md-${8-(props.navlinks.length*2)} offset-lg-${9-(props.navlinks.length*2)} nav-item col col-md-4 col-lg-3`}
+                                style={{
+                                    paddingTop: '.1em'
+                                }} >
+                                <div className={`row justify-content-end`}>
+                                    {socialNavLinks}
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </nav>
+            </nav>
+        </Card>
     );
 };
 

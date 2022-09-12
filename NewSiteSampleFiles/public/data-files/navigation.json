@@ -1,5 +1,6 @@
 {
     "logoAltText": "Alternate Text Goes Here",
+    "backgroundColor": "altPrimary",
     "links": [
         {
             "url": "/gallery",
