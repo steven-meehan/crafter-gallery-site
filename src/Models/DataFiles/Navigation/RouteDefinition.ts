@@ -4,22 +4,23 @@ import RedirectOptions from './RedirectOptions';
 
 class RouteDefinition {
     path: string = "";
+    page: string = "";
     sectionRoot: boolean = false;
     component: ComponentType = ComponentType.Undefined;
     componentOptions: ComponentOptions | null = null;
-    status: number = 200;
     redirect: RedirectOptions | null = null;
 
     constructor(routeDefinition?: {
         path: string,
+        page: string,
         sectionRoot: boolean,
         component: string,
         componentOptions: ComponentOptions | null,
-        status: number,
         redirect: RedirectOptions | null
     }){
         if(routeDefinition){
             this.path = routeDefinition.path ? routeDefinition.path : "";
+            this.page = routeDefinition.page ? routeDefinition.page : "";
             this.sectionRoot = routeDefinition.sectionRoot ? routeDefinition.sectionRoot : false;
 
             switch (routeDefinition.component) {
@@ -35,8 +36,8 @@ class RouteDefinition {
                 case ComponentType.Gallery:
                     this.component = ComponentType.Gallery;
                     break;
-                case ComponentType.Home:
-                    this.component = ComponentType.Home;
+                case ComponentType.Page:
+                    this.component = ComponentType.Page;
                     break;
                 default:
                     this.component = ComponentType.Undefined;
@@ -44,14 +45,13 @@ class RouteDefinition {
             }
 
             this.componentOptions = routeDefinition.componentOptions ? new ComponentOptions(routeDefinition.componentOptions) :  null;
-            this.status = routeDefinition.status ? routeDefinition.status : 200;
             this.redirect = routeDefinition.redirect ? new RedirectOptions(routeDefinition.redirect) : null;
         } else {
             this.path = "";
+            this.page = "";
             this.sectionRoot = false;
             this.component = ComponentType.Undefined;
             this.componentOptions = null;
-            this.status = 200;
             this.redirect = null;
         }
     }

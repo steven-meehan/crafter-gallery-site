@@ -38,8 +38,8 @@ class ComponentInfo {
                 case ComponentType.Gallery:
                     this.component = ComponentType.Gallery;
                     break;
-                case ComponentType.Home:
-                    this.component = ComponentType.Home;
+                case ComponentType.Page:
+                    this.component = ComponentType.Page;
                     break;
                 default:
                     this.component = ComponentType.Undefined;

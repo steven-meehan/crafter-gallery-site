@@ -1,9 +1,9 @@
 enum ComponentType {
     Undefined = "",
     //Routing Components
-    Home = "home",
+    Page = "page",
     Gallery = "gallery",
-    //Page Level COmponents
+    //Page Level Components
     Info = "info",
     Image = "image",
     Carousel = "carousel"

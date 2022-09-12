@@ -1,0 +1,49 @@
+{
+    "name": "notFound",
+    "header": "Content Not Found",
+    "layout": {
+        "columns": {
+            "numberOfColumns": 1
+        }
+    },
+    "components": [
+        {
+            "active": true,
+            "order": 1,
+            "columnPosition": "left",
+            "componentType": "info",
+            "paragraphs": [
+                {
+                    "order": 1,
+                    "display": true,
+                    "emphasis": false,
+                    "text": "There was a problem finding the page or content you're searching for...",
+                    "alignment": "center"
+                }
+            ]
+	},
+        {
+            "active": true,
+            "order": 2,
+            "columnPosition": "image",
+            "componentType": "image",
+            "imageFiles": [
+                {
+                    "htmlTitle": "Not Found",
+                    "htmlAltText": "Page Not Found",
+                    "fileName": "",
+                    "externalUrl": "",
+                    "landscape": false,
+                    "imageUrl": "",
+                    "description": null
+                }
+            ],
+            "imageSlider": {
+                "auto":true,
+                "timer":30000,
+                "arrowIcons": "fas fa-chevron-circle",
+                "size": "70%"
+            }
+        }
+    ]
+}

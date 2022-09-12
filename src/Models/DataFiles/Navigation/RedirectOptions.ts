@@ -1,16 +1,16 @@
 class RedirectOptions {
-    behavior: boolean = false;
+    enabled: boolean = false;
     path: string = "";
 
     constructor(redirect?: {
-        behavior: boolean,
+        enabled: boolean,
         path: string
     }){
         if(redirect){
-            this.behavior = redirect.behavior ? redirect.behavior : false;
+            this.enabled = redirect.enabled ? redirect.enabled : false;
             this.path = redirect.path ? redirect.path : "";
         } else {
-            this.behavior = false;
+            this.enabled = false;
             this.path = "";
         }
     }

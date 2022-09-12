@@ -9,6 +9,7 @@ import data from '../../ConfigurationFiles/routes-gallery.json';
 
 const galleryRoutes: {
     path: string,
+    page: string,
     sectionRoot: boolean,
     component: string,
     componentOptions: ComponentOptions | null,
@@ -19,7 +20,7 @@ const Gallery = () => {
         <Routes>
             {
                 galleryRoutes.map((route, index: number) => {
-                    return ((route.redirect && route.redirect.behavior) ? 
+                    return ((route.redirect && route.redirect.enabled) ? 
                     <Route 
                         key={`gallery-route-${index}`} 
                         path={route.path}

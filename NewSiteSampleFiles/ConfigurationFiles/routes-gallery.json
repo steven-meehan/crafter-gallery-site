@@ -1,17 +1,19 @@
 [
     {
         "path":"gallery/",
+        "page":"",
         "sectionRoot":true,
         "component":"",
         "componentOptions": null,
         "status":null,
         "redirect":{
-            "behavior":true,
+            "enabled":true,
             "path":"/galleries/gallery/section"
         }
     },
     {
         "path":"gallery/section/",
+        "page":"section",
         "sectionRoot":false,
         "component":"carousel",
         "componentOptions": {
@@ -22,12 +24,13 @@
         },
         "status":null,
         "redirect":{
-            "behavior":false,
+            "enabled":false,
             "path":""
         }
     },
     {
         "path":"gallery/section/:imageName",
+        "page":"",
         "sectionRoot":false,
         "component":"carousel",
         "componentOptions": {
@@ -38,29 +41,31 @@
         },
         "status":200,
         "redirect":{
-            "behavior":false,
+            "enabled":false,
             "path":""
         }
     },
     {
         "path":"gallery/:galleryName",
+        "page":"",
         "sectionRoot":false,
         "component":"",
         "componentOptions": null,
         "status":200,
         "redirect":{
-            "behavior":true,
+            "enabled":true,
             "path":"/galleries/gallery/section"
         }
     },
     {
         "path":"*",
+        "page":"",
         "sectionRoot":false,
         "component":"",
         "componentOptions":null,
         "status":200,
         "redirect":{
-            "behavior":true,
+            "enabled":true,
             "path":"/galleries/gallery/section"
         }
     }

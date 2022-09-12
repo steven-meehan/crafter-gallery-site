@@ -1,4 +1,5 @@
 {
+    "logoAltText": "Alternate Text Goes Here",
     "links": [
         {
             "url": "/gallery",
@@ -34,6 +35,5 @@
             "icon": "fab fa-facebook",
             "childLinks": []
         }
-    ],
-    "logoAltText": "Alternate Text Goes Here"
+    ]
 }

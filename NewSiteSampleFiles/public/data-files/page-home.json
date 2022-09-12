@@ -1,0 +1,49 @@
+{
+    "name": "home",
+    "header": "",
+    "layout": {
+        "columns": {
+            "numberOfColumns": 1
+        }
+    },
+    "components": [
+        {
+            "active": true,
+            "order": 1,
+            "columnPosition": "left",
+            "componentType": "info",
+            "paragraphs": [
+                {
+                    "order": 1,
+                    "display": true,
+                    "emphasis": false,
+                    "text": "",
+                    "alignment": "center"
+                }
+            ]
+	},
+        {
+            "active": true,
+            "order": 2,
+            "columnPosition": "image",
+            "componentType": "image",
+            "imageFiles": [
+                {
+                    "htmlTitle": "",
+                    "htmlAltText": "",
+                    "fileName": "",
+                    "externalUrl": "",
+                    "landscape": false,
+                    "imageUrl": "",
+                    "description": null
+                }
+            ],
+            "imageSlider": {
+                "auto":true,
+                "timer":30000,
+                "arrowIcons": "fas fa-chevron-circle",
+                "size": "70%"
+            }
+        }
+    ]
+}

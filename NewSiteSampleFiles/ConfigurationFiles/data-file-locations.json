@@ -1,21 +1,21 @@
 [
     {
-        "configuration":"navigation",
+        "contentType":"navigation",
         "url":"",
         "cacheAge": 900000
     },
     {
-        "configuration":"gallery",
+        "contentType":"galleries",
         "url":"",
         "cacheAge": 900000
     },
     {
-        "configuration":"home",
+        "contentType":"home",
         "url":"",
         "cacheAge": 900000
     },
     {
-        "configuration":"notFound",
+        "contentType":"notFound",
         "url":"",
         "cacheAge": 900000
     }

@@ -1,35 +1,35 @@
 [
     {
         "path":"/",
+        "page":"home",
         "sectionRoot":true,
-        "component":"Home",
+        "component":"home",
         "componentOptions":null,
-        "status":200,
         "redirect":{
-            "behavior":false,
+            "enabled":false,
             "path":""
         }
     },
     {
-        "path":"/galleries/*",
+        "path":"/examples/*",
+        "page":"examples",
         "sectionRoot":false,
         "component":"gallery",
         "componentOptions":null,
-        "status":200,
         "redirect":{
-            "behavior":false,
+            "enabled":false,
             "path":""
         }
     },
     {
         "path":"*",
+        "page":"notFound",
         "sectionRoot":false,
-        "component":"NotFound",
+        "component":"page",
         "componentOptions":null,
-        "status":404,
         "redirect":{
-            "behavior":false,
-            "path":null
+            "enabled":false,
+            "path":""
         }
     }
 ]
