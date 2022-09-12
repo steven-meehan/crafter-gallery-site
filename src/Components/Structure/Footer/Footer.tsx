@@ -8,10 +8,14 @@ const copyrightInfo = data.copyrightInfo;
 const siteDesignInfo = data.siteDesignInfo;
 
 const Footer: React.FC<{
+    fontColor: string,
     footerClasses?: string,
     children?: ReactNode;
 }> = (props) => {
     const footerClasses =  `${props.footerClasses ? props.footerClasses : ''}`;
+
+    const fontColor = `${props.fontColor === 'primary' ? classes.primaryColor :
+                            props.fontColor === 'secondary' ? classes.secondaryColor : classes.primaryColor}`;
     
     const copyrightNotice = copyrightInfo.url ? 
         (<a href={`${copyrightInfo.url}`} title={`${copyrightInfo.title}`}>{copyrightInfo.name}</a>) :
@@ -23,7 +27,7 @@ const Footer: React.FC<{
 
     return (
         <div className={`container`}>
-            <div className={`${footerClasses} row`}>
+            <div className={`${footerClasses} ${fontColor} row`}>
                 <footer className={`${classes.footerWrapper} col`}>
                     <p>Site content is © {copyrightNotice}</p>
                     {siteDesignInfo.display && 
