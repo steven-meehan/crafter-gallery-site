@@ -1,8 +1,8 @@
 @import "../../../Variables.scss";
 
 .emphasis {
-    font-weight: bolder;
     font-size: 2.25em;
+    font-family: $headerFont;
 }
 .centeredParagraphs {
     text-align: center;

@@ -17,7 +17,7 @@ const NavigationLink: React.FC<NavigationLinkProps> = (props) => {
                 <Link 
                     to={`#`} 
                     title={props.item.title} 
-                    className={`${navLinkClasses} btn nav-link dropdown-toggle`}
+                    className={`${navLinkClasses} btn nav-link dropdown-toggle ${classes.linkFontFamily}`}
                     itemID={`${props.id}`}
                     role={`button`}
                     data-bs-toggle={`dropdown`} 
@@ -32,7 +32,7 @@ const NavigationLink: React.FC<NavigationLinkProps> = (props) => {
             <Link
                 to={props.item.url} 
                 title={props.item.title} 
-                className={`${navLinkClasses} ${classes.socialIcons} btn nav-link`}
+                className={`${navLinkClasses} ${classes.socialIcons} btn nav-link ${classes.linkFontFamily}`}
                 itemID={`${props.id}`}>
                 <span style={{display: "none"}}>{props.item.name}</span>
                 <span className={props.item.icon}></span>
@@ -43,7 +43,7 @@ const NavigationLink: React.FC<NavigationLinkProps> = (props) => {
                 title={props.item.title} 
                 target={'_blank'}
                 rel={'noreferrer'}
-                className={`${navLinkClasses} ${classes.socialIcons} btn nav-link`}
+                className={`${navLinkClasses} ${classes.socialIcons} btn nav-link ${classes.linkFontFamily}`}
                 itemID={`${props.id}`}>
                 <span style={{display: "none"}}>{props.item.name}</span>
                 <span className={props.item.icon}></span>
@@ -52,7 +52,7 @@ const NavigationLink: React.FC<NavigationLinkProps> = (props) => {
             <Link 
                 to={props.item.url} 
                 title={props.item.title} 
-                className={`${navLinkClasses} btn nav-link`}
+                className={`${navLinkClasses} btn nav-link ${classes.linkFontFamily}`}
                 itemID={`${props.id}`}>
                 {props.item.name}
             </Link>
@@ -62,7 +62,7 @@ const NavigationLink: React.FC<NavigationLinkProps> = (props) => {
                 title={props.item.title} 
                 target={'_blank'} 
                 rel={'noreferrer'}
-                className={`${navLinkClasses} btn nav-link`}
+                className={`${navLinkClasses} btn nav-link ${classes.linkFontFamily}`}
                 itemID={`${props.id}`}>
                 {props.item.name}
             </a>
