@@ -23,16 +23,19 @@ $defaultFont: "Times New Roman", Times, serif;
 ////// Site Mixins //////
 
 // Background Colors //
-@mixin bodyBackgroundColor ($fileName:""){
+@mixin bodyBackgroundColor ($fileName:"", $gradient:""){
     font-family: $defaultFont;
     margin: 0;
 
-    @if $fileName == ""{
+    @if $fileName == "" and $gradient == "" {
         background-color: $secondaryColor;
     }
-    @else {
+    @else if $fileName != "" and $gradient == "" {
         background-image: url(#{$fileName});
         background-size: cover;
         background-position: center;
+    }
+    @else {
+        background: #{$gradient};
     }
 }
