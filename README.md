@@ -666,6 +666,7 @@ This section details the main color scheme of the website.
 
 // Color Palette
 $primaryColor: #ffffff;
+$altPrimaryColor: #f1fcff44;
 $secondaryColor: #6c757d;
 $secondaryColorDimmed: #6c757d80;
 $accentColor: #23e6ef;
@@ -694,6 +695,7 @@ This details the color scheme for the font used throughout the site.
 // Font Colors
 $navFontColor: #ffffff;
 $fontColor: #000000;
+$secondaryFontColor: #ffffff;
 $notFoundPrimaryColor: #40e6ef;
 $notFoundSecondaryColor: #243ebd;
 
@@ -714,13 +716,13 @@ This details the font family used throughout the site.
 
 // Font Selection
 $headerFont: 'Shadows Into Light Two', cursive;
-$titleFont: 'Shadows Into Light Two', cursive;
+$linkFont: 'Shadows Into Light Two', cursive;
 $defaultFont: 'Shadows Into Light Two', cursive;
 
 ```
 
 - `$headerFont`: This takes care of the font family for the header
-- `$titleFont`: This takes care of the font family for the title
+- `$linkFont`: This takes care of the font family for the Links
 - `$defaultFont`: This takes care of the font family for the page
 
 [Misc Content](#misc-content) : [CSS Config](#css-config) : [Back to Top](#table-of-contents)
