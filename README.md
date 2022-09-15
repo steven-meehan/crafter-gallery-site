@@ -591,7 +591,7 @@ With the `index.html` file created, you can turn to the `index.scss` file. At mi
 @import "./Configs/Variables.scss";
 
 body {
-    @include bodyBackgroundColor();
+    @include htmlBodyBackground();
 }
 
 ```
@@ -600,13 +600,13 @@ As written above the resulting site will have a solid background. If instead you
 
 ```scss
 
-@include bodyBackgroundColor($fileName: 'https://www.sample.com/test/test.jpg');
+@include htmlBodyBackground($fileName: 'https://www.sample.com/test/test.jpg');
 
 ```
 
 ```scss
 
-    @include bodyBackgroundColor($gradient: 'linear-gradient(90deg, rgba(230,235,235,1) 0%, rgba(103,104,104,1) 15%, rgba(9,8,8,1) 50%, rgba(103,104,104,1) 85%, rgba(230,235,235,1) 100%)');
+    @include htmlBodyBackground($gradient: 'linear-gradient(90deg, rgba(230,235,235,1) 0%, rgba(103,104,104,1) 15%, rgba(9,8,8,1) 50%, rgba(103,104,104,1) 85%, rgba(230,235,235,1) 100%)');
 
 ```
 
@@ -739,7 +739,7 @@ This section contains all the mixins for the site. Currently there is only one u
 
 ```SCSS
 
-@mixin bodyBackgroundColor ($fileName:"", $gradient:""){
+@mixin htmlBodyBackground ($fileName:"", $gradient:""){
     font-family: $defaultFont;
     margin: 0;
 

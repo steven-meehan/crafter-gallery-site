@@ -23,7 +23,7 @@ $defaultFont: "Times New Roman", Times, serif;
 ////// Site Mixins //////
 
 // Background Colors //
-@mixin bodyBackgroundColor ($fileName:"", $gradient:""){
+@mixin htmlBodyBackground ($fileName:"", $gradient:""){
     font-family: $defaultFont;
     margin: 0;
 
