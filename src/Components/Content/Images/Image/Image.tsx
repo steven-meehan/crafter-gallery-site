@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import parse from 'html-react-parser';
 
 import ImageProps from './ImageProps';
-import HelmetSettings from '../../Structure/Helmet/HelmetSettings';
-import HelmetConfiguration from '../../../Models/ConfigurationFiles/HelmetConfiguration';
+import HelmetSettings from '../../../Structure/Helmet/HelmetSettings';
+import HelmetConfiguration from '../../../../Models/ConfigurationFiles/HelmetConfiguration';
 
-import seoData from '../../../ConfigurationFiles/seo-config.json';
+import seoData from '../../../../ConfigurationFiles/seo-config.json';
 
 import classes from './Image.module.css';
 

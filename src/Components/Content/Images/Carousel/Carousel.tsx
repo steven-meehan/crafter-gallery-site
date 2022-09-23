@@ -3,12 +3,12 @@ import { useParams, useNavigate } from 'react-router-dom';
 
 import ImageSlider from '../ImageSlider/ImageSlider';
 import CarouselProps from './CarouselProps';
-import useHttp from '../../../Hooks/useHttp';
-import ImageFile from '../../../Models/ImageFile';
-import GalleryRequestConfig from '../../../Models/DataFiles/GalleryRequestConfig';
-import Paragraph from '../../../Models/Paragraph';
+import useHttp from '../../../../Hooks/useHttp';
+import ImageFile from '../../../../Models/ImageFile';
+import GalleryRequestConfig from '../../../../Models/DataFiles/GalleryRequestConfig';
+import Paragraph from '../../../../Models/Paragraph';
 
-import data from '../../../ConfigurationFiles/data-file-locations.json';
+import data from '../../../../ConfigurationFiles/data-file-locations.json';
 
 import classes from './Carousel.module.css';
 
