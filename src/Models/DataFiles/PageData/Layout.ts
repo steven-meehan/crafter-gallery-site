@@ -1,15 +1,15 @@
-import Column from "./Column";
+import Row from "./Row";
 
 class Layout {
-    columns: Column = new Column();
+    rows: Row[] = [];
 
     constructor(layout?: {
-        columns: Column
+        rows: Row[]
     }){
         if(layout){
-            this.columns = layout.columns ? new Column(layout.columns) : new Column();
+            this.rows = layout.rows ? layout.rows.map(item => new Row(item)) : [];
         } else {
-            this.columns = new Column();
+            this.rows = [];
         }
     }
 }
