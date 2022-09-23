@@ -3,7 +3,7 @@ import ImageFile from "../../../Models/ImageFile";
 class ImageProps {
     classes?: string = "";
     blurbCssClasses?: string = "";
-    titleblurbCssClasses?: string = "";
+    titleBlurbCssClasses?: string = "";
     setHelmetInfo?: boolean = false;
     linkImageToContent?: boolean = false;
     isContentInternal?: boolean = false;
@@ -20,7 +20,7 @@ class ImageProps {
     constructor(imageProps?: {
         classes?: string,
         blurbCssClasses?: string,
-        titleblurbCssClasses?: string,
+        titleBlurbCssClasses?: string,
         setHelmetInfo?: boolean,
         linkImageToContent?: boolean,
         isContentInternal?: boolean,
@@ -37,7 +37,7 @@ class ImageProps {
         if(imageProps){
             this.classes = imageProps.classes ? imageProps.classes : "";
             this.blurbCssClasses = imageProps.blurbCssClasses ? imageProps.blurbCssClasses : "";
-            this.titleblurbCssClasses = imageProps.titleblurbCssClasses ? imageProps.titleblurbCssClasses : "";
+            this.titleBlurbCssClasses = imageProps.titleBlurbCssClasses ? imageProps.titleBlurbCssClasses : "";
             this.setHelmetInfo = imageProps.setHelmetInfo ? imageProps.setHelmetInfo : false;
             this.linkImageToContent = imageProps.linkImageToContent ? imageProps.linkImageToContent : false;
             this.isContentInternal = imageProps.isContentInternal ? imageProps.isContentInternal : false;
@@ -53,7 +53,7 @@ class ImageProps {
         } else {
             this.classes = "";
             this.blurbCssClasses = "";
-            this.titleblurbCssClasses = "";
+            this.titleBlurbCssClasses = "";
             this.setHelmetInfo = false;
             this.linkImageToContent = false;
             this.isContentInternal = false;

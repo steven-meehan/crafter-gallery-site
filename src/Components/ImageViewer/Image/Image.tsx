@@ -15,7 +15,7 @@ const seoSiteInfo = seoData.site;
 const Image: React.FC<ImageProps>  = (props) => {
     const imageCssClasses = `${props.classes ? props.classes : ''}`;
     const blurbCssClasses = `${props.blurbCssClasses ? props.blurbCssClasses : ''}`;
-    const titleblurbCssClasses = `${props.titleblurbCssClasses ? props.titleblurbCssClasses : ''}`;
+    const titleBlurbCssClasses = `${props.titleBlurbCssClasses ? props.titleBlurbCssClasses : ''}`;
 
     const renderHelmetInfo = props.setHelmetInfo ? true : false;
 
@@ -52,7 +52,7 @@ const Image: React.FC<ImageProps>  = (props) => {
 
     const processedTitle = (
         <h1
-            className={`${titleblurbCssClasses} row justify-content-center`} >
+            className={`${titleBlurbCssClasses} row justify-content-center`} >
             <div className={`col ${classes.titleSection}`}>
                 {title}<b><i>{image.htmlTitle}</i></b>
             </div>
