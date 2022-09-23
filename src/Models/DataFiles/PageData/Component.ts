@@ -6,6 +6,7 @@ import ImageSlider from "./ImageSlider";
 
 class Component {
     active: boolean = false;
+    row: number = 0;
     order: number = 0;
     columnPosition: ColumnPosition = ColumnPosition.Left;
     componentType: ComponentType = ComponentType.Info;
@@ -15,6 +16,7 @@ class Component {
 
     constructor(component?: {
         active: boolean,
+        row: number,
         order: number,
         columnPosition: ColumnPosition,
         componentType: ComponentType,
@@ -24,6 +26,7 @@ class Component {
     }){
         if(component){
             this.active = component.active ? component.active : false;
+            this.row = component.row ? component.row : 0;
             this.order = component.order ? component.order : 0;
             this.columnPosition = component.columnPosition ? component.columnPosition : ColumnPosition.Left;
             this.componentType = component.componentType ? component.componentType : ComponentType.Info;
@@ -32,6 +35,7 @@ class Component {
             this.imageSlider = component.imageSlider ? component.imageSlider : new ImageSlider();
         } else {
             this.active = false;
+            this.row = 0;
             this.order = 0;
             this.columnPosition = ColumnPosition.Left;
             this.componentType = ComponentType.Info;

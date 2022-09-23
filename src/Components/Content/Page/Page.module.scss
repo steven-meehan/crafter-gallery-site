@@ -1,35 +1,5 @@
 @import "../../../Variables.scss";
 
-.emphasis {
-    font-size: 2.25em;
-    font-family: $headerFont;
-}
-.centeredParagraphs {
-    text-align: center;
-}
-.centered{
-    margin: 0 auto;
-    text-align: center;
-}
-.centeredImage {
-    width: 45%;
-}
-.notfoundInfo {
-    font-size: 1.5em;
-}
-.notfoundInfo a {
-    color: $notFoundSecondaryColor;
-}
-.notfoundInfo a:hover {
-    color: $notFoundPrimaryColor;
-}
-.notFoundImage {
-    margin: 0em;
-    padding: 0em;
-    border-radius: .5em;
-    border: 1px $accentColor solid;
-    box-shadow: 0px 0px 15px $accentColorDimmed;
-}
 h1 {
     text-align: center;
     font-weight: bolder;

@@ -2,13 +2,17 @@
     "name": "notFound",
     "header": "Content Not Found",
     "layout": {
-        "columns": {
-            "numberOfColumns": 1
-        }
+        "rows": [
+            {
+	    	"order": 1,
+                "numberOfColumns": 1
+            }
+        ]
     },
     "components": [
         {
             "active": true,
+            "row": 0,
             "order": 1,
             "columnPosition": "left",
             "componentType": "info",
@@ -21,11 +25,12 @@
                     "alignment": "center"
                 }
             ]
-	},
+	    },
         {
             "active": true,
+            "row": 0,
             "order": 2,
-            "columnPosition": "image",
+            "columnPosition": "left",
             "componentType": "image",
             "imageFiles": [
                 {

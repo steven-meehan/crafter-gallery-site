@@ -85,7 +85,7 @@ At minimum there needs to be an entry for `navigation`, `galleries`, `home` and 
 
 ```
 
-- `contentType`: (Required) This specifies which section of the application to configure. Currently there are four required types to define in this file.
+- `contentType`: (Required) This specifies which section of the application to configure. Currently there are four required types to define in this file. Each additional page will require its own entry.
     - `navigation`: Details where the navigation config file is located. 
     - `gallery`: Details where the gallery configuration files are located.
     - `home`: : Details where the Home Page config file is located.
@@ -449,13 +449,17 @@ This page has been coded to render a collection of `Info`, `ImageSlider`, or `Im
     "name": "home",
     "header": "",
     "layout": {
-        "columns": {
-            "numberOfColumns": 1
-        }
+        "rows": [
+            {
+	    	    "order": 1,
+                "numberOfColumns": 1
+            }
+        ]
     },
     "components": [
         {
             "active": true,
+            "row": 0,
             "order": 1,
             "columnPosition": "left",
             "componentType": "info",
@@ -474,6 +478,7 @@ This page has been coded to render a collection of `Info`, `ImageSlider`, or `Im
         .
         {
             "active": true,
+            "row": 0,
             "order": 2,
             "columnPosition": "image",
             "componentType": "image",
@@ -505,10 +510,12 @@ Definition for `page-{PageName}.json`:
 - `name`: (Required) `string` This is the name of the page being configured.
 - `header`: (Required) `string` This is the header for the page.
 - `layout`: (Required) This is the root node of the configuration file.
-    - `columns`: (Required) A complex object that details how the columns will be rendered on the home page.
+    - `rows`: (Required) This is an array of complex object that detail the setup for each row.
+        - `order`: (Required) `number` Determines the order and key for the array of rows.
         - `numberOfColumns`: (Required) `number` Details how many columns to render.
 - `components`: (Required) A complex array of objects that details the types of components to dynamically render on the home page.
     - `active`: (Required) `boolean` Determines if the component will be rendered. 
+    - `row`: (Required) `number` This tells which row the component belongs too.
     - `order`: (Required) `number` Determines the order of the component.
     - `columnPosition`: (Required) `string` Determines which column the component should be rendered in (defaults to left).
     - `componentType`: (Required) `string` Determines the type of component to render. It must be either `info` or `image`.
@@ -541,7 +548,7 @@ Definition for `page-{PageName}.json`:
 
 #### Not Found
 
-This page will use the `page-notfound.json` Data file and will build out the custom Not Found page. Currently, if you include an image, it will be inserted after the first paragraph.
+This page will use the `page-notfound.json` Data file and will build out the custom Not Found page.
 
 ### Misc Content
 
@@ -600,7 +607,7 @@ As written above the resulting site will have a solid background. If instead you
 
 ```scss
 
-@include htmlBodyBackground($fileName: 'https://www.sample.com/test/test.jpg');
+    @include htmlBodyBackground($fileName: 'https://www.sample.com/test/test.jpg');
 
 ```
 
@@ -609,6 +616,8 @@ As written above the resulting site will have a solid background. If instead you
     @include htmlBodyBackground($gradient: 'linear-gradient(90deg, rgba(230,235,235,1) 0%, rgba(103,104,104,1) 15%, rgba(9,8,8,1) 50%, rgba(103,104,104,1) 85%, rgba(230,235,235,1) 100%)');
 
 ```
+
+In order to build the gradient you can use the [CSS Gradient](https://cssgradient.io/) tool. Once you have designed the gradient you want, you can copy the resulting snippet of CSS and insert it into the `htmlBodyBackground` mixin as seen above.
 
 [Misc Content](#misc-content) : [Index Pages](#index-pages) : [Back to Top](#table-of-contents)
 
