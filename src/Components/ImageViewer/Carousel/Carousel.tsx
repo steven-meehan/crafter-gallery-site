@@ -90,7 +90,7 @@ const Carousel: React.FC<CarouselProps> = (props) => {
             },
             transformData
         );
-    }, [fetchImageReferences, galleryConfigurationUrl, imageName, defaultPage, navigate]);
+    }, [fetchImageReferences, galleryConfigurationUrl, imageName, defaultPage, navigate, routeToNotFoundPage]);
 
     useEffect(() => {
         const localImages = galleryImages && galleryImages.length > 0 ? galleryImages : null;
