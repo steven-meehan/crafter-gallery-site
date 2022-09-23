@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
-import Carousel from '../ImageViewer/Carousel/Carousel';
+import Carousel from './Images/Carousel/Carousel';
 import ComponentOptions from '../../Models/DataFiles/Navigation/ComponentOptions';
 import RedirectOptions from '../../Models/DataFiles/Navigation//RedirectOptions';
 
