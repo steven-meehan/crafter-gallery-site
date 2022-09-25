@@ -390,24 +390,21 @@ Each individual gallery will have its own Data file and the file name must begin
     "pageHeader": "{Page Header GOES HERE}",
     "items": [
         {
-            "title": "{Image TItle GOES HERE}",
-            "altText": "{Image ALt Text GOES HERE}",
+            "htmlTitle": "{Image TItle GOES HERE}",
+            "htmlAltText": "{Image ALt Text GOES HERE}",
             "fileName": "{Image Filename GOES HERE}",
-            "order": 1,
-            "externalLink": "{External Email GOES HERE}",
+            "externalUrl": "{External Email GOES HERE}",
             "landscape": false,
-            "description": {
-                "paragraphs": [
-                    {
-                        "text": "{Blurb GOES HERE}",
-                        "order": 1,
-                        "active": true
-                    },
-                    .
-                    .
-                    .
-                ]
-            }
+            "description": [
+                {
+                    "text": "{Blurb GOES HERE}",
+                    "order": 1,
+                    "active": true
+                },
+                .
+                .
+                .
+            ]
         }
         .
         .
@@ -423,19 +420,17 @@ Definition for `gallery-{galleryName}.json`:
 - `folderName`: (Required) `string` This is the sub-folder containing the images in the S3 bucket.
 - `pageHeader`: (Required) `string` This is hte header for the gallery.
 - `items`: (Required) Is an array of complex objects, but the name should be specific to the collection of images held within. (Required)
-    - `title`: (Required) `string` This is the title of the image.
-    - `altText`: (Required) `string` This is the alternate text for the image.
+    - `htmlTitle`: (Required) `string` This is the title of the image.
+    - `htmlAltText`: (Required) `string` This is the alternate text for the image.
     - `fileName`: (Required) `string` This is the name of the image's file in the S3 bucket.
-    - `order`: (Required) `number` This is the order used to display the image.
-    - `externalLink`: (Optional) `string` This is the external link to be used for the image. If there is no external link leave empty or set to null.
+    - `externalUrl`: (Optional) `string` This is the external link to be used for the image. If there is no external link leave empty or set to null.
     - `landscape`: (Optional) `bool` Tells the application if the image was taken using landscape view.
-    - `description`: (Optional) Is a complex object.
-        - `paragraphs`: (Optional) Is an array of complex objects. You can make as many of these paragraphs as you want.
-            - `order`: (Required) `number` This is the paragraph's order in the description.
-            - `display`: (Required) `bool` This determines if the paragraph is displayed on the web page.
-            - `emphasis`: (Required) `bool` This determines if the paragraph is bolded.
-            - `text`: (Required) `string` This is a paragraph for the description of the image.
-            - `alignment`: (Required) `string` This determines how the text is aligned on screen.
+    - `description`: (Optional) Is an array of complex object.
+        - `display`: (Required) `bool` This determines if the paragraph is displayed on the web page.
+        - `header`: (Required) `bool` This is the header for the page.
+        - `emphasis`: (Required) `bool` This determines if the paragraph is bolded.
+        - `text`: (Required) `string` This is a paragraph for the description of the image.
+        - `alignment`: (Required) `string` This determines how the text is aligned on screen.
 
 [Content Configuration](#content-configuration) : [Back to Top](#table-of-contents)
 

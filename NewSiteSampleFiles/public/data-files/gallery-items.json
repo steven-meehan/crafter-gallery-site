@@ -4,23 +4,20 @@
     "pageHeader": "Header Goes Here",
     "items": [
         {
-            "title": "Title Goes Here",
-            "altText": "Alternate Text Goes Here",
+            "htmlTitle": "Title Goes Here",
+            "htmlAltText": "Alternate Text Goes Here",
             "fileName": "Filename Goes Here",
-            "order": 1,
-            "externalLink": "",
+            "externalUrl": "",
             "landscape": false,
-            "description": {
-                "paragraphs": [
-                    {
-                        "order": 1,
-                        "display": true,
-                        "emphasis": false,
-                        "text": "Text Goes Here",
-                        "alignment": "center"
-                    }
-                ]
-            }
+            "description": [
+                {
+                    "display": true,
+                    "header": false,
+                    "emphasis": false,
+                    "text": "Text Goes Here",
+                    "alignment": "center"
+                }
+            ]
         }
     ]
 }
