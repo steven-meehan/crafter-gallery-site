@@ -114,6 +114,7 @@ The `Header` component uses the [`data-file-locations.json`](#data-file-location
 {
     "logoAltText": "{Place Alt Text for Logo Here}",
     "backgroundColor": "altPrimary",
+    "togglerUsesPrimaryColor": false,
     "links": [
         {
             "url": "/gallery",
@@ -153,6 +154,7 @@ Definition of the `navigation.json`:
 
 - `logoAltText`: (Required) `string` This is the Alternative Text for the main logo.
 - `backgroundColor`: (Required) `string` This is responsible for the color of the navbar's background. The only values allowed are `primary`, `altPrimary`, and `none`.
+- `togglerUsesPrimaryColor`: (Required) `boolean` This is used to give the mobile navigation toggler button some color. Currently, the system only allows for either the default `transparent` background or to use the site's primary color.
 - `links`: (Required) The root of the JSON response which contains an array of complex objects.
     - `url`: (Required) `string` This is the url for the route.
     - `order`: (Required) `number` This is the order used for displaying the routes.
@@ -388,6 +390,8 @@ Each individual gallery will have its own Data file and the file name must begin
     "baseUrl": "{URL GOES HERE}",
     "folderName": "{Folder Name GOES HERE}",
     "pageHeader": "{Page Header GOES HERE}",
+    "sliderButtonLocations": "bottom",
+    "linkToLargerVersion": false,
     "items": [
         {
             "htmlTitle": "{Image TItle GOES HERE}",
@@ -418,7 +422,9 @@ Definition for `gallery-{galleryName}.json`:
 
 - `baseUrl`: (Required) `string` This is the base URL for all the images in the configuration file.
 - `folderName`: (Required) `string` This is the sub-folder containing the images in the S3 bucket.
-- `pageHeader`: (Required) `string` This is hte header for the gallery.
+- `pageHeader`: (Required) `string` This is the header for the gallery.
+- `sliderButtonLocations`: (Required) `string` This directs the system where to place the Slider's buttons on mobile. There are only three valid values, "top", "bottom", and "both". It also defaults to "bottom".
+- `linkToLargerVersion`: (Required) `boolean` This directs the system to build links to the original image, if the image links outside fo the system. Currently this link will only be displayed when the screen has a width less than 992 pixels.
 - `items`: (Required) Is an array of complex objects, but the name should be specific to the collection of images held within. (Required)
     - `htmlTitle`: (Required) `string` This is the title of the image.
     - `htmlAltText`: (Required) `string` This is the alternate text for the image.
