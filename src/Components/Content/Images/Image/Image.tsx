@@ -31,6 +31,7 @@ const Image: React.FC<ImageProps>  = (props) => {
     const isThumbnail = props.isThumbnail ? true: false;
     const isStandAlone = props.isStandAlone ? true: false;
     const marginTop = props.marginTop ? true : false;
+    const linkToLargerVersion = props.linkToLargerVersion ? true : false;
 
     const image = props.image;
 
@@ -61,12 +62,12 @@ const Image: React.FC<ImageProps>  = (props) => {
     const blurb = image.description && 
         image.description && 
         image.description.filter((item) => {
-        return item.display;
-    }).map((item, index) => {
+            return item.display;
+        }).map((item, index) => {
         return (
             <p
                 key={`image-blurb-paragraph-${index}`}
-                className={`${blurbCssClasses} ${classes.blurbParagraph} col-8`}
+                className={`${blurbCssClasses} ${classes.blurbParagraph} col-10`}
                 style={{
                     textAlign: item.alignment === "left" ? "left" : item.alignment === "right" ? "right" : "center"
                 }} >
@@ -119,15 +120,24 @@ const Image: React.FC<ImageProps>  = (props) => {
                     className={`row justify-content-center ${isThumbnail || isStandAlone ? '' : 'mt-5'}`}>
                     {isThumbnail && processedImage}
                     {!isThumbnail && (
-                        <div className={`col`}>
+                        <div className={`col ${marginTop ? 'mt-5' : ''}`}>
                             {processedImage}
                         </div>
                     )}
                 </div>
             )}</>
+           {linkToLargerVersion && 
+                <div className={`row d-lg-none mt-3`}>
+                    <a 
+                        href={`${image.imageUrl}`}
+                        target={`_blank`} >
+                        Full Size Image
+                    </a>
+                </div>
+            }
             <>{displayBlurb && !isThumbnail && (
                 <div
-                    className={`${classes.blurbSection} row justify-content-center ${isThumbnail ? '' : 'mt-5'}`}>
+                    className={`${classes.blurbSection} row justify-content-center ${isThumbnail ? '' : 'mt-3'}`}>
                     {blurb}
                 </div>
             )}</>

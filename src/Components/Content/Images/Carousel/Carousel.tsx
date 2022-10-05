@@ -11,18 +11,21 @@ import Paragraph from '../../../../Models/Paragraph';
 import data from '../../../../ConfigurationFiles/data-file-locations.json';
 
 import classes from './Carousel.module.css';
+import SliderButtonLocations from '../../../../Models/DataFiles/SliderButtonLocations';
 
-const config = data.find(item=>item.contentType==='galleries')!;
 
 const Carousel: React.FC<CarouselProps> = (props) => {
     const [ selectedImageName, setSelectedImageName ] = useState("");
     const [ galleryImages, setGalleryImages ] = useState<ImageFile[]>([]);
-
+    const [ sliderButtonLocations, setSliderButtonLocations ] = useState<SliderButtonLocations>(SliderButtonLocations.Bottom);
+    const [ linkToLargerVersion, setLinkToLargerVersion ] = useState<boolean>(false);
+    
     const { sendRequest: fetchImageReferences } = useHttp();
-
+    
     const params = useParams();
     const navigate = useNavigate();
-
+    
+    const config = data.find(item=>item.contentType==='galleries')!;
     const galleryConfigurationUrl = `${config.url}${props.configSettingFile}`;
     const defaultPage = props.defaultPage;
     const routeToNotFoundPage = props.routeToNotFoundPage;
@@ -81,6 +84,8 @@ const Carousel: React.FC<CarouselProps> = (props) => {
             
             setSelectedImageName(galleryImages[0].fileName);
             setGalleryImages(galleryImages);
+            setSliderButtonLocations(data.sliderButtonLocations);
+            setLinkToLargerVersion(data.linkToLargerVersion);
         }
     
         fetchImageReferences(
@@ -117,7 +122,10 @@ const Carousel: React.FC<CarouselProps> = (props) => {
                 arrowIcon={fontAwesomeArrowIcons}
                 startWithImage={selectedImageName ? true : false}
                 renderImageUrls={true}
-                initialImage={selectedImageName} />
+                initialImage={selectedImageName}
+                sliderButtonLocations={sliderButtonLocations}
+                scrollToTopOnClick={true}
+                linkToLargerVersion={linkToLargerVersion} />
             <ImageSlider 
                 images={galleryImages}
                 defaultPage={defaultPage}

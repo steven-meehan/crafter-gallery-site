@@ -22,10 +22,10 @@ class ImageFile {
         if(imageFile){
             this.htmlTitle = imageFile.htmlTitle ? imageFile.htmlTitle : "";
             this.htmlAltText = imageFile.htmlAltText ? imageFile.htmlAltText : "";
-            this.imageUrl = imageFile.imageUrl ? imageFile.imageUrl : "";
+            this.fileName = imageFile.fileName ? imageFile.fileName : "";
             this.externalUrl = imageFile.externalUrl ? imageFile.externalUrl : "";
             this.landscape = imageFile.landscape ? imageFile.landscape : false;
-            this.fileName = imageFile.fileName ? imageFile.fileName : "";
+            this.imageUrl = imageFile.imageUrl ? imageFile.imageUrl : "";
             this.description = imageFile.description ? imageFile.description.map(item => new Paragraph(item)) : [];
             this.fullDescription = imageFile.description ? imageFile.description.map(item => `${item.text} `).join('') : "";
         } else {

@@ -6,6 +6,7 @@ import ImageFile from '../../../../Models/ImageFile';
 import ImageSliderProps from './ImageSliderProps'
 
 import classes from './ImageSlider.module.css';
+import SliderButtonLocations from '../../../../Models/DataFiles/SliderButtonLocations';
 
 const ImageSlider: React.FC<ImageSliderProps> = (props) => {
     const [ images, setImages ] = useState<ImageFile[]>([]);
@@ -32,7 +33,11 @@ const ImageSlider: React.FC<ImageSliderProps> = (props) => {
     const isThumbnailBar = props.isThumbnailBar ? true : false;
     const disableTitle = props.disableTitle ? true : false;
     const setHelmetInfo = props.setHelmetInfo ? true : false;
-    const imageSize = `${props.imageSize ? props.imageSize : '65%'}`
+    const imageSize = `${props.imageSize ? props.imageSize : '100%'}`
+    const marginTop = props.marginTop ? true : false;
+    const sliderButtonLocations = props.sliderButtonLocations ? props.sliderButtonLocations : SliderButtonLocations.Bottom;
+    const scrollToTopOnClick = props.scrollToTopOnClick ? true : false;
+    const linkToLargerVersion = props.linkToLargerVersion ? true : false;
     
     useEffect(() => {
         
@@ -65,6 +70,9 @@ const ImageSlider: React.FC<ImageSliderProps> = (props) => {
         } else {
             setCurrentImageIndex(newImageIndex);
         }
+        if(scrollToTopOnClick){
+            window.scrollTo(0,0);
+        }
     }
 
     const nextSlideHandler = () =>{
@@ -74,6 +82,9 @@ const ImageSlider: React.FC<ImageSliderProps> = (props) => {
             navigate(redirectUrl);
         } else {
             setCurrentImageIndex(newImageIndex);
+        }
+        if(scrollToTopOnClick){
+            window.scrollTo(0,0);
         }
     }
 
@@ -119,7 +130,8 @@ const ImageSlider: React.FC<ImageSliderProps> = (props) => {
                         displayTitle={!disableTitle}
                         title={``}
                         isThumbnail={false}
-                        isStandAlone={false} />
+                        isStandAlone={false}
+                        linkToLargerVersion={linkToLargerVersion} />
                 )}
             </div>
         )
@@ -127,21 +139,61 @@ const ImageSlider: React.FC<ImageSliderProps> = (props) => {
 
     return (
         <div className={`${imageSliderClasses}`}>
+            {(sliderButtonLocations === SliderButtonLocations.Top || sliderButtonLocations === SliderButtonLocations.Both) &&
+                <div className={`row d-md-none`}>
+                    {!isThumbnailBar && (
+                        <div
+                            className={`col ${classes.leftArrow}`} 
+                            onClick={prevSlideHandler} >
+                            <i className={`${arrowIcon}-left`}></i>
+                        </div>
+                    )}
+                    {!isThumbnailBar && (
+                        <div
+                            className={`col ${classes.rightArrow}`} 
+                            onClick={nextSlideHandler} >
+                            <i className={`${arrowIcon}-right`}></i>
+                        </div>)
+                    }
+                </div>
+            }
             <div className={`row ${classes.imageSlider}`}>
                 {!isThumbnailBar && (
-                    <div className={`col-1 ${classes.leftArrow}`} onClick={prevSlideHandler}>
+                    <div 
+                        className={`col-1 d-none d-md-block ${classes.leftArrow} ${classes.mainImageSliderButtonSpacer}`}
+                        onClick={prevSlideHandler} >
                         <i className={`${arrowIcon}-left`}></i>
                     </div>
                 )}
-                <div className={`col`}>
+                <div className={`col ${marginTop ? 'mt-5' : ''}`}>
                     {htmlImages}
                 </div>
                 {!isThumbnailBar && (
-                    <div className={`col-1 ${classes.rightArrow}`} onClick={nextSlideHandler}>
+                    <div 
+                        className={`col-1 d-none d-md-block ${classes.rightArrow} ${classes.mainImageSliderButtonSpacer}`}
+                        onClick={nextSlideHandler} >
                         <i className={`${arrowIcon}-right`}></i>
                     </div>)
                 }
             </div>
+            {(sliderButtonLocations === SliderButtonLocations.Bottom || sliderButtonLocations === SliderButtonLocations.Both) &&
+                <div className={`row d-md-none`}>
+                    {!isThumbnailBar && (
+                        <div
+                            className={`col ${classes.leftArrow}`} 
+                            onClick={prevSlideHandler} >
+                            <i className={`${arrowIcon}-left`}></i>
+                        </div>
+                    )}
+                    {!isThumbnailBar && (
+                        <div
+                            className={`col ${classes.rightArrow}`} 
+                            onClick={nextSlideHandler} >
+                            <i className={`${arrowIcon}-right`}></i>
+                        </div>)
+                    }
+                </div>
+            }
         </div>
     );
 }

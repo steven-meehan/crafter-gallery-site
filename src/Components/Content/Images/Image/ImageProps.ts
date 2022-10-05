@@ -16,6 +16,7 @@ class ImageProps {
     isThumbnail: boolean = false;
     isStandAlone: boolean = false;
     marginTop?: boolean = false;
+    linkToLargerVersion?: boolean = false;
     image: ImageFile = new ImageFile();
 
     constructor(imageProps?: {
@@ -34,6 +35,7 @@ class ImageProps {
         isThumbnail: boolean,
         isStandAlone: boolean,
         marginTop?: boolean,
+        linkToLargerVersion?: boolean,
         image: ImageFile
     }){
         if(imageProps){
@@ -52,6 +54,7 @@ class ImageProps {
             this.isThumbnail = imageProps.isThumbnail ? imageProps.isThumbnail : false;
             this.isStandAlone = imageProps.isStandAlone ? imageProps.isStandAlone : false;
             this.marginTop = imageProps.marginTop ? imageProps.marginTop : false;
+            this.linkToLargerVersion = imageProps.linkToLargerVersion ? imageProps.linkToLargerVersion : false;
             this.image = imageProps.image ? new ImageFile(imageProps.image) : new ImageFile();
         } else {
             this.classes = "";
@@ -69,6 +72,7 @@ class ImageProps {
             this.isThumbnail = false;
             this.isStandAlone = false;
             this.marginTop = false;
+            this.linkToLargerVersion = false;
             this.image = new ImageFile();
         }
     }
