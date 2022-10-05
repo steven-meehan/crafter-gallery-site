@@ -1,9 +1,9 @@
 import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
-import Carousel from './Images/Carousel/Carousel';
+import Carousel from '../Content/Images/Carousel/Carousel';
 import ComponentOptions from '../../Models/DataFiles/Navigation/ComponentOptions';
-import RedirectOptions from '../../Models/DataFiles/Navigation//RedirectOptions';
+import RedirectOptions from '../../Models/DataFiles/Navigation/RedirectOptions';
 
 import data from '../../ConfigurationFiles/routes-gallery.json';
 

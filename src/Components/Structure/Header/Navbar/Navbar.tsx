@@ -53,9 +53,11 @@ const Navbar: React.FC<NavbarProps> = (props) => {
                     className={`row `}
                     style={{
                         width:"100%",
-                        maxWidth:"100%"
+                        maxWidth:"100%",
+                        marginLeft:"auto",
+                        marginRight:"auto"
                     }} >
-                    <div className='col-3'>
+                    <div className='col-2 col-sm-3'>
                         <Link 
                             to={`/`} 
                             title={`Home Page`}
@@ -80,7 +82,8 @@ const Navbar: React.FC<NavbarProps> = (props) => {
                     </div>
                     <Toggler 
                         navbarTogglerTarget={`navigationBar`} 
-                        togglerClasses={`offset-7 col-2 dmd-none ${classes.navigationBarToggler}`}/>
+                        togglerUsesPrimaryColor={props.togglerUsesPrimaryColor}
+                        togglerClasses={`offset-7 col-2 d-md-none ${classes.navigationBarToggler}`}/>
                     <div 
                         className={`col-9 collapse navbar-collapse`} 
                         id={`navigationBar`}>

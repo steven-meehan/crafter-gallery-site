@@ -12,7 +12,7 @@ import config from '../../../ConfigurationFiles/data-file-locations.json';
 import classes from './Main.module.css';
 
 const Page = React.lazy(() => import('../../Content/Page/Page'));
-const Gallery = React.lazy(() => import('../../Content/Gallery'));
+const Gallery = React.lazy(() => import('../Gallery'));
 
 const Main: React.FC<{
     contentClasses?: string,
@@ -67,8 +67,8 @@ const Main: React.FC<{
                                         path={route.path} 
                                         element={
                                             <Page 
-                                            seoPageConfig={route.page} 
-                                            dataFileUrl={config.find(item=>item.contentType === route.page)!.url}  />
+                                                seoPageConfig={route.page} 
+                                                dataFileUrl={config.find(item=>item.contentType === route.page)!.url}  />
                                         } />;
                                 }
                             )

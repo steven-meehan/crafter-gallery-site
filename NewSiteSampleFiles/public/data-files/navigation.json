@@ -1,6 +1,7 @@
 {
     "logoAltText": "Alternate Text Goes Here",
     "backgroundColor": "altPrimary",
+    "togglerUsesPrimaryColor": false,
     "links": [
         {
             "url": "/gallery",

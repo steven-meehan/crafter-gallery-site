@@ -20,6 +20,7 @@ class ImageProcessor {
                     images={images}
                     disableTitle={true}
                     setHelmetInfo={false}
+                    marginTop={component.imageSlider!.marginTop}
                     autoTransition={component.imageSlider!.auto}
                     autoTransitionTimer={component.imageSlider!.timer}
                     imageSize={component.imageSlider!.size}
@@ -36,6 +37,7 @@ class ImageProcessor {
                         isContentInternal={false}
                         urlForLinkedContent={images[0].externalUrl && images[0].externalUrl !== '' ? images[0].externalUrl : images[0].imageUrl} 
                         imageWidth={component.imageSlider!.size}
+                        marginTop={component.imageSlider!.marginTop}
                         displayBlurb={false}
                         displayTitle={false}
                         title={images[0].htmlTitle}

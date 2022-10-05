@@ -1,3 +1,4 @@
+import SliderButtonLocations from "../../../../Models/DataFiles/SliderButtonLocations";
 import ImageFile from "../../../../Models/ImageFile";
 
 class ImageSliderProps {
@@ -14,6 +15,10 @@ class ImageSliderProps {
     isThumbnailBar?: boolean = false;
     disableTitle?: boolean = false;
     imageSize?: string = "";
+    marginTop?: boolean = false;
+    sliderButtonLocations?: SliderButtonLocations = SliderButtonLocations.Bottom;
+    scrollToTopOnClick?: boolean = false;
+    linkToLargerVersion?: boolean = false;
 
     constructor(imageSliderProps?: {
         classes: string,
@@ -28,7 +33,11 @@ class ImageSliderProps {
         defaultPage: string,
         isThumbnailBar: boolean,
         disableTitle: boolean,
-        imageSize: string
+        imageSize: string,
+        marginTop?: boolean,
+        sliderButtonLocations?: SliderButtonLocations,
+        scrollToTopOnClick?: boolean,
+        linkToLargerVersion?: boolean
     }){
         if(imageSliderProps){
             this.classes = imageSliderProps.classes ? imageSliderProps.classes : "";
@@ -44,6 +53,10 @@ class ImageSliderProps {
             this.isThumbnailBar = imageSliderProps.isThumbnailBar ? imageSliderProps.isThumbnailBar : false;
             this.disableTitle = imageSliderProps.disableTitle ? imageSliderProps.disableTitle : false;
             this.imageSize = imageSliderProps.imageSize ? imageSliderProps.imageSize : "65%";
+            this.marginTop = imageSliderProps.marginTop ? imageSliderProps.marginTop : false;
+            this.sliderButtonLocations = imageSliderProps.sliderButtonLocations ? imageSliderProps.sliderButtonLocations : SliderButtonLocations.Bottom;
+            this.scrollToTopOnClick = imageSliderProps.scrollToTopOnClick ? imageSliderProps.scrollToTopOnClick : false;
+            this.linkToLargerVersion = imageSliderProps.linkToLargerVersion ? imageSliderProps.linkToLargerVersion : false;
         } else {
             this.classes =  "";
             this.images =  [];
@@ -58,6 +71,10 @@ class ImageSliderProps {
             this.isThumbnailBar =  false;
             this.disableTitle =  false;
             this.imageSize = "65%";
+            this.marginTop = false;
+            this.sliderButtonLocations = SliderButtonLocations.Bottom;
+            this.scrollToTopOnClick = false;
+            this.linkToLargerVersion = false;
         }
     }
 }

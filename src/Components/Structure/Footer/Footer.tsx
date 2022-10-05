@@ -15,14 +15,14 @@ const Footer: React.FC<{
     const footerClasses =  `${props.footerClasses ? props.footerClasses : ''}`;
 
     const fontColor = `${props.fontColor === 'primary' ? classes.primaryColor :
-                            props.fontColor === 'secondary' ? classes.secondaryColor : classes.primaryColor}`;
+        props.fontColor === 'secondary' ? classes.secondaryColor : classes.primaryColor}`;
     
     const copyrightNotice = copyrightInfo.url ? 
-        (<a href={`${copyrightInfo.url}`} title={`${copyrightInfo.title}`}>{copyrightInfo.name}</a>) :
+        (<a href={`${copyrightInfo.url}`} title={`${copyrightInfo.title}`} target={`_blank`}>{copyrightInfo.name}</a>) :
         copyrightInfo.name;
     
     const siteDesigner = siteDesignInfo.url ? 
-        (<a href={`${siteDesignInfo.url}`} title={`${siteDesignInfo.title}`}>{siteDesignInfo.name}</a>) :
+        (<a href={`${siteDesignInfo.url}`} title={`${siteDesignInfo.title}`} target={`_blank`}>{siteDesignInfo.name}</a>) :
         siteDesignInfo.name;
 
     return (
