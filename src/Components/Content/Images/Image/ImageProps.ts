@@ -15,6 +15,7 @@ class ImageProps {
     title: string = "";
     isThumbnail: boolean = false;
     isStandAlone: boolean = false;
+    marginTop?: boolean = false;
     image: ImageFile = new ImageFile();
 
     constructor(imageProps?: {
@@ -32,7 +33,8 @@ class ImageProps {
         title: string,
         isThumbnail: boolean,
         isStandAlone: boolean,
-        image: ImageFile,
+        marginTop?: boolean,
+        image: ImageFile
     }){
         if(imageProps){
             this.classes = imageProps.classes ? imageProps.classes : "";
@@ -49,6 +51,7 @@ class ImageProps {
             this.title = imageProps.title ? imageProps.title : "";
             this.isThumbnail = imageProps.isThumbnail ? imageProps.isThumbnail : false;
             this.isStandAlone = imageProps.isStandAlone ? imageProps.isStandAlone : false;
+            this.marginTop = imageProps.marginTop ? imageProps.marginTop : false;
             this.image = imageProps.image ? new ImageFile(imageProps.image) : new ImageFile();
         } else {
             this.classes = "";
@@ -65,6 +68,7 @@ class ImageProps {
             this.title = "";
             this.isThumbnail = false;
             this.isStandAlone = false;
+            this.marginTop = false;
             this.image = new ImageFile();
         }
     }

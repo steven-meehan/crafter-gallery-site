@@ -7,12 +7,10 @@ import HelmetSettings from '../../../Structure/Helmet/HelmetSettings';
 import HelmetConfiguration from '../../../../Models/ConfigurationFiles/HelmetConfiguration';
 
 import seoData from '../../../../ConfigurationFiles/seo-config.json';
-
 import classes from './Image.module.css';
 
-const seoSiteInfo = seoData.site;
-
 const Image: React.FC<ImageProps>  = (props) => {
+    const seoSiteInfo = seoData.site;
     const imageCssClasses = `${props.classes ? props.classes : ''}`;
     const blurbCssClasses = `${props.blurbCssClasses ? props.blurbCssClasses : ''}`;
     const titleBlurbCssClasses = `${props.titleBlurbCssClasses ? props.titleBlurbCssClasses : ''}`;
@@ -32,6 +30,7 @@ const Image: React.FC<ImageProps>  = (props) => {
 
     const isThumbnail = props.isThumbnail ? true: false;
     const isStandAlone = props.isStandAlone ? true: false;
+    const marginTop = props.marginTop ? true : false;
 
     const image = props.image;
 
