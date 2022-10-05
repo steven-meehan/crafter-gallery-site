@@ -12,19 +12,20 @@ import data from '../../../../ConfigurationFiles/data-file-locations.json';
 import classes from './Header.module.css';
 import BackgroundColor from '../../../../Models/DataFiles/Navigation/BackgroundColor';
 
-const config = data.find(item=>item.contentType==='navigation')!;
 
 const Header: React.FC<{
     headerClasses?: string,
     children?: ReactNode
 }> = (props) => {
+    const config = data.find(item=>item.contentType==='navigation')!;
     const headerClasses = `${props.headerClasses ? props.headerClasses : ''} ${classes.header}`;
-
+    
     const [navigationLinks, setNavigationLinks] = useState<LinkConfig[]>([]);
     const [socialLinks, setSocialLinks] = useState<LinkConfig[]>([]);
     const [logoAltText, setLogoAltText] = useState("");
     const [backgroundColor, setBackgroundColor] = useState<BackgroundColor>()
-
+    const [togglerUsesPrimaryColor, setAlternateTogglerButtonColor] = useState<boolean>(false);
+    
     const { sendRequest: fetchConfigs } = useHttp();
 
     useEffect(() => {
@@ -75,6 +76,7 @@ const Header: React.FC<{
             setSocialLinks(sortedSocialList.sort());
             setLogoAltText(data.logoAltText);
             setBackgroundColor(data.backgroundColor);
+            setAlternateTogglerButtonColor(data.togglerUsesPrimaryColor);
         }
 
         fetchConfigs(
@@ -93,7 +95,8 @@ const Header: React.FC<{
                 navlinks={navigationLinks}
                 socialNavLinks={socialLinks}
                 backgroundColor={backgroundColor}
-                headerCssClasses={`${headerClasses}`} />
+                headerCssClasses={`${headerClasses}`}
+                togglerUsesPrimaryColor={togglerUsesPrimaryColor} />
         </header>
     );
 };

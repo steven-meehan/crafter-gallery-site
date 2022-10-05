@@ -3,6 +3,10 @@
 .navbarToggler {
     font-weight: bolder;
     box-shadow: 0 1px 8px $accentColorDimmed;
+    background-color: transparent;
+}
+.navbarTogglerBackground {
+    background-color: $primaryColor !important;
 }
 .navbarToggler:hover {
     border: 2px $accentColor solid;

@@ -10,6 +10,7 @@ class NavbarProps {
     socialNavLinks: LinkConfig[] = [];
     backgroundColor?: BackgroundColor = BackgroundColor.Primary;
     headerCssClasses?: string = "";
+    togglerUsesPrimaryColor?: boolean = false;
     children?: ReactNode;
 }
 

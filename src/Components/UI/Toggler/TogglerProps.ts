@@ -1,8 +1,9 @@
 import { ReactNode } from "react";
 
 class TogglerProps {
-    togglerClasses?: string = "";
     navbarTogglerTarget: string = "";
+    togglerClasses?: string = "";
+    togglerUsesPrimaryColor?: boolean = false;
     children?: ReactNode;
 }
 
