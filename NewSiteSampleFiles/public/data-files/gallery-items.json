@@ -2,6 +2,8 @@
     "baseUrl": "URL to collection of images",
     "folderName": "Folder name",
     "pageHeader": "Header Goes Here",
+    "sliderButtonLocations": "bottom",
+    "linkToLargerVersion": false,
     "items": [
         {
             "htmlTitle": "Title Goes Here",
