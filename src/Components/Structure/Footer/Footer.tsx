@@ -15,7 +15,7 @@ const Footer: React.FC<{
     const footerClasses =  `${props.footerClasses ? props.footerClasses : ''}`;
 
     const fontColor = `${props.fontColor === 'primary' ? classes.primaryColor :
-                            props.fontColor === 'secondary' ? classes.secondaryColor : classes.primaryColor}`;
+        props.fontColor === 'secondary' ? classes.secondaryColor : classes.primaryColor}`;
     
     const copyrightNotice = copyrightInfo.url ? 
         (<a href={`${copyrightInfo.url}`} title={`${copyrightInfo.title}`}>{copyrightInfo.name}</a>) :

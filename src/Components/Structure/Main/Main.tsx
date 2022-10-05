@@ -67,8 +67,8 @@ const Main: React.FC<{
                                         path={route.path} 
                                         element={
                                             <Page 
-                                            seoPageConfig={route.page} 
-                                            dataFileUrl={config.find(item=>item.contentType === route.page)!.url}  />
+                                                seoPageConfig={route.page} 
+                                                dataFileUrl={config.find(item=>item.contentType === route.page)!.url}  />
                                         } />;
                                 }
                             )

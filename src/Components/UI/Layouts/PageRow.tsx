@@ -39,7 +39,8 @@ const PageRow: React.FC<PageRowProps> = (props) => {
                             )
                         }
                     </div>
-                </div>);
+                </div>
+            );
 
             break;
             
@@ -49,7 +50,8 @@ const PageRow: React.FC<PageRowProps> = (props) => {
                     <div className={`col-xs-12 col-xl-${12/columns}`}>
                         {components.map(item=>item.jsxElement)}
                     </div>
-                </div>);
+                </div>
+            );
 
             break;
     

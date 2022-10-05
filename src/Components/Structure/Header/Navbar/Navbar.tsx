@@ -53,9 +53,11 @@ const Navbar: React.FC<NavbarProps> = (props) => {
                     className={`row `}
                     style={{
                         width:"100%",
-                        maxWidth:"100%"
+                        maxWidth:"100%",
+                        marginLeft:"auto",
+                        marginRight:"auto"
                     }} >
-                    <div className='col-3'>
+                    <div className='col-2 col-sm-3'>
                         <Link 
                             to={`/`} 
                             title={`Home Page`}
