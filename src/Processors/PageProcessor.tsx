@@ -41,6 +41,7 @@ class PageProcessor {
                                     imageUrl: image.imageUrl,
                                     fileName: image.fileName,
                                     externalUrl: image.externalUrl,
+                                    htmlLinkTitle: image.htmlLinkTitle ? image.htmlLinkTitle : "",
                                     landscape: image.landscape ? true : false,
                                     description: image.description ? image.description : undefined
                                 });
