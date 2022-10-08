@@ -1,8 +1,8 @@
 import React, { ReactNode, Suspense } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
-import Card from '../../UI/Card/Card';
-import Spinner from '../../UI/Spinner/Spinner';
+import Card from '../../Display/Card/Card';
+import Spinner from '../../Display/Spinner/Spinner';
 import ComponentType from '../../../Models/DataFiles/Home/ComponentType';
 import RouteDefinition from '../../../Models/DataFiles/Navigation/RouteDefinition';
 
@@ -12,7 +12,7 @@ import config from '../../../ConfigurationFiles/data-file-locations.json';
 import classes from './Main.module.css';
 
 const Page = React.lazy(() => import('../../Content/Page/Page'));
-const Gallery = React.lazy(() => import('../Gallery'));
+const Gallery = React.lazy(() => import('../Gallery/Gallery'));
 
 const Main: React.FC<{
     contentClasses?: string,

@@ -1,11 +1,11 @@
 import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
-import Carousel from '../Content/Images/Carousel/Carousel';
-import ComponentOptions from '../../Models/DataFiles/Navigation/ComponentOptions';
-import RedirectOptions from '../../Models/DataFiles/Navigation/RedirectOptions';
+import Carousel from '../../Content/Images/Carousel/Carousel';
+import ComponentOptions from '../../../Models/DataFiles/Navigation/ComponentOptions';
+import RedirectOptions from '../../../Models/DataFiles/Navigation/RedirectOptions';
 
-import data from '../../ConfigurationFiles/routes-gallery.json';
+import data from '../../../ConfigurationFiles/routes-gallery.json';
 
 const galleryRoutes: {
     path: string,
