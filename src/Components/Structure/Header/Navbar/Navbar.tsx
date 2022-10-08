@@ -95,7 +95,7 @@ const Navbar: React.FC<NavbarProps> = (props) => {
                             }} >
                             {navigationLinks}
                             <li 
-                                className={`offset-md-${8-(props.navlinks.length*2)} offset-lg-${9-(props.navlinks.length*2)} nav-item col col-md-4 col-lg-3`}
+                                className={`offset-lg-${9-(props.navlinks.length*2)} nav-item col col-lg-3`}
                                 style={{
                                     padding: "0.15em 0.9em 0em"
                                 }} >
