@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /configs/
+Disallow: /images/
+Disallow: /static/
+Disallow: /asset-manifest.json
