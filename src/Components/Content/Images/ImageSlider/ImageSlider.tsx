@@ -55,26 +55,26 @@ const ImageSlider: React.FC<ImageSliderProps> = (props) => {
 
         if(autoTransition){
             const interval = setInterval(() => {
-                nextSlideHandler();
+                nextSlideHandler(scrollToTopOnClick);
             }, autoTransitionTimer);
         
             return () => clearInterval(interval);
         }
     }, [startWithImage, startingImageIndex, autoTransition, autoTransitionTimer, currentImageIndex, localImages]);
 
-    const prevSlideHandler = () =>{
+    const prevSlideHandler = (scroll: boolean) =>{
         let newImageIndex = currentImageIndex === 0 ? imagesCount-1 : currentImageIndex - 1;
-        changeSlide(newImageIndex);
+        changeSlide(newImageIndex, scroll);
     }
 
-    const nextSlideHandler = () =>{
+    const nextSlideHandler = (scroll: boolean) =>{
         let newImageIndex = currentImageIndex === imagesCount-1 ? 0 : currentImageIndex + 1;
-        changeSlide(newImageIndex);
+        changeSlide(newImageIndex, scroll);
     }
 
-    const changeSlide = (newImageIndex: number) => {
-        if(scrollToTopOnClick){
-            window.scrollTo(0,0);
+    const changeSlide = (newImageIndex: number, scroll: boolean) => {
+        if(scrollToTopOnClick && scroll){
+            window.scrollTo(0,150);
         }
         
         if(renderImageUrls) {
@@ -142,14 +142,14 @@ const ImageSlider: React.FC<ImageSliderProps> = (props) => {
                     {!isThumbnailBar && (
                         <div
                             className={`col ${classes.leftArrow}`} 
-                            onClick={prevSlideHandler} >
+                            onClick={() => prevSlideHandler(true)} >
                             <i className={`${arrowIcon}-left`}></i>
                         </div>
                     )}
                     {!isThumbnailBar && (
                         <div
                             className={`col ${classes.rightArrow}`} 
-                            onClick={nextSlideHandler} >
+                            onClick={() => nextSlideHandler(true)} >
                             <i className={`${arrowIcon}-right`}></i>
                         </div>)
                     }
@@ -159,7 +159,7 @@ const ImageSlider: React.FC<ImageSliderProps> = (props) => {
                 {!isThumbnailBar && (
                     <div 
                         className={`col-1 d-none d-md-block ${classes.leftArrow} ${classes.mainImageSliderButtonSpacer}`}
-                        onClick={prevSlideHandler} >
+                        onClick={() => prevSlideHandler(false)} >
                         <i className={`${arrowIcon}-left`}></i>
                     </div>
                 )}
@@ -169,7 +169,7 @@ const ImageSlider: React.FC<ImageSliderProps> = (props) => {
                 {!isThumbnailBar && (
                     <div 
                         className={`col-1 d-none d-md-block ${classes.rightArrow} ${classes.mainImageSliderButtonSpacer}`}
-                        onClick={nextSlideHandler} >
+                        onClick={() => nextSlideHandler(false)} >
                         <i className={`${arrowIcon}-right`}></i>
                     </div>)
                 }
@@ -179,14 +179,14 @@ const ImageSlider: React.FC<ImageSliderProps> = (props) => {
                     {!isThumbnailBar && (
                         <div
                             className={`col ${classes.leftArrow}`} 
-                            onClick={prevSlideHandler} >
+                            onClick={() => prevSlideHandler(true)} >
                             <i className={`${arrowIcon}-left`}></i>
                         </div>
                     )}
                     {!isThumbnailBar && (
                         <div
                             className={`col ${classes.rightArrow}`} 
-                            onClick={nextSlideHandler} >
+                            onClick={() => nextSlideHandler(true)} >
                             <i className={`${arrowIcon}-right`}></i>
                         </div>)
                     }
