@@ -64,27 +64,24 @@ const ImageSlider: React.FC<ImageSliderProps> = (props) => {
 
     const prevSlideHandler = () =>{
         let newImageIndex = currentImageIndex === 0 ? imagesCount-1 : currentImageIndex - 1;
-        if(renderImageUrls) {
-            const redirectUrl = `${defaultPage}${images[newImageIndex].fileName}`; 
-            navigate(redirectUrl);
-        } else {
-            setCurrentImageIndex(newImageIndex);
-        }
-        if(scrollToTopOnClick){
-            window.scrollTo(0,0);
-        }
+        changeSlide(newImageIndex);
     }
 
     const nextSlideHandler = () =>{
         let newImageIndex = currentImageIndex === imagesCount-1 ? 0 : currentImageIndex + 1;
+        changeSlide(newImageIndex);
+    }
+
+    const changeSlide = (newImageIndex: number) => {
+        if(scrollToTopOnClick){
+            window.scrollTo(0,0);
+        }
+        
         if(renderImageUrls) {
             const redirectUrl = `${defaultPage}${images[newImageIndex].fileName}`; 
             navigate(redirectUrl);
         } else {
             setCurrentImageIndex(newImageIndex);
-        }
-        if(scrollToTopOnClick){
-            window.scrollTo(0,0);
         }
     }
 
