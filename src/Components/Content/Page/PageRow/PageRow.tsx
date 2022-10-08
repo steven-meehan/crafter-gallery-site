@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 
-import ColumnPosition from "../../../Models/DataFiles/PageData/ColumnPosition";
-import NumberOfColumns from "../../../Models/DataFiles/PageData/NumberOfColumns";
+import ColumnPosition from "../../../../Models/DataFiles/PageData/ColumnPosition";
+import NumberOfColumns from "../../../../Models/DataFiles/PageData/NumberOfColumns";
 import PageRowProps from "./PageRowProps";
 
 const PageRow: React.FC<PageRowProps> = (props) => {
