@@ -5,8 +5,8 @@ import PageProps from './PageProps';
 import PageProcessor from '../../../Processors/PageProcessor';
 import PageData from '../../../Models/DataFiles/PageData/PageData';
 import useHttp from '../../../Hooks/useHttp';
-import Spinner from '../../UI/Spinner/Spinner';
-import PageRow from '../../UI/Layouts/PageRow';
+import Spinner from '../../Display/Spinner/Spinner';
+import PageRow from './PageRow/PageRow';
 
 import config from '../../../ConfigurationFiles/data-file-locations.json';
 import seoConfig from '../../../ConfigurationFiles/seo-config.json';

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, ReactNode } from 'react';
 
-import Card from '../../../UI/Card/Card';
+import Card from '../../../Display/Card/Card';
 import Navbar from '../Navbar/Navbar';
 
 import useHttp from '../../../../Hooks/useHttp';
