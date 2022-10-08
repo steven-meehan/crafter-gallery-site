@@ -11,7 +11,7 @@ import config from '../../../ConfigurationFiles/data-file-locations.json';
 
 import classes from './Main.module.css';
 
-const Page = React.lazy(() => import('../../Content/Page/Page'));
+const Page = React.lazy(() => import('../../Content/Pages/Page/Page'));
 const Gallery = React.lazy(() => import('../Gallery/Gallery'));
 
 const Main: React.FC<{
