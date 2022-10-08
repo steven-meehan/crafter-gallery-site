@@ -1,4 +1,4 @@
-import ImageFile from "../../../../Models/ImageFile";
+import ImageFile from "../../../../../Models/ImageFile";
 
 class ImageProps {
     image: ImageFile = new ImageFile();

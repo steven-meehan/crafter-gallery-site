@@ -1,7 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import Image from '../Image/Image';
+import Image from '../ImageFiles/Image/Image';
 import ImageFile from '../../../../Models/ImageFile';
 import ImageSliderProps from './ImageSliderProps'
 

@@ -54,11 +54,10 @@ The application is built with Sass so you will need something to compile the CSS
 
 After cloning this repository for a new client, there are several steps that need to be taken to successfully run the new site. 
 - First there are several configuration files the application requires.
-    - Copy the contents of the `assets` folder from `NewSiteSampleFiles` to the `assets` folder under `src` (These are sample logos that should be replaced with the crafter's logo).
-    - Copy the contents of the `ConfigurationFiles` folder from `NewSiteSampleFiles` to the `ConfigurationFiles` folder in the `scr` folder.
-    - Copy the contents of the `data-files` folder from `NewSiteSampleFiles\public` to the `public\data-files` folder.
-    - Copy the loose files of the `NewSiteSampleFiles\public` to the `public` folder (This includes a sample favicon icon that should be replaced with the crafter's logo).
-    - Copy the contents of the `Variable.scss` & `index.scss` file from `NewSiteSampleFiles` to the `scr` folder.
+    - Copy the contents of the `assets` folder from `NewSiteSampleFiles` to the `src` (These are sample logos that should be replaced with the crafter's logo).
+    - Copy the contents of the `ConfigurationFiles` folder from `NewSiteSampleFiles` to the `scr` folder.
+    - Copy the contents of the `public` folder from `NewSiteSampleFiles` to the root folder and delete the `.gitkeep` file.
+    - Copy `Variable.scss` & `index.scss` file from `NewSiteSampleFiles` to the `scr` folder.
 
 With the configuration files copied, update them with the client specific information (see below sections to fully configure). Once the files have been created and placed, you need to transfer the images into their gallery specific folders under the gallery folder in the S3 bucket. You need to ensure the route structure for the site and the S3 buckets do not match. If they do, when you try to visit the page for a specific image, you will not be routed through the website. Instead you will be served the image from the S3 bucket.
 
