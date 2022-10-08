@@ -48,7 +48,7 @@ const Navbar: React.FC<NavbarProps> = (props) => {
         <Card
             cardClasses={`${props.headerCssClasses}`}
             cardColor={props.backgroundColor} >
-            <nav className={`container-fluid navbar navbar-light navbar-expand-md ${navbarClasses}`}>
+            <nav className={`container-fluid navbar navbar-light navbar-expand-lg ${navbarClasses}`}>
                 <div 
                     className={`row `}
                     style={{
@@ -83,7 +83,7 @@ const Navbar: React.FC<NavbarProps> = (props) => {
                     <Toggler 
                         navbarTogglerTarget={`navigationBar`} 
                         togglerUsesPrimaryColor={props.togglerUsesPrimaryColor}
-                        togglerClasses={`offset-7 col-2 d-md-none ${classes.navigationBarToggler}`}/>
+                        togglerClasses={`offset-7 col-2 d-lg-none ${classes.navigationBarToggler}`}/>
                     <div 
                         className={`col-9 collapse navbar-collapse`} 
                         id={`navigationBar`}>
