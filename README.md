@@ -20,6 +20,8 @@ The system's `uesHttp` hook has been designed to cache the results for the web r
         - [Gallery Data Files](#gallery-data-files)
         - [Home](#home)
         - [Not Found](#not-found)
+        - [Other Informational Pages](#other-informational-pages)
+        - [Gallery Image External Links](#gallery-image-external-links)
     - [Misc Content](#misc-content)
         - [Index Pages](#index-pages)
             - [HTML](#html)
@@ -66,6 +68,8 @@ Finally create the `index.html` file in the `public` folder and add the `favicon
 
 ### Data File Locations
 
+This section details the Configuration File used to configure the Data Files the system uses.
+
 In an effort to keep the repository from being tied to a specific implementation, key aspects of certain pages and their contents are reliant upon data files. In order for the application to pull the correct file update the `data-file-locations.json` file. The JSON file is an array of objects with the following properties: `configuration` and `url`.
 
 At minimum there needs to be an entry for `navigation`, `galleries`, `home` and `notFound` (These are included in the sample file).
@@ -106,6 +110,8 @@ Where as `routes-gallery.json` and `routes-top-level.json` are configuration fil
 [Back to Top](#table-of-contents)
 
 #### Navigation
+
+This section details the Data File structure used to build out the site's navigation.
 
 The `Header` component uses the [`data-file-locations.json`](#data-file-locations) to retrieve the `navigation.json` file. Once pulled, the application parses the file and dynamically builds out the links required for the navbar. See below for an example of the config file.
 
@@ -169,6 +175,8 @@ Definition of the `navigation.json`:
 [Navigation and Routing](#navigation-and-routing) : [Back to Top](#table-of-contents)
 
 #### Routing
+
+This section details the two Configuration Files used to build out the system's Routing Tree.
 
 In order to build out the Routing Tree the application requires the [`routes-gallery.json`](#gallery-routes) and [`routes-top-level.json`](#top-level-routes) files. Both files are arrays of complex objects with the following definition:
 
@@ -382,6 +390,8 @@ Various components will use the [`data-file-locations.json`](#data-file-location
 
 #### Gallery Data Files
 
+This section details the Data File structure used for Galleries.
+
 Each individual gallery will have its own Data file and the file name must begin with 'galley-' see below for an example.
 
 ```JSON
@@ -398,6 +408,7 @@ Each individual gallery will have its own Data file and the file name must begin
             "htmlAltText": "{Image ALt Text GOES HERE}",
             "fileName": "{Image Filename GOES HERE}",
             "externalUrl": "{External Email GOES HERE}",
+            "htmlLinkTitle": "{IMAGE Title GOES HERE}",
             "landscape": false,
             "description": [
                 {
@@ -430,6 +441,7 @@ Definition for `gallery-{galleryName}.json`:
     - `htmlAltText`: (Required) `string` This is the alternate text for the image.
     - `fileName`: (Required) `string` This is the name of the image's file in the S3 bucket.
     - `externalUrl`: (Optional) `string` This is the external link to be used for the image. If there is no external link leave empty or set to null.
+    - `htmlLinkTitle`: (Optional) `string` When present, this value will override the system's rules for generating Image Html Titles.
     - `landscape`: (Optional) `bool` Tells the application if the image was taken using landscape view.
     - `description`: (Optional) Is an array of complex object.
         - `display`: (Required) `bool` This determines if the paragraph is displayed on the web page.
@@ -441,6 +453,8 @@ Definition for `gallery-{galleryName}.json`:
 [Content Configuration](#content-configuration) : [Back to Top](#table-of-contents)
 
 #### Home
+
+This section details the Data File structure used for Informational pages like Home.
 
 This page has been coded to render a collection of `Info`, `ImageSlider`, or `Image` components. Use the following Data file to tweak the layout of the `Home` page as needed for the client. To render an `Image` component only include a single image in the `images` field of the JSON. 
 
@@ -489,6 +503,7 @@ This page has been coded to render a collection of `Info`, `ImageSlider`, or `Im
                     "htmlAltText": "",
                     "fileName": "",
                     "externalUrl": "",
+                    "htmlLinkTitle": "",
                     "landscape": false,
                     "imageUrl": "",
                     "description": null
@@ -549,7 +564,58 @@ Definition for `page-{PageName}.json`:
 
 #### Not Found
 
-This page will use the `page-notfound.json` Data file and will build out the custom Not Found page.
+This section details the Data File structure used for Informational pages like Not Found. This uses the same structure as the [Home](#home) page.
+
+[Content Configuration](#content-configuration) : [Back to Top](#table-of-contents)
+
+#### Other Informational Pages
+
+This section details the Data File structure used for Informational pages other than [Home](#home) or [Not Found](#not-found). 
+
+- Step One: You will have to create a data file, with the same structure as the [Home](#home) or [Not Found](#not-found) pages. 
+- Step Two: Update the [Data File Locations](#data-file-locations) to include the location for the new page. 
+- Step Three: Update the [Top Level Routes](#top-level-routes) to include the new page's routing information. 
+- Step Four: Add the page's information to the [Navigation](#navigation) Data File.
+- Step Five: Clear the cache for all Data Files and restart your browser.
+
+With those steps completed, you will see new informational page's link in the navbar and navigate to the page.
+
+[Content Configuration](#content-configuration) : [Back to Top](#table-of-contents)
+
+#### Gallery Image External Links
+
+This section details the Configuration File used for building Links for `Images`.
+
+In order to allow users to customize how the system handles image links, this configuration file needs to be configured. Currently, the system will search all image external URLs for either a `store` or `form` keys. It will then build the url using the link's `title` attribute and the `linkText1` and `linkText2` associated with the given key. The included configuration file defaults to using an [Etsy](https://www.etsy.com/ "Etsy Storefront") `store` and an [Office 365](https://forms.office.com/ "Office 365 Forms") `form`.
+
+```JSON
+
+{
+    "store": {
+        "key": "www.etsy.com",
+        "linkText1": "Purchase ",
+        "linkText2": "from my shop."
+    },
+    "form": {
+        "key": "forms.office.com",
+        "linkText1": "To request an item similar to",
+        "linkText2": "submit a custom order."
+    }
+}
+
+```
+Definition for `imageExternalLinks.json`:
+
+- `store`: (Required) This is a complex object that configures how the system will render external urls for the crafter's digital storefront.
+    - `key`: (Required) `string` This is the string used when searching the external url.
+    - `linkText1`: (Required) `string` This is the first half of the text used when the system builds the link.
+    - `linkText2`: (Required) `string` This is the second half of the text used when the system builds the link.
+- `form`: (Required) This is a complex object that configures how the system will render external urls for the crafter's digital form for custom orders.
+    - `key`: (Required) `string` This is the string used when searching the external url.
+    - `linkText1`: (Required) `string` This is the first half of the text used when the system builds the link.
+    - `linkText2`: (Required) `string` This is the second half of the text used when the system builds the link.
+
+[Content Configuration](#content-configuration) : [Back to Top](#table-of-contents)
 
 ### Misc Content
 
@@ -635,6 +701,8 @@ Add the mobile Logo for the site (saved as a png with a resolution of 130x105) t
 [Misc Content](#misc-content) : [Back to Top](#table-of-contents)
 
 #### Footer Config
+
+This section details the Configuration File used to build out the `Footer`.
 
 Create a `footer.json` file with the following structure.
 
@@ -770,6 +838,8 @@ This section contains all the mixins for the site. Currently there is only one u
 [Misc Content](#misc-content) : [CSS Config](#css-config) : [Back to Top](#table-of-contents)
 
 ### SEO Configuration
+
+This section details the Data File structure used to build out the system's SEO meta tags.
 
 The images held within the galleries will have their SEO data built from the data files powering the given gallery. However, for best results all pages should have certain elements in the `<head>` section of the page.
 
