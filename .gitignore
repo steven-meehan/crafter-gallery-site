@@ -26,13 +26,7 @@ yarn-error.log*
 /src/assets
 /src/*.scss
 /src/ConfigurationFiles/*.json
-/public/index.html
-/public/manifest.json
-/public/favicon.png
-/public/data-files/**/*.json
-/public/images/**/*.jpg
-/public/images/**/*.png
-/public/sitemap.xml
+/public
 
 # Compiled CSS Files
 *.css
