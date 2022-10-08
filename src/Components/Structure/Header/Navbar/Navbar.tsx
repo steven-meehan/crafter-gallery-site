@@ -97,7 +97,7 @@ const Navbar: React.FC<NavbarProps> = (props) => {
                             <li 
                                 className={`offset-md-${8-(props.navlinks.length*2)} offset-lg-${9-(props.navlinks.length*2)} nav-item col col-md-4 col-lg-3`}
                                 style={{
-                                    paddingTop: '.1em'
+                                    padding: "0.15em 0.9em 0em"
                                 }} >
                                 <div className={`row justify-content-end`}>
                                     {socialNavLinks}
