@@ -1,15 +1,15 @@
 import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
-import parse from 'html-react-parser';
 
-import ImageProps from './ImageProps';
 import HelmetSettings from '../../../Structure/Helmet/HelmetSettings';
-import HelmetConfiguration from '../../../../Models/ConfigurationFiles/HelmetConfiguration';
+import HtmlTitle from './HtmlTitle/HtmlTitle';
+import ProcessedImage from './ProcessedImage/ProcessedImage';
+import ImageBlurb from './ImageBlurb/ImageBlurb';
+import ImageProps from './ImageProps';
 
 import seoData from '../../../../ConfigurationFiles/seo-config.json';
 import classes from './Image.module.css';
 
-const Image: React.FC<ImageProps>  = (props) => {
+const Image: React.FC<ImageProps> = (props) => {
     const seoSiteInfo = seoData.site;
     const imageCssClasses = `${props.classes ? props.classes : ''}`;
     const blurbCssClasses = `${props.blurbCssClasses ? props.blurbCssClasses : ''}`;
@@ -35,112 +35,72 @@ const Image: React.FC<ImageProps>  = (props) => {
 
     const image = props.image;
 
-    const htmlImage = (
-        <img
-            src={image.imageUrl}
-            alt={image.htmlAltText}
-            loading="eager"
-            title={linkTitle ? 
-                linkTitle : 
-                image.externalUrl && image.externalUrl.includes('www.etsy.com') ? 
-                    'Purchase ' + image.htmlTitle + ' from my shop.' : image.externalUrl && image.externalUrl.includes('forms.gle') ?
-                    'Request a custom order' :
-                    'Click for a better look at ' + image.htmlTitle }
-            className={`${imageCssClasses} ${image.landscape ? classes.landscapeImage : classes.portraitImage}`} 
-            style={imageWidth ? { width:imageWidth } : {}} />
-    )
-
-    const processedTitle = (
-        <h1
-            className={`${titleBlurbCssClasses} row justify-content-center`} >
-            <div className={`col ${classes.titleSection}`}>
-                {title}<b><i>{image.htmlTitle}</i></b>
-            </div>
-        </h1>
-    )
-
-    const blurb = image.description && 
-        image.description && 
-        image.description.filter((item) => {
-            return item.display;
-        }).map((item, index) => {
-        return (
-            <p
-                key={`image-blurb-paragraph-${index}`}
-                className={`${blurbCssClasses} ${classes.blurbParagraph} col-10`}
-                style={{
-                    textAlign: item.alignment === "left" ? "left" : item.alignment === "right" ? "right" : "center"
-                }} >
-                {parse(`
-                    ${item.text}
-                `)}
-            </p>
-        )
-    });
-
-    const processedImage = linkImageToContent ? 
-        isContentInternal ? (
-            <Link 
-                to={`${urlForLinkedContent}`} >
-                {htmlImage}
-            </Link>
-        ) : (
-            <a 
-                href={`${urlForLinkedContent}`}
-                target={`_blank`} >
-                {htmlImage}
-            </a>
-        ) : (
-            <div>
-                {htmlImage}
-            </div>
+    const processedImage = (
+        <ProcessedImage
+            linkImageToContent={linkImageToContent}
+            isContentInternal={isContentInternal}
+            urlForLinkedContent={urlForLinkedContent}
+            imageCssClasses={imageCssClasses}
+            imageUrl={image.imageUrl ? image.imageUrl : ""}
+            htmlAltText={image.htmlAltText}
+            linkTitle={linkTitle}
+            externalUrl={image.externalUrl ? image.externalUrl : ""}
+            htmlTitle={image.htmlTitle}
+            landscape={image.landscape}
+            imageWidth={imageWidth} />
     );
-
-    const helmetConfiguration: HelmetConfiguration = {
-        page: window.location.href,
-        title: image.htmlTitle,
-        description: image.fullDescription ? image.fullDescription : "",
-        imageUrl: image.imageUrl!,
-        imageAltText: image.htmlAltText,
-        errorPage: false
-    }
 
     return (
         <Fragment>
             {renderHelmetInfo && (
                 <HelmetSettings 
-                    helmetConfiguration={helmetConfiguration} 
+                    helmetConfiguration={{
+                        page: window.location.href,
+                        title: image.htmlTitle,
+                        description: image.fullDescription ? image.fullDescription : "",
+                        imageUrl: image.imageUrl!,
+                        imageAltText: image.htmlAltText,
+                        errorPage: false
+                    }} 
                     seoSiteUrl={seoSiteInfo} />
             )}
-
-            <>{displayTitle && !isThumbnail && processedTitle}</>
-            <>{isThumbnail && processedImage}</>
-            <>{!isThumbnail && (
-                <div
-                    className={`row justify-content-center ${isThumbnail || isStandAlone ? '' : 'mt-5'}`}>
-                    {isThumbnail && processedImage}
-                    {!isThumbnail && (
-                        <div className={`col ${marginTop ? 'mt-5' : ''}`}>
-                            {processedImage}
+            <Fragment>
+                {!isThumbnail && (
+                    <Fragment>
+                        {displayTitle && 
+                            <HtmlTitle
+                                titleClasses={`${titleBlurbCssClasses} row justify-content-center`}
+                                title={title}
+                                htmlTitle={image.htmlTitle} />
+                        }
+                        <div
+                            className={`row justify-content-center ${isStandAlone ? '' : 'mt-5'}`}>
+                            <div className={`col ${marginTop ? 'mt-5' : ''}`}>
+                                {processedImage}
+                            </div>
                         </div>
-                    )}
-                </div>
-            )}</>
-           {linkToLargerVersion && 
-                <div className={`row d-lg-none mt-3`}>
-                    <a 
-                        href={`${image.imageUrl}`}
-                        target={`_blank`} >
-                        Full Size Image
-                    </a>
-                </div>
-            }
-            <>{displayBlurb && !isThumbnail && (
-                <div
-                    className={`${classes.blurbSection} row justify-content-center ${isThumbnail ? '' : 'mt-3'}`}>
-                    {blurb}
-                </div>
-            )}</>
+                        {linkToLargerVersion && (
+                            <div className={`row d-lg-none mt-3`}>
+                                <a 
+                                    href={`${image.imageUrl}`}
+                                    target={`_blank`} >
+                                    Full Size Image
+                                </a>
+                            </div>
+                        )}
+                        {displayBlurb && (
+                            <div
+                                className={`row justify-content-center mt-3`}>
+                                <ImageBlurb 
+                                    description={image.description ? image.description : []} 
+                                    imageFileName={image.fileName} 
+                                    blurbCssClasses={blurbCssClasses} />
+                            </div>
+                        )}
+                    </Fragment>
+                )}
+                {isThumbnail && processedImage}
+            </Fragment>
         </Fragment>
     );
 }

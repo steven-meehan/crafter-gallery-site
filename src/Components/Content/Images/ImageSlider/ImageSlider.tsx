@@ -124,6 +124,7 @@ const ImageSlider: React.FC<ImageSliderProps> = (props) => {
                         setHelmetInfo={setHelmetInfo}
                         linkImageToContent={true}
                         isContentInternal={false}
+                        linkTitle={slide.htmlLinkTitle}
                         urlForLinkedContent={`${slide.externalUrl && slide.externalUrl !== '' ? slide.externalUrl : slide.imageUrl}`}
                         imageWidth={imageSize}
                         displayBlurb={true}

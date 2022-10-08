@@ -1,0 +1,12 @@
+{
+    "store": {
+        "key": "www.etsy.com",
+        "linkText1": "Purchase ",
+        "linkText2": "from my shop."
+    },
+    "form": {
+        "key": "forms.office.com",
+        "linkText1": "To request an item similar to",
+        "linkText2": "submit a custom order."
+    }
+}

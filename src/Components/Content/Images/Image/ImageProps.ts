@@ -1,79 +1,79 @@
 import ImageFile from "../../../../Models/ImageFile";
 
 class ImageProps {
-    classes?: string = "";
-    blurbCssClasses?: string = "";
-    titleBlurbCssClasses?: string = "";
-    setHelmetInfo?: boolean = false;
-    linkImageToContent?: boolean = false;
-    isContentInternal?: boolean = false;
-    linkTitle?: string = "";
-    urlForLinkedContent?: string = "";
-    displayBlurb?: boolean = false;
-    imageWidth?: string = "";
-    displayTitle?: boolean = false;
+    image: ImageFile = new ImageFile();
     title: string = "";
     isThumbnail: boolean = false;
     isStandAlone: boolean = false;
-    marginTop?: boolean = false;
+    blurbCssClasses?: string = "";
+    classes?: string = "";
+    displayBlurb?: boolean = false;
+    displayTitle?: boolean = false;
+    imageWidth?: string = "";
+    isContentInternal?: boolean = false;
+    linkImageToContent?: boolean = false;
+    linkTitle?: string = "";
     linkToLargerVersion?: boolean = false;
-    image: ImageFile = new ImageFile();
+    marginTop?: boolean = false;
+    setHelmetInfo?: boolean = false;
+    titleBlurbCssClasses?: string = "";
+    urlForLinkedContent?: string = "";
 
     constructor(imageProps?: {
-        classes?: string,
-        blurbCssClasses?: string,
-        titleBlurbCssClasses?: string,
-        setHelmetInfo?: boolean,
-        linkImageToContent?: boolean,
-        isContentInternal?: boolean,
-        linkTitle?: string,
-        urlForLinkedContent?: string,
-        displayBlurb?: boolean,
-        imageWidth?: string,
-        displayTitle?: boolean,
+        image: ImageFile
         title: string,
         isThumbnail: boolean,
         isStandAlone: boolean,
-        marginTop?: boolean,
+        blurbCssClasses?: string,
+        classes?: string,
+        displayBlurb?: boolean,
+        displayTitle?: boolean,
+        imageWidth?: string,
+        isContentInternal?: boolean,
+        linkImageToContent?: boolean,
+        linkTitle?: string,
         linkToLargerVersion?: boolean,
-        image: ImageFile
+        marginTop?: boolean,
+        setHelmetInfo?: boolean,
+        titleBlurbCssClasses?: string,
+        urlForLinkedContent?: string
     }){
         if(imageProps){
-            this.classes = imageProps.classes ? imageProps.classes : "";
-            this.blurbCssClasses = imageProps.blurbCssClasses ? imageProps.blurbCssClasses : "";
-            this.titleBlurbCssClasses = imageProps.titleBlurbCssClasses ? imageProps.titleBlurbCssClasses : "";
-            this.setHelmetInfo = imageProps.setHelmetInfo ? imageProps.setHelmetInfo : false;
-            this.linkImageToContent = imageProps.linkImageToContent ? imageProps.linkImageToContent : false;
-            this.isContentInternal = imageProps.isContentInternal ? imageProps.isContentInternal : false;
-            this.linkTitle = imageProps.linkTitle ? imageProps.linkTitle : "";
-            this.urlForLinkedContent = imageProps.urlForLinkedContent ? imageProps.urlForLinkedContent : "";
-            this.displayBlurb = imageProps.displayBlurb ? imageProps.displayBlurb : false;
-            this.imageWidth = imageProps.imageWidth ? imageProps.imageWidth : "";
-            this.displayTitle = imageProps.displayTitle ? imageProps.displayTitle : false;
+            this.image = imageProps.image ? new ImageFile(imageProps.image) : new ImageFile();
             this.title = imageProps.title ? imageProps.title : "";
             this.isThumbnail = imageProps.isThumbnail ? imageProps.isThumbnail : false;
             this.isStandAlone = imageProps.isStandAlone ? imageProps.isStandAlone : false;
-            this.marginTop = imageProps.marginTop ? imageProps.marginTop : false;
+            this.blurbCssClasses = imageProps.blurbCssClasses ? imageProps.blurbCssClasses : "";
+            this.classes = imageProps.classes ? imageProps.classes : "";
+            this.displayBlurb = imageProps.displayBlurb ? imageProps.displayBlurb : false;
+            this.displayTitle = imageProps.displayTitle ? imageProps.displayTitle : false;
+            this.imageWidth = imageProps.imageWidth ? imageProps.imageWidth : "";
+            this.isContentInternal = imageProps.isContentInternal ? imageProps.isContentInternal : false;
+            this.linkImageToContent = imageProps.linkImageToContent ? imageProps.linkImageToContent : false;
+            this.linkTitle = imageProps.linkTitle ? imageProps.linkTitle : "";
             this.linkToLargerVersion = imageProps.linkToLargerVersion ? imageProps.linkToLargerVersion : false;
-            this.image = imageProps.image ? new ImageFile(imageProps.image) : new ImageFile();
+            this.marginTop = imageProps.marginTop ? imageProps.marginTop : false;
+            this.setHelmetInfo = imageProps.setHelmetInfo ? imageProps.setHelmetInfo : false;
+            this.titleBlurbCssClasses = imageProps.titleBlurbCssClasses ? imageProps.titleBlurbCssClasses : "";
+            this.urlForLinkedContent = imageProps.urlForLinkedContent ? imageProps.urlForLinkedContent : "";
         } else {
-            this.classes = "";
-            this.blurbCssClasses = "";
-            this.titleBlurbCssClasses = "";
-            this.setHelmetInfo = false;
-            this.linkImageToContent = false;
-            this.isContentInternal = false;
-            this.linkTitle = "";
-            this.urlForLinkedContent = "";
-            this.displayBlurb = false;
-            this.imageWidth = "";
-            this.displayTitle = false;
+            this.image = new ImageFile();
             this.title = "";
             this.isThumbnail = false;
             this.isStandAlone = false;
-            this.marginTop = false;
+            this.blurbCssClasses = "";
+            this.classes = "";
+            this.displayBlurb = false;
+            this.displayTitle = false;
+            this.imageWidth = "";
+            this.isContentInternal = false;
+            this.linkImageToContent = false;
+            this.linkTitle = "";
             this.linkToLargerVersion = false;
-            this.image = new ImageFile();
+            this.marginTop = false;
+            this.setHelmetInfo = false;
+            this.titleBlurbCssClasses = "";
+            this.urlForLinkedContent = "";
         }
     }
 }

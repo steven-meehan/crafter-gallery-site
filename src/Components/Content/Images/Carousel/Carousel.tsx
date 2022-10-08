@@ -40,7 +40,8 @@ const Carousel: React.FC<CarouselProps> = (props) => {
                     htmlTitle: string,
                     htmlAltText: string,
                     fileName: string,
-                    externalUrl: string,
+                    htmlLinkTitle?: string,
+                    externalUrl?: string,
                     landscape: boolean,
                     imageUrl?: string,
                     description?: Paragraph[],
@@ -54,6 +55,7 @@ const Carousel: React.FC<CarouselProps> = (props) => {
                     imageUrl: `${baseUrl}${item.fileName}`,
                     fileName: item.fileName,
                     externalUrl: `${item.externalUrl && item.externalUrl.trim() !== '' ? item.externalUrl : ''}`,
+                    htmlLinkTitle: item.htmlLinkTitle,
                     landscape: item.landscape,
                     description: item.description ? item.description : [],
                     fullDescription: item.fullDescription ? 
