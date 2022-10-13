@@ -2,14 +2,7 @@ import HelmetConfiguration from "../../../Models/ConfigurationFiles/HelmetConfig
 
 class HelmetSettingsProps {
     seoSiteUrl: string = "";
-    helmetConfiguration: HelmetConfiguration = {
-        page: "",
-        title: "",
-        description: "",
-        imageUrl: "",
-        imageAltText: "",
-        errorPage: false
-    };
+    helmetConfiguration: HelmetConfiguration = new HelmetConfiguration ();
 
     constructor(helmetSettingsProps?: {
         seoSiteUrl: string,

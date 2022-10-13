@@ -34,13 +34,15 @@
             "componentType": "image",
             "imageFiles": [
                 {
+                    "fileName": "",
                     "htmlTitle": "",
                     "htmlAltText": "",
-                    "fileName": "",
-                    "externalUrl": "",
                     "landscape": false,
+                    "description": null,
+                    "externalUrl": "",
+                    "htmlLinkTitle": "",
                     "imageUrl": "",
-                    "description": null
+                    "isLink": false
                 }
             ],
             "imageSlider": {

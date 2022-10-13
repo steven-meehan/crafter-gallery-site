@@ -36,14 +36,15 @@ class PageProcessor {
                                 const image = component.imageFiles[imageFile];
             
                                 images.push({
+                                    fileName: image.fileName,
                                     htmlTitle: image.htmlTitle,
                                     htmlAltText: image.htmlAltText,
-                                    imageUrl: image.imageUrl,
-                                    fileName: image.fileName,
+                                    landscape: image.landscape ? true : false,
+                                    description: image.description ? image.description : undefined,
                                     externalUrl: image.externalUrl,
                                     htmlLinkTitle: image.htmlLinkTitle ? image.htmlLinkTitle : "",
-                                    landscape: image.landscape ? true : false,
-                                    description: image.description ? image.description : undefined
+                                    imageUrl: image.imageUrl,
+                                    isLink: image.isLink ? true : false
                                 });
                             }
             

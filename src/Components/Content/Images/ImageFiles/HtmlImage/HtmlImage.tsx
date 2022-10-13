@@ -33,7 +33,7 @@ const HtmlImage: React.FC<HtmlImageProps> = (props) => {
                     (externalUrl && externalUrl.includes(`${form.key}`)) ? `${form.linkText1} ${htmlTitle} ${form.linkText2}` : 
                     'Click for a better look at ' + htmlTitle
                 ) : (
-                    htmlTitle
+                    linkTitle ? linkTitle : htmlTitle
                 )
             }
             className={`${imageCssClasses} ${landscape ? classes.landscapeImage : classes.portraitImage}`} 

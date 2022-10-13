@@ -35,6 +35,7 @@ The system's `uesHttp` hook has been designed to cache the results for the web r
             - [Site Mixins](#site-mixins)
     - [SEO Configuration](#seo-configuration)
     - [Google Analytics](#google-analytics)
+    - [Error Handling](#error-handling)
 - [Available Scripts](#available-scripts)
     - [Start](#start)
     - [Test](#test)
@@ -884,6 +885,26 @@ So, for those static pages you will need a `seo-config.json` file. You will need
 ### Google Analytics
 
 In order to connect the website to Google Analytics, you must first create the site's `index.html` file. After that you will need to create or log into a Google analytics account. Once there you will have to create the new property. Copy the `Global site tag` section from  the `Tagging Instructions` heading and paste it into the `<head>` section of the new site's `index.html` file.
+
+[Back to Top](#table-of-contents)
+
+### Error Handling
+
+This section details the Configuration File used to handle errors for the system.
+
+```JSON
+
+{
+    "mainHeader": "An Error Occurred:",
+    "secondaryHeader": "While rendering",
+    "message": "Please wait a few minutes and try again. However, if you continue receiving this error, please contact support."
+}
+
+```
+
+- `mainHeader`: (Required) `string` This is used to set the header for the error page.
+- `secondaryHeader`: (Required) `string` This is used to detail the root of the error.
+- `message`: (Required) `string` This is used to display an error message to the user.
 
 [Back to Top](#table-of-contents)
 

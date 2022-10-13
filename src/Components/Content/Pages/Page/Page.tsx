@@ -7,6 +7,7 @@ import PageData from '../../../../Models/DataFiles/PageData/PageData';
 import useHttp from '../../../../Hooks/useHttp';
 import Spinner from '../../../Display/Spinner/Spinner';
 import PageRow from './../PageRow/PageRow';
+import Error from '../../Error/Error';
 
 import config from '../../../../ConfigurationFiles/data-file-locations.json';
 import seoConfig from '../../../../ConfigurationFiles/seo-config.json';
@@ -18,7 +19,7 @@ const Page: React.FC<PageProps> = (props) => {
     const seoInfo = seoConfig.pageSettings.find(item=>item.page===props.seoPageConfig)!;
     const pathname = window.location.pathname;
 
-    const { sendRequest: fetchParagraphs, isLoading } = useHttp();
+    const { sendRequest: fetchParagraphs, isLoading, error } = useHttp();
     const [ pageRows, setPageRows ] = useState<JSX.Element[]>([]);
     const [ header, setHeader ] = useState<string>("");
 
@@ -51,11 +52,8 @@ const Page: React.FC<PageProps> = (props) => {
 
     return (
         <Fragment>
-            <HelmetSettings 
-                helmetConfiguration={seoInfo} 
-                seoSiteUrl={seoConfig.site} />
             {isLoading && <Spinner />}
-            {(pageRows && !isLoading) && (
+            {(pageRows && !isLoading && error.length===0) && (
                 <div className={`row`} >
                     <div className={`col`}>
                         <div className={`row`}>
@@ -67,6 +65,10 @@ const Page: React.FC<PageProps> = (props) => {
                     </div>
                 </div>
             )}
+            {error.length>0 && <Error errorMessages={error}/>}
+            <HelmetSettings 
+                helmetConfiguration={seoInfo} 
+                seoSiteUrl={seoConfig.site} />
         </Fragment>
     );
 };

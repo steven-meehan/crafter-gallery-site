@@ -34,7 +34,7 @@ const ProcessedImage: React.FC<ProcessedImageProps> = (props) => {
     );
 
     return (
-        linkImageToContent ? 
+        (linkImageToContent || externalUrl) ? 
         isContentInternal ? (
             <Link 
                 to={`${urlForLinkedContent}`} >

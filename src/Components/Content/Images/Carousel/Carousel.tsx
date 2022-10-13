@@ -6,13 +6,11 @@ import CarouselProps from './CarouselProps';
 import useHttp from '../../../../Hooks/useHttp';
 import ImageFile from '../../../../Models/ImageFile';
 import GalleryRequestConfig from '../../../../Models/DataFiles/GalleryRequestConfig';
-import Paragraph from '../../../../Models/Paragraph';
-
-import data from '../../../../ConfigurationFiles/data-file-locations.json';
-
-import classes from './Carousel.module.css';
+import Error from '../../Error/Error';
 import SliderButtonLocations from '../../../../Models/DataFiles/SliderButtonLocations';
 
+import data from '../../../../ConfigurationFiles/data-file-locations.json';
+import classes from './Carousel.module.css';
 
 const Carousel: React.FC<CarouselProps> = (props) => {
     const [ selectedImageName, setSelectedImageName ] = useState("");
@@ -20,7 +18,7 @@ const Carousel: React.FC<CarouselProps> = (props) => {
     const [ sliderButtonLocations, setSliderButtonLocations ] = useState<SliderButtonLocations>(SliderButtonLocations.Bottom);
     const [ linkToLargerVersion, setLinkToLargerVersion ] = useState<boolean>(false);
     
-    const { sendRequest: fetchImageReferences } = useHttp();
+    const { sendRequest: fetchImageReferences, error } = useHttp();
     
     const params = useParams();
     const navigate = useNavigate();
@@ -34,19 +32,12 @@ const Carousel: React.FC<CarouselProps> = (props) => {
     const imageName = params.imageName ? params.imageName : '';
     
     useEffect(() => {
-        const transformData = (data: GalleryRequestConfig) => {
+        const transformData = (data: GalleryRequestConfig) => {            
+            const baseUrl = data.baseUrl;
+            const galleryImages: ImageFile[] = [];
+
             const processingGalleryImages = (
-                item: {
-                    htmlTitle: string,
-                    htmlAltText: string,
-                    fileName: string,
-                    htmlLinkTitle?: string,
-                    externalUrl?: string,
-                    landscape: boolean,
-                    imageUrl?: string,
-                    description?: Paragraph[],
-                    fullDescription?: string
-                }, 
+                item: ImageFile, 
                 baseUrl: string): ImageFile => {
 
                 return {
@@ -63,9 +54,6 @@ const Carousel: React.FC<CarouselProps> = (props) => {
                         `Check out my ${item.htmlTitle}`
                 }
             }
-
-            const baseUrl = data.baseUrl;
-            const galleryImages: ImageFile[] = [];
             
             for (const item in data.items) {
                 const image = data.items[item];
@@ -117,21 +105,26 @@ const Carousel: React.FC<CarouselProps> = (props) => {
 
     return (
         <Fragment>
-            <ImageSlider 
-                images={galleryImages}
-                defaultPage={defaultPage}
-                setHelmetInfo={true}
-                arrowIcon={fontAwesomeArrowIcons}
-                startWithImage={selectedImageName ? true : false}
-                renderImageUrls={true}
-                initialImage={selectedImageName}
-                sliderButtonLocations={sliderButtonLocations}
-                scrollToTopOnClick={true}
-                linkToLargerVersion={linkToLargerVersion} />
-            <ImageSlider 
-                images={galleryImages}
-                defaultPage={defaultPage}
-                isThumbnailBar={true} />  
+            {error.length>0 && <Error errorMessages={error}/>}
+            {error.length===0 && 
+                <Fragment>
+                    <ImageSlider 
+                        images={galleryImages}
+                        defaultPage={defaultPage}
+                        setHelmetInfo={true}
+                        arrowIcon={fontAwesomeArrowIcons}
+                        startWithImage={selectedImageName ? true : false}
+                        renderImageUrls={true}
+                        initialImage={selectedImageName}
+                        sliderButtonLocations={sliderButtonLocations}
+                        scrollToTopOnClick={true}
+                        linkToLargerVersion={linkToLargerVersion} />
+                    <ImageSlider 
+                        images={galleryImages}
+                        defaultPage={defaultPage}
+                        isThumbnailBar={true} />  
+                </Fragment>
+            }
         </Fragment>
     );
 }

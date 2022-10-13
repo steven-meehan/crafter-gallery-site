@@ -1,3 +1,5 @@
+import HelmetHttpStatusCode from "./HelmetHttpStatusCode";
+
 class HelmetConfiguration {
     page: string = "";
     title: string = "";
@@ -5,6 +7,7 @@ class HelmetConfiguration {
     imageUrl: string = "";
     imageAltText: string = "";
     errorPage: boolean = false;
+    httpStatusCode?: HelmetHttpStatusCode = HelmetHttpStatusCode.Okay;
 
     constructor(helmetConfiguration?: {
         page: string,
@@ -12,7 +15,8 @@ class HelmetConfiguration {
         description: string,
         imageUrl: string,
         imageAltText: string,
-        errorPage: boolean
+        errorPage: boolean,
+        httpStatusCode: HelmetHttpStatusCode
     }){
         if(helmetConfiguration){
             this.page = helmetConfiguration.page ? helmetConfiguration.page : "";
@@ -21,6 +25,7 @@ class HelmetConfiguration {
             this.imageUrl = helmetConfiguration.imageUrl ? helmetConfiguration.imageUrl : "";
             this.imageAltText = helmetConfiguration.imageAltText ? helmetConfiguration.imageAltText : "";
             this.errorPage = helmetConfiguration.errorPage ? helmetConfiguration.errorPage : false;
+            this.httpStatusCode = helmetConfiguration.httpStatusCode ? helmetConfiguration.httpStatusCode : HelmetHttpStatusCode.Okay;
         } else {
             this.page = "";
             this.title = "";
@@ -28,6 +33,7 @@ class HelmetConfiguration {
             this.imageUrl = "";
             this.imageAltText = "";
             this.errorPage = false;
+            this.httpStatusCode = HelmetHttpStatusCode.Okay;
         }
     }
 }

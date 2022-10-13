@@ -34,13 +34,15 @@
             "componentType": "image",
             "imageFiles": [
                 {
+                    "fileName": "",
                     "htmlTitle": "Not Found",
                     "htmlAltText": "Page Not Found",
-                    "fileName": "",
-                    "externalUrl": "",
                     "landscape": false,
+                    "description": null,
+                    "externalUrl": "",
+                    "htmlLinkTitle": "",
                     "imageUrl": "",
-                    "description": null
+                    "isLink": false
                 }
             ],
             "imageSlider": {

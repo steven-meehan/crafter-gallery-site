@@ -119,7 +119,7 @@ const ImageSlider: React.FC<ImageSliderProps> = (props) => {
                         classes={classes.image}
                         image={slide}
                         setHelmetInfo={setHelmetInfo}
-                        linkImageToContent={true}
+                        linkImageToContent={slide.isLink ? true : false}
                         isContentInternal={false}
                         linkTitle={slide.htmlLinkTitle}
                         urlForLinkedContent={`${slide.externalUrl && slide.externalUrl !== '' ? slide.externalUrl : slide.imageUrl}`}
