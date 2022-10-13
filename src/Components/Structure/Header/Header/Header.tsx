@@ -1,17 +1,13 @@
 import React, { useState, useEffect, ReactNode } from 'react';
 
-import Card from '../../../Display/Card/Card';
 import Navbar from '../Navbar/Navbar';
-
 import useHttp from '../../../../Hooks/useHttp';
 import LinkConfig from '../../../../Models/DataFiles/Navigation/LinkConfig';
 import NavigationConfigFile from '../../../../Models/DataFiles/Navigation/NavigationConfigFile';
-
-import data from '../../../../ConfigurationFiles/data-file-locations.json';
-
-import classes from './Header.module.css';
 import BackgroundColor from '../../../../Models/DataFiles/Navigation/BackgroundColor';
 
+import data from '../../../../ConfigurationFiles/data-file-locations.json';
+import classes from './Header.module.css';
 
 const Header: React.FC<{
     headerClasses?: string,
@@ -26,7 +22,7 @@ const Header: React.FC<{
     const [backgroundColor, setBackgroundColor] = useState<BackgroundColor>()
     const [togglerUsesPrimaryColor, setAlternateTogglerButtonColor] = useState<boolean>(false);
     
-    const { sendRequest: fetchConfigs } = useHttp();
+    const { sendRequest: fetchConfigs, error } = useHttp();
 
     useEffect(() => {
         const transformData = (data: NavigationConfigFile) =>{
@@ -88,7 +84,7 @@ const Header: React.FC<{
         );
     }, [fetchConfigs]);
     
-    return (    
+    return (
         <header>
             <Navbar 
                 logoAltText={logoAltText}

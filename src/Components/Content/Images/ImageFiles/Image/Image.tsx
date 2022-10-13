@@ -52,18 +52,6 @@ const Image: React.FC<ImageProps> = (props) => {
 
     return (
         <Fragment>
-            {renderHelmetInfo && (
-                <HelmetSettings 
-                    helmetConfiguration={{
-                        page: window.location.href,
-                        title: image.htmlTitle,
-                        description: image.fullDescription ? image.fullDescription : "",
-                        imageUrl: image.imageUrl!,
-                        imageAltText: image.htmlAltText,
-                        errorPage: false
-                    }} 
-                    seoSiteUrl={seoSiteInfo} />
-            )}
             <Fragment>
                 {!isThumbnail && (
                     <Fragment>
@@ -101,6 +89,18 @@ const Image: React.FC<ImageProps> = (props) => {
                 )}
                 {isThumbnail && processedImage}
             </Fragment>
+            {renderHelmetInfo && (
+                <HelmetSettings 
+                    helmetConfiguration={{
+                        page: window.location.href,
+                        title: image.htmlTitle,
+                        description: image.fullDescription ? image.fullDescription : "",
+                        imageUrl: image.imageUrl!,
+                        imageAltText: image.htmlAltText,
+                        errorPage: false
+                    }} 
+                    seoSiteUrl={seoSiteInfo} />
+            )}
         </Fragment>
     );
 }
