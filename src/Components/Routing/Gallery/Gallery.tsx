@@ -2,10 +2,19 @@ import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
 import Carousel from '../../Content/Images/Carousel/Carousel';
+import RouteDefinition from '../../../Models/DataFiles/Navigation/RouteDefinition';
 
 import routes from '../../../ConfigurationFiles/routes-gallery.json';
 
 const Gallery = () => {
+    const galleryRoutes: RouteDefinition[] = [];
+
+    try {
+        routes.map(item => galleryRoutes.push(new RouteDefinition(item)));
+    } catch (error) {
+        console.log(`There was a problem retrieving the the routes for the galleries`);
+    }
+
     return (
         <Routes>
             {

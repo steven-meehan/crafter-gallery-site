@@ -19,8 +19,14 @@ const Main: React.FC<{
     children?: ReactNode
 }> = (props) => {
     
-    const topLevelRoutes = routes.map(item => new RouteDefinition(item));
+    const topLevelRoutes: RouteDefinition[] = [];
     const contentClasses = `${props.contentClasses ? props.contentClasses : ''} ${classes.content}`;
+
+    try {
+        routes.map(item => topLevelRoutes.push(new RouteDefinition(item)));
+    } catch (error) {
+        console.log(`There was a problem retrieving the the informational routes for the application`);
+    }
 
     return (
         <main>
