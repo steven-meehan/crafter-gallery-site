@@ -33,7 +33,7 @@ class ImageProcessor {
                     {images.length === 1 && <Image 
                         image={images[0]}
                         setHelmetInfo={false}
-                        linkImageToContent={true}
+                        linkImageToContent={images[0].isLink ? true : false}
                         isContentInternal={false}
                         urlForLinkedContent={images[0].externalUrl && images[0].externalUrl !== '' ? images[0].externalUrl : images[0].imageUrl} 
                         imageWidth={component.imageSlider!.size}
