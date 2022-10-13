@@ -6,11 +6,9 @@
     "linkToLargerVersion": false,
     "items": [
         {
+            "fileName": "Filename Goes Here",
             "htmlTitle": "Title Goes Here",
             "htmlAltText": "Alternate Text Goes Here",
-            "fileName": "Filename Goes Here",
-            "externalUrl": "",
-            "htmlLinkTitle": "",
             "landscape": false,
             "description": [
                 {
@@ -20,7 +18,11 @@
                     "text": "Text Goes Here",
                     "alignment": "center"
                 }
-            ]
+            ],
+            "externalUrl": "",
+            "htmlLinkTitle": "",
+            "imageUrl": "",
+            "isLink": false
         }
     ]
 }
