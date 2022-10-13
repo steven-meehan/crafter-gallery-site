@@ -27,6 +27,7 @@ const useHttp = () => {
                 });
     
                 if (!response.ok) {
+                    console.log(`The response for ${requestConfig.url} was ${response.status}`);
                     throw new Error('Request failed!');
                 }
     
@@ -35,8 +36,9 @@ const useHttp = () => {
                 writeDataToSessionStorage(data);
                 applyData(data);
             } catch (err) {
+                console.log(`There was an issue retrieving/parsing the request ${requestConfig.url}`, err);
                 setError(prevState => {
-                    return [...prevState, 'Something went wrong with the request. Please try again later.'];
+                    return [...prevState, 'There was an issue processing the request.'];
                 });
             }
         }
