@@ -2,6 +2,7 @@
 
 ## vNext
 - Broke up the ImageSlider into its base components
+- Reorganized code into features
 
 ## 1.0.0
 

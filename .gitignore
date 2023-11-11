@@ -25,7 +25,7 @@ yarn-error.log*
 # Client Specific Files
 /src/assets
 /src/*.scss
-/src/ConfigurationFiles/*.json
+/src/ConfigFiles/*.json
 /public
 
 # Compiled CSS Files

@@ -1,0 +1,11 @@
+@import "../../Variables.scss";
+
+.dropdownNavigationLinks {
+    background-color: $navLinkColor;
+    text-align: center;
+    min-width: 10em;
+}
+.dropdownWrapper {
+    border: none !important;
+    background-color: transparent;
+}

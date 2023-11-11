@@ -1,0 +1,19 @@
+@import "../../../Variables.scss";
+
+.thumbnailBar{
+    background-color: $secondaryColorDimmed;
+    padding: 0.5em;
+    box-shadow: 0 2px 8px $accentColorDimmed;
+    border-radius: .5em;
+    border: 1px $accentColor inset;
+    text-align: center;
+}
+.image,
+.thumbnail {
+    box-shadow: 0 2px 8px $accentColorDimmed;
+    border: 1px $navFontColor ridge;
+    border-radius: .5em;
+}
+.thumbnail {
+    margin: .1em .45em;
+}
