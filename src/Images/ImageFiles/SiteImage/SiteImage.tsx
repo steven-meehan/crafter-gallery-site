@@ -1,12 +1,12 @@
 import React, { Fragment } from 'react';
 
-import HelmetSettings from '../../../../Structure/Helmet/HelmetSettings';
+import HelmetSettings from '../../../Helmet/HelmetSettings';
 import HtmlTitle from '../HtmlTitle/HtmlTitle';
 import ProcessedImage from '../ProcessedImage/ProcessedImage';
 import ImageBlurb from '../ImageBlurb/ImageBlurb';
 import ImageProps from './SiteImageProps';
 
-import seoData from '../../../../../ConfigurationFiles/seo-config.json';
+import seoData from '../../../ConfigFiles/seo-config.json';
 import classes from './Image.module.css';
 
 const SiteImage: React.FC<ImageProps> = (props) => {

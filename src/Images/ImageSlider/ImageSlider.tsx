@@ -1,16 +1,16 @@
 import React, { useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import ImageData from '../../../../Models/ImageData';
+import ImageData from '../ImageData';
 import ImageSliderProps from './ImageSliderProps'
 
 import classes from './ImageSlider.module.css';
-import SliderButtonLocations from '../../../../Models/DataFiles/SliderButtonLocations';
-import MobileSliderButtons from './MobileSlider/MobileSlider';
+import SliderButtonLocations from './SliderButton/SliderButtonLocations';
+import MobileSliderButtons from '../../Images/ImageSlider/MobileSlider/MobileSlider';
 
-import HtmlImages from './SliderImages/SliderImages';
-import SliderButtons from './SliderButton/SliderButton';
-import SliderButtonDirection from './SliderButton/SliderButtonDirection';
+import HtmlImages from '../../Images/ImageSlider/SliderImages/SliderImages';
+import SliderButtons from '../../Images/ImageSlider/SliderButton/SliderButton';
+import SliderButtonDirection from '../../Images/ImageSlider/SliderButton/SliderButtonDirection';
 
 const ImageSlider: React.FC<ImageSliderProps> = (props) => {
     const [ images, setImages ] = useState<ImageData[]>([]);

@@ -1,5 +1,5 @@
-import SliderButtonLocations from "../../../../Models/DataFiles/SliderButtonLocations";
-import ImageData from "../../../../Models/ImageData";
+import SliderButtonLocations from "./SliderButton/SliderButtonLocations";
+import ImageData from "../ImageData";
 
 class ImageSliderProps {
     classes?: string = "";

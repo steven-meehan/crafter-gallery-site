@@ -1,9 +1,9 @@
 import React from 'react';
 
 import HtmlImageProps from './HtmlImageProps';
-import ImageExternalLinkConstants from '../../../../../Models/ConfigurationFiles/ImageExternalLinkConstants';
+import ImageExternalLinkConstants from '../../../ConfigFiles/Models/ImageExternalLinkConstants';
 
-import data from '../../../../../ConfigurationFiles/imageExternalLinks.json';
+import data from '../../../ConfigFiles/imageExternalLinks.json';
 import classes from './HtmlImage.module.css';
 
 const HtmlImage: React.FC<HtmlImageProps> = (props) => {

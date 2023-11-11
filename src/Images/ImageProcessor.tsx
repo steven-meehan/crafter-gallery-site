@@ -1,9 +1,9 @@
-import Image from "../Components/Content/Images/ImageFiles/SiteImage/SiteImage";
-import Component from '../Models/DataFiles/PageData/Component';
-import ImageSlider from '../Components/Content/Images/ImageSlider/ImageSlider';
-import ImageData from '../Models/ImageData';
+import Image from "./ImageFiles/SiteImage/SiteImage";
+import Component from '../Page/Models//Component';
+import ImageSlider from './ImageSlider/ImageSlider';
+import ImageData from './ImageData';
 
-import classes from '../Components/Content/Images/ImageFiles/SiteImage/SiteImage.module.css';
+import classes from '../Images/ImageFiles/SiteImage/SiteImage.module.css';
 
 class ImageProcessor {
 

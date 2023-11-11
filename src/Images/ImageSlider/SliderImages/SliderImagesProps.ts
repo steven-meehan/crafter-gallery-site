@@ -1,4 +1,4 @@
-import ImageData from "../../../../../Models/ImageData";
+import ImageData from "../../ImageData";
 
 class SliderImagesProps {
     classes?: string = "";

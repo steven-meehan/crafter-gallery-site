@@ -3,13 +3,13 @@ import { useParams, useNavigate } from 'react-router-dom';
 
 import ImageSlider from '../ImageSlider/ImageSlider';
 import CarouselProps from './CarouselProps';
-import useHttp from '../../../../Hooks/useHttp';
-import ImageData from '../../../../Models/ImageData';
-import GalleryRequestConfig from '../../../../Models/DataFiles/GalleryRequestConfig';
-import Error from '../../Error/Error';
-import SliderButtonLocations from '../../../../Models/DataFiles/SliderButtonLocations';
+import useHttp from '../../UseHttp/useHttp';
+import ImageData from '../ImageData';
+import GalleryRequestConfig from '../../Routing/Gallery/GalleryRequestConfig';
+import Error from '../../Routing/Error/Error';
+import SliderButtonLocations from '../ImageSlider/SliderButton/SliderButtonLocations';
 
-import data from '../../../../ConfigurationFiles/data-file-locations.json';
+import data from '../../ConfigFiles/data-file-locations.json';
 import classes from './Carousel.module.css';
 
 const Carousel: React.FC<CarouselProps> = (props) => {
@@ -85,7 +85,7 @@ const Carousel: React.FC<CarouselProps> = (props) => {
             },
             transformData
         );
-    }, [fetchImageReferences, galleryConfigurationUrl, imageName, defaultPage, navigate, routeToNotFoundPage]);
+    }, [fetchImageReferences, galleryConfigurationUrl, imageName, defaultPage, navigate, routeToNotFoundPage, config.cacheAge]);
 
     useEffect(() => {
         const localImages = galleryImages && galleryImages.length > 0 ? galleryImages : null;
