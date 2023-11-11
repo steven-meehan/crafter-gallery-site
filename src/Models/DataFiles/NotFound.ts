@@ -1,16 +1,16 @@
-import Paragraph from "../Paragraph";
 import ImageData from "../ImageData";
+import ParagraphData from "../ParagraphData";
 
 class NotFound {
-    paragraphs: Paragraph[] = [];
+    paragraphs: ParagraphData[] = [];
     image: ImageData = new ImageData();
 
     constructor(notFoundConfig?: {
-        paragraphs: Paragraph[],
+        paragraphs: ParagraphData[],
         image: ImageData
     }){
         if(notFoundConfig){
-            this.paragraphs = notFoundConfig.paragraphs ? notFoundConfig.paragraphs.map(item => new Paragraph(item)) : [];
+            this.paragraphs = notFoundConfig.paragraphs ? notFoundConfig.paragraphs.map(item => new ParagraphData(item)) : [];
             this.image = notFoundConfig.image ? new ImageData(notFoundConfig.image) : new ImageData();
         } else {
             this.paragraphs = [];
