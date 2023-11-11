@@ -1,12 +1,16 @@
 import React, { useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import Image from '../ImageFiles/Image/Image';
 import ImageData from '../../../../Models/ImageData';
 import ImageSliderProps from './ImageSliderProps'
 
 import classes from './ImageSlider.module.css';
 import SliderButtonLocations from '../../../../Models/DataFiles/SliderButtonLocations';
+import MobileSliderButtons from './MobileSlider/MobileSlider';
+
+import HtmlImages from './SliderImages/SliderImages';
+import SliderButtons from './SliderButton/SliderButton';
+import SliderButtonDirection from './SliderButton/SliderButtonDirection';
 
 const ImageSlider: React.FC<ImageSliderProps> = (props) => {
     const [ images, setImages ] = useState<ImageData[]>([]);
@@ -40,7 +44,6 @@ const ImageSlider: React.FC<ImageSliderProps> = (props) => {
     const linkToLargerVersion = props.linkToLargerVersion ? true : false;
     
     useEffect(() => {
-        
         if(localImages){
             setImages(localImages);
         }
@@ -76,7 +79,7 @@ const ImageSlider: React.FC<ImageSliderProps> = (props) => {
         if(scrollToTopOnClick && scroll){
             window.scrollTo(0,150);
         }
-        
+
         if(renderImageUrls) {
             const redirectUrl = `${defaultPage}${images[newImageIndex].fileName}`; 
             navigate(redirectUrl);
@@ -85,112 +88,54 @@ const ImageSlider: React.FC<ImageSliderProps> = (props) => {
         }
     }
 
-    const htmlImages = isThumbnailBar ? (
-        <div
-            className={`${classes.thumbnailBar}`}>
-            {
-                images.map((slide, index) => {
-                    return (
-                        <Image 
-                            key={`thumbnail-${index}`}
-                            classes={classes.thumbnail}
-                            image={slide}
-                            setHelmetInfo={setHelmetInfo}
-                            linkImageToContent={true}
-                            isContentInternal={true}
-                            urlForLinkedContent={`${defaultPage}${slide.fileName}`}
-                            imageWidth={`80px`}
-                            isThumbnail={true}
-                            title={''}
-                            isStandAlone={false} />
-                        )
-                    }
-                )
-            }
-        </div>
-    ) : images.map((slide, index) => {
-        
-        return (
-            <div 
-                className={`${index === currentImageIndex ? 'slide active' : 'slide'}`}
-                key={`main-image-${index}`} >
-                {index === currentImageIndex && (
-                    <Image 
-                        classes={classes.image}
-                        image={slide}
-                        setHelmetInfo={setHelmetInfo}
-                        linkImageToContent={slide.isLink ? true : false}
-                        isContentInternal={false}
-                        linkTitle={slide.htmlLinkTitle}
-                        urlForLinkedContent={`${slide.externalUrl && slide.externalUrl !== '' ? slide.externalUrl : slide.imageUrl}`}
-                        imageWidth={imageSize}
-                        displayBlurb={true}
-                        displayTitle={!disableTitle}
-                        title={``}
-                        isThumbnail={false}
-                        isStandAlone={false}
-                        linkToLargerVersion={linkToLargerVersion} />
-                )}
-            </div>
-        )
-    });
-
     return (
         <div className={`${imageSliderClasses}`}>
             {(sliderButtonLocations === SliderButtonLocations.Top || sliderButtonLocations === SliderButtonLocations.Both) &&
-                <div className={`row d-md-none`}>
-                    {!isThumbnailBar && (
-                        <div
-                            className={`col ${classes.leftArrow}`} 
-                            onClick={() => prevSlideHandler(true)} >
-                            <i className={`${arrowIcon}-left`}></i>
-                        </div>
-                    )}
-                    {!isThumbnailBar && (
-                        <div
-                            className={`col ${classes.rightArrow}`} 
-                            onClick={() => nextSlideHandler(true)} >
-                            <i className={`${arrowIcon}-right`}></i>
-                        </div>)
-                    }
-                </div>
+                <MobileSliderButtons 
+                    isThumbnailBar={isThumbnailBar} 
+                    arrowIcon={`${arrowIcon}`} 
+                    scroll={true} 
+                    handleLeftClick={prevSlideHandler} 
+                    handleRightClick={nextSlideHandler} />
             }
             <div className={`row ${classes.imageSlider}`}>
                 {!isThumbnailBar && (
-                    <div 
-                        className={`col-1 d-none d-md-block ${classes.leftArrow} ${classes.mainImageSliderButtonSpacer}`}
-                        onClick={() => prevSlideHandler(false)} >
-                        <i className={`${arrowIcon}-left`}></i>
-                    </div>
+                    <SliderButtons
+                        arrowIcon={`${arrowIcon}`}
+                        arrowDirection={SliderButtonDirection.Left}
+                        classes={`d-none d-md-block`}
+                        columnSize={`col-1`}
+                        scroll={false}
+                        handleClick={prevSlideHandler} />
                 )}
                 <div className={`col ${marginTop ? 'mt-5' : ''}`}>
-                    {htmlImages}
+                    <HtmlImages
+                        images={images}
+                        isThumbnailBar={isThumbnailBar}
+                        setHelmetInfo={setHelmetInfo}
+                        defaultPage={defaultPage}
+                        currentImageIndex={currentImageIndex}
+                        imageSize={imageSize}
+                        disableTitle={disableTitle}
+                        linkToLargerVersion={linkToLargerVersion} />
                 </div>
                 {!isThumbnailBar && (
-                    <div 
-                        className={`col-1 d-none d-md-block ${classes.rightArrow} ${classes.mainImageSliderButtonSpacer}`}
-                        onClick={() => nextSlideHandler(false)} >
-                        <i className={`${arrowIcon}-right`}></i>
-                    </div>)
-                }
+                    <SliderButtons
+                        arrowIcon={`${arrowIcon}`}
+                        arrowDirection={SliderButtonDirection.Right}
+                        classes={`d-none d-md-block`}
+                        columnSize={`col-1`}
+                        scroll={false}
+                        handleClick={nextSlideHandler} />
+                )}
             </div>
             {(sliderButtonLocations === SliderButtonLocations.Bottom || sliderButtonLocations === SliderButtonLocations.Both) &&
-                <div className={`row d-md-none`}>
-                    {!isThumbnailBar && (
-                        <div
-                            className={`col ${classes.leftArrow}`} 
-                            onClick={() => prevSlideHandler(true)} >
-                            <i className={`${arrowIcon}-left`}></i>
-                        </div>
-                    )}
-                    {!isThumbnailBar && (
-                        <div
-                            className={`col ${classes.rightArrow}`} 
-                            onClick={() => nextSlideHandler(true)} >
-                            <i className={`${arrowIcon}-right`}></i>
-                        </div>)
-                    }
-                </div>
+                <MobileSliderButtons 
+                    isThumbnailBar={isThumbnailBar} 
+                    arrowIcon={`${arrowIcon}`} 
+                    scroll={true} 
+                    handleLeftClick={prevSlideHandler} 
+                    handleRightClick={nextSlideHandler} />
             }
         </div>
     );
