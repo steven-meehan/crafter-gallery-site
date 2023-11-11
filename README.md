@@ -402,6 +402,7 @@ Each individual gallery will have its own Data file and the file name must begin
     "pageHeader": "{Page Header GOES HERE}",
     "sliderButtonLocations": "bottom",
     "linkToLargerVersion": false,
+    "largerSliderButtonMargin": true,
     "items": [
         {
             "htmlTitle": "{Image TItle GOES HERE}",
@@ -436,7 +437,8 @@ Definition for `gallery-{galleryName}.json`:
 - `pageHeader`: (Required) `string` This is the header for the gallery.
 - `sliderButtonLocations`: (Required) `string` This directs the system where to place the Slider's buttons on mobile. There are only three valid values, "top", "bottom", and "both". It also defaults to "bottom".
 - `linkToLargerVersion`: (Required) `boolean` This directs the system to build links to the original image, if the image links outside fo the system. Currently this link will only be displayed when the screen has a width less than 992 pixels.
-- `items`: (Required) Is an array of complex objects, but the name should be specific to the collection of images held within. (Required)
+- `largerSliderButtonMargin`: (Optional) `bool` Tells the application to increase the margin above the slider buttons. Default value is false.
+- `items`: (Required) Is an array of complex objects, but the name should be specific to the collection of images held within.
     - `htmlTitle`: (Required) `string` This is the title of the image.
     - `htmlAltText`: (Required) `string` This is the alternate text for the image.
     - `fileName`: (Required) `string` This is the name of the image's file in the S3 bucket.
