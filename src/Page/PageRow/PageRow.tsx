@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 
-import ColumnPosition from "../../../../Models/DataFiles/PageData/ColumnPosition";
-import NumberOfColumns from "../../../../Models/DataFiles/PageData/NumberOfColumns";
+import ColumnPosition from "../Models/ColumnPosition";
+import NumberOfColumns from "../Models/NumberOfColumns";
 import PageColumn from "../PageColumn/PageColumn";
 import PageRowProps from "./PageRowProps";
 

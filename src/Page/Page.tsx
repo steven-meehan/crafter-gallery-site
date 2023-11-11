@@ -1,16 +1,16 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import HelmetSettings from '../../../Structure/Helmet/HelmetSettings';
+import HelmetSettings from '../Helmet/HelmetSettings';
 
 import PageProps from './PageProps';
-import PageProcessor from '../../../../Processors/PageProcessor';
-import PageData from '../../../../Models/DataFiles/PageData/PageData';
-import useHttp from '../../../../Hooks/useHttp';
-import Spinner from '../../../Display/Spinner/Spinner';
-import PageRow from './../PageRow/PageRow';
-import Error from '../../Error/Error';
+import PageProcessor from './PageProcessor';
+import PageData from './Models/PageData';
+import useHttp from '../UseHttp/useHttp';
+import Spinner from '../Spinner/Spinner';
+import PageRow from './PageRow/PageRow';
+import Error from '../Routing/Error/Error';
 
-import config from '../../../../ConfigurationFiles/data-file-locations.json';
-import seoConfig from '../../../../ConfigurationFiles/seo-config.json';
+import config from '../ConfigFiles/data-file-locations.json';
+import seoConfig from '../ConfigFiles/seo-config.json';
 
 import classes from './Page.module.css';
 

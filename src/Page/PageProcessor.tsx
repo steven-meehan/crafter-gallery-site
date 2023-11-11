@@ -1,9 +1,9 @@
-import PageData from "../Models/DataFiles/PageData/PageData";
-import ComponentType from "../Models/DataFiles/PageData/ComponentType";
-import ImageData from '../Models/ImageData';
-import PageComponent from '../Models/DataFiles/PageData/PageComponent';
-import InfoProcessor from './InfoProcessor';
-import ImageProcessor from "./ImageProcessor";
+import PageData from "../Page/Models/PageData";
+import ComponentType from "../Page/Models/ComponentType";
+import ImageData from '../Images/ImageData';
+import PageComponent from '../Page/Models/PageComponent';
+import InfoProcessor from '../Info/InfoProcessor';
+import ImageProcessor from "../Images/ImageProcessor";
 
 class PageProcessor {
     static PrepareDataFile(pageData: PageData): PageComponent[]{

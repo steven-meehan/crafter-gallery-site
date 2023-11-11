@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-import PageComponent from "../../../../Models/DataFiles/PageData/PageComponent";
+import PageComponent from "../../Page/Models/PageComponent";
 
 class PageColumnProps {
     rowColumns: number = 0;
