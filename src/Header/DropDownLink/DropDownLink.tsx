@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Card from '../../../Display/Card/Card';
+import Card from '../../Card/Card';
 import DropDownLinkProps from './DropDownLinkProps';
 import NavigationLink from '../NavigationLink/NavigationLink';
 

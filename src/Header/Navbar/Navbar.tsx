@@ -2,10 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import NavigationLink from '../NavigationLink/NavigationLink';
-import Toggler from '../../../Display/Toggler/Toggler';
-import Card from '../../../Display/Card/Card';
-import logo from '../../../../assets/Logo.png';
-import logoAlt from '../../../../assets/LogoAlt.png';
+import Toggler from '../../Toggler/Toggler';
+import Card from '../../Card/Card';
+import logo from '../../assets/Logo.png';
+import logoAlt from '../../assets/LogoAlt.png';
 import NavbarProps from './NavbarProps';
 
 import classes from './Navbar.module.css';

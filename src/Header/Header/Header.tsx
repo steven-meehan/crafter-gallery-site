@@ -1,12 +1,12 @@
 import React, { useState, useEffect, ReactNode } from 'react';
 
 import Navbar from '../Navbar/Navbar';
-import useHttp from '../../../../Hooks/useHttp';
-import LinkConfig from '../../../../Models/DataFiles/Navigation/LinkConfig';
-import NavigationConfigFile from '../../../../Models/DataFiles/Navigation/NavigationConfigFile';
-import BackgroundColor from '../../../../Models/DataFiles/Navigation/BackgroundColor';
+import useHttp from '../../UseHttp/useHttp';
+import LinkConfig from '../../Routing/Models/LinkConfig';
+import NavigationConfigFile from '../../Routing/Models/NavigationConfigFile';
+import BackgroundColor from '../../Routing/Models/BackgroundColor';
 
-import data from '../../../../ConfigurationFiles/data-file-locations.json';
+import data from '../../ConfigFiles/data-file-locations.json';
 import classes from './Header.module.css';
 
 const Header: React.FC<{
@@ -22,7 +22,7 @@ const Header: React.FC<{
     const [backgroundColor, setBackgroundColor] = useState<BackgroundColor>()
     const [togglerUsesPrimaryColor, setAlternateTogglerButtonColor] = useState<boolean>(false);
     
-    const { sendRequest: fetchConfigs, error } = useHttp();
+    const { sendRequest: fetchConfigs } = useHttp();
 
     useEffect(() => {
         const transformData = (data: NavigationConfigFile) =>{
@@ -82,7 +82,7 @@ const Header: React.FC<{
             },
             transformData
         );
-    }, [fetchConfigs]);
+    }, [fetchConfigs, config.cacheAge, config.url]);
     
     return (
         <header>

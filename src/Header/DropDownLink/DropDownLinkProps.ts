@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-import LinkConfig from "../../../../Models/DataFiles/Navigation/LinkConfig";
+import LinkConfig from "../../Routing/Models/LinkConfig";
 
 class DropDownLinkProps {
     dropDownLinkClasses?: string = "";
