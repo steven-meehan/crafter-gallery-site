@@ -1,10 +1,10 @@
 import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
-import Carousel from '../../Content/Images/Carousel/Carousel';
-import RouteDefinition from '../../../Models/DataFiles/Navigation/RouteDefinition';
+import Carousel from '../../Images/Carousel/Carousel';
+import RouteDefinition from '../Models/RouteDefinition';
 
-import routes from '../../../ConfigurationFiles/routes-gallery.json';
+import routes from '../../ConfigFiles/routes-gallery.json';
 
 const Gallery = () => {
     const galleryRoutes: RouteDefinition[] = [];

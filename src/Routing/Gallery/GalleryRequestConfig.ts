@@ -1,5 +1,5 @@
-import ImageData from '../ImageData';
-import SliderButtonLocations from './SliderButtonLocations';
+import ImageData from '../../Images/ImageData';
+import SliderButtonLocations from '../../Images/ImageSlider/SliderButton/SliderButtonLocations';
 
 class GalleryRequestConfig {
     baseUrl: string = "";

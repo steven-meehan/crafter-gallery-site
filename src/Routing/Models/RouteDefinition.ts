@@ -1,4 +1,4 @@
-import ComponentType from '../../DataFiles/Home/ComponentType';
+import ComponentType from './ComponentType';
 import ComponentOptions from './ComponentOptions'
 import RedirectOptions from './RedirectOptions';
 

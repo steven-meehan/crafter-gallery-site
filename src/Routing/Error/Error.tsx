@@ -2,13 +2,13 @@ import React, { Fragment } from 'react';
 import parse from 'html-react-parser';
 
 import ErrorProps from './ErrorProps';
-import HelmetSettings from '../../Structure/Helmet/HelmetSettings';
-import HelmetHttpStatusCode from '../../../Models/ConfigurationFiles/HelmetHttpStatusCode';
+import HelmetSettings from '../../Helmet/HelmetSettings';
+import HelmetHttpStatusCode from '../../Helmet/Models/HelmetHttpStatusCode';
 
 import classes from './Error.module.css';
 
-import seoConfig from '../../../ConfigurationFiles/seo-config.json';
-import data from '../../../ConfigurationFiles/errorPage.json';
+import seoConfig from '../../ConfigFiles/seo-config.json';
+import data from '../../ConfigFiles/errorPage.json';
 
 const Error: React.FC<ErrorProps> = (props) => {
     const errors = props.errorMessages ? props.errorMessages : [];
