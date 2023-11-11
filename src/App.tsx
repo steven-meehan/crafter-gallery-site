@@ -1,10 +1,10 @@
 import React, { Fragment } from 'react'
 
-import Main from './Components/Routing/Main/Main';
-import Header from './Components/Structure/Header/Header/Header';
-import Footer from './Components/Structure/Footer/Footer';
+import Main from './Routing/Main/Main';
+import Header from './Header/Header/Header';
+import Footer from './Footer/Footer';
 
-import data from './ConfigurationFiles/footer.json';
+import data from './ConfigFiles/footer.json';
 
 function App() {
   return (
