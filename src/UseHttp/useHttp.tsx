@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 
-import CachedItem from '../Models/Hooks/CachedItem';
+import CachedItem from './CachedItem';
 
 const useHttp = () => {
     const [isLoading, setIsLoading] = useState(false);
