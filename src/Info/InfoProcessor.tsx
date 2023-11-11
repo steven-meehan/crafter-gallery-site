@@ -1,9 +1,9 @@
 import parse from 'html-react-parser';
 
-import Info from "../Components/Display/Info/Info";
-import Component from '../Models/DataFiles/PageData/Component';
+import Info from "./Info";
+import Component from '../Page/Models/Component';
 
-import classes from '../Components/Display/Info/Info.module.css';
+import classes from '../Info/Info.module.css';
 
 class InfoProcessor {
     
