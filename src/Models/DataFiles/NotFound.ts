@@ -1,20 +1,20 @@
-import ImageFile from "../ImageFile";
-import Paragraph from "../Paragraph";
+import ImageData from "../ImageData";
+import ParagraphData from "../ParagraphData";
 
 class NotFound {
-    paragraphs: Paragraph[] = [];
-    image: ImageFile = new ImageFile();
+    paragraphs: ParagraphData[] = [];
+    image: ImageData = new ImageData();
 
     constructor(notFoundConfig?: {
-        paragraphs: Paragraph[],
-        image: ImageFile
+        paragraphs: ParagraphData[],
+        image: ImageData
     }){
         if(notFoundConfig){
-            this.paragraphs = notFoundConfig.paragraphs ? notFoundConfig.paragraphs.map(item => new Paragraph(item)) : [];
-            this.image = notFoundConfig.image ? new ImageFile(notFoundConfig.image) : new ImageFile();
+            this.paragraphs = notFoundConfig.paragraphs ? notFoundConfig.paragraphs.map(item => new ParagraphData(item)) : [];
+            this.image = notFoundConfig.image ? new ImageData(notFoundConfig.image) : new ImageData();
         } else {
             this.paragraphs = [];
-            this.image = new ImageFile();
+            this.image = new ImageData();
         }
     }
 }

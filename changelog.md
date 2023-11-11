@@ -1,6 +1,7 @@
 # Crafter Gallery Site
 
 ## vNext
+- Broke up the ImageSlider into its base components
 
 ## 1.0.0
 

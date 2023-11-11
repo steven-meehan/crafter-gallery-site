@@ -1,17 +1,17 @@
-import Paragraph from "../../../../../Models/Paragraph";
+import ParagraphData from "../../../../../Models/ParagraphData";
 
 class ImageBlurbProps {
-    description: Paragraph[] = [];
+    description: ParagraphData[] = [];
     imageFileName: string = "";
     blurbCssClasses: string = "";
 
     constructor(imageBlurbProps?: {
-        description: Paragraph[],
+        description: ParagraphData[],
         imageFileName: string,
         blurbCssClasses: string
     }){
         if(imageBlurbProps){
-            this.description = imageBlurbProps.description ? imageBlurbProps.description.map(item=> new Paragraph(item)) : [];
+            this.description = imageBlurbProps.description ? imageBlurbProps.description.map(item=> new ParagraphData(item)) : [];
             this.imageFileName = imageBlurbProps.imageFileName ? imageBlurbProps.imageFileName : "";
             this.blurbCssClasses = imageBlurbProps.blurbCssClasses ? imageBlurbProps.blurbCssClasses : "";
         } else {

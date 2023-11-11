@@ -1,6 +1,6 @@
 import ComponentType from "./ComponentType";
-import ImageFile from "../../ImageFile";
-import Paragraph from "../../Paragraph";
+import ImageData from "../../ImageData";
+import ParagraphData from "../../ParagraphData";
 import Slider from "./SliderInfo";
 
 class ComponentInfo {
@@ -8,8 +8,8 @@ class ComponentInfo {
     order: number = 0;
     component: ComponentType = ComponentType.Undefined;
     baseUrl: string = "";
-    images: ImageFile[] = [];
-    paragraphs: Paragraph[] = [];
+    images: ImageData[] = [];
+    paragraphs: ParagraphData[] = [];
     slider: Slider = new Slider();
 
     constructor(componentInfo?: {
@@ -17,8 +17,8 @@ class ComponentInfo {
         order: number,
         component: string,
         baseUrl: string,
-        images: ImageFile[],
-        paragraphs: Paragraph[],
+        images: ImageData[],
+        paragraphs: ParagraphData[],
         slider: Slider
     }){
         if(componentInfo){
@@ -47,8 +47,8 @@ class ComponentInfo {
             }
 
             this.baseUrl = componentInfo.baseUrl ? componentInfo.baseUrl : "";
-            this.images = componentInfo.images ? componentInfo.images.map(item => new ImageFile(item)) : [];
-            this.paragraphs = componentInfo.paragraphs ? componentInfo.paragraphs.map(item => new Paragraph(item)) : [];
+            this.images = componentInfo.images ? componentInfo.images.map(item => new ImageData(item)) : [];
+            this.paragraphs = componentInfo.paragraphs ? componentInfo.paragraphs.map(item => new ParagraphData(item)) : [];
             this.slider = componentInfo.slider ? new Slider(componentInfo.slider) : new Slider();
         } else {
             this.active = false;

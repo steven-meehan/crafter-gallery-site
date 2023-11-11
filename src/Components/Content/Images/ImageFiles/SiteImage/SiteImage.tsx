@@ -4,12 +4,12 @@ import HelmetSettings from '../../../../Structure/Helmet/HelmetSettings';
 import HtmlTitle from '../HtmlTitle/HtmlTitle';
 import ProcessedImage from '../ProcessedImage/ProcessedImage';
 import ImageBlurb from '../ImageBlurb/ImageBlurb';
-import ImageProps from './ImageProps';
+import ImageProps from './SiteImageProps';
 
 import seoData from '../../../../../ConfigurationFiles/seo-config.json';
 import classes from './Image.module.css';
 
-const Image: React.FC<ImageProps> = (props) => {
+const SiteImage: React.FC<ImageProps> = (props) => {
     const seoSiteInfo = seoData.site;
     const imageCssClasses = `${props.classes ? props.classes : ''}`;
     const blurbCssClasses = `${props.blurbCssClasses ? props.blurbCssClasses : ''}`;
@@ -105,4 +105,4 @@ const Image: React.FC<ImageProps> = (props) => {
     );
 }
 
-export default Image;
+export default SiteImage;
