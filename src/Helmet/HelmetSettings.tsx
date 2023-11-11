@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet";
-import HelmetHttpStatusCode from "./Models/HelmetHttpStatusCode";
+import HelmetHttpStatusCode from "./HelmetHttpStatusCode";
 
 import HelmetSettingsProps from "./HelmetSettingsProps";
 

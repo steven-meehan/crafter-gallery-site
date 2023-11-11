@@ -3,7 +3,7 @@ import parse from 'html-react-parser';
 
 import ErrorProps from './ErrorProps';
 import HelmetSettings from '../../Helmet/HelmetSettings';
-import HelmetHttpStatusCode from '../../Helmet/Models/HelmetHttpStatusCode';
+import HelmetHttpStatusCode from '../../Helmet/HelmetHttpStatusCode';
 
 import classes from './Error.module.css';
 
