@@ -3,8 +3,8 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 
 import Card from '../../Card/Card';
 import Spinner from '../../Spinner/Spinner';
-import ComponentType from '../Models/ComponentType';
-import RouteDefinition from '../Models/RouteDefinition';
+import ComponentType from '../ComponentType';
+import RouteDefinition from '../RouteDefinition';
 
 import routes from '../../ConfigFiles/routes-top-level.json';
 import config from '../../ConfigFiles/data-file-locations.json';

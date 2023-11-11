@@ -2,8 +2,8 @@ import React, { useState, useEffect, ReactNode } from 'react';
 
 import Navbar from '../Navbar/Navbar';
 import useHttp from '../../UseHttp/useHttp';
-import LinkConfig from '../../Routing/Models/LinkConfig';
-import NavigationConfigFile from '../../Routing/Models/NavigationConfigFile';
+import LinkConfig from '../../Routing/LinkConfig';
+import NavigationConfigFile from '../../Routing/NavigationConfigFile';
 import BackgroundColor from '../../Routing/BackgroundColor';
 
 import data from '../../ConfigFiles/data-file-locations.json';

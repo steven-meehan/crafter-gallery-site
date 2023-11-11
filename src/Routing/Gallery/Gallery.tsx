@@ -2,7 +2,7 @@ import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
 import Carousel from '../../Images/Carousel/Carousel';
-import RouteDefinition from '../Models/RouteDefinition';
+import RouteDefinition from '../RouteDefinition';
 
 import routes from '../../ConfigFiles/routes-gallery.json';
 
