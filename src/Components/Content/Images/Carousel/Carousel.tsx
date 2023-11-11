@@ -4,7 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import ImageSlider from '../ImageSlider/ImageSlider';
 import CarouselProps from './CarouselProps';
 import useHttp from '../../../../Hooks/useHttp';
-import ImageFile from '../../../../Models/ImageFile';
+import ImageData from '../../../../Models/ImageData';
 import GalleryRequestConfig from '../../../../Models/DataFiles/GalleryRequestConfig';
 import Error from '../../Error/Error';
 import SliderButtonLocations from '../../../../Models/DataFiles/SliderButtonLocations';
@@ -14,7 +14,7 @@ import classes from './Carousel.module.css';
 
 const Carousel: React.FC<CarouselProps> = (props) => {
     const [ selectedImageName, setSelectedImageName ] = useState("");
-    const [ galleryImages, setGalleryImages ] = useState<ImageFile[]>([]);
+    const [ galleryImages, setGalleryImages ] = useState<ImageData[]>([]);
     const [ sliderButtonLocations, setSliderButtonLocations ] = useState<SliderButtonLocations>(SliderButtonLocations.Bottom);
     const [ linkToLargerVersion, setLinkToLargerVersion ] = useState<boolean>(false);
     
@@ -34,11 +34,11 @@ const Carousel: React.FC<CarouselProps> = (props) => {
     useEffect(() => {
         const transformData = (data: GalleryRequestConfig) => {            
             const baseUrl = data.baseUrl;
-            const galleryImages: ImageFile[] = [];
+            const galleryImages: ImageData[] = [];
 
             const processingGalleryImages = (
-                item: ImageFile, 
-                baseUrl: string): ImageFile => {
+                item: ImageData, 
+                baseUrl: string): ImageData => {
 
                 return {
                     htmlTitle: item.htmlTitle,

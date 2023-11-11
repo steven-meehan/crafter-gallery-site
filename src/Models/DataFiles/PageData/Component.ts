@@ -1,7 +1,7 @@
 import ColumnPosition from "./ColumnPosition";
 import ComponentType from "./ComponentType";
 import Paragraph from "../../Paragraph";
-import ImageFile from "../../ImageFile";
+import ImageData from "../../ImageData";
 import ImageSlider from "./ImageSlider";
 
 class Component {
@@ -11,7 +11,7 @@ class Component {
     columnPosition: ColumnPosition = ColumnPosition.Left;
     componentType: ComponentType = ComponentType.Info;
     paragraphs?: Paragraph[];
-    imageFiles?: ImageFile[];
+    imageFiles?: ImageData[];
     imageSlider?: ImageSlider = new ImageSlider(); 
 
     constructor(component?: {
@@ -21,7 +21,7 @@ class Component {
         columnPosition: ColumnPosition,
         componentType: ComponentType,
         paragraphs?: Paragraph[],
-        imageFiles?: ImageFile[],
+        imageFiles?: ImageData[],
         imageSlider?: ImageSlider
     }){
         if(component){
@@ -31,7 +31,7 @@ class Component {
             this.columnPosition = component.columnPosition ? component.columnPosition : ColumnPosition.Left;
             this.componentType = component.componentType ? component.componentType : ComponentType.Info;
             this.paragraphs = component.paragraphs ? component.paragraphs.map(item => new Paragraph(item)) : [];
-            this.imageFiles = component.imageFiles ? component.imageFiles.map(item => new ImageFile(item)) : [];
+            this.imageFiles = component.imageFiles ? component.imageFiles.map(item => new ImageData(item)) : [];
             this.imageSlider = component.imageSlider ? component.imageSlider : new ImageSlider();
         } else {
             this.active = false;

@@ -1,6 +1,6 @@
 import PageData from "../Models/DataFiles/PageData/PageData";
 import ComponentType from "../Models/DataFiles/PageData/ComponentType";
-import ImageFile from '../Models/ImageFile';
+import ImageData from '../Models/ImageData';
 import PageComponent from '../Models/DataFiles/PageData/PageComponent';
 import InfoProcessor from './InfoProcessor';
 import ImageProcessor from "./ImageProcessor";
@@ -29,7 +29,7 @@ class PageProcessor {
 
                     case ComponentType.Image:
 
-                        const images: ImageFile[] = [];
+                        const images: ImageData[] = [];
             
                         if(component.imageFiles!.length >= 1) {
                             for (const imageFile in component.imageFiles!) {

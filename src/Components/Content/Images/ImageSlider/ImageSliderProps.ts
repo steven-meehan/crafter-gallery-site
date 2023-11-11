@@ -1,9 +1,9 @@
 import SliderButtonLocations from "../../../../Models/DataFiles/SliderButtonLocations";
-import ImageFile from "../../../../Models/ImageFile";
+import ImageData from "../../../../Models/ImageData";
 
 class ImageSliderProps {
     classes?: string = "";
-    images: ImageFile[] = [];
+    images: ImageData[] = [];
     setHelmetInfo?: boolean = false;
     renderImageUrls?: boolean = false;
     autoTransition?: boolean = false;
@@ -22,7 +22,7 @@ class ImageSliderProps {
 
     constructor(imageSliderProps?: {
         classes: string,
-        images: ImageFile[],
+        images: ImageData[],
         setHelmetInfo: boolean
         renderImageUrls: boolean,
         autoTransition: boolean,
@@ -41,7 +41,7 @@ class ImageSliderProps {
     }){
         if(imageSliderProps){
             this.classes = imageSliderProps.classes ? imageSliderProps.classes : "";
-            this.images = imageSliderProps.images ? imageSliderProps.images.map(item => new ImageFile(item)) : [];
+            this.images = imageSliderProps.images ? imageSliderProps.images.map(item => new ImageData(item)) : [];
             this.setHelmetInfo = imageSliderProps.setHelmetInfo ? imageSliderProps.setHelmetInfo : false;
             this.renderImageUrls = imageSliderProps.renderImageUrls ? imageSliderProps.renderImageUrls : false;
             this.autoTransition = imageSliderProps.autoTransition ? imageSliderProps.autoTransition : false;

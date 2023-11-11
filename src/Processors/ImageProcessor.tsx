@@ -1,7 +1,7 @@
 import Image from "../Components/Content/Images/ImageFiles/Image/Image";
 import Component from '../Models/DataFiles/PageData/Component';
 import ImageSlider from '../Components/Content/Images/ImageSlider/ImageSlider';
-import ImageFile from '../Models/ImageFile';
+import ImageData from '../Models/ImageData';
 
 import classes from '../Components/Content/Images/ImageFiles/Image/Image.module.css';
 
@@ -9,7 +9,7 @@ class ImageProcessor {
 
     static PrepareImageComponent = (
         component: Component,
-        images: ImageFile[],
+        images: ImageData[],
         pageName: string): JSX.Element | null => {
         return (
             images.length > 1 ? (

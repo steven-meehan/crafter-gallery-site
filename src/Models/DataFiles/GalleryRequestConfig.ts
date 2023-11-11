@@ -1,4 +1,4 @@
-import ImageFile from '../ImageFile';
+import ImageData from '../ImageData';
 import SliderButtonLocations from './SliderButtonLocations';
 
 class GalleryRequestConfig {
@@ -7,7 +7,7 @@ class GalleryRequestConfig {
     pageHeader: string = "";
     sliderButtonLocations: SliderButtonLocations = SliderButtonLocations.Bottom;
     linkToLargerVersion: boolean = false;
-    items: ImageFile[];
+    items: ImageData[];
 
     constructor(galleryRequestConfig: {
         baseUrl: string,
@@ -15,7 +15,7 @@ class GalleryRequestConfig {
         pageHeader: string,
         sliderButtonLocations: SliderButtonLocations,
         linkToLargerVersion: boolean,
-        items: ImageFile[]
+        items: ImageData[]
     }){
         if(galleryRequestConfig){
             this.baseUrl = galleryRequestConfig.baseUrl ? galleryRequestConfig.baseUrl : "";
@@ -23,7 +23,7 @@ class GalleryRequestConfig {
             this.pageHeader = galleryRequestConfig.pageHeader ? galleryRequestConfig.pageHeader : "";
             this.sliderButtonLocations = galleryRequestConfig.sliderButtonLocations ? galleryRequestConfig.sliderButtonLocations :SliderButtonLocations.Bottom;
             this.linkToLargerVersion = galleryRequestConfig.linkToLargerVersion ? galleryRequestConfig.linkToLargerVersion : false;
-            this.items = galleryRequestConfig.items ? galleryRequestConfig.items.map(item => new ImageFile(item)) : [];
+            this.items = galleryRequestConfig.items ? galleryRequestConfig.items.map(item => new ImageData(item)) : [];
         } else {
             this.baseUrl = "";
             this.folderName = "";

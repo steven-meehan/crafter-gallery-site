@@ -2,14 +2,14 @@ import React, { useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Image from '../ImageFiles/Image/Image';
-import ImageFile from '../../../../Models/ImageFile';
+import ImageData from '../../../../Models/ImageData';
 import ImageSliderProps from './ImageSliderProps'
 
 import classes from './ImageSlider.module.css';
 import SliderButtonLocations from '../../../../Models/DataFiles/SliderButtonLocations';
 
 const ImageSlider: React.FC<ImageSliderProps> = (props) => {
-    const [ images, setImages ] = useState<ImageFile[]>([]);
+    const [ images, setImages ] = useState<ImageData[]>([]);
     const [ currentImageIndex, setCurrentImageIndex ] = useState(0);
     const navigate = useNavigate();
 
