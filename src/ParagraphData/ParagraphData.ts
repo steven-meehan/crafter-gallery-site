@@ -1,4 +1,4 @@
-import Alignment from "./DataFiles/PageData/Alignment";
+import Alignment from "./Alignment";
 
 class ParagraphData {
     display: boolean = false;
