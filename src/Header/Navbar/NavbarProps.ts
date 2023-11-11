@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-import BackgroundColor from "../../Routing/Models/BackgroundColor";
+import BackgroundColor from "../../Routing/BackgroundColor";
 import LinkConfig from "../../Routing/Models/LinkConfig";
 
 class NavbarProps {

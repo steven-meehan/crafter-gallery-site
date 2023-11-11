@@ -4,7 +4,7 @@ import Navbar from '../Navbar/Navbar';
 import useHttp from '../../UseHttp/useHttp';
 import LinkConfig from '../../Routing/Models/LinkConfig';
 import NavigationConfigFile from '../../Routing/Models/NavigationConfigFile';
-import BackgroundColor from '../../Routing/Models/BackgroundColor';
+import BackgroundColor from '../../Routing/BackgroundColor';
 
 import data from '../../ConfigFiles/data-file-locations.json';
 import classes from './Header.module.css';
