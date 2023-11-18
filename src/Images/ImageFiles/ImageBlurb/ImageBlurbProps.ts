@@ -1,4 +1,4 @@
-import ParagraphData from "../../../ParagraphData/ParagraphData";
+import ParagraphData from "../../../ParagraphData";
 
 class ImageBlurbProps {
     description: ParagraphData[] = [];

@@ -1,4 +1,4 @@
-import Paragraph from "../ParagraphData/ParagraphData";
+import Paragraph from "../ParagraphData";
 
 class ImageData {
     fileName: string = "";
