@@ -1,8 +1,8 @@
 # Crafter Gallery Site
 
-A simple gallery site designed to be a public portfolio for crafters. This is a [React](https://reactjs.org/) application bootstrapped with [Create React App](https://create-react-app.dev/). Instead of reaching out to a database, or back-end service, this application uses configuration files pulled from the web server to render everything from the navigation to the galleries and their contents.
+A simple gallery site designed to be a public portfolio for crafters. This is a [React](https://reactjs.org/) application bootstrapped with [Create React App](https://create-react-app.dev/). Instead of reaching out to a database, or any back-end service, this application uses configuration files served from a web server to render everything from the navigation, to the available galleries, and their contents.
 
-While the code was initially created to run out of an Amazon S3 bucket, you do not have to utilize that technology stack, though for the purpose of this documentation I will assume you are using a combination of an S3 bucket and CloudFront to run your crafter's site.
+While the code was initially created to run out of an Amazon S3 bucket, you are not limited to this technology stack. However, to keep things clean for this documentation, we will assume that you are using an S3 bucket in conjunction with CloudFront to run your crafter's site.
 
 The system's `uesHttp` hook has been designed to cache the results for the web requests to retrieve the data files needed, see [Data File Locations](#data-file-locations) for full details.
 
@@ -56,13 +56,13 @@ The application is built with Sass so you will need something to compile the CSS
 After cloning this repository for a new client, there are several steps that need to be taken to successfully run the new site. 
 - First there are several configuration files the application requires.
     - Copy the contents of the `assets` folder from `NewSiteSampleFiles` to the `src` (These are sample logos that should be replaced with the crafter's logo).
-    - Copy the contents of the `ConfigurationFiles` folder from `NewSiteSampleFiles` to the `scr` folder.
+    - Copy the contents of the `ConfigFiles` folder from `NewSiteSampleFiles` to the `scr` folder.
     - Copy the contents of the `public` folder from `NewSiteSampleFiles` to the root folder and delete the `.gitkeep` file.
     - Copy `Variable.scss` & `index.scss` file from `NewSiteSampleFiles` to the `scr` folder.
 
 With the configuration files copied, update them with the client specific information (see below sections to fully configure). Once the files have been created and placed, you need to transfer the images into their gallery specific folders under the gallery folder in the S3 bucket. You need to ensure the route structure for the site and the S3 buckets do not match. If they do, when you try to visit the page for a specific image, you will not be routed through the website. Instead you will be served the image from the S3 bucket.
 
-Finally create the `index.html` file in the `public` folder and add the `favicon.png` as well.
+Finally update the `index.html` and `favicon.png` as needed for your crafter.
 
 [Back to Top](#table-of-contents)
 
@@ -70,7 +70,7 @@ Finally create the `index.html` file in the `public` folder and add the `favicon
 
 This section details the Configuration File used to configure the Data Files the system uses.
 
-In an effort to keep the repository from being tied to a specific implementation, key aspects of certain pages and their contents are reliant upon data files. In order for the application to pull the correct file update the `data-file-locations.json` file. The JSON file is an array of objects with the following properties: `configuration` and `url`.
+In an effort to keep the repository from being tied to a specific implementation, key aspects of certain pages and their contents are reliant upon data files. In order for the application to pull the correct file update the `data-file-locations.json` file. The JSON file is an array of objects with the following properties: `contentType`, `url`, and `cacheAge`.
 
 At minimum there needs to be an entry for `navigation`, `galleries`, `home` and `notFound` (These are included in the sample file).
 
@@ -94,7 +94,7 @@ At minimum there needs to be an entry for `navigation`, `galleries`, `home` and 
     - `gallery`: Details where the gallery configuration files are located.
     - `home`: : Details where the Home Page config file is located.
     - `notFound`: : Details where the Not Found Page config file is located.
-- `url`: (Required) `string` This is URL where the data file is stored.
+- `url`: (Required) `string` This is URL where the data file is being served from.
 - `cacheAge`: (Required) `number` This is used to specify how long the application should cache the results for the request is milliseconds. A good default value is about 15 minutes or 900000 milliseconds. 
 
 [Back to Top](#table-of-contents)
@@ -105,7 +105,7 @@ To fully setup the site's routing and navigation, you will need to update the `r
 
 The `navigation.json` [file] (#navigation-config) is the data file that details all the information needed for building the navigation bar.
 
-Where as `routes-gallery.json` and `routes-top-level.json` are configuration files used to create the site's Routing Table see [below](#routing) for the full details.
+Meanwhile the `routes-gallery.json` and `routes-top-level.json` configuration files are used to create the site's Routing Table see [below](#routing) for full details.
 
 [Back to Top](#table-of-contents)
 
