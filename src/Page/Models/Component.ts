@@ -1,6 +1,6 @@
 import ColumnPosition from "./ColumnPosition";
 import ComponentType from "./ComponentType";
-import ParagraphData from "../../ParagraphData/ParagraphData";
+import ParagraphData from "../../ParagraphData";
 import ImageData from "../../Images/ImageData";
 import ImageSlider from "./ImageSlider";
 

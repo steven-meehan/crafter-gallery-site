@@ -1,5 +1,5 @@
 import ImageData from "../Images/ImageData";
-import ParagraphData from "../ParagraphData/ParagraphData";
+import ParagraphData from "../ParagraphData";
 
 class NotFound {
     paragraphs: ParagraphData[] = [];
