@@ -1,10 +1,10 @@
 {
   "eyebrow": "Your Studio Name",
-  "headline": "Will it arrive in time?",
-  "subtext": "Tell me your install or reveal date. I'll tell you exactly what's realistic — no guesswork.",
-  "footnote": "Add any trust or guarantee copy here — e.g. catalog size, build promise, etc.",
-  "dateLabel": "Reveal / install date",
-  "productLabel": "Piece you're considering",
+  "headline": "Can we get your order to you in time?",
+  "subtext": "Enter your deadline and pick your product. We'll tell you exactly what's realistic — no guesswork.",
+  "footnote": "Add any trust or guarantee copy here — e.g. catalog size, turnaround promise, etc.",
+  "dateLabel": "When do you need it?",
+  "productLabel": "What are you ordering?",
   "buttonText": "Check my timeline",
   "buildBufferDays": 5,
   "productTypes": [
@@ -42,43 +42,43 @@
       "variant": "tight",
       "label": "Date has passed",
       "headline": "That date's already behind us.",
-      "detail": "Double check the date — or if plans shifted, run it again with the new one.",
+      "detail": "Double-check the date — or if your plans changed, run it again with the new one.",
       "showCta": false
     },
     "clear": {
       "variant": "good",
-      "label": "You're clear",
-      "headline": "You have {days} days. That's plenty of room.",
-      "detail": "Even if your piece isn't available yet, we can have it ready and shipped in time — <strong>guaranteed.</strong>",
+      "label": "You're good to go",
+      "headline": "You have {days} days. Plenty of time.",
+      "detail": "We can make it, pack it, and get it to you well before your deadline — <strong>no rush needed.</strong>",
       "showCta": true,
-      "ctaText": "Browse the gallery →",
+      "ctaText": "Shop now →",
       "ctaUrl": "/gallery"
     },
     "clearWithNote": {
       "variant": "good",
-      "label": "You're clear, with one note",
-      "headline": "{days} days is enough — if your piece is already available.",
-      "detail": "If it's in the catalog, it'll ship in <strong>{minDays}–{maxDays} days</strong>, no problem. If it needs to be made to order, reach out first to confirm.",
+      "label": "Should be fine",
+      "headline": "{days} days is enough — for in-stock items.",
+      "detail": "Anything already made will ship in <strong>{minDays}–{maxDays} days</strong>. If it needs to be made to order, get in touch first to confirm.",
       "showCta": true,
-      "ctaText": "Browse the gallery →",
+      "ctaText": "Shop now →",
       "ctaUrl": "/gallery"
     },
     "tight": {
       "variant": "tight",
-      "label": "It's tight, but not over",
-      "headline": "{days} days is close. Available pieces can still make it.",
-      "detail": "Stick to what's already in the catalog — skip anything that needs to be made to order for this deadline.",
+      "label": "Tight, but possible",
+      "headline": "{days} days is cutting it close.",
+      "detail": "Stick to in-stock items and order today. Anything made to order is too risky for this deadline.",
       "showCta": true,
-      "ctaText": "See what's available now →",
+      "ctaText": "See what's in stock →",
       "ctaUrl": "/gallery"
     },
     "tooTight": {
       "variant": "tight",
-      "label": "Talk to us first",
+      "label": "Get in touch first",
       "headline": "{days} days is very tight.",
-      "detail": "This may still be possible depending on current stock. Reach out directly with your date and we'll tell you straight whether it's realistic before you commit.",
+      "detail": "It may still be possible depending on what we have ready. Reach out with your deadline and we'll give you a straight answer before you order.",
       "showCta": true,
-      "ctaText": "Get in touch →",
+      "ctaText": "Contact us →",
       "ctaUrl": "/page/contact"
     }
   }

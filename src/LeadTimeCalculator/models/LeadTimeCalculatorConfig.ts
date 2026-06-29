@@ -17,6 +17,7 @@ export interface VerdictConfig {
 }
 
 export interface LeadTimeCalculatorConfig {
+  markUrl?: string;
   eyebrow?: string;
   headline: string;
   subtext: string;

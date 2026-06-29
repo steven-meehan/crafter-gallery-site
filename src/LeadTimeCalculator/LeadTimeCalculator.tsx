@@ -66,22 +66,6 @@ function computeVerdict(
   };
 }
 
-const MountainMark = ({ cssClasses, watermark = false }: { cssClasses: string; watermark?: boolean }) => (
-  <svg
-    className={cssClasses}
-    viewBox="0 0 64 40"
-    xmlns="http://www.w3.org/2000/svg"
-    aria-hidden="true"
-  >
-    {!watermark && <path className={classes.markFill} d="M2 32 L16 14 L24 24 L32 6 L40 24 L48 14 L62 32 Z" />}
-    {!watermark && <path className={classes.markStroke} d="M2 32 L16 14 L20 19" />}
-    {!watermark && <path className={classes.markStroke} d="M16 32 L24 24 L28 28.5" />}
-    <path d="M22 32 L32 6 L42 32" />
-    {!watermark && <path className={classes.markStroke} d="M36 28.5 L40 24 L48 32" />}
-    {!watermark && <path className={classes.markStroke} d="M44 19 L48 14 L62 32" />}
-  </svg>
-);
-
 const LeadTimeCalculator: React.FC<LeadTimeCalculatorProps> = ({ dataFileUrl, pageTitle }) => {
   const { sendRequest, isLoading, error } = useHttp();
   const [config, setConfig] = useState<LeadTimeCalculatorConfig | null>(null);
@@ -129,7 +113,9 @@ const LeadTimeCalculator: React.FC<LeadTimeCalculatorProps> = ({ dataFileUrl, pa
 
       <div className={classes.calculator}>
         <div className={classes.card}>
-          <MountainMark cssClasses={classes.mark} />
+          {config.markUrl && (
+            <img src={config.markUrl} alt="" aria-hidden="true" className={classes.mark} />
+          )}
 
           {config.eyebrow && <div className={classes.eyebrow}>{config.eyebrow}</div>}
 
@@ -171,7 +157,9 @@ const LeadTimeCalculator: React.FC<LeadTimeCalculatorProps> = ({ dataFileUrl, pa
 
           {verdict && (
             <div className={`${classes.verdict} ${verdict.config.variant === 'good' ? classes.verdictGood : classes.verdictTight}`}>
-              <MountainMark cssClasses={classes.verdictWatermark} watermark />
+              {config.markUrl && (
+                <img src={config.markUrl} alt="" aria-hidden="true" className={classes.verdictWatermark} />
+              )}
               <div className={classes.verdictLabel}>{verdict.config.label}</div>
               <div className={classes.verdictHeadline}>{verdict.headline}</div>
               <p className={classes.verdictDetail}>{parse(verdict.detail)}</p>

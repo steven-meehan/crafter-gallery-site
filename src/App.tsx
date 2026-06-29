@@ -61,24 +61,17 @@ function App() {
                 {siteConfig.pages.map(p => (
                   <Route
                     key={p.slug}
-                    path={`/page/${p.slug}`}
+                    path={p.type === 'calculator' ? `/calculator/${p.slug}` : `/page/${p.slug}`}
                     element={
-                      <Page
-                        seoPageConfig={p.slug}
-                        dataFileUrl={`${siteConfig.dataBaseUrl}${p.dataFile}`}
-                      />
-                    }
-                  />
-                ))}
-                {(siteConfig.calculators ?? []).map(c => (
-                  <Route
-                    key={c.slug}
-                    path={`/calculator/${c.slug}`}
-                    element={
-                      <LeadTimeCalculator
-                        pageTitle={c.title}
-                        dataFileUrl={`${siteConfig.dataBaseUrl}${c.dataFile}`}
-                      />
+                      p.type === 'calculator'
+                        ? <LeadTimeCalculator
+                            pageTitle={p.title}
+                            dataFileUrl={`${siteConfig.dataBaseUrl}${p.dataFile}`}
+                          />
+                        : <Page
+                            seoPageConfig={p.slug}
+                            dataFileUrl={`${siteConfig.dataBaseUrl}${p.dataFile}`}
+                          />
                     }
                   />
                 ))}

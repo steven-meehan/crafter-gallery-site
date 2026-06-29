@@ -28,9 +28,7 @@
   },
   "homePage": { "slug": "home", "title": "Home", "dataFile": "page-home.json" },
   "pages": [
-    { "slug": "about", "title": "About", "dataFile": "about.json" }
-  ],
-  "calculators": [
-    { "slug": "timeline", "title": "Will It Arrive In Time?", "dataFile": "calculator-lead-time.json" }
+    { "slug": "about", "title": "About", "dataFile": "about.json" },
+    { "slug": "timeline", "title": "Fulfillment Calculator", "dataFile": "calculator-lead-time.json", "type": "calculator" }
   ]
 }

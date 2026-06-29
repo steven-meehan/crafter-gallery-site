@@ -22,10 +22,13 @@ export interface ErrorPageConfig {
   message: string;
 }
 
+export type PageType = 'page' | 'calculator';
+
 export interface StaticPageEntry {
   slug: string;
   title: string;
   dataFile: string;
+  type?: PageType;
 }
 
 export type { GalleryButtonLabels } from '../Galleries/models/GalleryConfig';
@@ -42,5 +45,4 @@ export interface SiteConfig {
   galleryButtonLabels: GalleryButtonLabels;
   homePage?: StaticPageEntry;
   pages: StaticPageEntry[];
-  calculators?: StaticPageEntry[];
 }

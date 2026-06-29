@@ -5,6 +5,7 @@
   display: block !important;
   width: 100% !important;
   padding: 0.4em 1.25em !important;
+  white-space: nowrap !important;
 }
 .navigationLinks:hover {
   font-weight: bolder;
