@@ -2,6 +2,18 @@
 
 ## vNext
 
+### Fulfillment Calculator
+- New generic `LeadTimeCalculator` component — an interactive widget where visitors enter a deadline date, select a product type, and instantly receive a tiered verdict on whether fulfillment is realistic
+- All copy, product types, shipping windows, build buffer, verdict text, and CTA links are driven by a `calculator-{slug}.json` data file — zero code changes required to deploy for a new client
+- Verdict headline and detail support `{days}`, `{productLabel}`, `{minDays}`, `{maxDays}` interpolation tokens for dynamic copy
+- Registered via the `pages` array in `site.config.json` using `"type": "calculator"` — same registration pattern as static pages; route created at `/calculator/{slug}`
+- Optional `markUrl` field in the data file renders the client's own logo or mark above the card and as a faint watermark inside the verdict panel; omit the field and neither renders
+- Navigation link added via `navigation.json` like any other nav entry — no special handling
+- All design tokens exposed as `--lead-calc-*` CSS custom properties falling back to site theme tokens; fully overridable per client in `theme.css`
+- Page marked `noindex` — it is a conversion tool, not an SEO target
+- `white-space: nowrap` added to `.navigationLinks` to prevent nav labels wrapping to two lines
+- Sample data file at `NewSiteSampleFiles/public/data/calculator-lead-time.json` uses generic crafter copy (deadline, product, fulfillment) rather than any client-specific language
+
 ## 2.0.2
 ### Bug Fixes
 - Fixed `.gitignore` blanket `*.css` rule that was silently excluding all component CSS modules from the repository; replaced with targeted exclusions and explicit negations for `src/**/*.module.css` and `src/theme.css`

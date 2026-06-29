@@ -20,6 +20,7 @@ purgeStaleCache(siteConfig.cacheVersion);
 
 const GalleryView = lazy(() => import('./Galleries/GalleryView/GalleryView'));
 const Page = lazy(() => import('./Page/Page'));
+const LeadTimeCalculator = lazy(() => import('./LeadTimeCalculator/LeadTimeCalculator'));
 
 function NotFoundPage() {
   return (
@@ -60,12 +61,17 @@ function App() {
                 {siteConfig.pages.map(p => (
                   <Route
                     key={p.slug}
-                    path={`/page/${p.slug}`}
+                    path={p.type === 'calculator' ? `/calculator/${p.slug}` : `/page/${p.slug}`}
                     element={
-                      <Page
-                        seoPageConfig={p.slug}
-                        dataFileUrl={`${siteConfig.dataBaseUrl}${p.dataFile}`}
-                      />
+                      p.type === 'calculator'
+                        ? <LeadTimeCalculator
+                            pageTitle={p.title}
+                            dataFileUrl={`${siteConfig.dataBaseUrl}${p.dataFile}`}
+                          />
+                        : <Page
+                            seoPageConfig={p.slug}
+                            dataFileUrl={`${siteConfig.dataBaseUrl}${p.dataFile}`}
+                          />
                     }
                   />
                 ))}

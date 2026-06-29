@@ -1,0 +1,85 @@
+{
+  "eyebrow": "Your Studio Name",
+  "headline": "Can we get your order to you in time?",
+  "subtext": "Enter your deadline and pick your product. We'll tell you exactly what's realistic — no guesswork.",
+  "footnote": "Add any trust or guarantee copy here — e.g. catalog size, turnaround promise, etc.",
+  "dateLabel": "When do you need it?",
+  "productLabel": "What are you ordering?",
+  "buttonText": "Check my timeline",
+  "buildBufferDays": 5,
+  "productTypes": [
+    {
+      "id": "option-a",
+      "label": "Option A",
+      "shippingLabel": "4–8 days",
+      "minDays": 4,
+      "maxDays": 8
+    },
+    {
+      "id": "option-b",
+      "label": "Option B",
+      "shippingLabel": "4–8 days",
+      "minDays": 4,
+      "maxDays": 8
+    },
+    {
+      "id": "option-c",
+      "label": "Option C",
+      "shippingLabel": "9–11 days",
+      "minDays": 9,
+      "maxDays": 11
+    }
+  ],
+  "verdicts": {
+    "noDate": {
+      "variant": "tight",
+      "label": "One thing first",
+      "headline": "Pick your date above.",
+      "detail": "I need a date to do the math — pop it in and I'll check it instantly.",
+      "showCta": false
+    },
+    "past": {
+      "variant": "tight",
+      "label": "Date has passed",
+      "headline": "That date's already behind us.",
+      "detail": "Double-check the date — or if your plans changed, run it again with the new one.",
+      "showCta": false
+    },
+    "clear": {
+      "variant": "good",
+      "label": "You're good to go",
+      "headline": "You have {days} days. Plenty of time.",
+      "detail": "We can make it, pack it, and get it to you well before your deadline — <strong>no rush needed.</strong>",
+      "showCta": true,
+      "ctaText": "Shop now →",
+      "ctaUrl": "/gallery"
+    },
+    "clearWithNote": {
+      "variant": "good",
+      "label": "Should be fine",
+      "headline": "{days} days is enough — for in-stock items.",
+      "detail": "Anything already made will ship in <strong>{minDays}–{maxDays} days</strong>. If it needs to be made to order, get in touch first to confirm.",
+      "showCta": true,
+      "ctaText": "Shop now →",
+      "ctaUrl": "/gallery"
+    },
+    "tight": {
+      "variant": "tight",
+      "label": "Tight, but possible",
+      "headline": "{days} days is cutting it close.",
+      "detail": "Stick to in-stock items and order today. Anything made to order is too risky for this deadline.",
+      "showCta": true,
+      "ctaText": "See what's in stock →",
+      "ctaUrl": "/gallery"
+    },
+    "tooTight": {
+      "variant": "tight",
+      "label": "Get in touch first",
+      "headline": "{days} days is very tight.",
+      "detail": "It may still be possible depending on what we have ready. Reach out with your deadline and we'll give you a straight answer before you order.",
+      "showCta": true,
+      "ctaText": "Contact us →",
+      "ctaUrl": "/page/contact"
+    }
+  }
+}
