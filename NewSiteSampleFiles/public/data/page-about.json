@@ -1,0 +1,196 @@
+{
+  "name": "about",
+  "header": "About Our Studio",
+  "layout": {
+    "rows": [
+      { "order": 1, "numberOfColumns": 1 },
+      { "order": 2, "numberOfColumns": 2 },
+      { "order": 3, "numberOfColumns": 2 },
+      { "order": 4, "numberOfColumns": 1 },
+      { "order": 5, "numberOfColumns": 1 }
+    ]
+  },
+  "components": [
+    {
+      "active": true,
+      "row": 1,
+      "order": 1,
+      "columnPosition": "left",
+      "componentType": "info",
+      "paragraphs": [
+        {
+          "display": true, "header": false, "emphasis": false,
+          "text": "<h2 style='text-align:center'>Your Page Headline</h2>",
+          "alignment": "center"
+        },
+        {
+          "display": true, "header": false, "emphasis": false,
+          "text": "A short introductory paragraph describing this page. This row spans the full width of the page.",
+          "alignment": "center"
+        }
+      ]
+    },
+    {
+      "active": true,
+      "row": 2,
+      "order": 1,
+      "columnPosition": "left",
+      "componentType": "info",
+      "paragraphs": [
+        {
+          "display": true, "header": false, "emphasis": false,
+          "text": "<strong>Left Column Heading</strong>",
+          "alignment": "left"
+        },
+        {
+          "display": true, "header": false, "emphasis": false,
+          "text": "Paragraph text for the left column. Row 2 uses two columns — this component occupies the left side.",
+          "alignment": "left"
+        },
+        {
+          "display": true, "header": false, "emphasis": false,
+          "text": "Add as many paragraph objects as needed. HTML is supported: <a href='https://example.com'>links</a>, <strong>bold</strong>, <em>italic</em>, lists, etc.",
+          "alignment": "left"
+        },
+        {
+          "display": true, "header": false, "emphasis": true,
+          "text": "Set emphasis: true to apply the emphasis CSS class (styled in Info.module.css).",
+          "alignment": "center"
+        }
+      ]
+    },
+    {
+      "active": true,
+      "row": 2,
+      "order": 2,
+      "columnPosition": "right",
+      "componentType": "image",
+      "imageFiles": [
+        {
+          "fileName": "your-image-filename",
+          "htmlTitle": "Image title shown on hover",
+          "htmlAltText": "Descriptive alt text for accessibility",
+          "landscape": true,
+          "description": null,
+          "imageUrl": "https://your-cdn.example.com/images/your-image.jpg"
+        }
+      ],
+      "imageSlider": {
+        "auto": false,
+        "timer": 0,
+        "arrowIcons": "",
+        "size": "100%"
+      }
+    },
+    {
+      "active": true,
+      "row": 3,
+      "order": 1,
+      "columnPosition": "left",
+      "componentType": "image",
+      "imageFiles": [
+        {
+          "fileName": "another-image",
+          "htmlTitle": "Another image",
+          "htmlAltText": "Alt text",
+          "landscape": true,
+          "description": null,
+          "imageUrl": "https://your-cdn.example.com/images/another-image.jpg"
+        }
+      ],
+      "imageSlider": {
+        "auto": false,
+        "timer": 0,
+        "arrowIcons": "",
+        "size": "100%"
+      }
+    },
+    {
+      "active": true,
+      "row": 3,
+      "order": 2,
+      "columnPosition": "right",
+      "componentType": "info",
+      "paragraphs": [
+        {
+          "display": true, "header": false, "emphasis": false,
+          "text": "<strong>Right Column Heading</strong>",
+          "alignment": "left"
+        },
+        {
+          "display": true, "header": false, "emphasis": false,
+          "text": "Row 3 also uses two columns, but now the image is on the left and text on the right — achieved simply by swapping columnPosition values.",
+          "alignment": "left"
+        },
+        {
+          "display": true, "header": false, "emphasis": false,
+          "text": "<ul><li>Lists work via HTML in the text field</li><li>Style inline or via your theme CSS</li><li>No special syntax needed</li></ul>",
+          "alignment": "left"
+        }
+      ]
+    },
+    {
+      "active": true,
+      "row": 4,
+      "order": 1,
+      "columnPosition": "left",
+      "componentType": "image",
+      "imageFiles": [
+        {
+          "fileName": "slider-image-1",
+          "htmlTitle": "Slide one",
+          "htmlAltText": "First slide",
+          "landscape": true,
+          "description": null,
+          "imageUrl": "https://your-cdn.example.com/images/slide-1.jpg"
+        },
+        {
+          "fileName": "slider-image-2",
+          "htmlTitle": "Slide two",
+          "htmlAltText": "Second slide",
+          "landscape": true,
+          "description": null,
+          "imageUrl": "https://your-cdn.example.com/images/slide-2.jpg"
+        },
+        {
+          "fileName": "slider-image-3",
+          "htmlTitle": "Slide three",
+          "htmlAltText": "Third slide",
+          "landscape": true,
+          "description": null,
+          "imageUrl": "https://your-cdn.example.com/images/slide-3.jpg"
+        }
+      ],
+      "imageSlider": {
+        "auto": true,
+        "timer": 4000,
+        "arrowIcons": "",
+        "size": "100%"
+      }
+    },
+    {
+      "active": true,
+      "row": 5,
+      "order": 1,
+      "columnPosition": "left",
+      "componentType": "info",
+      "paragraphs": [
+        {
+          "display": true, "header": false, "emphasis": false,
+          "text": "<h3 style='text-align:center'>Call to Action</h3>",
+          "alignment": "center"
+        },
+        {
+          "display": true, "header": false, "emphasis": false,
+          "text": "Closing text, contact details, or a link to another page. Set active: false on any component you want to hide without deleting it.",
+          "alignment": "center"
+        },
+        {
+          "display": true, "header": false, "emphasis": false,
+          "text": "<a href='mailto:you@example.com'>you@example.com</a>",
+          "alignment": "center"
+        }
+      ]
+    }
+  ]
+}

@@ -1,100 +1,76 @@
-import React, { useState, useEffect, ReactNode } from 'react';
+import { useState, useEffect } from 'react';
 
 import Navbar from '../Navbar/Navbar';
 import useHttp from '../../UseHttp/useHttp';
-import LinkConfig from '../../Routing/LinkConfig';
-import NavigationConfigFile from '../../Routing/NavigationConfigFile';
+import type { NavigationData, NavLink } from '../../Routing/NavigationConfigFile';
 import BackgroundColor from '../../Routing/BackgroundColor';
+import type { GalleryManifest } from '../../Galleries/models/GalleryManifest';
 
-import data from '../../ConfigFiles/data-file-locations.json';
-import classes from './Header.module.css';
+import siteConfig from '../../ConfigFiles/site.config.json';
 
-const Header: React.FC<{
-    headerClasses?: string,
-    children?: ReactNode
-}> = (props) => {
-    const config = data.find(item=>item.contentType==='navigation')!;
-    const headerClasses = `${props.headerClasses ? props.headerClasses : ''} ${classes.header}`;
-    
-    const [navigationLinks, setNavigationLinks] = useState<LinkConfig[]>([]);
-    const [socialLinks, setSocialLinks] = useState<LinkConfig[]>([]);
-    const [logoAltText, setLogoAltText] = useState("");
-    const [backgroundColor, setBackgroundColor] = useState<BackgroundColor>()
-    const [togglerUsesPrimaryColor, setAlternateTogglerButtonColor] = useState<boolean>(false);
-    
-    const { sendRequest: fetchConfigs } = useHttp();
+const Header: React.FC = () => {
+  const [navigationLinks, setNavigationLinks] = useState<NavLink[]>([]);
+  const [socialLinks, setSocialLinks] = useState<NavLink[]>([]);
+  const [logoAltText, setLogoAltText] = useState('');
+  const [backgroundColor, setBackgroundColor] = useState<BackgroundColor>();
+  const [togglerUsesPrimaryColor, setTogglerUsesPrimaryColor] = useState(false);
+  const [galleries, setGalleries] = useState<GalleryManifest['galleries']>([]);
 
-    useEffect(() => {
-        const transformData = (data: NavigationConfigFile) =>{
-            const loadedNavigationLinks: LinkConfig[] = [];
-            const loadedSocialLinks: LinkConfig[] = [];
+  const { sendRequest } = useHttp();
 
-            for (const item in data.links) {
-                if(data.links[item].social && data.links[item].active){
-                    loadedSocialLinks.push({ 
-                        url: data.links[item].url,
-                        id: data.links[item].url,
-                        name: data.links[item].name,
-                        title: data.links[item].title,
-                        active: data.links[item].active,
-                        order: data.links[item].order,
-                        social: data.links[item].social,
-                        icon: data.links[item].icon,
-                        internalLink: data.links[item].internalLink,
-                        childLinks: data.links[item].childLinks
-                    });
-                } else {
-                    if(data.links[item].active){
-                        loadedNavigationLinks.push({ 
-                            url: data.links[item].url,
-                            id: data.links[item].url.substring(1),
-                            name: data.links[item].name,
-                            title: data.links[item].title,
-                            active: data.links[item].active,
-                            order: data.links[item].order,
-                            social: data.links[item].social,
-                            icon: data.links[item].icon,
-                            internalLink: data.links[item].internalLink,
-                            childLinks: data.links[item].childLinks
-                        });
-                    }
-                }
-            }
-
-            const sortedNavigationList = loadedNavigationLinks.sort((a, b) => {
-                return a.order - b.order;
-            });
-            const sortedSocialList = loadedSocialLinks.sort((a, b) => {
-                return a.order - b.order;
-            });
-           
-            setNavigationLinks(sortedNavigationList);
-            setSocialLinks(sortedSocialList.sort());
-            setLogoAltText(data.logoAltText);
-            setBackgroundColor(data.backgroundColor);
-            setAlternateTogglerButtonColor(data.togglerUsesPrimaryColor);
-        }
-
-        fetchConfigs(
-            {
-                url: config.url,
-                cacheAge: config.cacheAge
-            },
-            transformData
-        );
-    }, [fetchConfigs, config.cacheAge, config.url]);
-    
-    return (
-        <header>
-            <Navbar 
-                logoAltText={logoAltText}
-                navlinks={navigationLinks}
-                socialNavLinks={socialLinks}
-                backgroundColor={backgroundColor}
-                headerCssClasses={`${headerClasses}`}
-                togglerUsesPrimaryColor={togglerUsesPrimaryColor} />
-        </header>
+  useEffect(() => {
+    sendRequest(
+      { url: `${siteConfig.dataBaseUrl}navigation.json`, cacheAge: siteConfig.cacheAgeMs, cacheVersion: siteConfig.cacheVersion },
+      (data: NavigationData) => {
+        const active = data.links
+          .filter(l => l.active)
+          .map(item => ({ ...item, id: item.id || item.url.substring(1) }));
+        setNavigationLinks(active.filter(l => !l.social).sort((a, b) => a.order - b.order));
+        setSocialLinks(active.filter(l => l.social).sort((a, b) => a.order - b.order));
+        setLogoAltText(data.logoAltText);
+        setBackgroundColor(data.backgroundColor);
+        setTogglerUsesPrimaryColor(data.togglerUsesPrimaryColor);
+      }
     );
+
+    sendRequest(
+      { url: `${siteConfig.dataBaseUrl}galleries.json`, cacheAge: siteConfig.cacheAgeMs, cacheVersion: siteConfig.cacheVersion },
+      (data: GalleryManifest) => setGalleries(data.galleries ?? [])
+    );
+  }, [sendRequest]);
+
+  // Inject per-gallery child links under any nav item pointing to "/"
+  const navlinksWithGalleries: NavLink[] = navigationLinks.map(link => {
+    if (link.url !== '/' || galleries.length < 2) return link;
+    return {
+      ...link,
+      childLinks: galleries.map((g, i) => ({
+        url: `/gallery/${g.slug}`,
+        id: `gallery-${g.slug}`,
+        order: i,
+        name: g.title,
+        title: g.title,
+        active: true,
+        internalLink: true,
+        social: false,
+        icon: '',
+        childLinks: [],
+      })),
+    };
+  });
+
+  return (
+    <header>
+      <Navbar
+        logoAltText={logoAltText}
+        navlinks={navlinksWithGalleries}
+        socialNavLinks={socialLinks}
+        backgroundColor={backgroundColor}
+        headerCssClasses=""
+        togglerUsesPrimaryColor={togglerUsesPrimaryColor}
+      />
+    </header>
+  );
 };
 
 export default Header;

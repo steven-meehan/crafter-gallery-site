@@ -1,25 +1,9 @@
-import ParagraphData from "../../../ParagraphData";
+import type ParagraphData from '../../../ParagraphData';
 
-class ImageBlurbProps {
-    description: ParagraphData[] = [];
-    imageFileName: string = "";
-    blurbCssClasses: string = "";
-
-    constructor(imageBlurbProps?: {
-        description: ParagraphData[],
-        imageFileName: string,
-        blurbCssClasses: string
-    }){
-        if(imageBlurbProps){
-            this.description = imageBlurbProps.description ? imageBlurbProps.description.map(item=> new ParagraphData(item)) : [];
-            this.imageFileName = imageBlurbProps.imageFileName ? imageBlurbProps.imageFileName : "";
-            this.blurbCssClasses = imageBlurbProps.blurbCssClasses ? imageBlurbProps.blurbCssClasses : "";
-        } else {
-            this.description = [];
-            this.imageFileName = "";
-            this.blurbCssClasses = "";
-        }
-    }
+interface ImageBlurbProps {
+  description: ParagraphData[];
+  imageFileName: string;
+  blurbCssClasses?: string;
 }
 
 export default ImageBlurbProps;

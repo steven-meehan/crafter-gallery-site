@@ -1,12 +1,9 @@
-import { ReactNode } from "react";
+import type Row from '../Models/Row';
+import type PageComponent from '../Models/PageComponent';
 
-import Row from "../Models/Row";
-import PageComponent from "../Models/PageComponent";
-
-class PageRowProps {
-    pageRow: Row = new Row();
-    pageComponents: PageComponent[] = [];
-    children?: ReactNode;
+interface PageRowProps {
+  pageRow: Row;
+  pageComponents: PageComponent[];
 }
 
 export default PageRowProps;

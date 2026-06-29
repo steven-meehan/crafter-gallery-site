@@ -1,44 +1,30 @@
-import React, { ReactNode } from 'react';
+import siteConfig from '../ConfigFiles/site.config.json';
 
-import classes from './Footer.module.css';
+const { footer } = siteConfig;
 
-import data from '../ConfigFiles/footer.json';
+const Footer: React.FC = () => {
+  const copyrightNotice = footer.copyright.url ? (
+    <a href={footer.copyright.url} title={footer.copyright.title} target="_blank" rel="noopener noreferrer">
+      {footer.copyright.name}
+    </a>
+  ) : footer.copyright.name;
 
-const copyrightInfo = data.copyrightInfo;
-const siteDesignInfo = data.siteDesignInfo;
+  const designer = footer.designer.url ? (
+    <a href={footer.designer.url} title={footer.designer.title} target="_blank" rel="noopener noreferrer">
+      {footer.designer.name}
+    </a>
+  ) : footer.designer.name;
 
-const Footer: React.FC<{
-    fontColor: string,
-    footerClasses?: string,
-    children?: ReactNode;
-}> = (props) => {
-    const footerClasses =  `${props.footerClasses ? props.footerClasses : ''}`;
-
-    const fontColor = `${props.fontColor === 'primary' ? classes.primaryColor :
-        props.fontColor === 'secondary' ? classes.secondaryColor : classes.primaryColor}`;
-    
-    const copyrightNotice = copyrightInfo.url ? 
-        (<a href={`${copyrightInfo.url}`} title={`${copyrightInfo.title}`} target={`_blank`}>{copyrightInfo.name}</a>) :
-        copyrightInfo.name;
-    
-    const siteDesigner = siteDesignInfo.url ? 
-        (<a href={`${siteDesignInfo.url}`} title={`${siteDesignInfo.title}`} target={`_blank`}>{siteDesignInfo.name}</a>) :
-        siteDesignInfo.name;
-
-    return (
-        <div className={`container`}>
-            <div className={`${footerClasses} ${fontColor} row`}>
-                <footer className={`${classes.footerWrapper} col`}>
-                    <p>Site content is © {copyrightNotice}</p>
-                    {siteDesignInfo.display && 
-                        <p className={`${classes.siteDesignerSection}`}>
-                            Site designed by {siteDesigner}.
-                        </p>
-                    }
-                </footer>
-            </div>
-        </div>
-    )
-}
+  return (
+    <div className="container mt-4">
+      <footer className={`text-${footer.fontColor} py-3 border-top text-center`}>
+        <p className="mb-1">Site content is &copy; {copyrightNotice}</p>
+        {footer.designer.display && (
+          <p className="mb-0 small">Site designed by {designer}.</p>
+        )}
+      </footer>
+    </div>
+  );
+};
 
 export default Footer;

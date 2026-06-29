@@ -9,6 +9,7 @@ import logoAlt from '../../assets/LogoAlt.png';
 import NavbarProps from './NavbarProps';
 
 import classes from './Navbar.module.css';
+import cardClasses from '../../Card/Card.module.css';
 
 const Navbar: React.FC<NavbarProps> = (props) => {
     const navbarClasses = `${props.navbarClasses ? props.navbarClasses : ''}`;
@@ -18,13 +19,13 @@ const Navbar: React.FC<NavbarProps> = (props) => {
         return (
             <li 
                 key={`${item.id}-${index}`} 
-                className={`nav-item dropdown col col-lg-2 ${navbarClasses} ${classes.navigationLinks}`}>
+                className={`nav-item dropdown col-12 col-lg-2 ${navbarClasses} ${classes.navigationLinks}`}>
                 <Card
-                    cardRounded={true} 
+                    cardColor="none"
                     cardHover={true} >
-                    <NavigationLink 
-                        item={item} 
-                        id={index} /> 
+                    <NavigationLink
+                        item={item}
+                        id={index} />
                 </Card>
             </li>
         );
@@ -46,11 +47,11 @@ const Navbar: React.FC<NavbarProps> = (props) => {
     
     return (
         <Card
-            cardClasses={`${props.headerCssClasses}`}
+            cardClasses={`${props.headerCssClasses} ${cardClasses.cardHeader}`}
             cardColor={props.backgroundColor} >
             <nav className={`container-fluid navbar navbar-light navbar-expand-lg ${navbarClasses}`}>
-                <div 
-                    className={`row `}
+                <div
+                    className={`row align-items-center`}
                     style={{
                         width:"100%",
                         maxWidth:"100%",
@@ -80,10 +81,10 @@ const Navbar: React.FC<NavbarProps> = (props) => {
                                 loading="eager" />
                         </Link>
                     </div>
-                    <Toggler 
-                        navbarTogglerTarget={`navigationBar`} 
+                    <Toggler
+                        navbarTogglerTarget={`navigationBar`}
                         togglerUsesPrimaryColor={props.togglerUsesPrimaryColor}
-                        togglerClasses={`offset-7 col-2 d-lg-none ${classes.navigationBarToggler}`}/>
+                        togglerClasses={`col-auto ms-auto d-lg-none ${classes.navigationBarToggler}`}/>
                     <div 
                         className={`col-9 collapse navbar-collapse`} 
                         id={`navigationBar`}>

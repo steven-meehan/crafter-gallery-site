@@ -1,0 +1,17 @@
+{
+  "title": "My Galleries",
+  "galleries": [
+    {
+      "slug": "spring-2025",
+      "title": "Spring 2025",
+      "coverImage": "https://your-cdn.example.com/images/spring-2025/cover.jpg",
+      "description": "A beautiful selection from spring 2025."
+    },
+    {
+      "slug": "summer-2025",
+      "title": "Summer 2025",
+      "coverImage": "https://your-cdn.example.com/images/summer-2025/cover.jpg",
+      "description": "Bright and vibrant summer pieces."
+    }
+  ]
+}

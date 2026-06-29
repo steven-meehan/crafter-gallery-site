@@ -31,7 +31,6 @@ const ImageSlider: React.FC<ImageSliderProps> = (props) => {
         return image.fileName === initialImage;
     }) ;
 
-    const arrowIcon = `${props.arrowIcon ? props.arrowIcon : 'fas fa-angle'}`
     const defaultPage = `${props.defaultPage ? props.defaultPage : ''}`;
 
     const isThumbnailBar = props.isThumbnailBar ? true : false;
@@ -90,53 +89,33 @@ const ImageSlider: React.FC<ImageSliderProps> = (props) => {
 
     return (
         <div className={`${imageSliderClasses}`}>
-            {(sliderButtonLocations === SliderButtonLocations.Top || sliderButtonLocations === SliderButtonLocations.Both) &&
-                <MobileSliderButtons 
-                    isThumbnailBar={isThumbnailBar} 
-                    arrowIcon={`${arrowIcon}`} 
-                    scroll={true} 
-                    handleLeftClick={prevSlideHandler} 
-                    handleRightClick={nextSlideHandler} />
-            }
-            <div className={`row ${classes.imageSlider}`}>
+            <div className={`${classes.imageSliderWrap} ${marginTop ? 'mt-5' : ''}`}>
                 {!isThumbnailBar && (
-                    <SliderButtons
-                        arrowIcon={`${arrowIcon}`}
-                        arrowDirection={SliderButtonDirection.Left}
-                        classes={`d-none d-md-block`}
-                        columnSize={`col-1`}
-                        scroll={false}
-                        handleClick={prevSlideHandler} />
+                    <button
+                        className={`${classes.sliderArrow} ${classes.sliderArrowLeft}`}
+                        onClick={() => prevSlideHandler(false)}
+                        aria-label="Previous image">
+                        &#8249;
+                    </button>
                 )}
-                <div className={`col ${marginTop ? 'mt-5' : ''}`}>
-                    <HtmlImages
-                        images={images}
-                        isThumbnailBar={isThumbnailBar}
-                        setHelmetInfo={setHelmetInfo}
-                        defaultPage={defaultPage}
-                        currentImageIndex={currentImageIndex}
-                        imageSize={imageSize}
-                        disableTitle={disableTitle}
-                        linkToLargerVersion={linkToLargerVersion} />
-                </div>
+                <HtmlImages
+                    images={images}
+                    isThumbnailBar={isThumbnailBar}
+                    setHelmetInfo={setHelmetInfo}
+                    defaultPage={defaultPage}
+                    currentImageIndex={currentImageIndex}
+                    imageSize={imageSize}
+                    disableTitle={disableTitle}
+                    linkToLargerVersion={linkToLargerVersion} />
                 {!isThumbnailBar && (
-                    <SliderButtons
-                        arrowIcon={`${arrowIcon}`}
-                        arrowDirection={SliderButtonDirection.Right}
-                        classes={`d-none d-md-block`}
-                        columnSize={`col-1`}
-                        scroll={false}
-                        handleClick={nextSlideHandler} />
+                    <button
+                        className={`${classes.sliderArrow} ${classes.sliderArrowRight}`}
+                        onClick={() => nextSlideHandler(false)}
+                        aria-label="Next image">
+                        &#8250;
+                    </button>
                 )}
             </div>
-            {(sliderButtonLocations === SliderButtonLocations.Bottom || sliderButtonLocations === SliderButtonLocations.Both) &&
-                <MobileSliderButtons 
-                    isThumbnailBar={isThumbnailBar} 
-                    arrowIcon={`${arrowIcon}`} 
-                    scroll={true} 
-                    handleLeftClick={prevSlideHandler} 
-                    handleRightClick={nextSlideHandler} />
-            }
         </div>
     );
 }

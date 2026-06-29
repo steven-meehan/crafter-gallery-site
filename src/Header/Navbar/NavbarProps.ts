@@ -1,17 +1,16 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
+import BackgroundColor from '../../Routing/BackgroundColor';
+import type { NavLink } from '../../Routing/NavigationConfigFile';
 
-import BackgroundColor from "../../Routing/BackgroundColor";
-import LinkConfig from "../../Routing/LinkConfig";
-
-class NavbarProps {
-    navbarClasses?: string = "";
-    logoAltText: string = "My Crafts";
-    navlinks: LinkConfig[] = [];
-    socialNavLinks: LinkConfig[] = [];
-    backgroundColor?: BackgroundColor = BackgroundColor.Primary;
-    headerCssClasses?: string = "";
-    togglerUsesPrimaryColor?: boolean = false;
-    children?: ReactNode;
+interface NavbarProps {
+  navbarClasses?: string;
+  logoAltText: string;
+  navlinks: NavLink[];
+  socialNavLinks: NavLink[];
+  backgroundColor?: BackgroundColor;
+  headerCssClasses?: string;
+  togglerUsesPrimaryColor?: boolean;
+  children?: ReactNode;
 }
 
 export default NavbarProps;

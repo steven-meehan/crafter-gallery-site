@@ -1,0 +1,326 @@
+/*
+ * ═══════════════════════════════════════════════════════════════════
+ *  SITE THEME  —  the only file you need to edit to rebrand the site
+ * ═══════════════════════════════════════════════════════════════════
+ *
+ *  HOW TO USE
+ *  ──────────
+ *  1. Pick a preset below (or start from scratch).
+ *  2. Uncomment the preset you want, make sure all others are commented out.
+ *  3. Adjust individual values to taste.
+ *  4. That's it — no component files need to change.
+ *
+ *  All values are CSS custom properties on :root so they cascade
+ *  everywhere. You can also override individual variables inside a
+ *  more-specific selector if you need per-page or per-section tweaks.
+ *
+ *  COLOUR TIPS
+ *  ───────────
+ *  • Use hex (#ff6b6b), rgb/rgba, hsl, or named CSS colours.
+ *  • For the accent, pick your brand's primary colour.
+ *    --gallery-accent-dark should be 10–20% darker than --gallery-accent.
+ *  • Arrow buttons sit on top of photos — keep --arrow-bg semi-transparent
+ *    (rgba) so the image shows through.
+ *  • Lightbox background should be dark enough to obscure the page behind it
+ *    but you can lower the alpha if you prefer a translucent effect.
+ *
+ * ═══════════════════════════════════════════════════════════════════
+ */
+
+
+/* ─────────────────────────────────────────────────────────────────
+   PRESET 1 — PURPLE STUDIO  (default)
+   Clean, modern. Good for art, craft, and creative studios.
+   ───────────────────────────────────────────────────────────────── */
+:root {
+  /* ── Site palette ────────────────────────────────────────────── */
+  --body-bg:                 #f5f5f5;   /* page background */
+  --primary-color:           #ffffff;   /* card / panel background */
+  --alt-primary-color:       rgba(241, 252, 255, 0.27);
+  --accent-color:            #6c63ff;   /* borders, highlights — match gallery-accent */
+  --accent-color-dimmed:     rgba(108, 99, 255, 0.45);
+  --nav-bg:                  transparent;
+  --nav-bg-hover:            rgba(108, 99, 255, 0.08);
+  --nav-font-color:          #212529;
+  --font-color:              #212529;
+  --secondary-font-color:    #6c757d;
+  --body-font:               "Times New Roman", Times, serif;
+  --header-font:             "Times New Roman", Times, serif;
+  --link-font:               "Times New Roman", Times, serif;
+
+  /* Brand colour */
+  --gallery-accent:          #6c63ff;
+  --gallery-accent-dark:     #5548e0;
+
+  /* Carousel image panel */
+  --carousel-bg:             transparent;
+  --carousel-radius:         0.75rem;    /* corner rounding on the image */
+  --carousel-shadow:         0 6px 32px rgba(0, 0, 0, 0.18);
+
+  /* Prev / Next arrow buttons (overlaid on the image) */
+  --arrow-size:              2.75rem;    /* diameter of the circular button */
+  --arrow-bg:                rgba(0, 0, 0, 0.32);
+  --arrow-bg-hover:          rgba(0, 0, 0, 0.62);
+  --arrow-color:             #ffffff;
+  --arrow-font-size:         1.5rem;
+
+  /* Caption below the main image */
+  --caption-color:           inherit;
+  --caption-font-size:       1.15rem;
+
+  /* Description text below the caption */
+  --desc-color:              #6c757d;
+  --desc-font-size:          0.95rem;
+
+  /* Thumbnail strip */
+  --thumb-size:              72px;       /* width & height of each thumbnail */
+  --thumb-radius:            0.375rem;
+  --thumb-gap:               0.4rem;     /* space between thumbnails */
+  --thumb-ring:              var(--gallery-accent);  /* active border colour */
+  --thumb-ring-width:        3px;
+
+  /* "1 / 4" counter */
+  --counter-color:           #9ca3af;
+  --counter-font-size:       0.8rem;
+
+  /* Lightbox (full-screen image overlay) */
+  --lightbox-bg:             rgba(0, 0, 0, 0.92);
+  --lightbox-close-size:     2.25rem;   /* diameter of the × button */
+  --lightbox-close-color:    #ffffff;
+  --lightbox-caption-color:  #ffffff;
+  --lightbox-btn-bg:         var(--gallery-accent);  /* "View Original" button */
+  --lightbox-btn-color:      #ffffff;
+  --lightbox-btn-radius:     0.375rem;
+}
+
+
+/* ─────────────────────────────────────────────────────────────────
+   PRESET 2 — WARM ROSE
+   Soft and approachable. Good for wedding, family, or gift shops.
+   ─────────────────────────────────────────────────────────────────
+:root {
+  --body-bg:                 #fff8f9;
+  --primary-color:           #ffffff;
+  --alt-primary-color:       rgba(255, 220, 230, 0.25);
+  --accent-color:            #e85d75;
+  --accent-color-dimmed:     rgba(232, 93, 117, 0.4);
+  --nav-bg:                  transparent;
+  --nav-bg-hover:            rgba(232, 93, 117, 0.08);
+  --nav-font-color:          #3d1a24;
+  --font-color:              #3d1a24;
+  --secondary-font-color:    #8c5a67;
+  --body-font:               Georgia, "Times New Roman", serif;
+  --header-font:             Georgia, "Times New Roman", serif;
+  --link-font:               Georgia, "Times New Roman", serif;
+
+  --gallery-accent:          #e85d75;
+  --gallery-accent-dark:     #c94762;
+
+  --carousel-bg:             transparent;
+  --carousel-radius:         1rem;
+  --carousel-shadow:         0 4px 24px rgba(232, 93, 117, 0.18);
+
+  --arrow-size:              2.75rem;
+  --arrow-bg:                rgba(232, 93, 117, 0.55);
+  --arrow-bg-hover:          rgba(232, 93, 117, 0.85);
+  --arrow-color:             #ffffff;
+  --arrow-font-size:         1.5rem;
+
+  --caption-color:           #3d1a24;
+  --caption-font-size:       1.15rem;
+
+  --desc-color:              #8c5a67;
+  --desc-font-size:          0.95rem;
+
+  --thumb-size:              72px;
+  --thumb-radius:            50%;
+  --thumb-gap:               0.5rem;
+  --thumb-ring:              #e85d75;
+  --thumb-ring-width:        3px;
+
+  --counter-color:           #c4899a;
+  --counter-font-size:       0.8rem;
+
+  --lightbox-bg:             rgba(40, 8, 16, 0.94);
+  --lightbox-close-size:     2.25rem;
+  --lightbox-close-color:    #ffd6de;
+  --lightbox-caption-color:  #ffe4ea;
+  --lightbox-btn-bg:         #e85d75;
+  --lightbox-btn-color:      #ffffff;
+  --lightbox-btn-radius:     2rem;
+}
+*/
+
+
+/* ─────────────────────────────────────────────────────────────────
+   PRESET 3 — FOREST TEAL
+   Calm and earthy. Good for nature photography or eco brands.
+   ─────────────────────────────────────────────────────────────────
+:root {
+  --body-bg:                 #f2f7f6;
+  --primary-color:           #ffffff;
+  --alt-primary-color:       rgba(42, 157, 143, 0.08);
+  --accent-color:            #2a9d8f;
+  --accent-color-dimmed:     rgba(42, 157, 143, 0.4);
+  --nav-bg:                  transparent;
+  --nav-bg-hover:            rgba(42, 157, 143, 0.08);
+  --nav-font-color:          #1b3a35;
+  --font-color:              #1b3a35;
+  --secondary-font-color:    #4a7c76;
+  --body-font:               "Gill Sans", Calibri, sans-serif;
+  --header-font:             "Gill Sans", Calibri, sans-serif;
+  --link-font:               "Gill Sans", Calibri, sans-serif;
+
+  --gallery-accent:          #2a9d8f;
+  --gallery-accent-dark:     #1f7a6e;
+
+  --carousel-bg:             transparent;
+  --carousel-radius:         0.5rem;
+  --carousel-shadow:         0 4px 20px rgba(0, 0, 0, 0.22);
+
+  --arrow-size:              3rem;
+  --arrow-bg:                rgba(42, 157, 143, 0.45);
+  --arrow-bg-hover:          rgba(42, 157, 143, 0.82);
+  --arrow-color:             #ffffff;
+  --arrow-font-size:         1.6rem;
+
+  --caption-color:           #1b3a35;
+  --caption-font-size:       1.1rem;
+
+  --desc-color:              #4a7c76;
+  --desc-font-size:          0.95rem;
+
+  --thumb-size:              68px;
+  --thumb-radius:            0.375rem;
+  --thumb-gap:               0.35rem;
+  --thumb-ring:              #2a9d8f;
+  --thumb-ring-width:        3px;
+
+  --counter-color:           #7aaea9;
+  --counter-font-size:       0.78rem;
+
+  --lightbox-bg:             rgba(10, 30, 27, 0.95);
+  --lightbox-close-size:     2.25rem;
+  --lightbox-close-color:    #a8e6df;
+  --lightbox-caption-color:  #ccf0ec;
+  --lightbox-btn-bg:         #2a9d8f;
+  --lightbox-btn-color:      #ffffff;
+  --lightbox-btn-radius:     0.375rem;
+}
+*/
+
+
+/* ─────────────────────────────────────────────────────────────────
+   PRESET 4 — DARK STUDIO
+   High-contrast dark mode. Good for photographers or dark-themed sites.
+   ─────────────────────────────────────────────────────────────────
+:root {
+  --body-bg:                 #13131f;
+  --primary-color:           #1e1e2e;
+  --alt-primary-color:       #2a2a3e;
+  --accent-color:            #f4c430;
+  --accent-color-dimmed:     rgba(244, 196, 48, 0.35);
+  --nav-bg:                  transparent;
+  --nav-bg-hover:            rgba(244, 196, 48, 0.1);
+  --nav-font-color:          #f0f0f0;
+  --font-color:              #f0f0f0;
+  --secondary-font-color:    #9a9a9a;
+  --body-font:               "Helvetica Neue", Arial, sans-serif;
+  --header-font:             "Helvetica Neue", Arial, sans-serif;
+  --link-font:               "Helvetica Neue", Arial, sans-serif;
+
+  --gallery-accent:          #f4c430;
+  --gallery-accent-dark:     #d4a820;
+
+  --carousel-bg:             #1a1a1a;
+  --carousel-radius:         0.25rem;
+  --carousel-shadow:         0 8px 40px rgba(0, 0, 0, 0.6);
+
+  --arrow-size:              3rem;
+  --arrow-bg:                rgba(244, 196, 48, 0.25);
+  --arrow-bg-hover:          rgba(244, 196, 48, 0.60);
+  --arrow-color:             #f4c430;
+  --arrow-font-size:         1.6rem;
+
+  --caption-color:           #f0f0f0;
+  --caption-font-size:       1.15rem;
+
+  --desc-color:              #9a9a9a;
+  --desc-font-size:          0.95rem;
+
+  --thumb-size:              72px;
+  --thumb-radius:            0.25rem;
+  --thumb-gap:               0.4rem;
+  --thumb-ring:              #f4c430;
+  --thumb-ring-width:        2px;
+
+  --counter-color:           #666666;
+  --counter-font-size:       0.8rem;
+
+  --lightbox-bg:             rgba(0, 0, 0, 0.97);
+  --lightbox-close-size:     2.25rem;
+  --lightbox-close-color:    #f4c430;
+  --lightbox-caption-color:  #f0f0f0;
+  --lightbox-btn-bg:         #f4c430;
+  --lightbox-btn-color:      #1a1a1a;
+  --lightbox-btn-radius:     0.25rem;
+}
+*/
+
+
+/* ─────────────────────────────────────────────────────────────────
+   PRESET 5 — MINIMAL MONOCHROME
+   No colour. Clean editorial look. Let the images do the talking.
+   ─────────────────────────────────────────────────────────────────
+:root {
+  --body-bg:                 #ffffff;
+  --primary-color:           #ffffff;
+  --alt-primary-color:       #f7f7f7;
+  --accent-color:            #111111;
+  --accent-color-dimmed:     rgba(17, 17, 17, 0.25);
+  --nav-bg:                  transparent;
+  --nav-bg-hover:            rgba(17, 17, 17, 0.05);
+  --nav-font-color:          #111111;
+  --font-color:              #111111;
+  --secondary-font-color:    #555555;
+  --body-font:               "Helvetica Neue", Arial, sans-serif;
+  --header-font:             "Helvetica Neue", Arial, sans-serif;
+  --link-font:               "Helvetica Neue", Arial, sans-serif;
+
+  --gallery-accent:          #111111;
+  --gallery-accent-dark:     #000000;
+
+  --carousel-bg:             transparent;
+  --carousel-radius:         0;
+  --carousel-shadow:         none;
+
+  --arrow-size:              2.5rem;
+  --arrow-bg:                rgba(255, 255, 255, 0.70);
+  --arrow-bg-hover:          rgba(255, 255, 255, 0.95);
+  --arrow-color:             #111111;
+  --arrow-font-size:         1.4rem;
+
+  --caption-color:           #111111;
+  --caption-font-size:       1rem;
+
+  --desc-color:              #555555;
+  --desc-font-size:          0.9rem;
+
+  --thumb-size:              64px;
+  --thumb-radius:            0;
+  --thumb-gap:               0.25rem;
+  --thumb-ring:              #111111;
+  --thumb-ring-width:        2px;
+
+  --counter-color:           #aaaaaa;
+  --counter-font-size:       0.75rem;
+
+  --lightbox-bg:             rgba(255, 255, 255, 0.97);
+  --lightbox-close-size:     2rem;
+  --lightbox-close-color:    #111111;
+  --lightbox-caption-color:  #111111;
+  --lightbox-btn-bg:         #111111;
+  --lightbox-btn-color:      #ffffff;
+  --lightbox-btn-radius:     0;
+}
+*/
