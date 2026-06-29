@@ -26,7 +26,7 @@ Licensed under the [MIT License](LICENSE). Maintained by [steven-meehan](https:/
   - [page-{slug}.json](#page-slugjson)
 - [Logos](#logos)
 - [Changing the Home Page](#changing-the-home-page)
-- [Lead Time Calculator](#lead-time-calculator)
+- [Fulfillment Calculator](#fulfillment-calculator)
 - [Adding a New Gallery](#adding-a-new-gallery)
 - [Adding a New Page](#adding-a-new-page)
 - [Theming](#theming)
@@ -624,83 +624,118 @@ When `homePage` is **not set** (the default):
 
 ---
 
-## Lead Time Calculator
+## Fulfillment Calculator
 
-The lead time calculator is a standalone interactive widget that lets a visitor enter a deadline date and select a product type, then instantly receives a verdict on whether delivery is realistic. It is driven entirely by a JSON data file — no code changes are required to deploy it for a new client.
+The fulfillment calculator is a standalone interactive widget that lets a visitor enter a deadline date, select a product type, and instantly see whether fulfillment is realistic for their timeline. It is entirely data-driven — deploying it for a new client requires no code changes.
 
 ### How it works
 
-The visitor selects a product type (each with its own min/max shipping window) and enters their deadline date. The component computes days remaining and returns one of four verdict tiers:
+The visitor picks a product type (each configured with its own min/max shipping window) and enters their deadline date. The component computes how many calendar days remain and returns one of six verdict states:
 
-| Tier | Condition | Variant |
+| State | Condition | Visual variant |
 |---|---|---|
-| **Clear** | days ≥ max shipping + build buffer | `good` |
-| **Clear with note** | days ≥ max shipping | `good` |
-| **Tight** | days ≥ min shipping | `tight` |
-| **Too tight** | days < min shipping | `tight` |
+| `noDate` | No date entered yet | `tight` |
+| `past` | Selected date is in the past | `tight` |
+| `clear` | Days remaining ≥ max shipping days + build buffer | `good` |
+| `clearWithNote` | Days remaining ≥ max shipping days | `good` |
+| `tight` | Days remaining ≥ min shipping days | `tight` |
+| `tooTight` | Days remaining < min shipping days | `tight` |
 
-Two edge cases are handled automatically: no date selected, and a date already in the past.
+`buildBufferDays` in the data file is the crafter's internal production buffer added on top of the shipping window. The verdict resets automatically when the visitor changes the date or product selection.
 
-### Adding a calculator
+### Adding a fulfillment calculator
 
-1. Create `content/data/calculator-{slug}.json` (copy from `NewSiteSampleFiles/public/data/calculator-lead-time.json`).
-2. Add an entry to `calculators` in `src/ConfigFiles/site.config.json`:
+1. Copy `NewSiteSampleFiles/public/data/calculator-lead-time.json` to `content/data/calculator-{slug}.json` and fill in the client's copy, product types, and verdict text.
+2. Add an entry to `pages` in `src/ConfigFiles/site.config.json` with `"type": "calculator"`:
    ```json
-   "calculators": [
-     { "slug": "timeline", "title": "Will It Arrive In Time?", "dataFile": "calculator-lead-time.json" }
+   "pages": [
+     { "slug": "about", "title": "About", "dataFile": "about.json" },
+     { "slug": "timeline", "title": "Fulfillment Calculator", "dataFile": "calculator-lead-time.json", "type": "calculator" }
    ]
    ```
-3. The route `/calculator/timeline` is created automatically.
-4. Add a nav link in `content/data/navigation.json` pointing to `/calculator/timeline` if needed.
+3. The route `/calculator/timeline` is registered automatically — no changes to `App.tsx`.
+4. Add a nav link to `content/data/navigation.json`:
+   ```json
+   { "url": "/calculator/timeline", "order": 3, "name": "Fulfillment", "title": "Check your fulfillment timeline", "active": true, "internalLink": true, "social": false, "icon": "", "childLinks": [] }
+   ```
 
 ### calculator-{slug}.json reference
 
+All fields marked *(optional)* can be omitted; the component renders nothing in their place.
+
 ```json
 {
-  "eyebrow": "Optional label above the headline",
-  "headline": "Will it arrive in time?",
-  "subtext": "Short description shown below the headline.",
-  "footnote": "Optional small-print text shown at the bottom of the card.",
-  "dateLabel": "Reveal / install date",
-  "productLabel": "Piece you're considering",
+  "markUrl": "https://your-cdn.example.com/images/logo-mark.png",
+  "eyebrow": "Your Studio Name",
+  "headline": "Can we get your order to you in time?",
+  "subtext": "Enter your deadline and pick your product. We'll tell you exactly what's realistic.",
+  "footnote": "Optional small-print shown at the bottom of the card.",
+  "dateLabel": "When do you need it?",
+  "productLabel": "What are you ordering?",
   "buttonText": "Check my timeline",
   "buildBufferDays": 5,
   "productTypes": [
-    { "id": "canvas", "label": "Canvas", "shippingLabel": "4–8 days", "minDays": 4, "maxDays": 8 }
+    { "id": "item-a", "label": "Item A", "shippingLabel": "4–8 days", "minDays": 4, "maxDays": 8 },
+    { "id": "item-b", "label": "Item B", "shippingLabel": "9–11 days", "minDays": 9, "maxDays": 11 }
   ],
   "verdicts": {
-    "noDate":       { "variant": "tight", "label": "...", "headline": "...", "detail": "...", "showCta": false },
-    "past":         { "variant": "tight", "label": "...", "headline": "...", "detail": "...", "showCta": false },
-    "clear":        { "variant": "good",  "label": "...", "headline": "...", "detail": "...", "showCta": true, "ctaText": "Browse →", "ctaUrl": "/gallery" },
-    "clearWithNote":{ "variant": "good",  "label": "...", "headline": "...", "detail": "...", "showCta": true, "ctaText": "Browse →", "ctaUrl": "/gallery" },
-    "tight":        { "variant": "tight", "label": "...", "headline": "...", "detail": "...", "showCta": true, "ctaText": "Available now →", "ctaUrl": "/gallery" },
-    "tooTight":     { "variant": "tight", "label": "...", "headline": "...", "detail": "...", "showCta": true, "ctaText": "Get in touch →", "ctaUrl": "/page/contact" }
+    "noDate":        { "variant": "tight", "label": "...", "headline": "...", "detail": "...", "showCta": false },
+    "past":          { "variant": "tight", "label": "...", "headline": "...", "detail": "...", "showCta": false },
+    "clear":         { "variant": "good",  "label": "...", "headline": "...", "detail": "...", "showCta": true, "ctaText": "Shop now →", "ctaUrl": "/gallery" },
+    "clearWithNote": { "variant": "good",  "label": "...", "headline": "...", "detail": "...", "showCta": true, "ctaText": "Shop now →", "ctaUrl": "/gallery" },
+    "tight":         { "variant": "tight", "label": "...", "headline": "...", "detail": "...", "showCta": true, "ctaText": "See what's in stock →", "ctaUrl": "/gallery" },
+    "tooTight":      { "variant": "tight", "label": "...", "headline": "...", "detail": "...", "showCta": true, "ctaText": "Contact us →", "ctaUrl": "/page/contact" }
   }
 }
 ```
 
-Verdict `headline` and `detail` support these interpolation tokens: `{days}`, `{productLabel}`, `{minDays}`, `{maxDays}`.
+#### Field reference
+
+| Field | Type | Required | Description |
+|---|---|---|---|
+| `markUrl` | string | No | URL of the client's logo or mark. Renders as an `<img>` above the card headline and as a faint watermark inside the verdict panel. Omit to show neither. |
+| `eyebrow` | string | No | Small all-caps label shown above the headline (e.g. the studio name). |
+| `headline` | string | Yes | Main heading of the card. |
+| `subtext` | string | Yes | Short paragraph below the headline explaining the tool. |
+| `footnote` | string | No | Small-print text shown below the verdict. Supports inline HTML. |
+| `dateLabel` | string | Yes | Label for the date input field. |
+| `productLabel` | string | Yes | Label for the product selector. |
+| `buttonText` | string | Yes | Label on the submit button. |
+| `buildBufferDays` | number | Yes | Internal production buffer (days) added on top of max shipping days when computing the `clear` verdict. |
+| `productTypes` | array | Yes | One entry per product type. Each entry has `id` (unique string), `label` (display name), `shippingLabel` (display string, e.g. `"4–8 days"`), `minDays`, and `maxDays`. Add or remove entries freely — the component renders however many are configured. |
+| `verdicts` | object | Yes | One key per verdict state (see table above). Each verdict has `variant` (`"good"` or `"tight"`), `label`, `headline`, `detail`, `showCta` (boolean), and optional `ctaText` / `ctaUrl`. |
+
+#### Interpolation tokens
+
+Verdict `headline` and `detail` strings support these tokens, replaced at render time:
+
+| Token | Replaced with |
+|---|---|
+| `{days}` | Calendar days remaining until the deadline |
+| `{productLabel}` | The selected product's `label` (lowercased) |
+| `{minDays}` | The selected product's `minDays` |
+| `{maxDays}` | The selected product's `maxDays` |
+
+Inline HTML is supported in `detail` and `footnote` (e.g. `<strong>`, `<em>`, `<a>`).
 
 ### Theming
 
-All colours are exposed as CSS custom properties that fall back to the site theme tokens:
+All colours are exposed as CSS custom properties. Set them in the client's `:root` block in `src/theme.css` to override the defaults. If not set, they fall back to the site's theme tokens.
 
 | Token | Controls | Default fallback |
 |---|---|---|
 | `--lead-calc-paper` | Card background | `--body-bg` |
-| `--lead-calc-ink` | Text colour | `--font-color` |
-| `--lead-calc-ink-soft` | Muted text | `--secondary-font-color` |
-| `--lead-calc-accent` | Focus rings, active option borders | `--accent-color` |
+| `--lead-calc-ink` | Body text colour | `--font-color` |
+| `--lead-calc-ink-soft` | Muted / secondary text | `--secondary-font-color` |
+| `--lead-calc-accent` | Focus rings, active product option border | `--accent-color` |
 | `--lead-calc-accent-deep` | Hover states | `#5F6E58` |
 | `--lead-calc-eyebrow` | Eyebrow label colour | `--accent-color` |
-| `--lead-calc-good-bg` | "Clear" verdict background | `rgba(107,128,104,0.07)` |
-| `--lead-calc-good-color` | "Clear" verdict text | `#5F6E58` |
-| `--lead-calc-tight-bg` | "Tight" verdict background | `rgba(143,163,172,0.10)` |
-| `--lead-calc-tight-color` | "Tight" verdict text | `#5B7078` |
-| `--lead-calc-btn-bg` | Button background | `--font-color` |
-| `--lead-calc-btn-bg-hover` | Button hover background | `--lead-calc-accent-deep` |
-
-Add any overrides to the client's active `:root` block in `src/theme.css`.
+| `--lead-calc-good-bg` | Background of `good` verdict panel | `rgba(107,128,104,0.07)` |
+| `--lead-calc-good-color` | Text colour of `good` verdict panel | `#5F6E58` |
+| `--lead-calc-tight-bg` | Background of `tight` verdict panel | `rgba(143,163,172,0.10)` |
+| `--lead-calc-tight-color` | Text colour of `tight` verdict panel | `#5B7078` |
+| `--lead-calc-btn-bg` | Submit button background | `--font-color` |
+| `--lead-calc-btn-bg-hover` | Submit button hover background | `--lead-calc-accent-deep` |
 
 ---
 

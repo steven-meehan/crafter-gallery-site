@@ -2,15 +2,17 @@
 
 ## vNext
 
-### Lead Time Calculator
-- New generic `LeadTimeCalculator` component — a standalone interactive widget that lets visitors enter a deadline date and select a product type, then instantly receive a tiered verdict (clear / clear with note / tight / too tight) based on configurable shipping windows and a build buffer
-- All copy, product types, shipping windows, build buffer, verdict text, and CTA links are driven by a `calculator-{slug}.json` data file — no code changes required to deploy for a new client
-- Verdict headline and detail support `{days}`, `{productLabel}`, `{minDays}`, `{maxDays}` interpolation tokens
-- Registered via `calculators` array in `site.config.json`; each entry creates a route at `/calculator/{slug}`
-- Mountain mark SVG doubles as a watermark inside the verdict panel
-- All design tokens exposed as `--lead-calc-*` CSS custom properties, falling back to site theme tokens; fully overridable per client in `theme.css`
-- Page is marked `noindex` — it is a conversion tool, not an SEO target
-- Sample data file added to `NewSiteSampleFiles/public/data/calculator-lead-time.json`
+### Fulfillment Calculator
+- New generic `LeadTimeCalculator` component — an interactive widget where visitors enter a deadline date, select a product type, and instantly receive a tiered verdict on whether fulfillment is realistic
+- All copy, product types, shipping windows, build buffer, verdict text, and CTA links are driven by a `calculator-{slug}.json` data file — zero code changes required to deploy for a new client
+- Verdict headline and detail support `{days}`, `{productLabel}`, `{minDays}`, `{maxDays}` interpolation tokens for dynamic copy
+- Registered via the `pages` array in `site.config.json` using `"type": "calculator"` — same registration pattern as static pages; route created at `/calculator/{slug}`
+- Optional `markUrl` field in the data file renders the client's own logo or mark above the card and as a faint watermark inside the verdict panel; omit the field and neither renders
+- Navigation link added via `navigation.json` like any other nav entry — no special handling
+- All design tokens exposed as `--lead-calc-*` CSS custom properties falling back to site theme tokens; fully overridable per client in `theme.css`
+- Page marked `noindex` — it is a conversion tool, not an SEO target
+- `white-space: nowrap` added to `.navigationLinks` to prevent nav labels wrapping to two lines
+- Sample data file at `NewSiteSampleFiles/public/data/calculator-lead-time.json` uses generic crafter copy (deadline, product, fulfillment) rather than any client-specific language
 
 ## 2.0.2
 ### Bug Fixes
