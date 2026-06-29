@@ -1,7 +1,7 @@
 enum Alignment {
     Left = `left`,
     Center = `center`,
-    right = `right`
+    Right = `right`
 }
 
 export default Alignment;

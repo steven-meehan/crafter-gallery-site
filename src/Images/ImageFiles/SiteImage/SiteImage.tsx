@@ -6,11 +6,11 @@ import ProcessedImage from '../ProcessedImage/ProcessedImage';
 import ImageBlurb from '../ImageBlurb/ImageBlurb';
 import ImageProps from './SiteImageProps';
 
-import seoData from '../../../ConfigFiles/seo-config.json';
+import siteConfig from '../../../ConfigFiles/site.config.json';
 import classes from './Image.module.css';
 
 const SiteImage: React.FC<ImageProps> = (props) => {
-    const seoSiteInfo = seoData.site;
+    const seoSiteInfo = siteConfig.seo.siteName;
     const imageCssClasses = `${props.classes ? props.classes : ''}`;
     const blurbCssClasses = `${props.blurbCssClasses ? props.blurbCssClasses : ''}`;
     const titleBlurbCssClasses = `${props.titleBlurbCssClasses ? props.titleBlurbCssClasses : ''}`;
@@ -92,14 +92,15 @@ const SiteImage: React.FC<ImageProps> = (props) => {
             {renderHelmetInfo && (
                 <HelmetSettings 
                     helmetConfiguration={{
-                        page: window.location.href,
                         title: image.htmlTitle,
-                        description: image.fullDescription ? image.fullDescription : "",
-                        imageUrl: image.imageUrl!,
-                        imageAltText: image.htmlAltText,
+                        description: image.description?.map(p => p.text).join(' ') ?? "",
+                        imageUrl: image.imageUrl || siteConfig.seo.defaultImageUrl,
+                        imageAltText: image.htmlAltText || siteConfig.seo.defaultImageAltText,
+                        imageWidth: image.imageWidth,
+                        imageHeight: image.imageHeight,
                         errorPage: false
-                    }} 
-                    seoSiteUrl={seoSiteInfo} />
+                    }}
+                    seoSiteName={seoSiteInfo} />
             )}
         </Fragment>
     );

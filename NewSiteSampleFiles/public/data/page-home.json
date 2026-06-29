@@ -1,0 +1,56 @@
+{
+    "name": "home",
+    "header": "",
+    "layout": {
+        "rows": [
+            {
+	    	"order": 1,
+                "numberOfColumns": 1
+            }
+        ]
+    },
+    "components": [
+        {
+            "active": true,
+            "row": 1,
+            "order": 1,
+            "columnPosition": "left",
+            "componentType": "info",
+            "paragraphs": [
+                {
+                    "order": 1,
+                    "display": true,
+                    "emphasis": false,
+                    "text": "",
+                    "alignment": "center"
+                }
+            ]
+	    },
+        {
+            "active": true,
+            "row": 1,
+            "order": 2,
+            "columnPosition": "left",
+            "componentType": "image",
+            "imageFiles": [
+                {
+                    "fileName": "",
+                    "htmlTitle": "",
+                    "htmlAltText": "",
+                    "landscape": false,
+                    "description": null,
+                    "externalUrl": "",
+                    "htmlLinkTitle": "",
+                    "imageUrl": "",
+                    "isLink": false
+                }
+            ],
+            "imageSlider": {
+                "auto":true,
+                "timer":30000,
+                "arrowIcons": "fas fa-chevron-circle",
+                "size": "70%"
+            }
+        }
+    ]
+}

@@ -1,0 +1,51 @@
+{
+  "title": "Spring 2025",
+  "baseUrl": "https://your-cdn.example.com/images/spring-2025/",
+  "sliderButtonLocations": "bottom",
+  "labelOverrides": {
+    "purchaseDirect": "Buy on Etsy",
+    "purchaseBot": "Request This Piece",
+    "sampleBot": "Request a Preview"
+  },
+  "items": [
+    {
+      "fileName": "piece-001.jpg",
+      "title": "Spring Bloom",
+      "altText": "Watercolor painting of spring flowers in pink and yellow",
+      "landscape": false,
+      "description": [
+        {
+          "display": true,
+          "header": false,
+          "emphasis": false,
+          "text": "Hand-painted watercolor on 300gsm cold-press paper.",
+          "alignment": "center"
+        }
+      ],
+      "actions": {
+        "purchase": { "storeUrl": "https://www.etsy.com/your-shop/listing/11111" },
+        "sample": { "botEndpoint": "mailto:you@example.com?subject=Preview+Request" },
+        "useCase": { "fileUrl": "https://your-cdn.example.com/docs/spring-bloom-how-to.pdf" }
+      }
+    },
+    {
+      "fileName": "piece-002.jpg",
+      "title": "Morning Dew",
+      "altText": "Abstract mixed media piece with soft blues and greens",
+      "landscape": true,
+      "description": [
+        {
+          "display": true,
+          "header": false,
+          "emphasis": false,
+          "text": "Mixed media on canvas, 16x20 inches.",
+          "alignment": "center"
+        }
+      ],
+      "actions": {
+        "purchase": { "botEndpoint": "mailto:you@example.com?subject=Purchase+Enquiry" },
+        "sample": { "fileUrl": "https://your-cdn.example.com/samples/morning-dew-low-res.jpg" }
+      }
+    }
+  ]
+}

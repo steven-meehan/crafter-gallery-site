@@ -1,990 +1,800 @@
 # Crafter Gallery Site
 
-A simple gallery site designed to be a public portfolio for crafters. This is a [React](https://reactjs.org/) application bootstrapped with [Create React App](https://create-react-app.dev/). Instead of reaching out to a database, or any back-end service, this application uses configuration files served from a web server to render everything from the navigation, to the available galleries, and their contents.
+A database-free portfolio site for crafters. Built with React 18, TypeScript 5, and Vite 5. All content — navigation, galleries, and pages — is driven by JSON data files served from a static host. There is no back-end; the React app fetches its own configuration at runtime and caches it in session storage.
 
-While the code was initially created to run out of an Amazon S3 bucket, you are not limited to this technology stack. However, to keep things clean for this documentation, we will assume that you are using an S3 bucket in conjunction with CloudFront to run your crafter's site.
+Designed to run out of an Amazon S3 bucket behind CloudFront, but any static host works.
 
-The system's `uesHttp` hook has been designed to cache the results for the web requests to retrieve the data files needed, see [Data File Locations](#data-file-locations) for full details.
+Licensed under the [MIT License](LICENSE). Maintained by [steven-meehan](https://github.com/steven-meehan).
+
+---
 
 ## Table of Contents
 
-- [Site Configuration](#site-configuration)
-    - [Data File Locations](#data-file-locations)
-    - [Navigation and Routing](#navigation-and-routing)
-        - [Navigation](#navigation)
-        - [Routing](#routing)
-            - [Top Level Routes](#top-level-routes)
-            - [Gallery Routes](#gallery-routes)
-                - [Gallery Options for arrows](#gallery-options-for-arrows)
-    - [Content Configuration](#content-configuration)
-        - [Gallery Data Files](#gallery-data-files)
-        - [Home](#home)
-        - [Not Found](#not-found)
-        - [Other Informational Pages](#other-informational-pages)
-        - [Gallery Image External Links](#gallery-image-external-links)
-    - [Misc Content](#misc-content)
-        - [Index Pages](#index-pages)
-            - [HTML](#html)
-            - [SCSS](#scss)
-        - [Logo](#logo)
-        - [Footer Config](#footer-config)
-        - [CSS Config](#css-config)
-            - [Color Palette](#color-palette)
-            - [Font Color](#font-color)
-            - [Font Selection](#font-selection)
-            - [Site Mixins](#site-mixins)
-    - [SEO Configuration](#seo-configuration)
-    - [Google Analytics](#google-analytics)
-    - [Error Handling](#error-handling)
+- [Tech Stack](#tech-stack)
+- [How It Works](#how-it-works)
+- [Project Structure](#project-structure)
+- [Setting Up a New Client](#setting-up-a-new-client)
+  - [Using the Setup Script](#using-the-setup-script)
+  - [Manual Setup](#manual-setup)
+- [Configuration Files](#configuration-files)
+  - [site.config.json](#siteconfigjson)
+  - [theme.css](#themecss)
+  - [index.css](#indexcss)
+  - [navigation.json](#navigationjson)
+  - [galleries.json](#galleriesjson)
+  - [gallery-{slug}.json](#gallery-slugjson)
+  - [page-{slug}.json](#page-slugjson)
+- [Logos](#logos)
+- [Changing the Home Page](#changing-the-home-page)
+- [Adding a New Gallery](#adding-a-new-gallery)
+- [Adding a New Page](#adding-a-new-page)
+- [Theming](#theming)
+- [Google Analytics](#google-analytics)
 - [Available Scripts](#available-scripts)
-    - [Start](#start)
-    - [Test](#test)
-    - [Run Build](#run-build)
-    - [Run Eject](#run-eject)
-- [Learn More](#learn-more)
-    - [Code Splitting](#code-splitting)
-    - [Analyzing the Bundle Size](#analyzing-the-bundle-size)
-    - [Making a Progressive Web App](#making-a-progressive-web-app)
-    - [Advanced Configuration](#advanced-configuration)
-    - [Deployment](#deployment)
-    - [Build fails to minify](#build-fails-to-minify)
+- [Deployment](#deployment)
+- [Contributing](#contributing)
 
-## Site Configuration
+---
 
-The application is built with Sass so you will need something to compile the CSS files. For Visual Studio you can use a couple of extensions [Sass](https://marketplace.visualstudio.com/items?itemName=Syler.sass-indented) & [Live Sass Compiler](https://marketplace.visualstudio.com/items?itemName=glenn2223.live-sass)
+## Tech Stack
 
-After cloning this repository for a new client, there are several steps that need to be taken to successfully run the new site. 
-- First there are several configuration files the application requires.
-    - Copy the contents of the `assets` folder from `NewSiteSampleFiles` to the `src` (These are sample logos that should be replaced with the crafter's logo).
-    - Copy the contents of the `ConfigFiles` folder from `NewSiteSampleFiles` to the `scr` folder.
-    - Copy the contents of the `public` folder from `NewSiteSampleFiles` to the root folder and delete the `.gitkeep` file.
-    - Copy `Variable.scss` & `index.scss` file from `NewSiteSampleFiles` to the `scr` folder.
+| Concern | Tool |
+|---|---|
+| Framework | React 18 + TypeScript 5 |
+| Build | Vite 5 |
+| Routing | React Router v6 |
+| Styling | CSS custom properties via `theme.css` + CSS Modules |
+| SEO | react-helmet-async + Playwright prerender script |
+| UI components | Bootstrap 5 (layout/grid only) |
 
-With the configuration files copied, update them with the client specific information (see below sections to fully configure). Once the files have been created and placed, you need to transfer the images into their gallery specific folders under the gallery folder in the S3 bucket. You need to ensure the route structure for the site and the S3 buckets do not match. If they do, when you try to visit the page for a specific image, you will not be routed through the website. Instead you will be served the image from the S3 bucket.
+---
 
-Finally update the `index.html` and `favicon.png` as needed for your crafter.
+## How It Works
 
-[Back to Top](#table-of-contents)
+The app is a single-page React application. At runtime it fetches JSON data files from a CDN or S3 bucket and uses them to render all navigation, gallery content, and informational pages. No server-side rendering, no database, no API.
 
-### Data File Locations
+**Runtime flow:**
 
-This section details the Configuration File used to configure the Data Files the system uses.
+1. User visits the site. The browser receives the static `build/index.html` (or a prerendered page-specific HTML file for deep links).
+2. The React app boots and reads `site.config.json` (compiled into the bundle at build time) to know where to fetch data.
+3. Components fetch their JSON data files on demand and cache results in session storage for `cacheAgeMs` milliseconds.
+4. Navigating to a gallery route (`/gallery/{slug}`) fetches `gallery-{slug}.json`. Navigating to an image deep-link (`/gallery/{slug}/{image-title}`) loads the same gallery and scrolls to the matching image.
+5. All meta tags (og:title, og:image, twitter:card) are set client-side by react-helmet-async, and are also baked into static HTML at build time by the prerender script so social share previews work correctly.
 
-In an effort to keep the repository from being tied to a specific implementation, key aspects of certain pages and their contents are reliant upon data files. In order for the application to pull the correct file update the `data-file-locations.json` file. The JSON file is an array of objects with the following properties: `contentType`, `url`, and `cacheAge`.
+---
 
-At minimum there needs to be an entry for `navigation`, `galleries`, `home` and `notFound` (These are included in the sample file).
-
-```JSON
-
-[
-    {
-        "contentType":"{Config Type GOES HERE}",
-        "url":"{URL GOES HERE}",
-        "cacheAge": 900000
-    },
-    .
-    .
-    .
-]
+## Project Structure
 
 ```
+/
+├── content/                    # Per-client static files (gitignored)
+│   ├── data/
+│   │   ├── galleries.json      # Gallery manifest
+│   │   ├── gallery-{slug}.json # One file per gallery
+│   │   ├── navigation.json     # Navbar configuration
+│   │   └── page-{slug}.json    # Informational pages (Home, About, etc.)
+│   ├── images/                 # Optional: locally hosted images (.gitkeep included)
+│   ├── favicon.png
+│   ├── robots.txt
+│   └── sitemap.xml
+├── NewSiteSampleFiles/         # Templates — copy these when starting a new client
+│   ├── ConfigFiles/
+│   │   └── site.config.json
+│   ├── assets/
+│   │   ├── Logo.png
+│   │   └── LogoAlt.png
+│   ├── public/
+│   │   └── data/               # Sample data files
+│   ├── index.css
+│   └── theme.css
+├── scripts/
+│   ├── generate-sitemap.js     # Writes sitemap.xml and robots.txt into content/
+│   ├── get-routes.js           # Enumerates every route for the prerenderer
+│   ├── prerender.js            # Playwright: writes static HTML per route into build/
+│   ├── setup-client.js         # Interactive new-client wizard
+│   └── slugify.js              # Shared slug utility for scripts
+├── src/
+│   ├── assets/                 # Logo.png, LogoAlt.png (gitignored)
+│   ├── ConfigFiles/
+│   │   └── site.config.json    # Global site settings (gitignored)
+│   ├── config/                 # SiteConfig type + startup validator
+│   ├── theme.css               # All design tokens (gitignored)
+│   ├── index.css               # Body styles (gitignored)
+│   ├── typings.d.ts            # CSS module + PNG type declarations
+│   ├── App.tsx                 # Route definitions
+│   ├── index.tsx               # React entry point
+│   ├── Alignment.ts            # Text alignment enum
+│   ├── ParagraphData.ts        # Shared paragraph data type
+│   ├── Card/                   # Reusable themed card wrapper
+│   ├── Carousel/               # Image carousel + lightbox
+│   ├── ErrorBoundary/          # Runtime error catcher
+│   ├── Footer/                 # Site footer
+│   ├── Galleries/              # Gallery index, gallery view, action buttons
+│   ├── Header/                 # Navbar, dropdown links, nav link renderer
+│   ├── Helmet/                 # SEO meta tag wrapper (used by Page/image components)
+│   ├── Images/                 # Image components + page image slider
+│   ├── Info/                   # Text block renderer (used by pages)
+│   ├── Page/                   # Generic informational page renderer
+│   ├── Routing/                # Navigation data types, background color enum
+│   ├── Spinner/                # Loading indicator
+│   ├── Toggler/                # Mobile hamburger button
+│   ├── UseHttp/                # Data-fetching hook with session cache
+│   └── utils/
+│       └── slugify.ts          # Slug utility (lowercase + hyphenate)
+├── build/                      # Compiled output (gitignored) — deploy this folder
+├── index.html                  # Vite entry HTML (edit for GA tag, fonts, etc.)
+├── vite.config.ts
+├── tsconfig.json
+└── package.json
+```
 
-- `contentType`: (Required) This specifies which section of the application to configure. Currently there are four required types to define in this file. Each additional page will require its own entry.
-    - `navigation`: Details where the navigation config file is located. 
-    - `gallery`: Details where the gallery configuration files are located.
-    - `home`: : Details where the Home Page config file is located.
-    - `notFound`: : Details where the Not Found Page config file is located.
-- `url`: (Required) `string` This is URL where the data file is being served from.
-- `cacheAge`: (Required) `number` This is used to specify how long the application should cache the results for the request is milliseconds. A good default value is about 15 minutes or 900000 milliseconds. 
+**Gitignored client-specific files** (must be created per deployment — these are never committed):
 
-[Back to Top](#table-of-contents)
+| Path | What belongs here |
+|---|---|
+| `content/` | All runtime data files, favicon, robots.txt, sitemap.xml, and optionally locally hosted images |
+| `content/data/` | Every `.json` data file fetched at runtime (`navigation.json`, `galleries.json`, `gallery-*.json`, `page-*.json`) |
+| `src/assets/Logo.png` | Desktop logo (260 × 105 px PNG with transparent background) |
+| `src/assets/LogoAlt.png` | Mobile logo (130 × 105 px PNG with transparent background) |
+| `src/ConfigFiles/site.config.json` | Global site settings compiled into the bundle |
+| `src/theme.css` | Design tokens — choose and activate one of the 6 built-in presets |
+| `src/index.css` | Body background, font, and hamburger icon colour |
+| `build/` | Compiled output from `npm run build` — never edit, always regenerate |
 
-### Navigation and Routing
+Templates for every file above live in `NewSiteSampleFiles/`. Copy them to the correct destination before running `npm run dev`.
 
-To fully setup the site's routing and navigation, you will need to update the `routes-gallery.json`, `routes-top-level.json`, and `navigation.json` files.
+---
 
-The `navigation.json` [file] (#navigation-config) is the data file that details all the information needed for building the navigation bar.
+## Setting Up a New Client
 
-Meanwhile the `routes-gallery.json` and `routes-top-level.json` configuration files are used to create the site's Routing Table see [below](#routing) for full details.
+### Using the Setup Script
 
-[Back to Top](#table-of-contents)
+The easiest path. Run the wizard and answer the prompts:
 
-#### Navigation
+```bash
+npm run setup-client
+```
 
-This section details the Data File structure used to build out the site's navigation.
+It scaffolds `src/ConfigFiles/site.config.json`, `content/data/navigation.json`, `content/data/galleries.json`, and a sample gallery data file. Review and edit the output before running `npm run dev`.
 
-The `Header` component uses the [`data-file-locations.json`](#data-file-locations) to retrieve the `navigation.json` file. Once pulled, the application parses the file and dynamically builds out the links required for the navbar. See below for an example of the config file.
+### Manual Setup
 
-```JSON
+1. **Copy config templates** from `NewSiteSampleFiles/` to their destinations:
 
+   | Copy this file… | …to this location |
+   |---|---|
+   | `NewSiteSampleFiles/ConfigFiles/site.config.json` | `src/ConfigFiles/site.config.json` |
+   | `NewSiteSampleFiles/theme.css` | `src/theme.css` |
+   | `NewSiteSampleFiles/index.css` | `src/index.css` |
+   | `NewSiteSampleFiles/assets/Logo.png` | `src/assets/Logo.png` |
+   | `NewSiteSampleFiles/assets/LogoAlt.png` | `src/assets/LogoAlt.png` |
+   | `NewSiteSampleFiles/public/` (entire folder contents) | `content/` (at the project root) |
+
+   The `src/assets/` folder does not exist in the repository — create it before copying the logos.
+
+2. **Replace the logos** in `src/assets/` with the crafter's own images (see [Logos](#logos) for sizing).
+
+3. **Delete `content/images/.gitkeep`** — this placeholder file is only there so the empty folder can be tracked in git. Delete it after copying.
+
+4. **Fill in `src/ConfigFiles/site.config.json`** with the client's site URL, CDN base URL, SEO fields, and footer details. Every field in this file is documented in [site.config.json](#siteconfigjson).
+
+5. **Activate the desired theme preset** in `src/theme.css` — open the file, uncomment the `:root` block for the preset you want, and comment out any other active blocks. See [Theming](#theming) for the full list of presets.
+
+6. **Populate `content/data/`** with the client's data files:
+   - `content/data/navigation.json` — navbar links
+   - `content/data/galleries.json` — gallery manifest
+   - `content/data/gallery-{slug}.json` — one file per gallery
+   - `content/data/page-{slug}.json` — informational pages (if any)
+   
+   Sample versions of each file live in `NewSiteSampleFiles/public/data/`.
+
+7. **Update `content/favicon.png`** with the crafter's own favicon. `content/robots.txt` and `content/sitemap.xml` are generated automatically by `npm run build` — you do not need to edit them by hand.
+
+8. **Edit `index.html`** at the project root to add Google Analytics and update the `<title>` fallback tag (see [Google Analytics](#google-analytics)).
+
+---
+
+## Configuration Files
+
+### site.config.json
+
+**Location:** `src/ConfigFiles/site.config.json`  
+**Gitignored:** yes — compiled into the bundle at build time, so it is per-deployment.
+
+The single source of truth for all global settings.
+
+```json
 {
-    "logoAltText": "{Place Alt Text for Logo Here}",
-    "backgroundColor": "altPrimary",
-    "togglerUsesPrimaryColor": false,
-    "links": [
-        {
-            "url": "/gallery",
-            "order": 1,
-            "name": "Gallery",
-            "title": "Check out my Galleries",
-            "active": true,
-            "internalLink": true,
-            "social": false,
-            "icon": "",
-            "childLinks": [
-                {
-                    "url": "/gallery/pens",
-                    "order": 1,
-                    "name": "Pens",
-                    "title": "Examples of my Glitter Pens",
-                    "active": true,
-                    "internalLink": true,
-                    "social": false,
-                    "icon": "",
-                    "childLinks": []
-                },
-                .
-                .
-                .
-            ]                  
-        },
-        .
-        .
-        .
-    ]
-}
-
-```
-
-Definition of the `navigation.json`:
-
-- `logoAltText`: (Required) `string` This is the Alternative Text for the main logo.
-- `backgroundColor`: (Required) `string` This is responsible for the color of the navbar's background. The only values allowed are `primary`, `altPrimary`, and `none`.
-- `togglerUsesPrimaryColor`: (Required) `boolean` This is used to give the mobile navigation toggler button some color. Currently, the system only allows for either the default `transparent` background or to use the site's primary color.
-- `links`: (Required) The root of the JSON response which contains an array of complex objects.
-    - `url`: (Required) `string` This is the url for the route.
-    - `order`: (Required) `number` This is the order used for displaying the routes.
-    - `name`: (Required) `string` This is the display name for the route.
-    - `title`: (Required) `string` This is the title for the link.
-    - `active`: (Required) `bool` This determines if the route will be displayed.
-    - `internalLink`: (Required) `bool` This determines if the link is internal to the application.
-    - `social`: (Required) `bool` This determines if the link is for social media.
-    - `icon`: (Optional) `string` This specifies the font awesome icon to use for social media links.
-    - `childLinks`: (Optional) Is an array of complex objects, the same used within `navigation`
-
-[Navigation and Routing](#navigation-and-routing) : [Back to Top](#table-of-contents)
-
-#### Routing
-
-This section details the two Configuration Files used to build out the system's Routing Tree.
-
-In order to build out the Routing Tree the application requires the [`routes-gallery.json`](#gallery-routes) and [`routes-top-level.json`](#top-level-routes) files. Both files are arrays of complex objects with the following definition:
-
-```JSON
-
-[
-    {
-        "path":"/",
-        "page":"home",
-        "sectionRoot":true,
-        "component":"home",
-        "componentOptions":null,
-        "redirect":{
-            "enabled":false,
-            "path":null
-        }
-    }
-    .
-    .
-    .
-]
-
-```
-
-Definition for Route Definition in `routes-gallery.json` and `routes-top-level.json`:
-
-- `path`: (Required) `string` Is the route definition.
-- `page`: (Required) `string` This is the page that will be rendered and it should be an empty string if the route is item specific or a redirect.
-- `sectionRoot`: (Required) `bool` Tells the router that the incoming route must be an sectionRoot match.
-- `component`: (Required) `string` Details the component that will be used for the route.
-- `componentOptions`: (Optional) This is a complex object that configures the `Carousel` component.
-    - `configSettingFile`: (Required) `string` Is the location for the gallery's configuration file.
-    - `defaultPage`: (Required) `string` Is the base portion of the url for the images in the configuration file.
-    - `routeToNotFoundPage`: (Required) `bool` Determines if the image gallery will route the user to the gallery's default page or the not found page when an image is not found within the collection.
-    - `fontAwesomeArrowIcons`: (Optional) `string` Details the icons used for the arrows to cycle through the images in the gallery.[details](#gallery-options-for-arrows)
-- `redirect`: (Optional) Is a complex object that configures a redirection route.
-    - `enabled`: (Required) `bool` Tells the router that the incoming route needs to be redirected.
-    - `path`: (Required) `string` Is the route to be redirected to.
-
-[Navigation and Routing](#navigation-and-routing) : [Back to Top](#table-of-contents)
-
-##### Top Level Routes
-
-The `routes-top-level.json` file is consumed by the `Main`.
-
-> `routes-top-level.json` This configuration file handles the top-level routes for the application. At minimum, you need an entry to for the Home, Galleries, and Not Found routes.
-
-```JSON
-
-[
-    {
-        "path":"/",
-        "page":"home",
-        "sectionRoot":true,
-        "component":"Home",
-        "componentOptions":null,
-        "redirect":{
-            "enabled":false,
-            "path":""
-        }
-    },
-    {
-        "path":"/galleries/*",
-        "page":"galleries",
-        "sectionRoot":false,
-        "component":"gallery",
-        "componentOptions":null,
-        "redirect":{
-            "enabled":false,
-            "path":""
-        }
-    },
-    .
-    .
-    .
-    {
-        "path":"*",
-        "page":"notFound",
-        "sectionRoot":false,
-        "component":"NotFound",
-        "componentOptions":null,
-        "redirect":{
-            "enabled":false,
-            "path":null
-        }
-    }
-]
-
-```
-
-[Navigation and Routing](#navigation-and-routing) : [Back to Top](#table-of-contents)
-
-##### Gallery Routes
-
-The `routes-gallery.json` file is consumed by the `Gallery` component.
-
-> `routes-gallery.json`  This configuration handles the navigation for every gallery you put on the site. You will need to have four entries per gallery for complete coverage with the following paths:
-
-- `"path":"gallery/"`: This entry will form the base for the gallery and is a redirecting entry to the first section.
-- `"path":"gallery/section/"`: This entry will load the image gallery for the given section.
-- `"path":"gallery/section/:imageName"`: This entry will load the image gallery starting with a specific image. (This uses a react router placeholder for to cover dynamic routes.)
-- `"gallery/:galleryName"`: This entry will be a redirecting entry that redirects all unknown sections and redirects them to where you want them. (This uses a react router placeholder for to cover dynamic routes.)
-
-It is highly recommended that you add a final entry to redirect any non-existing galleries to one of the existing ones.
-
-```JSON
-
-[
-    {
-        "path":"gallery/",
-        "page":"",
-        "sectionRoot":true,
-        "component":"",
-        "componentOptions": null,
-        "redirect":{
-            "enabled":true,
-            "path":"/galleries/gallery/section"
-        }
-    },
-    {
-        "path":"gallery/section/",
-        "page":"section",
-        "sectionRoot":false,
-        "component":"carousel",
-        "componentOptions": {
-            "configSettingFile":"config-gallery-items.json",
-            "defaultPage":"/galleries/gallery/section/",
-            "routeToNotFoundPage": true,
-            "fontAwesomeArrowIcons":"fas fa-arrow-circle"
-        },
-        "redirect":{
-            "enabled":false,
-            "path":""
-        }
-    },
-    {
-        "path":"gallery/section/:imageName",
-        "page":"",
-        "sectionRoot":false,
-        "component":"carousel",
-        "componentOptions": {
-            "configSettingFile":"config-gallery-items.json",
-            "defaultPage":"/galleries/gallery/section/",
-            "routeToNotFoundPage": true,
-            "fontAwesomeArrowIcons":"fas fa-arrow-circle"
-        },
-        "redirect":{
-            "enabled":false,
-            "path":""
-        }
-    },
-    {
-        "path":"gallery/:galleryName",
-        "page":"",
-        "sectionRoot":false,
-        "component":"",
-        "componentOptions": null,
-        "redirect":{
-            "enabled":true,
-            "path":"/galleries/gallery/section"
-        }
-    },
-    .
-    .
-    .
-    {
-        "path":"*",
-        "page":"",
-        "sectionRoot":false,
-        "component":"",
-        "componentOptions":null,
-        "redirect":{
-            "enabled":true,
-            "path":"/galleries/gallery/section"
-        }
-    }
-]
-
-```
-
-[Navigation and Routing](#navigation-and-routing) : [Back to Top](#table-of-contents)
-
-###### Gallery Options for arrows
-
-When filling out the `routes-gallery.json` file use the following values for the `fontAwesomeArrowIcons` field to deviate from the default pointer (`fas fa-angle`) used in the gallery. Each Gallery route can have its own defined value.
-
-- `fas fa-angle`
-- `fas fa-angle-double`
-- `fas fa-arrow`
-- `fas fa-arrow-alt-circle`
-- `fas fa-arrow-circle`
-- `fas fa-arrow-rotate`
-- `fas fa-long-arrow`
-- `fas fa-long-arrow-alt`
-- `fas fa-caret`
-- `fas fa-chevron`
-- `fas fa-chevron-circle`
-- `fas fa-hand-point`
-- `fa-solid fa-circle`
-- `fa-solid fa-square-caret`
-
-[Routing](#routing) : [Gallery Routes](#gallery-routes) : [Back to Top](#table-of-contents)
-
-### Content Configuration
-
-With the [Navigation & Routing](#navigation-and-routing) configured, you need to focus on creating the Data files that are used to render the site's content. Currently there are three types of required data files: [Gallery Data Files](#gallery-data-files), [Home](#home), and the [NotFound](#not-found).
-
-Various components will use the [`data-file-locations.json`](#data-file-locations) to dynamically pull each of these Data files and render the content.
-
-[Back to Top](#table-of-contents)
-
-#### Gallery Data Files
-
-This section details the Data File structure used for Galleries.
-
-Each individual gallery will have its own Data file and the file name must begin with 'galley-' see below for an example.
-
-```JSON
-
-{
-    "baseUrl": "{URL GOES HERE}",
-    "folderName": "{Folder Name GOES HERE}",
-    "pageHeader": "{Page Header GOES HERE}",
-    "sliderButtonLocations": "bottom",
-    "linkToLargerVersion": false,
-    "largerSliderButtonMargin": true,
-    "items": [
-        {
-            "htmlTitle": "{Image TItle GOES HERE}",
-            "htmlAltText": "{Image ALt Text GOES HERE}",
-            "fileName": "{Image Filename GOES HERE}",
-            "externalUrl": "{External Email GOES HERE}",
-            "htmlLinkTitle": "{IMAGE Title GOES HERE}",
-            "landscape": false,
-            "description": [
-                {
-                    "text": "{Blurb GOES HERE}",
-                    "order": 1,
-                    "active": true
-                },
-                .
-                .
-                .
-            ]
-        }
-        .
-        .
-        .
-    ]
-}
-
-```
-
-Definition for `gallery-{galleryName}.json`:
-
-- `baseUrl`: (Required) `string` This is the base URL for all the images in the configuration file.
-- `folderName`: (Required) `string` This is the sub-folder containing the images in the S3 bucket.
-- `pageHeader`: (Required) `string` This is the header for the gallery.
-- `sliderButtonLocations`: (Required) `string` This directs the system where to place the Slider's buttons on mobile. There are only three valid values, "top", "bottom", and "both". It also defaults to "bottom".
-- `linkToLargerVersion`: (Required) `boolean` This directs the system to build links to the original image, if the image links outside fo the system. Currently this link will only be displayed when the screen has a width less than 992 pixels.
-- `largerSliderButtonMargin`: (Optional) `bool` Tells the application to increase the margin above the slider buttons. Default value is false.
-- `items`: (Required) Is an array of complex objects, but the name should be specific to the collection of images held within.
-    - `htmlTitle`: (Required) `string` This is the title of the image.
-    - `htmlAltText`: (Required) `string` This is the alternate text for the image.
-    - `fileName`: (Required) `string` This is the name of the image's file in the S3 bucket.
-    - `externalUrl`: (Optional) `string` This is the external link to be used for the image. If there is no external link leave empty or set to null.
-    - `htmlLinkTitle`: (Optional) `string` When present, this value will override the system's rules for generating Image Html Titles.
-    - `landscape`: (Optional) `bool` Tells the application if the image was taken using landscape view.
-    - `description`: (Optional) Is an array of complex object.
-        - `display`: (Required) `bool` This determines if the paragraph is displayed on the web page.
-        - `header`: (Required) `bool` This is the header for the page.
-        - `emphasis`: (Required) `bool` This determines if the paragraph is bolded.
-        - `text`: (Required) `string` This is a paragraph for the description of the image.
-        - `alignment`: (Required) `string` This determines how the text is aligned on screen.
-
-[Content Configuration](#content-configuration) : [Back to Top](#table-of-contents)
-
-#### Home
-
-This section details the Data File structure used for Informational pages like Home.
-
-This page has been coded to render a collection of `Info`, `ImageSlider`, or `Image` components. Use the following Data file to tweak the layout of the `Home` page as needed for the client. To render an `Image` component only include a single image in the `images` field of the JSON. 
-
-```JSON
-
-{
-    "name": "home",
-    "header": "",
-    "layout": {
-        "rows": [
-            {
-	    	    "order": 1,
-                "numberOfColumns": 1
-            }
-        ]
-    },
-    "components": [
-        {
-            "active": true,
-            "row": 0,
-            "order": 1,
-            "columnPosition": "left",
-            "componentType": "info",
-            "paragraphs": [
-                {
-                    "order": 1,
-                    "display": true,
-                    "emphasis": false,
-                    "text": "",
-                    "alignment": "center"
-                }
-            ]
-	    },
-        .
-        .
-        .
-        {
-            "active": true,
-            "row": 0,
-            "order": 2,
-            "columnPosition": "image",
-            "componentType": "image",
-            "imageFiles": [
-                {
-                    "htmlTitle": "",
-                    "htmlAltText": "",
-                    "fileName": "",
-                    "externalUrl": "",
-                    "htmlLinkTitle": "",
-                    "landscape": false,
-                    "imageUrl": "",
-                    "description": null
-                }
-            ],
-            "imageSlider": {
-                "auto":true,
-                "timer":30000,
-                "arrowIcons": "fas fa-chevron-circle",
-                "size": "70%"
-            }
-        }
-    ]
-}
-
-```
-
-Definition for `page-{PageName}.json`:
-
-- `name`: (Required) `string` This is the name of the page being configured.
-- `header`: (Required) `string` This is the header for the page.
-- `layout`: (Required) This is the root node of the configuration file.
-    - `rows`: (Required) This is an array of complex object that detail the setup for each row.
-        - `order`: (Required) `number` Determines the order and key for the array of rows.
-        - `numberOfColumns`: (Required) `number` Details how many columns to render.
-- `components`: (Required) A complex array of objects that details the types of components to dynamically render on the home page.
-    - `active`: (Required) `boolean` Determines if the component will be rendered. 
-    - `row`: (Required) `number` This tells which row the component belongs too.
-    - `order`: (Required) `number` Determines the order of the component.
-    - `columnPosition`: (Required) `string` Determines which column the component should be rendered in (defaults to left).
-    - `componentType`: (Required) `string` Determines the type of component to render. It must be either `info` or `image`.
-    - `paragraphs`: (Optional) An array of complex objects that specify what text should be rendered in the component.
-        - `order`: (Required) `number` Determines the order of the paragraphs.
-        - `display`: (Required) `boolean` Determines if the paragraph will be rendered.
-        - `emphasis`: (Optional) `boolean` Determines if the paragraph will be bolded.
-        - `text`: (Required) `string` The text to be rendered on the page.
-        - `alignment`: (Optional) `string` Determines the alignment of the text.
-    - `imageFiles`: (Optional) An array of complex objects consisting of the images to display.
-        - `htmlTitle`: (Required) `string` This will be used for the title of the rendered image.
-        - `htmlAltText`: (Required) `string` This will be used for the alternate text of the rendered image.
-        - `fileName`: (Required) `string` This is the name of the file to be rendered and is used to build the image's url. 
-        - `externalUrl`: (Optional) `string` Used to make the image a link to another location on the internet.
-        - `landscape`: (Optional) `boolean` Used to adjust the display of narrow images.
-        - `imageUrl`: (Optional) `string` This is the base url for the images, only used when rendering images.
-        - `description`: (Optional) An array of complex objects that specify what text should be rendered in the component.
-            - `order`: (Required) `number` Determines the order of the paragraphs.
-            - `display`: (Required) `boolean` Determines if the paragraph will be rendered.
-            - `emphasis`: (Optional) `boolean` Determines if the paragraph will be bolded.
-            - `text`: (Required) `string` The text to be rendered on the page.
-            - `alignment`: (Optional) `string` Determines the alignment of the text.
-    - `imageSlider`: (Optional) This is used when rendering images.
-        - `auto`: (Required) `boolean` Turns the automatic transition on or off.
-        - `timer`: (Required) `number` If configured this establishes the timer for the transition.
-        - `arrowIcons`: (Optional) `string` This specifies what arrows will be used when building the `ImageSlider`. See [Gallery Options for arrows](#gallery-options-for-arrows) for arrows to see the options available from Font Awesome.
-        - `size`: (Optional) `string` Determines the size of the rendered image(s)
-
-[Content Configuration](#content-configuration) : [Back to Top](#table-of-contents)
-
-#### Not Found
-
-This section details the Data File structure used for Informational pages like Not Found. This uses the same structure as the [Home](#home) page.
-
-[Content Configuration](#content-configuration) : [Back to Top](#table-of-contents)
-
-#### Other Informational Pages
-
-This section details the Data File structure used for Informational pages other than [Home](#home) or [Not Found](#not-found). 
-
-- Step One: You will have to create a data file, with the same structure as the [Home](#home) or [Not Found](#not-found) pages. 
-- Step Two: Update the [Data File Locations](#data-file-locations) to include the location for the new page. 
-- Step Three: Update the [Top Level Routes](#top-level-routes) to include the new page's routing information. 
-- Step Four: Add the page's information to the [Navigation](#navigation) Data File.
-- Step Five: Clear the cache for all Data Files and restart your browser.
-
-With those steps completed, you will see new informational page's link in the navbar and navigate to the page.
-
-[Content Configuration](#content-configuration) : [Back to Top](#table-of-contents)
-
-#### Gallery Image External Links
-
-This section details the Configuration File used for building Links for `Images`.
-
-In order to allow users to customize how the system handles image links, this configuration file needs to be configured. Currently, the system will search all image external URLs for either a `store` or `form` keys. It will then build the url using the link's `title` attribute and the `linkText1` and `linkText2` associated with the given key. The included configuration file defaults to using an [Etsy](https://www.etsy.com/ "Etsy Storefront") `store` and an [Office 365](https://forms.office.com/ "Office 365 Forms") `form`.
-
-```JSON
-
-{
-    "store": {
-        "key": "www.etsy.com",
-        "linkText1": "Purchase ",
-        "linkText2": "from my shop."
-    },
-    "form": {
-        "key": "forms.office.com",
-        "linkText1": "To request an item similar to",
-        "linkText2": "submit a custom order."
-    }
-}
-
-```
-Definition for `imageExternalLinks.json`:
-
-- `store`: (Required) This is a complex object that configures how the system will render external urls for the crafter's digital storefront.
-    - `key`: (Required) `string` This is the string used when searching the external url.
-    - `linkText1`: (Required) `string` This is the first half of the text used when the system builds the link.
-    - `linkText2`: (Required) `string` This is the second half of the text used when the system builds the link.
-- `form`: (Required) This is a complex object that configures how the system will render external urls for the crafter's digital form for custom orders.
-    - `key`: (Required) `string` This is the string used when searching the external url.
-    - `linkText1`: (Required) `string` This is the first half of the text used when the system builds the link.
-    - `linkText2`: (Required) `string` This is the second half of the text used when the system builds the link.
-
-[Content Configuration](#content-configuration) : [Back to Top](#table-of-contents)
-
-### Misc Content
-
-The following sections detail the instructions to complete setting up a site for a new client, including working with the [Index Pages](#index-pages), [Logo](#logo), [Footer](#footer-config), and [CSS](#css-config).
-
-#### Index Pages
-
-In order to keep this project from becoming tied to a specific client, the `index.html` and `index.scss` files have been removed from the repository and added to the do not track list. As a result once you clone the repo, you will need to recreate these two files, see below for examples. 
-
-[HTML](#html) : [SCSS](#scss)
-
-##### HTML
-
-The `index.html` requires one element with the id of root in order to work. See the included example for a starting point.
-
-```HTML
-
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta
-      name="description"
-      content="{Description goes here}"
-    />
-    <link href="https://use.fontawesome.com/releases/v6.1.1/css/all.css" rel="stylesheet">
-    <title>{Title goes here}</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-  </body>
-</html>
-
-```
-
-[Misc Content](#misc-content) : [Index Pages](#index-pages) : [Back to Top](#table-of-contents)
-
-##### SCSS
-
-With the `index.html` file created, you can turn to the `index.scss` file. At minimum you need to style include the following:
-
-```scss
-
-@import "./Configs/Variables.scss";
-
-body {
-    @include htmlBodyBackground();
-}
-
-```
-
-As written above the resulting site will have a solid background. If instead you want to use a background image add the photo's url, i.e. `'https://www.sample.com/test/test.jpg'` as a parameter.
-
-```scss
-
-    @include htmlBodyBackground($fileName: 'https://www.sample.com/test/test.jpg');
-
-```
-
-```scss
-
-    @include htmlBodyBackground($gradient: 'linear-gradient(90deg, rgba(230,235,235,1) 0%, rgba(103,104,104,1) 15%, rgba(9,8,8,1) 50%, rgba(103,104,104,1) 85%, rgba(230,235,235,1) 100%)');
-
-```
-
-In order to build the gradient you can use the [CSS Gradient](https://cssgradient.io/) tool. Once you have designed the gradient you want, you can copy the resulting snippet of CSS and insert it into the `htmlBodyBackground` mixin as seen above.
-
-[Misc Content](#misc-content) : [Index Pages](#index-pages) : [Back to Top](#table-of-contents)
-
-#### Logo
-
-You will need two logo images, one for use on desktops and a second for use on mobile.
-
-##### Desktop Version:
-Add the main Logo for the site (saved as a png with a resolution of 260x105) to the assets folder with the name `Logo.png`. 
-
-##### Mobile Version:
-Add the mobile Logo for the site (saved as a png with a resolution of 130x105) to the assets folder with the name `LogoAlt.png`. 
-
-[Misc Content](#misc-content) : [Back to Top](#table-of-contents)
-
-#### Footer Config
-
-This section details the Configuration File used to build out the `Footer`.
-
-Create a `footer.json` file with the following structure.
-
-```JSON
-
-{
+  "siteUrl": "https://yoursite.com",
+  "dataBaseUrl": "https://your-cdn.example.com/data/",
+  "cacheAgeMs": 900000,
+  "cacheVersion": "v1",
+  "seo": {
+    "siteName": "My Gallery Site",
+    "defaultDescription": "A curated gallery of handcrafted work.",
+    "defaultImageUrl": "https://your-cdn.example.com/og-default.jpg",
+    "defaultImageAltText": "My Gallery Site"
+  },
+  "footer": {
     "fontColor": "secondary",
-    "copyrightInfo": {
-        "name": "{Crafter Name GOES HERE}",
-        "url": "{URL GOES HERE}",
-        "title": "{Title GOES HERE}"
+    "copyright": {
+      "name": "Your Name",
+      "url": "https://yoursite.com",
+      "title": "Visit my site"
     },
-    "siteDesignInfo": {
-        "display":true,
-        "name":"{Site Designer GOES HERE}",
-        "url": "{URL GOES HERE}",
-        "title": "{Title GOES HERE}"
+    "designer": {
+      "display": false,
+      "name": "",
+      "url": "",
+      "title": ""
     }
+  },
+  "errorPage": {
+    "heading": "An Error Occurred",
+    "message": "Please wait a few minutes and try again."
+  },
+  "galleryButtonLabels": {
+    "purchaseDirect": "Purchase",
+    "purchaseBot": "Request",
+    "sampleDirect": "Get Sample",
+    "sampleBot": "Ask for a Sample",
+    "useCaseDirect": "How to Use",
+    "useCaseBot": "Request a Use Case"
+  },
+  "homePage": { "slug": "home", "title": "Home", "dataFile": "page-home.json" },
+  "pages": [
+    { "slug": "about", "title": "About", "dataFile": "about.json" }
+  ]
 }
-
 ```
 
-- `fontColor`: (Required) `string` This field determines the footer's font color. There are only two valid options are `primary` and `secondary`. 
-- `copyrightInfo`: (Required) A complex object used to configure the copyright section of the footer.
-    - `name`: (Required) `string` This is the crafter's name.
-    - `url`: (Optional) `string` This is used a url for the crafter. If empty the name will NOT be a link.
-    - `title`: (Optional) `string` This is the title for the link. If the url is empty or null this will not be used. 
-- `siteDesignInfo`: (Required) A complex object to configure the site designer section of the footer.
-    - `display`: (Required) `bool` Determines if the site designer information will be displayed.
-    - `name`: (Required) `string` This is the site designer's name.
-    - `url`: (Optional) `string` This is used a url for the site designer. If empty the name will NOT be a link.
-    - `title`: (Optional) `string` This is the title for the link. If the url is empty or null this will not be used.
+**Field reference:**
 
-[Misc Content](#misc-content) : [Back to Top](#table-of-contents)
+| Field | Required | Description |
+|---|---|---|
+| `siteUrl` | Yes | Canonical base URL used for SEO and sitemap generation. |
+| `dataBaseUrl` | Yes | Base URL for all runtime data fetches. Must end with `/`. Can point to a CDN, S3 bucket, or `/data/` for local dev. |
+| `cacheAgeMs` | Yes | Milliseconds to cache each data file in session storage. Default: `900000` (15 min). |
+| `cacheVersion` | Yes | Increment this string to invalidate all cached data on next load (e.g., `"v1"` → `"v2"`). |
+| `seo.siteName` | Yes | Used in `<title>` and `og:site_name`. |
+| `seo.defaultDescription` | Yes | Fallback `<meta name="description">` and `og:description`. |
+| `seo.defaultImageUrl` | No | Fallback `og:image` used when no gallery image is available. |
+| `seo.defaultImageAltText` | No | Alt text for the default og:image. |
+| `footer.fontColor` | Yes | `"primary"` or `"secondary"` — maps to Bootstrap text utility classes. |
+| `footer.copyright.name` | Yes | Crafter's name shown in the copyright notice. |
+| `footer.copyright.url` | No | If set, the name becomes a link. |
+| `footer.designer.display` | Yes | Set `true` to show a "Site designed by…" line in the footer. |
+| `errorPage.heading` | Yes | Heading shown by the error boundary. |
+| `errorPage.message` | Yes | Body text shown by the error boundary. |
+| `galleryButtonLabels` | Yes | Default button labels for purchase, sample, and use-case actions. Overridable per gallery in `gallery-{slug}.json`. |
+| `homePage` | No | Controls what the root `/` shows. **If omitted, the gallery index is the home page** (the default). If set, the root `/` renders the specified informational page instead. See [Changing the Home Page](#changing-the-home-page). |
+| `pages` | Yes | Array of additional informational pages. Each entry creates a route at `/page/{slug}`. Can be an empty array `[]` if no informational pages are needed. |
 
-#### CSS Config
+---
 
-Since this project depends on SASS have a unified theme that is not committed to the repository, you will have to create `Variables.scss` file and configure it for [Color Palette](#color-palette), [Font Colors](#font-color), [Font Selection](#font-selection), and [Site Mixins](#site-mixins)
+### theme.css
 
-##### Color Palette
+**Location:** `src/theme.css`  
+**Gitignored:** yes — per-deployment, not committed.
 
-This section details the main color scheme of the website.
+Contains all design tokens as CSS custom properties under a single `:root` block. Six named presets are provided in `NewSiteSampleFiles/theme.css`. Only one preset is active at a time.
 
-```SCSS
+See the full [Theming](#theming) section for token reference and how to switch or create presets.
 
-// Color Palette
-$primaryColor: #ffffff;
-$altPrimaryColor: #f1fcff44;
-$secondaryColor: #6c757d;
-$secondaryColorDimmed: #6c757d80;
-$accentColor: #23e6ef;
-$accentColorDimmed: #23e6ef73;
-$navLinkColor: #6c757d;
-$altNavLinkColor: #50555a;
+---
 
-```
+### index.css
 
-- `$primaryColor`: This takes care of the background color for the `Card` Component
-- `$secondaryColor`: This takes care of the background color for the `body` element
-- `$secondaryColorDimmed`: This takes care of the background color of the thumbnail bar
-- `$accentColor`: This takes care of the Highlight Color, used for thin borders, the nav link's font pop, etc...
-- `$accentColorDimmed`: This takes care of the box shadow
-- `$navLinkColor`: This takes care of the background color for the nav links
-- `$altNavLinkColor`: This takes care of the hover color for the nav links
+**Location:** `src/index.css`  
+**Gitignored:** yes — per-deployment.
 
-[Misc Content](#misc-content) : [CSS Config](#css-config) : [Back to Top](#table-of-contents)
+Sets the body background and font from theme tokens, and ensures the mobile hamburger icon is visible against dark nav backgrounds. Copy from `NewSiteSampleFiles/index.css` — it rarely needs changes beyond the hamburger colour if you switch to a light theme.
 
-##### Font Color
-
-This details the color scheme for the font used throughout the site.
-
-```SCSS
-
-// Font Colors
-$navFontColor: #ffffff;
-$fontColor: #000000;
-$secondaryFontColor: #ffffff;
-$notFoundPrimaryColor: #40e6ef;
-$notFoundSecondaryColor: #243ebd;
-
-```
-
-- `$navFontColor`: This takes care of the primary font color for the nav links 
-- `$fontColor`: This takes care of the primary font color for text on the page
-- `$notFoundPrimaryColor`: The default link color on the not found page
-- `$notFoundSecondaryColor`: The hover link color on the not found page
-
-[Misc Content](#misc-content) : [CSS Config](#css-config) : [Back to Top](#table-of-contents)
-
-##### Font Selection
-
-This details the font family used throughout the site.
-
-```SCSS
-
-// Font Selection
-$headerFont: 'Shadows Into Light Two', cursive;
-$linkFont: 'Shadows Into Light Two', cursive;
-$defaultFont: 'Shadows Into Light Two', cursive;
-
-```
-
-- `$headerFont`: This takes care of the font family for the header
-- `$linkFont`: This takes care of the font family for the Links
-- `$defaultFont`: This takes care of the font family for the page
-
-[Misc Content](#misc-content) : [CSS Config](#css-config) : [Back to Top](#table-of-contents)
-
-##### Site Mixins
-
-This section contains all the mixins for the site. Currently there is only one used for the site background.
-
-```SCSS
-
-@mixin htmlBodyBackground ($fileName:"", $gradient:""){
-    font-family: $defaultFont;
-    margin: 0;
-
-    @if $fileName == "" and $gradient == "" {
-        background-color: $secondaryColor;
-    }
-    @else if $fileName != "" and $gradient == "" {
-        background-image: url(#{$fileName});
-        background-size: cover;
-        background-position: center;
-    }
-    @else {
-        background: #{$gradient};
-    }
+```css
+body {
+  font-family: var(--body-font);
+  background-color: var(--body-bg);
+  color: var(--font-color);
+  margin: 0;
 }
-
 ```
-[Misc Content](#misc-content) : [CSS Config](#css-config) : [Back to Top](#table-of-contents)
 
-### SEO Configuration
+If the hamburger icon is invisible on a light navbar, uncomment the `.navbar-toggler-icon` override block in the sample file and adjust the stroke colour to match.
 
-This section details the Data File structure used to build out the system's SEO meta tags.
+---
 
-The images held within the galleries will have their SEO data built from the data files powering the given gallery. However, for best results all pages should have certain elements in the `<head>` section of the page.
+### navigation.json
 
-So, for those static pages you will need a `seo-config.json` file. You will need one entry for each static page to be served. 
+**Location:** `content/data/navigation.json`  
+**Fetched at:** runtime by the Header component.
 
-```JSON
+Drives the navbar. The `Galleries` dropdown (when 2 or more galleries exist) is built automatically at runtime from `galleries.json` — you do **not** add gallery child links here manually; leave `childLinks` as an empty array `[]` on the Galleries nav link and the app populates it.
 
+```json
 {
-    "site": "{Site name GOES Here}",
-    "pageSettings": [
+  "logoAltText": "My Gallery Site",
+  "backgroundColor": "altPrimary",
+  "togglerUsesPrimaryColor": false,
+  "links": [
+    {
+      "url": "/",
+      "order": 1,
+      "name": "Galleries",
+      "title": "View all galleries",
+      "active": true,
+      "internalLink": true,
+      "social": false,
+      "icon": "",
+      "childLinks": []
+    },
+    {
+      "url": "/page/about",
+      "order": 2,
+      "name": "About",
+      "title": "About our studio",
+      "active": true,
+      "internalLink": true,
+      "social": false,
+      "icon": "",
+      "childLinks": []
+    },
+    {
+      "url": "https://www.instagram.com/yourhandle",
+      "order": 3,
+      "name": "Instagram",
+      "title": "Follow on Instagram",
+      "active": true,
+      "internalLink": false,
+      "social": true,
+      "icon": "fa-brands fa-instagram",
+      "childLinks": []
+    }
+  ]
+}
+```
+
+**Field reference:**
+
+| Field | Required | Description |
+|---|---|---|
+| `logoAltText` | Yes | Alt text for the site logo. |
+| `backgroundColor` | Yes | Navbar background. `"primary"` = `--primary-color`, `"altPrimary"` = `--alt-primary-color`, `"none"` = transparent. |
+| `togglerUsesPrimaryColor` | Yes | If `true`, the mobile hamburger button uses the primary color background. |
+| `links[].url` | Yes | Route path (internal) or full URL (external/social). |
+| `links[].order` | Yes | Sort order in the navbar. |
+| `links[].name` | Yes | Display text. Hidden for social icon links (screen-reader only). |
+| `links[].title` | Yes | HTML `title` attribute for the link. |
+| `links[].active` | Yes | Set `false` to hide the link without deleting it. |
+| `links[].internalLink` | Yes | `true` = React Router `<Link>`, `false` = `<a target="_blank">`. |
+| `links[].social` | Yes | `true` renders the `icon` instead of `name`, used for social media links. |
+| `links[].icon` | No | Font Awesome class string for social links (e.g., `"fa-brands fa-instagram"`). |
+| `links[].childLinks` | No | Array of the same link object shape. Creates a static dropdown for that nav item. **For the Galleries nav link, always leave this as `[]`** — the app automatically populates it from `galleries.json` at runtime (showing individual galleries when there are 2 or more, or a plain link when there is only one). Use `childLinks` only when you need a hand-authored dropdown for a non-gallery nav item. |
+
+---
+
+### galleries.json
+
+**Location:** `content/data/galleries.json`  
+**Fetched at:** runtime by GalleryIndex and Header.
+
+The gallery manifest. Lists every gallery on the site. When 2 or more galleries are present, the nav automatically renders a dropdown listing them.
+
+```json
+{
+  "title": "My Galleries",
+  "galleries": [
+    {
+      "slug": "spring-2025",
+      "title": "Spring 2025",
+      "coverImage": "https://your-cdn.example.com/images/spring-2025/cover.jpg",
+      "description": "A beautiful selection from spring 2025."
+    },
+    {
+      "slug": "market",
+      "title": "Market Collection",
+      "coverImage": "https://your-cdn.example.com/images/market/cover.jpg",
+      "description": "Pieces from the summer market series."
+    }
+  ]
+}
+```
+
+| Field | Required | Description |
+|---|---|---|
+| `title` | Yes | Heading shown on the gallery index page. |
+| `galleries[].slug` | Yes | URL-safe identifier. Used in the route (`/gallery/{slug}`) and to locate the data file (`gallery-{slug}.json`). |
+| `galleries[].title` | Yes | Display name shown on the gallery index card and in the nav dropdown. |
+| `galleries[].coverImage` | No | Image URL shown on the gallery index card. Can be external (CDN, Picsum, etc.). |
+| `galleries[].description` | No | Short description shown on the gallery index card. |
+
+---
+
+### gallery-{slug}.json
+
+**Location:** `content/data/gallery-{slug}.json`  
+**Fetched at:** runtime when a user navigates to `/gallery/{slug}`.
+
+One file per gallery. Each item becomes a carousel slide with its own shareable URL (`/gallery/{slug}/{image-title-slug}`). The title is slugified automatically (lowercased, spaces replaced with hyphens).
+
+```json
+{
+  "title": "Spring 2025",
+  "baseUrl": "https://your-cdn.example.com/images/spring-2025/",
+  "sliderButtonLocations": "bottom",
+  "labelOverrides": {
+    "purchaseDirect": "Buy on Etsy",
+    "purchaseBot": "Request This Piece"
+  },
+  "items": [
+    {
+      "fileName": "piece-001.jpg",
+      "imageUrl": "",
+      "lightboxUrl": "https://www.deviantart.com/your-page/art/piece-001",
+      "title": "Spring Bloom",
+      "altText": "Watercolor painting of spring flowers in pink and yellow",
+      "landscape": false,
+      "description": [
         {
-            "page": "home",
-            "title": "{Title GOES HERE}",
-            "description": "{Description GOES HERE}",
-            "imageUrl": "{Image URL GOES HERE}",
-            "imageAltText": "{Image AltText GOES HERE}",
-            "errorPage": false
-        },
-        {
-            "page": "notFound",
-            "title": "{Title GOES HERE}",
-            "description": "{Description GOES HERE}",
-            "imageUrl": "{Image URL GOES HERE}",
-            "imageAltText": "{Image AltText GOES HERE}",
-            "errorPage": false
+          "display": true,
+          "header": false,
+          "emphasis": false,
+          "text": "Hand-painted watercolor on 300gsm cold-press paper.",
+          "alignment": "center"
         }
-    ]
+      ],
+      "actions": {
+        "purchase": { "storeUrl": "https://www.etsy.com/your-shop/listing/12345" },
+        "sample": { "botEndpoint": "mailto:you@example.com?subject=Sample+Request" },
+        "useCase": { "fileUrl": "https://your-cdn.example.com/docs/spring-bloom-how-to.pdf" }
+      }
+    }
+  ]
 }
-
 ```
 
-- `site`: (Required) This is used to set the Open Graph site name meta tag.
-- `pageSettings`: (Required) This is an array of complex objects that will configure the meta tags for static pages in the site.
-    - `page`: (Required) `string` This is the page that uses the rest of the values.
-    - `title`: (Required) `string` This is used to set the page's title and Open Graph title meta tags.  
-    - `description`: (Required) `string` This is used to set the page's description meta tag.
-    - `imageUrl`: (Required) `string` This is used to set the image, Open Graph image and secure image, and the Twitter image meta tags.
-    - `imageAltText`: (Required) `string` This is used to set the twitter alternate text meta tag. 
-    - `errorPage`: (Required) `boolean` This tells the system if the page requires additional error information.
+**Top-level fields:**
 
-[Back to Top](#table-of-contents)
+| Field | Required | Description |
+|---|---|---|
+| `title` | Yes | Gallery heading displayed above the carousel. |
+| `baseUrl` | Yes | Base URL prepended to `fileName` to build the image URL. Can be empty if using `imageUrl` on every item. |
+| `sliderButtonLocations` | Yes | Where to show mobile slider buttons: `"top"`, `"bottom"`, or `"both"`. |
+| `labelOverrides` | No | Override any `galleryButtonLabels` from `site.config.json` for this gallery only. |
 
-### Google Analytics
+**Item fields:**
 
-In order to connect the website to Google Analytics, you must first create the site's `index.html` file. After that you will need to create or log into a Google analytics account. Once there you will have to create the new property. Copy the `Global site tag` section from  the `Tagging Instructions` heading and paste it into the `<head>` section of the new site's `index.html` file.
+| Field | Required | Description |
+|---|---|---|
+| `fileName` | Yes | Image filename. Combined with `baseUrl` to build the URL unless `imageUrl` is set. |
+| `title` | **Yes** | Image title shown in the caption and used to build the shareable URL slug. The app throws a startup error if any item is missing this field. |
+| `altText` | Yes | Accessible alt text for the image. |
+| `landscape` | Yes | `true` if the image is wider than it is tall. Adjusts the CSS aspect-ratio class. |
+| `imageUrl` | No | Full URL for the image. Overrides `baseUrl + fileName`. Use for external sources (DeviantArt, Picsum, etc.). |
+| `lightboxUrl` | No | URL shown as a "View Original" link inside the lightbox. |
+| `description` | No | Array of paragraph objects shown below the carousel. |
+| `description[].display` | Yes | Whether to render this paragraph. |
+| `description[].header` | Yes | Renders as a `<strong>` block if `true`. |
+| `description[].emphasis` | Yes | Renders in italics if `true`. |
+| `description[].text` | Yes | Paragraph content. Supports basic HTML. |
+| `description[].alignment` | Yes | `"left"`, `"center"`, or `"right"`. |
+| `actions` | No | Action buttons shown below the carousel. Omit the whole object or individual slots to hide buttons. |
+| `actions.purchase` | No | Purchase button. Uses `purchaseDirect` label if `storeUrl` is set, `purchaseBot` label if `botEndpoint` is set. |
+| `actions.sample` | No | Sample button. Uses `sampleDirect` or `sampleBot` label. |
+| `actions.useCase` | No | Use-case button. Uses `useCaseDirect` or `useCaseBot` label. |
+| `actions.*.storeUrl` | No | Opens this URL directly in a new tab. Takes priority over `botEndpoint`. |
+| `actions.*.fileUrl` | No | Opens this file URL directly in a new tab. Takes priority over `botEndpoint`. |
+| `actions.*.botEndpoint` | No | Fallback URL (mailto, form, chatbot endpoint) when no direct URL is set. |
 
-[Back to Top](#table-of-contents)
+---
 
-### Error Handling
+### page-{slug}.json
 
-This section details the Configuration File used to handle errors for the system.
+**Location:** `content/data/page-{slug}.json`  
+**Fetched at:** runtime when a user navigates to `/page/{slug}` or `/` (if `homePage` is configured).
 
-```JSON
+Drives informational pages (Home, About, etc.). Each page is a grid of rows and columns containing `info` (text) or `image` components.
 
+```json
 {
-    "mainHeader": "An Error Occurred:",
-    "secondaryHeader": "While rendering",
-    "message": "Please wait a few minutes and try again. However, if you continue receiving this error, please contact support."
+  "name": "about",
+  "header": "About Me",
+  "layout": {
+    "rows": [
+      { "order": 1, "numberOfColumns": 1 },
+      { "order": 2, "numberOfColumns": 2 }
+    ]
+  },
+  "components": [
+    {
+      "active": true,
+      "row": 1,
+      "order": 1,
+      "columnPosition": "left",
+      "componentType": "info",
+      "paragraphs": [
+        {
+          "display": true,
+          "header": false,
+          "emphasis": false,
+          "text": "Welcome to my studio.",
+          "alignment": "center"
+        }
+      ]
+    },
+    {
+      "active": true,
+      "row": 2,
+      "order": 1,
+      "columnPosition": "left",
+      "componentType": "image",
+      "imageFiles": [
+        {
+          "htmlTitle": "Studio Shot",
+          "htmlAltText": "My studio workspace",
+          "fileName": "studio.jpg",
+          "imageUrl": "https://your-cdn.example.com/images/studio.jpg",
+          "landscape": true,
+          "description": null
+        }
+      ],
+      "imageSlider": {
+        "auto": false,
+        "timer": 0,
+        "arrowIcons": "fas fa-chevron-circle",
+        "size": "100%"
+      }
+    }
+  ]
 }
-
 ```
 
-- `mainHeader`: (Required) `string` This is used to set the header for the error page.
-- `secondaryHeader`: (Required) `string` This is used to detail the root of the error.
-- `message`: (Required) `string` This is used to display an error message to the user.
+**Field reference:**
 
-[Back to Top](#table-of-contents)
+| Field | Required | Description |
+|---|---|---|
+| `name` | Yes | Internal identifier for the page. |
+| `header` | Yes | `<h1>` shown at the top of the page. Leave empty string for no heading. |
+| `layout.rows[].order` | Yes | Sort key for the row. |
+| `layout.rows[].numberOfColumns` | Yes | Number of Bootstrap columns in this row (1–3). |
+| `components[].active` | Yes | `false` hides this component without deleting it. |
+| `components[].row` | Yes | Which row (by `order`) this component belongs to. |
+| `components[].order` | Yes | Position within the row. |
+| `components[].columnPosition` | Yes | `"left"`, `"center"`, or `"right"`. |
+| `components[].componentType` | Yes | `"info"` for a text block, `"image"` for an image or image slider. |
+| `paragraphs` | No | Used with `componentType: "info"`. Array of paragraph objects (same structure as gallery item `description`). |
+| `imageFiles` | No | Used with `componentType: "image"`. Array of image objects. More than one image triggers the slider. |
+| `imageFiles[].htmlTitle` | Yes | Image title (used for SEO when `setHelmetInfo` is active). |
+| `imageFiles[].htmlAltText` | Yes | Accessible alt text. |
+| `imageFiles[].fileName` | Yes | File name. Combined with `imageUrl` or CDN base to build the source. |
+| `imageFiles[].imageUrl` | No | Full image URL. Overrides the fileName-based URL. |
+| `imageFiles[].landscape` | No | Adjusts display for wide images. |
+| `imageSlider` | No | Configures the slider when `imageFiles` contains multiple images. |
+| `imageSlider.auto` | Yes | `true` to auto-advance slides. |
+| `imageSlider.timer` | Yes | Auto-advance interval in milliseconds (e.g., `5000` for 5 sec). Ignored if `auto` is `false`. |
+| `imageSlider.arrowIcons` | No | Font Awesome icon class prefix for the slider arrows (e.g., `"fas fa-chevron-circle"`). |
+| `imageSlider.size` | No | CSS width value for the rendered image (e.g., `"70%"`, `"100%"`). |
+
+---
+
+## Logos
+
+Two logo files are required in `src/assets/`:
+
+| File | Usage | Recommended size |
+|---|---|---|
+| `Logo.png` | Desktop navbar | 260 × 105 px |
+| `LogoAlt.png` | Mobile navbar (collapsed) | 130 × 105 px |
+
+Both should be PNGs with a transparent background so they work across all theme colour schemes. The Navbar component automatically switches between them at the Bootstrap `lg` breakpoint (992 px).
+
+---
+
+## Changing the Home Page
+
+By default, the root URL (`/`) shows the **gallery index** — a card grid of all galleries listed in `galleries.json`. This is the right choice for most crafters whose primary content is their galleries.
+
+If a client needs an informational landing page at `/` instead (a welcome message, a bio, an intro image, etc.), set the `homePage` field in `src/ConfigFiles/site.config.json`:
+
+```json
+"homePage": { "slug": "home", "title": "Home", "dataFile": "page-home.json" }
+```
+
+Then create the corresponding data file at `content/data/page-home.json` (see [page-{slug}.json](#page-slugjson) for the format).
+
+When `homePage` is set:
+- `/` renders the informational page from `page-home.json`
+- The gallery index moves to `/galleries` (linked from the navbar Galleries item)
+- The nav link for Galleries should point to `/galleries` rather than `/`
+
+When `homePage` is **not set** (the default):
+- `/` is the gallery index
+- The nav Galleries link should point to `/`
+- No `page-home.json` is needed
+
+---
+
+## Adding a New Gallery
+
+1. Create `content/data/gallery-{slug}.json` with the gallery's items (see [gallery-{slug}.json](#gallery-slugjson)).
+2. Add an entry to `content/data/galleries.json` pointing to the new slug.
+3. Upload the gallery images to your CDN/S3 bucket.
+4. If you now have 2 or more galleries, the nav dropdown appears automatically — no changes to `navigation.json` needed.
+5. Run `npm run build` to regenerate the sitemap and prerender all image routes.
+
+---
+
+## Adding a New Page
+
+1. Create `content/data/page-{slug}.json` (see [page-{slug}.json](#page-slugjson)).
+2. Add an entry to `pages` in `src/ConfigFiles/site.config.json`:
+   ```json
+   { "slug": "contact", "title": "Contact", "dataFile": "page-contact.json" }
+   ```
+3. Add a nav link to `content/data/navigation.json` with `"url": "/page/contact"`.
+4. Increment `cacheVersion` in `site.config.json` to bust cached navigation data on the next visit.
+
+---
+
+## Theming
+
+All design tokens live in `src/theme.css`. Six named presets are included in `NewSiteSampleFiles/theme.css`:
+
+| Preset | Description |
+|---|---|
+| Purple | Cool purple accent, light backgrounds |
+| Warm Rose | Warm pink and rose tones |
+| Forest Teal | Natural greens and teals |
+| **Dark Studio** | High-contrast dark mode *(default)* |
+| Monochrome | Greyscale with a black accent |
+
+### Switching Presets
+
+Open `src/theme.css`. The active preset has an uncommented `:root { ... }` block. Inactive presets are wrapped in `/* ... */`. To switch:
+
+1. Wrap the current active block in `/* ... */`.
+2. Unwrap the desired preset by removing its surrounding `/* ... */`.
+
+### Customisable Tokens
+
+| Token | Controls |
+|---|---|
+| `--body-bg` | Page background |
+| `--primary-color` | Card background |
+| `--alt-primary-color` | Secondary card background |
+| `--accent-color` | Highlight colour — borders, button outlines, active states |
+| `--accent-color-dimmed` | Box shadows |
+| `--nav-bg` / `--nav-bg-hover` | Navbar link background / hover |
+| `--nav-font-color` | Navbar link text colour |
+| `--font-color` | Body text |
+| `--secondary-font-color` | Muted / secondary text |
+| `--body-font` / `--header-font` / `--link-font` | Font families (any Google Font or system stack) |
+| `--carousel-bg` / `--carousel-radius` / `--carousel-shadow` | Carousel panel |
+| `--arrow-size` / `--arrow-bg` / `--arrow-color` | Navigation arrow buttons |
+| `--thumb-size` / `--thumb-gap` / `--thumb-ring` / `--thumb-ring-width` | Thumbnail strip |
+| `--lightbox-bg` | Lightbox overlay background |
+| `--lightbox-close-bg` / `--lightbox-close-color` | Lightbox close button |
+| `--lightbox-btn-bg` / `--lightbox-btn-color` / `--lightbox-btn-radius` | Lightbox action button |
+| `--counter-color` / `--counter-font-size` | Image counter and Share button |
+| `--caption-color` / `--caption-font-size` | Image title below the carousel |
+| `--desc-color` / `--desc-font-size` | Description paragraph text |
+| `--nav-mobile-dropdown-mx` | Mobile dropdown inset: `0rem` = full-bleed edge to edge, `1rem` = inset |
+
+### Creating a Custom Theme
+
+Copy any existing preset block, give it a new comment header, activate it, and adjust the token values. No code changes required — all components consume the tokens via `var(--token-name)`.
+
+---
+
+## Google Analytics
+
+1. Create or log into [Google Analytics](https://analytics.google.com) and create a new property for the site.
+2. Copy the **Global Site Tag (gtag.js)** snippet from the property's Tagging Instructions.
+3. Paste it into the `<head>` section of `index.html` at the project root (this file is committed — it is not gitignored).
+
+```html
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script>
+```
+
+4. Run `npm run build` so the tag is compiled into the bundle.
+
+---
 
 ## Available Scripts
 
-In the project directory, you can run:
+```bash
+npm run dev           # Start local dev server at http://localhost:3000
+npm run build         # Full production build (see below)
+npm run preview       # Serve the build/ folder locally to verify before deploying
+npm run setup-client  # Interactive wizard to scaffold a new client's config files
+```
 
-### Start
+### `npm run build` — four steps in sequence
 
-`npm start`
+1. **`generate-sitemap.js`** — reads `galleries.json` and `site.config.json`, then writes `content/sitemap.xml` and `content/robots.txt`.
+2. **`tsc`** — TypeScript type-check. Fails the entire build on any type error.
+3. **`vite build`** — bundles and minifies the app into `build/`.
+4. **`prerender.js`** — uses Playwright to visit every route (root, each gallery, each gallery image, each page) and writes a static HTML file per route into `build/`. Each HTML file contains the correct `<title>` and `og:*` meta tags so social share previews work without a server.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Deployment
 
-### Test
+### S3 Bucket Layout
 
-`npm test`
+All content lives in a single S3 bucket. The structure after a full deploy looks like this:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+s3://your-bucket/
+├── index.html                          ← root entry point (from build/)
+├── assets/                             ← JS/CSS bundles (from build/assets/)
+├── gallery/                            ← prerendered HTML per image route (from build/)
+│   └── spring-2025/
+│       ├── index.html                  ← /gallery/spring-2025
+│       └── mountain-vista/
+│           └── index.html             ← /gallery/spring-2025/mountain-vista
+├── page/                               ← prerendered HTML per page route (from build/)
+│   └── about/
+│       └── index.html
+├── data/                               ← JSON data files (from content/data/)
+│   ├── galleries.json
+│   ├── gallery-spring-2025.json
+│   └── navigation.json
+├── favicon.png                         ← from content/
+├── robots.txt
+├── sitemap.xml
+└── images/                             ← gallery images, uploaded separately
+    └── spring-2025/
+        ├── cover.jpg
+        ├── piece-001.jpg
+        └── piece-002.jpg
+```
 
-### Run Build
+Images are uploaded to S3 separately from the build — they are not part of the repository or the `content/` folder. Upload them directly to the bucket with your S3 client or the AWS CLI:
 
-`npm run build`
+```bash
+aws s3 sync ./my-local-photos/spring-2025 s3://your-bucket/images/spring-2025/
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Set `baseUrl` in the corresponding `gallery-spring-2025.json` to point at the bucket (directly or via CloudFront):
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```json
+"baseUrl": "https://cdn.yoursite.com/images/spring-2025/"
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+> **Important — avoid path collisions:** images must live under a prefix that does **not** start with `/gallery/`. The prerendered HTML files already occupy paths like `/gallery/spring-2025/mountain-vista/`. If an image were stored at `/gallery/spring-2025/piece-001.jpg`, CloudFront would serve the raw image file at that path instead of routing the request through the React app. Using `/images/` as the prefix keeps images and app routes in separate namespaces.
 
-### Run Eject
+### Deploy Steps
 
-`npm run eject`
+1. Run `npm run build`.
+2. Upload the contents of `build/` to the root of your S3 bucket.
+3. Upload the contents of `content/` to the same bucket — or a separate CDN bucket if `dataBaseUrl` in `site.config.json` points elsewhere.
+4. Upload gallery images to `s3://your-bucket/images/{gallery-slug}/` (or your chosen image prefix).
+5. Configure CloudFront to serve the correct prerendered `index.html` for each path rather than always falling back to the root `index.html`. This ensures social crawlers receive the right `og:title` and `og:image` for gallery image deep-links.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Cache busting
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+To force all visitors to re-fetch data files after a content update, increment `cacheVersion` in `site.config.json` (e.g., `"v1"` → `"v2"`) and rebuild.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Contributing
 
-[Back to Top](#table-of-contents)
+This project is open source under the [MIT License](LICENSE), maintained by [steven-meehan](https://github.com/steven-meehan).
 
-## Learn More
+**To contribute:**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1. Clone the repository and create a feature branch: `git checkout -b feature/your-feature-name`.
+2. Follow the [Setting Up a New Client](#setting-up-a-new-client) steps to get a working local environment (the client-specific files are gitignored and must be created from the sample templates).
+3. Make your changes. Run `npx tsc --noEmit` to confirm TypeScript is clean before committing.
+4. Open a pull request against `master` with a clear description of what changed and why.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+**Please do not** commit client-specific files (`content/`, `src/assets/`, `src/ConfigFiles/*.json`, `src/theme.css`, `src/index.css`) — these are gitignored for a reason. Sample templates belong in `NewSiteSampleFiles/`.
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### Build fails to minify
-
-If `npm run build` fails to minify, you should check out this section: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
-[Back to Top](#table-of-contents)
+Bug reports and feature requests are welcome via [GitHub Issues](https://github.com/steven-meehan/crafter-gallery-site/issues).

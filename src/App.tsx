@@ -1,20 +1,83 @@
-import React, { Fragment } from 'react'
+import { Suspense, lazy } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
-import Main from './Routing/Main/Main';
 import Header from './Header/Header/Header';
 import Footer from './Footer/Footer';
+import Spinner from './Spinner/Spinner';
+import GalleryIndex from './Galleries/GalleryIndex/GalleryIndex';
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 
-import data from './ConfigFiles/footer.json';
+import siteConfigRaw from './ConfigFiles/site.config.json';
+import type { SiteConfig } from './config/SiteConfig';
+import { validateSiteConfig } from './config/validateSiteConfig';
+import { purgeStaleCache } from './UseHttp/useHttp';
+
+validateSiteConfig(siteConfigRaw);
+const siteConfig: SiteConfig = siteConfigRaw;
+
+purgeStaleCache(siteConfig.cacheVersion);
+
+const GalleryView = lazy(() => import('./Galleries/GalleryView/GalleryView'));
+const Page = lazy(() => import('./Page/Page'));
+
+function NotFoundPage() {
+  return (
+    <>
+      <Helmet>
+        <meta name="robots" content="noindex" />
+      </Helmet>
+      <div className="text-center my-5">
+        <h2>Page Not Found</h2>
+        <p>The page you are looking for does not exist.</p>
+        <a href="/" className="btn btn-primary">Back to Galleries</a>
+      </div>
+    </>
+  );
+}
 
 function App() {
   return (
-    <Fragment>
+    <>
       <Header />
-      <Main 
-        contentClasses={`container`} />
-      <Footer
-        fontColor={data.fontColor!} />
-    </Fragment>
+      <main>
+        <div className="container my-4">
+          <ErrorBoundary>
+            <Suspense fallback={<Spinner />}>
+              <Routes>
+                <Route
+                  path="/"
+                  element={
+                    siteConfig.homePage
+                      ? <Page
+                          seoPageConfig={siteConfig.homePage.slug}
+                          dataFileUrl={`${siteConfig.dataBaseUrl}${siteConfig.homePage.dataFile}`}
+                        />
+                      : <GalleryIndex />
+                  }
+                />
+                <Route path="/gallery/:slug/:imageSlug?" element={<GalleryView />} />
+                {siteConfig.pages.map(p => (
+                  <Route
+                    key={p.slug}
+                    path={`/page/${p.slug}`}
+                    element={
+                      <Page
+                        seoPageConfig={p.slug}
+                        dataFileUrl={`${siteConfig.dataBaseUrl}${p.dataFile}`}
+                      />
+                    }
+                  />
+                ))}
+                <Route path="/not-found" element={<NotFoundPage />} />
+                <Route path="*" element={<Navigate replace to="/not-found" />} />
+              </Routes>
+            </Suspense>
+          </ErrorBoundary>
+        </div>
+      </main>
+      <Footer />
+    </>
   );
 }
 

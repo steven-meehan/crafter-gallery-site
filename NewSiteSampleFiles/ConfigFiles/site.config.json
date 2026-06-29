@@ -1,0 +1,33 @@
+{
+  "siteUrl": "https://yoursite.com",
+  "dataBaseUrl": "https://your-cdn.example.com/data/",
+  "cacheAgeMs": 900000,
+  "cacheVersion": "v1",
+  "seo": {
+    "siteName": "My Gallery Site",
+    "defaultDescription": "A curated gallery of my work.",
+    "defaultImageUrl": "",
+    "defaultImageAltText": ""
+  },
+  "footer": {
+    "fontColor": "secondary",
+    "copyright": { "name": "Your Name", "url": "https://yoursite.com", "title": "Visit my site" },
+    "designer": { "display": false, "name": "", "url": "", "title": "" }
+  },
+  "errorPage": {
+    "heading": "An Error Occurred",
+    "message": "Please wait a few minutes and try again."
+  },
+  "galleryButtonLabels": {
+    "purchaseDirect": "Purchase",
+    "purchaseBot": "Request",
+    "sampleDirect": "Get Sample",
+    "sampleBot": "Ask for a Sample",
+    "useCaseDirect": "How to Use",
+    "useCaseBot": "Request a Use Case"
+  },
+  "homePage": { "slug": "home", "title": "Home", "dataFile": "page-home.json" },
+  "pages": [
+    { "slug": "about", "title": "About", "dataFile": "about.json" }
+  ]
+}
