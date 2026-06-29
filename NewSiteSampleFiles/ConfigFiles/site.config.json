@@ -28,7 +28,6 @@
   },
   "homePage": { "slug": "home", "title": "Home", "dataFile": "page-home.json" },
   "pages": [
-    { "slug": "about", "title": "About", "dataFile": "about.json" },
-    { "slug": "timeline", "title": "Fulfillment Calculator", "dataFile": "calculator-lead-time.json", "type": "calculator" }
+    { "slug": "about", "title": "About", "dataFile": "about.json" }
   ]
 }

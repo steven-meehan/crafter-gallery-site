@@ -26,7 +26,7 @@ Licensed under the [MIT License](LICENSE). Maintained by [steven-meehan](https:/
   - [page-{slug}.json](#page-slugjson)
 - [Logos](#logos)
 - [Changing the Home Page](#changing-the-home-page)
-- [Fulfillment Calculator](#fulfillment-calculator)
+- [Fulfillment Calculator *(optional)*](#fulfillment-calculator-optional-feature)
 - [Adding a New Gallery](#adding-a-new-gallery)
 - [Adding a New Page](#adding-a-new-page)
 - [Theming](#theming)
@@ -624,9 +624,9 @@ When `homePage` is **not set** (the default):
 
 ---
 
-## Fulfillment Calculator
+## Fulfillment Calculator *(optional feature)*
 
-The fulfillment calculator is a standalone interactive widget that lets a visitor enter a deadline date, select a product type, and instantly see whether fulfillment is realistic for their timeline. It is entirely data-driven — deploying it for a new client requires no code changes.
+The fulfillment calculator is an optional widget — it is not included in a standard client setup and should only be added when the client specifically needs it. When enabled, it lets a visitor enter a deadline date, select a product type, and instantly see whether fulfillment is realistic for their timeline. It is entirely data-driven — enabling it for a client requires no code changes.
 
 ### How it works
 
