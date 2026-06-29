@@ -36,7 +36,5 @@ yarn-error.log*
 
 # Un-ignore CSS source files that belong in the repo
 !src/**/*.module.css
-!src/theme.css
-!src/App.css
 !NewSiteSampleFiles/theme.css
 !NewSiteSampleFiles/index.css
