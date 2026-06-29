@@ -42,4 +42,5 @@ export interface SiteConfig {
   galleryButtonLabels: GalleryButtonLabels;
   homePage?: StaticPageEntry;
   pages: StaticPageEntry[];
+  calculators?: StaticPageEntry[];
 }

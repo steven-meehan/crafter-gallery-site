@@ -2,6 +2,16 @@
 
 ## vNext
 
+### Lead Time Calculator
+- New generic `LeadTimeCalculator` component — a standalone interactive widget that lets visitors enter a deadline date and select a product type, then instantly receive a tiered verdict (clear / clear with note / tight / too tight) based on configurable shipping windows and a build buffer
+- All copy, product types, shipping windows, build buffer, verdict text, and CTA links are driven by a `calculator-{slug}.json` data file — no code changes required to deploy for a new client
+- Verdict headline and detail support `{days}`, `{productLabel}`, `{minDays}`, `{maxDays}` interpolation tokens
+- Registered via `calculators` array in `site.config.json`; each entry creates a route at `/calculator/{slug}`
+- Mountain mark SVG doubles as a watermark inside the verdict panel
+- All design tokens exposed as `--lead-calc-*` CSS custom properties, falling back to site theme tokens; fully overridable per client in `theme.css`
+- Page is marked `noindex` — it is a conversion tool, not an SEO target
+- Sample data file added to `NewSiteSampleFiles/public/data/calculator-lead-time.json`
+
 ## 2.0.1
 ### Bug Fixes
 - Fixed broken CSS module import in `ImageProcessor.tsx` — path referenced `SiteImage.module.css` via a redundant `../Images/` prefix; replaced with Bootstrap utility classes (`d-flex justify-content-center`) and removed the import entirely

@@ -1,0 +1,85 @@
+{
+  "eyebrow": "Your Studio Name",
+  "headline": "Will it arrive in time?",
+  "subtext": "Tell me your install or reveal date. I'll tell you exactly what's realistic — no guesswork.",
+  "footnote": "Add any trust or guarantee copy here — e.g. catalog size, build promise, etc.",
+  "dateLabel": "Reveal / install date",
+  "productLabel": "Piece you're considering",
+  "buttonText": "Check my timeline",
+  "buildBufferDays": 5,
+  "productTypes": [
+    {
+      "id": "option-a",
+      "label": "Option A",
+      "shippingLabel": "4–8 days",
+      "minDays": 4,
+      "maxDays": 8
+    },
+    {
+      "id": "option-b",
+      "label": "Option B",
+      "shippingLabel": "4–8 days",
+      "minDays": 4,
+      "maxDays": 8
+    },
+    {
+      "id": "option-c",
+      "label": "Option C",
+      "shippingLabel": "9–11 days",
+      "minDays": 9,
+      "maxDays": 11
+    }
+  ],
+  "verdicts": {
+    "noDate": {
+      "variant": "tight",
+      "label": "One thing first",
+      "headline": "Pick your date above.",
+      "detail": "I need a date to do the math — pop it in and I'll check it instantly.",
+      "showCta": false
+    },
+    "past": {
+      "variant": "tight",
+      "label": "Date has passed",
+      "headline": "That date's already behind us.",
+      "detail": "Double check the date — or if plans shifted, run it again with the new one.",
+      "showCta": false
+    },
+    "clear": {
+      "variant": "good",
+      "label": "You're clear",
+      "headline": "You have {days} days. That's plenty of room.",
+      "detail": "Even if your piece isn't available yet, we can have it ready and shipped in time — <strong>guaranteed.</strong>",
+      "showCta": true,
+      "ctaText": "Browse the gallery →",
+      "ctaUrl": "/gallery"
+    },
+    "clearWithNote": {
+      "variant": "good",
+      "label": "You're clear, with one note",
+      "headline": "{days} days is enough — if your piece is already available.",
+      "detail": "If it's in the catalog, it'll ship in <strong>{minDays}–{maxDays} days</strong>, no problem. If it needs to be made to order, reach out first to confirm.",
+      "showCta": true,
+      "ctaText": "Browse the gallery →",
+      "ctaUrl": "/gallery"
+    },
+    "tight": {
+      "variant": "tight",
+      "label": "It's tight, but not over",
+      "headline": "{days} days is close. Available pieces can still make it.",
+      "detail": "Stick to what's already in the catalog — skip anything that needs to be made to order for this deadline.",
+      "showCta": true,
+      "ctaText": "See what's available now →",
+      "ctaUrl": "/gallery"
+    },
+    "tooTight": {
+      "variant": "tight",
+      "label": "Talk to us first",
+      "headline": "{days} days is very tight.",
+      "detail": "This may still be possible depending on current stock. Reach out directly with your date and we'll tell you straight whether it's realistic before you commit.",
+      "showCta": true,
+      "ctaText": "Get in touch →",
+      "ctaUrl": "/page/contact"
+    }
+  }
+}

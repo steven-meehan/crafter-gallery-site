@@ -26,6 +26,7 @@ Licensed under the [MIT License](LICENSE). Maintained by [steven-meehan](https:/
   - [page-{slug}.json](#page-slugjson)
 - [Logos](#logos)
 - [Changing the Home Page](#changing-the-home-page)
+- [Lead Time Calculator](#lead-time-calculator)
 - [Adding a New Gallery](#adding-a-new-gallery)
 - [Adding a New Page](#adding-a-new-page)
 - [Theming](#theming)
@@ -620,6 +621,86 @@ When `homePage` is **not set** (the default):
 3. Upload the gallery images to your CDN/S3 bucket.
 4. If you now have 2 or more galleries, the nav dropdown appears automatically — no changes to `navigation.json` needed.
 5. Run `npm run build` to regenerate the sitemap and prerender all image routes.
+
+---
+
+## Lead Time Calculator
+
+The lead time calculator is a standalone interactive widget that lets a visitor enter a deadline date and select a product type, then instantly receives a verdict on whether delivery is realistic. It is driven entirely by a JSON data file — no code changes are required to deploy it for a new client.
+
+### How it works
+
+The visitor selects a product type (each with its own min/max shipping window) and enters their deadline date. The component computes days remaining and returns one of four verdict tiers:
+
+| Tier | Condition | Variant |
+|---|---|---|
+| **Clear** | days ≥ max shipping + build buffer | `good` |
+| **Clear with note** | days ≥ max shipping | `good` |
+| **Tight** | days ≥ min shipping | `tight` |
+| **Too tight** | days < min shipping | `tight` |
+
+Two edge cases are handled automatically: no date selected, and a date already in the past.
+
+### Adding a calculator
+
+1. Create `content/data/calculator-{slug}.json` (copy from `NewSiteSampleFiles/public/data/calculator-lead-time.json`).
+2. Add an entry to `calculators` in `src/ConfigFiles/site.config.json`:
+   ```json
+   "calculators": [
+     { "slug": "timeline", "title": "Will It Arrive In Time?", "dataFile": "calculator-lead-time.json" }
+   ]
+   ```
+3. The route `/calculator/timeline` is created automatically.
+4. Add a nav link in `content/data/navigation.json` pointing to `/calculator/timeline` if needed.
+
+### calculator-{slug}.json reference
+
+```json
+{
+  "eyebrow": "Optional label above the headline",
+  "headline": "Will it arrive in time?",
+  "subtext": "Short description shown below the headline.",
+  "footnote": "Optional small-print text shown at the bottom of the card.",
+  "dateLabel": "Reveal / install date",
+  "productLabel": "Piece you're considering",
+  "buttonText": "Check my timeline",
+  "buildBufferDays": 5,
+  "productTypes": [
+    { "id": "canvas", "label": "Canvas", "shippingLabel": "4–8 days", "minDays": 4, "maxDays": 8 }
+  ],
+  "verdicts": {
+    "noDate":       { "variant": "tight", "label": "...", "headline": "...", "detail": "...", "showCta": false },
+    "past":         { "variant": "tight", "label": "...", "headline": "...", "detail": "...", "showCta": false },
+    "clear":        { "variant": "good",  "label": "...", "headline": "...", "detail": "...", "showCta": true, "ctaText": "Browse →", "ctaUrl": "/gallery" },
+    "clearWithNote":{ "variant": "good",  "label": "...", "headline": "...", "detail": "...", "showCta": true, "ctaText": "Browse →", "ctaUrl": "/gallery" },
+    "tight":        { "variant": "tight", "label": "...", "headline": "...", "detail": "...", "showCta": true, "ctaText": "Available now →", "ctaUrl": "/gallery" },
+    "tooTight":     { "variant": "tight", "label": "...", "headline": "...", "detail": "...", "showCta": true, "ctaText": "Get in touch →", "ctaUrl": "/page/contact" }
+  }
+}
+```
+
+Verdict `headline` and `detail` support these interpolation tokens: `{days}`, `{productLabel}`, `{minDays}`, `{maxDays}`.
+
+### Theming
+
+All colours are exposed as CSS custom properties that fall back to the site theme tokens:
+
+| Token | Controls | Default fallback |
+|---|---|---|
+| `--lead-calc-paper` | Card background | `--body-bg` |
+| `--lead-calc-ink` | Text colour | `--font-color` |
+| `--lead-calc-ink-soft` | Muted text | `--secondary-font-color` |
+| `--lead-calc-accent` | Focus rings, active option borders | `--accent-color` |
+| `--lead-calc-accent-deep` | Hover states | `#5F6E58` |
+| `--lead-calc-eyebrow` | Eyebrow label colour | `--accent-color` |
+| `--lead-calc-good-bg` | "Clear" verdict background | `rgba(107,128,104,0.07)` |
+| `--lead-calc-good-color` | "Clear" verdict text | `#5F6E58` |
+| `--lead-calc-tight-bg` | "Tight" verdict background | `rgba(143,163,172,0.10)` |
+| `--lead-calc-tight-color` | "Tight" verdict text | `#5B7078` |
+| `--lead-calc-btn-bg` | Button background | `--font-color` |
+| `--lead-calc-btn-bg-hover` | Button hover background | `--lead-calc-accent-deep` |
+
+Add any overrides to the client's active `:root` block in `src/theme.css`.
 
 ---
 
