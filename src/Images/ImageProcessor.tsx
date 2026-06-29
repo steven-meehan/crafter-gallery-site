@@ -3,8 +3,6 @@ import ImageSlider from './ImageSlider/ImageSlider';
 import type Component from '../Page/Models/Component';
 import type ImageData from './ImageData';
 
-import classes from '../Images/ImageFiles/SiteImage/SiteImage.module.css';
-
 function prepareImageComponent(component: Component, images: ImageData[], pageName: string): JSX.Element | null {
   if (images.length === 0) return null;
 
@@ -14,7 +12,7 @@ function prepareImageComponent(component: Component, images: ImageData[], pageNa
   if (images.length === 1) {
     const img = images[0];
     return (
-      <div key={key} className={classes.centered}>
+      <div key={key} className="d-flex justify-content-center">
         <Image
           image={img}
           setHelmetInfo={false}
@@ -34,7 +32,7 @@ function prepareImageComponent(component: Component, images: ImageData[], pageNa
   }
 
   return (
-    <div key={key} className={classes.centered}>
+    <div key={key} className="d-flex justify-content-center">
       <ImageSlider
         images={images}
         disableTitle={true}

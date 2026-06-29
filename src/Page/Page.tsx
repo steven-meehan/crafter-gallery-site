@@ -71,7 +71,7 @@ const Page: React.FC<PageProps> = (props) => {
             {header && (
               <div className="row">
                 <div className="col">
-                  <h1>{header}</h1>
+                  <h1 className="text-center">{header}</h1>
                 </div>
               </div>
             )}

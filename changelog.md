@@ -2,6 +2,12 @@
 
 ## vNext
 
+## 2.0.1
+### Bug Fixes
+- Fixed broken CSS module import in `ImageProcessor.tsx` — path referenced `SiteImage.module.css` via a redundant `../Images/` prefix; replaced with Bootstrap utility classes (`d-flex justify-content-center`) and removed the import entirely
+- Deleted orphaned duplicate `SiteImage.module.css` (identical content to `Image.module.css`)
+- Centred informational page `<h1>` headers via `text-center`
+
 ## 2.0.0
 
 ### Architecture & Tooling
