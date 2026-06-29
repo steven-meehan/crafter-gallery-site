@@ -31,7 +31,8 @@ yarn-error.log*
 /src/ConfigFiles/*.json
 /content
 
-# Client-specific compiled/generated CSS (per-client, not committed)
+# Client-specific CSS (per-client, not committed)
+*.css
 *.css.map
 
 # Un-ignore CSS source files that belong in the repo
