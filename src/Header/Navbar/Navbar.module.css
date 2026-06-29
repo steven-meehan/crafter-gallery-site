@@ -1,0 +1,41 @@
+:global(header) {
+  position: relative;
+  z-index: 1050;
+}
+
+.logo {
+  max-height: 105px;
+  width: auto;
+}
+
+.logoAlt {
+  max-height: 105px;
+  width: auto;
+}
+
+.navigationLinks {
+  list-style: none;
+}
+
+@media (min-width: 992px) {
+  .navigationLinks {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+}
+
+.navigationWrapper {
+  align-items: center;
+}
+
+.navigationBarToggler {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.socialIconWrapper {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 0.25rem;
+}

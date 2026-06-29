@@ -31,7 +31,7 @@ yarn-error.log*
 /src/ConfigFiles/*.json
 /content
 
-# Compiled CSS Files
+# Client-specific CSS (per-client, not committed)
 *.css
 *.css.map
 

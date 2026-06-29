@@ -1,0 +1,40 @@
+.dropdownNavigationLinks {
+  background-color: var(--nav-bg);
+  text-align: center;
+  min-width: 10em;
+}
+.dropdownWrapper {
+  z-index: 1051;
+  border: 1px solid rgba(200, 168, 75, 0.25);
+  border-radius: 0.375rem;
+  background-color: var(--primary-color) !important;
+  box-shadow: 0 4px 20px rgba(46, 58, 53, 0.12);
+  padding: 0.5rem 0;
+  min-width: 160px;
+}
+.dropdownItem {
+  cursor: pointer;
+}
+
+@media (max-width: 991px) {
+  /* break out of Bootstrap container padding so items truly touch screen edges */
+  .dropdownWrapper {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    padding: 0;
+  }
+  /* --nav-mobile-dropdown-mx controls side inset of each row:
+     0rem  = full-bleed (items run edge to edge)
+     1rem  = inset (items have breathing room on each side) */
+  .dropdownWrapper li {
+    margin: 0 var(--nav-mobile-dropdown-mx, 1rem);
+  }
+  /* strip Card chrome on mobile sub-items */
+  .dropdownWrapper li > * {
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+  .dropdownWrapper li > * > * {
+    border-radius: 0 !important;
+  }
+}
