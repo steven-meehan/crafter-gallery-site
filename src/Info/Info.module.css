@@ -1,0 +1,10 @@
+.info {
+  padding: 0.5rem 0;
+}
+.emphasis {
+  font-size: 2.25em;
+  font-family: var(--header-font);
+}
+.centeredParagraphs {
+  text-align: center;
+}

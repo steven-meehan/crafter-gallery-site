@@ -1,0 +1,22 @@
+.leftArrow,
+.rightArrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 2rem;
+  user-select: none;
+}
+
+.leftArrow:hover,
+.rightArrow:hover {
+  opacity: 0.7;
+}
+
+.defaultMainImageSliderButtonSpacer {
+  min-height: 200px;
+}
+
+.largerMainImageSliderButtonSpacer {
+  min-height: 400px;
+}

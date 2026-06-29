@@ -31,10 +31,11 @@ yarn-error.log*
 /src/ConfigFiles/*.json
 /content
 
-# Compiled CSS Files
+# Client-specific CSS (per-client, not committed)
 *.css
 *.css.map
 
-# Un-ignore sample files — these are intentionally committed
+# Un-ignore CSS source files that belong in the repo
+!src/**/*.module.css
 !NewSiteSampleFiles/theme.css
 !NewSiteSampleFiles/index.css

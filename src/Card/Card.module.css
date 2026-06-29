@@ -1,0 +1,31 @@
+.card {
+  border: none;
+  box-shadow: 0 2px 8px var(--accent-color-dimmed);
+}
+
+.cardHeader {
+  border-bottom: 2px solid var(--accent-color);
+}
+.cardRounded         { border-radius: 0.5em; }
+.cardRoundedModerate { border-radius: 0.75em; }
+.cardRoundedHeavy    { border-radius: 1em; }
+
+.cardHover:hover {
+  box-shadow: 0 2px 8px var(--accent-color-dimmed);
+  color: var(--accent-color);
+}
+
+.primary {
+  background-color: var(--primary-color);
+  color: var(--font-color);
+}
+.altPrimary {
+  background-color: var(--alt-primary-color);
+  color: var(--font-color);
+}
+.none {
+  background-color: transparent;
+  color: var(--font-color);
+  border: none !important;
+  box-shadow: none !important;
+}

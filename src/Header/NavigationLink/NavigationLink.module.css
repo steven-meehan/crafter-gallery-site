@@ -1,0 +1,16 @@
+.navigationLinks {
+  font-size: 1.5em !important;
+  background-color: var(--nav-bg) !important;
+  color: var(--nav-font-color) !important;
+  display: block !important;
+  width: 100% !important;
+  padding: 0.4em 1.25em !important;
+}
+.navigationLinks:hover {
+  font-weight: bolder;
+  background-color: var(--nav-bg-hover) !important;
+  color: var(--accent-color) !important;
+}
+.linkFontFamily {
+  font-family: var(--link-font);
+}

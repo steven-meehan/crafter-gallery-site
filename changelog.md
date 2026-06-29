@@ -2,6 +2,12 @@
 
 ## vNext
 
+## 2.0.2
+### Bug Fixes
+- Fixed `.gitignore` blanket `*.css` rule that was silently excluding all component CSS modules from the repository; replaced with targeted exclusions and explicit negations for `src/**/*.module.css` and `src/theme.css`
+- All previously-untracked CSS module files are now committed
+- Fixed navigation dropdown z-index: `<header>` set to `z-index: 1050`, dropdown wrapper to `1051`, so the menu always renders above page content
+
 ## 2.0.1
 ### Bug Fixes
 - Fixed broken CSS module import in `ImageProcessor.tsx` — path referenced `SiteImage.module.css` via a redundant `../Images/` prefix; replaced with Bootstrap utility classes (`d-flex justify-content-center`) and removed the import entirely
