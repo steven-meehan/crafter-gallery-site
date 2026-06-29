@@ -1,0 +1,14 @@
+.navbarToggler {
+  font-weight: bolder;
+  box-shadow: 0 1px 8px var(--accent-color-dimmed);
+  background-color: transparent;
+}
+.navbarTogglerBackground {
+  background-color: var(--primary-color) !important;
+}
+.navbarToggler:hover {
+  border: 2px var(--accent-color) solid;
+}
+.toggler {
+  cursor: pointer;
+}
