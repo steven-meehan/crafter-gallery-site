@@ -1,4 +1,5 @@
 import siteConfig from '../ConfigFiles/site.config.json';
+import styles from './Footer.module.css';
 
 const { footer } = siteConfig;
 
@@ -17,7 +18,7 @@ const Footer: React.FC = () => {
 
   return (
     <div className="container mt-4">
-      <footer className={`text-${footer.fontColor} py-3 border-top text-center`}>
+      <footer className={`text-${footer.fontColor} text-center ${styles.footer}`}>
         <p className="mb-1">Site content is &copy; {copyrightNotice}</p>
         {footer.designer.display && (
           <p className="mb-0 small">Site designed by {designer}.</p>
