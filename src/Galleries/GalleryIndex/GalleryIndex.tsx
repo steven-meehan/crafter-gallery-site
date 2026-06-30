@@ -3,21 +3,54 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 
 import useHttp from '../../UseHttp/useHttp';
-import Spinner from '../../Spinner/Spinner';
 import Card from '../../Card/Card';
+import GalleryIndexSkeleton, { getCachedGalleryCount } from './GalleryIndexSkeleton';
 import { GalleryManifest, GalleryEntry } from '../models/GalleryManifest';
 
 import siteConfig from '../../ConfigFiles/site.config.json';
 import styles from './GalleryIndex.module.css';
+import { useScrollReveal } from '../../hooks/useScrollReveal';
+
+function GalleryCard({ gallery, index }: { gallery: GalleryEntry; index: number }) {
+  const ref = useScrollReveal<HTMLDivElement>();
+  return (
+    <div
+      ref={ref}
+      className="col reveal"
+      style={{ transitionDelay: `${index * 80}ms` }}
+    >
+      <Link to={`/gallery/${gallery.slug}`} className={styles.cardLink}>
+        <Card cardRounded cardColor="altPrimary" cardClasses={styles.galleryCard}>
+          <div className={styles.imageWrapper}>
+            {gallery.coverImage && (
+              <img src={gallery.coverImage} className={styles.coverImage} alt={gallery.title} />
+            )}
+            <div className={styles.cardBody}>
+              <h5 className={styles.cardTitle}>{gallery.title}</h5>
+              {gallery.description && (
+                <p className={styles.cardDescription}>{gallery.description}</p>
+              )}
+              <span className={styles.viewBtn}>View Gallery</span>
+            </div>
+          </div>
+        </Card>
+      </Link>
+    </div>
+  );
+}
+
+const GALLERIES_URL = `${siteConfig.dataBaseUrl}galleries.json`;
+const CACHE_KEY = `${siteConfig.cacheVersion}:${GALLERIES_URL}`;
 
 const GalleryIndex: React.FC = () => {
   const [galleries, setGalleries] = useState<GalleryEntry[]>([]);
   const [title, setTitle] = useState('');
   const { sendRequest, isLoading, error } = useHttp();
+  const skeletonCount = getCachedGalleryCount(CACHE_KEY);
 
   useEffect(() => {
     sendRequest(
-      { url: `${siteConfig.dataBaseUrl}galleries.json`, cacheAge: siteConfig.cacheAgeMs, cacheVersion: siteConfig.cacheVersion },
+      { url: GALLERIES_URL, cacheAge: siteConfig.cacheAgeMs, cacheVersion: siteConfig.cacheVersion },
       (data: GalleryManifest) => {
         setTitle(data.title);
         setGalleries(data.galleries);
@@ -25,7 +58,7 @@ const GalleryIndex: React.FC = () => {
     );
   }, [sendRequest]);
 
-  if (isLoading) return <Spinner />;
+  if (isLoading) return <div className="my-4"><GalleryIndexSkeleton count={skeletonCount} /></div>;
   if (error.length > 0) return <p className="text-danger text-center my-4">{error[0]}</p>;
 
   const { siteName, defaultDescription, defaultImageUrl, defaultImageAltText } = siteConfig.seo;
@@ -52,27 +85,8 @@ const GalleryIndex: React.FC = () => {
       <div className="my-4">
         {title && <h1 className="text-center mb-4">{title}</h1>}
         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 justify-content-center">
-          {galleries.map(gallery => (
-            <div key={gallery.slug} className="col">
-              <Card cardRounded cardHover cardColor="altPrimary" cardClasses={styles.galleryCard}>
-                {gallery.coverImage && (
-                  <img
-                    src={gallery.coverImage}
-                    className={styles.coverImage}
-                    alt={gallery.title}
-                  />
-                )}
-                <div className={styles.cardBody}>
-                  <h5 className={styles.cardTitle}>{gallery.title}</h5>
-                  {gallery.description && (
-                    <p className={styles.cardDescription}>{gallery.description}</p>
-                  )}
-                  <Link to={`/gallery/${gallery.slug}`} className={styles.viewBtn}>
-                    View Gallery
-                  </Link>
-                </div>
-              </Card>
-            </div>
+          {galleries.map((gallery, i) => (
+            <GalleryCard key={gallery.slug} gallery={gallery} index={i} />
           ))}
         </div>
       </div>

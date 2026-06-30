@@ -1,0 +1,9 @@
+.footer {
+  border-top: 1px solid rgba(128, 128, 128, 0.25) !important;
+  padding-top: 1.75rem !important;
+  padding-bottom: 1.75rem !important;
+  margin-top: 3rem;
+  font-size: 0.875rem;
+  letter-spacing: 0.02em;
+  opacity: 0.85;
+}

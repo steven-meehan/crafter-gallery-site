@@ -29,6 +29,7 @@ Licensed under the [MIT License](LICENSE). Maintained by [steven-meehan](https:/
 - [Fulfillment Calculator *(optional)*](#fulfillment-calculator-optional-feature)
 - [Adding a New Gallery](#adding-a-new-gallery)
 - [Adding a New Page](#adding-a-new-page)
+- [Visual Design](#visual-design)
 - [Theming](#theming)
 - [Google Analytics](#google-analytics)
 - [Available Scripts](#available-scripts)
@@ -117,9 +118,11 @@ The app is a single-page React application. At runtime it fetches JSON data file
 │   ├── Info/                   # Text block renderer (used by pages)
 │   ├── Page/                   # Generic informational page renderer
 │   ├── Routing/                # Navigation data types, background color enum
-│   ├── Spinner/                # Loading indicator
+│   ├── Spinner/                # Loading indicator (used by GalleryView and Page)
 │   ├── Toggler/                # Mobile hamburger button
 │   ├── UseHttp/                # Data-fetching hook with session cache
+│   ├── hooks/
+│   │   └── useScrollReveal.ts  # IntersectionObserver hook — adds reveal-visible class when element enters viewport
 │   └── utils/
 │       └── slugify.ts          # Slug utility (lowercase + hyphenate)
 ├── build/                      # Compiled output (gitignored) — deploy this folder
@@ -748,6 +751,38 @@ All colours are exposed as CSS custom properties. Set them in the client's `:roo
    ```
 3. Add a nav link to `content/data/navigation.json` with `"url": "/page/contact"`.
 4. Increment `cacheVersion` in `site.config.json` to bust cached navigation data on the next visit.
+
+---
+
+## Visual Design
+
+The gallery index is the primary first impression for potential clients. The visual behaviour is built into the framework components and requires no configuration.
+
+### Gallery Cards
+
+Each card on the gallery index:
+
+- Is a fully clickable link (`<Link>`) — the entire card surface navigates to the gallery
+- Displays the cover image at a consistent **4:3 aspect ratio** using `object-fit: cover`; no distortion regardless of source dimensions
+- On hover: image scales up (`scale(1.06)`), card lifts (`translateY(-4px)`), and the card body (title, description, "View Gallery" button) **slides up from the bottom of the image** as an overlay — the editorial effect is driven purely by CSS in `GalleryIndex.module.css`
+- Fades in on first viewport entry via `useScrollReveal` (an `IntersectionObserver` hook in `src/hooks/`) with a staggered delay per card
+
+### Skeleton Loading
+
+The gallery index displays shimmer placeholder cards while `galleries.json` is loading rather than a generic spinner. The skeleton card count is determined as follows:
+
+1. On first load (empty cache): **3 placeholder cards** (hardcoded fallback)
+2. On subsequent visits: the count is read from the session storage cache entry written by `useHttp` after the first successful fetch — the skeleton exactly matches the real gallery count
+
+The skeleton implementation lives in `src/Galleries/GalleryIndex/GalleryIndexSkeleton.tsx`.
+
+### Page Transitions
+
+Every route change triggers a fade-in and 6px upward slide via the `PageTransition` component in `App.tsx`. The keyframe (`pageFadeIn`) is defined in `src/App.module.css`.
+
+### Navigation Dropdown
+
+On desktop, the galleries dropdown renders without a border or background panel — items appear directly below the trigger with a small gap. Font size is dynamic: `1em` for 5 or fewer active items, `0.8em` for 6 or more, keeping long lists readable without overwhelming the navbar.
 
 ---
 

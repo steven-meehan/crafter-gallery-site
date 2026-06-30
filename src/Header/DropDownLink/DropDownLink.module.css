@@ -5,13 +5,15 @@
 }
 .dropdownWrapper {
   z-index: 1051;
-  border: 1px solid rgba(200, 168, 75, 0.25);
-  border-radius: 0.375rem;
-  background-color: var(--primary-color) !important;
-  box-shadow: 0 4px 20px rgba(46, 58, 53, 0.12);
-  padding: 0.5rem 0;
+  border: none;
+  border-radius: 0;
+  background-color: transparent !important;
+  box-shadow: none;
+  padding: 0;
   min-width: 160px;
+  margin-top: 0.4rem !important;
 }
+
 .dropdownItem {
   cursor: pointer;
 }

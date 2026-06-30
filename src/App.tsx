@@ -1,5 +1,5 @@
 import { Suspense, lazy } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 
 import Header from './Header/Header/Header';
@@ -9,6 +9,7 @@ import GalleryIndex from './Galleries/GalleryIndex/GalleryIndex';
 import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 
 import siteConfigRaw from './ConfigFiles/site.config.json';
+import classes from './App.module.css';
 import type { SiteConfig } from './config/SiteConfig';
 import { validateSiteConfig } from './config/validateSiteConfig';
 import { purgeStaleCache } from './UseHttp/useHttp';
@@ -37,6 +38,15 @@ function NotFoundPage() {
   );
 }
 
+function PageTransition({ children }: { children: React.ReactNode }) {
+  const { pathname } = useLocation();
+  return (
+    <div key={pathname} className={classes.pageTransition}>
+      {children}
+    </div>
+  );
+}
+
 function App() {
   return (
     <>
@@ -45,6 +55,7 @@ function App() {
         <div className="container my-4">
           <ErrorBoundary>
             <Suspense fallback={<Spinner />}>
+              <PageTransition>
               <Routes>
                 <Route
                   path="/"
@@ -78,6 +89,7 @@ function App() {
                 <Route path="/not-found" element={<NotFoundPage />} />
                 <Route path="*" element={<Navigate replace to="/not-found" />} />
               </Routes>
+              </PageTransition>
             </Suspense>
           </ErrorBoundary>
         </div>

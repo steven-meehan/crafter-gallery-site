@@ -8,6 +8,8 @@ import classes from './DropDownLink.module.css';
 
 const DropDownLink: React.FC<DropDownLinkProps> = (props) => {
     const dropDownLinkClasses = `${props.dropDownLinkClasses ? props.dropDownLinkClasses : ''} `;
+    const activeCount = props.childLinks.filter(l => l.active).length;
+    const itemFontSize = activeCount > 5 ? '0.8em' : '1em';
     const dropdownListLinks = props.childLinks.map((item, index) => {
         if(!item.active){
             return null;
@@ -23,9 +25,10 @@ const DropDownLink: React.FC<DropDownLinkProps> = (props) => {
                 <Card 
                     cardRounded={true} 
                     cardHover={true} >
-                    <NavigationLink 
-                        navLinkClasses={`col dropdown-item ${classes.dropdownNavigationLinks} ${dropDownLinkClasses}`} 
-                        item={item} 
+                    <NavigationLink
+                        navLinkClasses={`col dropdown-item ${classes.dropdownNavigationLinks} ${dropDownLinkClasses}`}
+                        navLinkStyle={{ fontSize: itemFontSize }}
+                        item={item}
                         id={index} />
                 </Card>
             </li>
