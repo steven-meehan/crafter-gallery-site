@@ -57,11 +57,13 @@ const GalleryIndex: React.FC = () => {
               <Link to={`/gallery/${gallery.slug}`} className={styles.cardLink}>
                 <Card cardRounded cardHover cardColor="altPrimary" cardClasses={styles.galleryCard}>
                   {gallery.coverImage && (
-                    <img
-                      src={gallery.coverImage}
-                      className={styles.coverImage}
-                      alt={gallery.title}
-                    />
+                    <div className={styles.imageWrapper}>
+                      <img
+                        src={gallery.coverImage}
+                        className={styles.coverImage}
+                        alt={gallery.title}
+                      />
+                    </div>
                   )}
                   <div className={styles.cardBody}>
                     <h5 className={styles.cardTitle}>{gallery.title}</h5>

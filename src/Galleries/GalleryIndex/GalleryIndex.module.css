@@ -6,11 +6,34 @@
 }
 
 .galleryCard {
-  overflow: hidden;
   display: flex;
   flex-direction: column;
   height: 100%;
   text-align: center;
+  transition: box-shadow 0.35s ease, transform 0.35s ease;
+}
+
+.cardLink:hover .galleryCard {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35) !important;
+}
+
+.imageWrapper {
+  overflow: hidden;
+  position: relative;
+}
+
+.imageWrapper::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 40%, rgba(0, 0, 0, 0.45) 100%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.cardLink:hover .imageWrapper::after {
+  opacity: 1;
 }
 
 .coverImage {
@@ -18,6 +41,11 @@
   height: 200px;
   object-fit: cover;
   display: block;
+  transition: transform 0.5s ease;
+}
+
+.cardLink:hover .coverImage {
+  transform: scale(1.06);
 }
 
 .cardBody {
