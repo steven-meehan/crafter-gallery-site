@@ -14,10 +14,6 @@
   margin-top: 0.4rem !important;
 }
 
-/* Dropdown items at roughly half the main nav font size */
-.dropdownWrapper .dropdownNavigationLinks {
-  font-size: 0.8em !important;
-}
 .dropdownItem {
   cursor: pointer;
 }

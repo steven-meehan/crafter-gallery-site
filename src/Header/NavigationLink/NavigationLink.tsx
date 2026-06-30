@@ -49,20 +49,22 @@ const NavigationLink: React.FC<NavigationLinkProps> = (props) => {
                 <span className={props.item.icon}></span>
             </a>
         ) : props.item.internalLink && props.item.active ? (
-            <Link 
-                to={props.item.url} 
-                title={props.item.title} 
+            <Link
+                to={props.item.url}
+                title={props.item.title}
                 className={`${navLinkClasses} btn nav-link ${classes.linkFontFamily}`}
+                style={props.navLinkStyle}
                 itemID={`${props.id}`}>
                 {props.item.name}
             </Link>
         ) :  props.item.active ? (
             <a
-                href={props.item.url} 
-                title={props.item.title} 
-                target={'_blank'} 
+                href={props.item.url}
+                title={props.item.title}
+                target={'_blank'}
                 rel={'noreferrer'}
                 className={`${navLinkClasses} btn nav-link ${classes.linkFontFamily}`}
+                style={props.navLinkStyle}
                 itemID={`${props.id}`}>
                 {props.item.name}
             </a>
