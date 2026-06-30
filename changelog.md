@@ -2,6 +2,40 @@
 
 ## vNext
 
+---
+
+## 2.1.0
+
+### Gallery Index
+- Gallery cards are now fully clickable links — the entire card is the interactive element, not just the "View Gallery" button
+- Card body (title, description, "View Gallery" button) slides up from the bottom of the image on hover — editorial overlay effect replacing the previous below-image layout
+- Cover images standardised to a 4:3 aspect ratio with `object-fit: cover` — eliminates distortion from varying source dimensions
+- Subtle image zoom (`scale(1.06)`) and card lift (`translateY(-4px)`) on hover
+- Persistent dark gradient at the card bottom ensures title text is readable regardless of image content
+- "View Gallery" button filled by default with the accent colour; inverts to outline on hover
+- Removed redundant Bootstrap `cardHover` prop from gallery cards — all hover behaviour is now CSS-driven
+- Gallery cards fade in on first viewport entry via `IntersectionObserver` with a staggered per-card delay (scroll reveal)
+- Skeleton loading replaces the spinner while `galleries.json` loads: placeholder cards with a shimmer animation match the grid layout; card count is read from the session storage cache so the skeleton matches the actual gallery count on repeat visits, falling back to 3 on first load
+
+### Navigation
+- Desktop dropdown: removed border, border-radius, and background box — menu items appear cleanly against the page without a panel
+- Small gap (`0.4rem`) added between the dropdown trigger and the menu
+- Dropdown item font size is now dynamic — `1em` for 5 or fewer active items, `0.8em` for 6 or more
+
+### Carousel
+- Image crossfade transition smoothed from `0.2s` to `0.35s`
+- Landscape max-height adjusted to `60vh`, portrait to `70vh` for more consistent stage framing
+
+### Typography
+- Global heading scale introduced via `clamp()` — fluid `h1` from `2rem` to `3.25rem`; `h2` from `1.5rem` to `2.25rem`; tighter `line-height` values throughout; `letter-spacing` tightened on headings
+
+### Page Transitions
+- Fade-in and 6px upward slide on every route change via a `PageTransition` wrapper component keyed to the current pathname; keyframe defined in `App.module.css`
+
+### Footer
+- Increased vertical padding to `1.75rem` top and bottom
+- Border replaced with a refined `rgba(128,128,128,0.25)` rule via `Footer.module.css`
+
 ### Fulfillment Calculator
 - New generic `LeadTimeCalculator` component — an interactive widget where visitors enter a deadline date, select a product type, and instantly receive a tiered verdict on whether fulfillment is realistic
 - All copy, product types, shipping windows, build buffer, verdict text, and CTA links are driven by a `calculator-{slug}.json` data file — zero code changes required to deploy for a new client
