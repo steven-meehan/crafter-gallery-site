@@ -7,6 +7,18 @@
   animation: pageFadeIn 0.3s ease;
 }
 
+/* Scroll reveal */
+:global(.reveal) {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+:global(.reveal-visible) {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* Global typography scale */
 :global(h1) {
   font-size: clamp(2rem, 5vw, 3.25rem);
