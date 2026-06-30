@@ -54,24 +54,24 @@ const GalleryIndex: React.FC = () => {
         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 justify-content-center">
           {galleries.map(gallery => (
             <div key={gallery.slug} className="col">
-              <Card cardRounded cardHover cardColor="altPrimary" cardClasses={styles.galleryCard}>
-                {gallery.coverImage && (
-                  <img
-                    src={gallery.coverImage}
-                    className={styles.coverImage}
-                    alt={gallery.title}
-                  />
-                )}
-                <div className={styles.cardBody}>
-                  <h5 className={styles.cardTitle}>{gallery.title}</h5>
-                  {gallery.description && (
-                    <p className={styles.cardDescription}>{gallery.description}</p>
+              <Link to={`/gallery/${gallery.slug}`} className={styles.cardLink}>
+                <Card cardRounded cardHover cardColor="altPrimary" cardClasses={styles.galleryCard}>
+                  {gallery.coverImage && (
+                    <img
+                      src={gallery.coverImage}
+                      className={styles.coverImage}
+                      alt={gallery.title}
+                    />
                   )}
-                  <Link to={`/gallery/${gallery.slug}`} className={styles.viewBtn}>
-                    View Gallery
-                  </Link>
-                </div>
-              </Card>
+                  <div className={styles.cardBody}>
+                    <h5 className={styles.cardTitle}>{gallery.title}</h5>
+                    {gallery.description && (
+                      <p className={styles.cardDescription}>{gallery.description}</p>
+                    )}
+                    <span className={styles.viewBtn}>View Gallery</span>
+                  </div>
+                </Card>
+              </Link>
             </div>
           ))}
         </div>
