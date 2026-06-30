@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 
 import useHttp from '../../UseHttp/useHttp';
-import Spinner from '../../Spinner/Spinner';
 import Card from '../../Card/Card';
+import GalleryIndexSkeleton from './GalleryIndexSkeleton';
 import { GalleryManifest, GalleryEntry } from '../models/GalleryManifest';
 
 import siteConfig from '../../ConfigFiles/site.config.json';
@@ -54,7 +54,7 @@ const GalleryIndex: React.FC = () => {
     );
   }, [sendRequest]);
 
-  if (isLoading) return <Spinner />;
+  if (isLoading) return <div className="my-4"><GalleryIndexSkeleton /></div>;
   if (error.length > 0) return <p className="text-danger text-center my-4">{error[0]}</p>;
 
   const { siteName, defaultDescription, defaultImageUrl, defaultImageAltText } = siteConfig.seo;
