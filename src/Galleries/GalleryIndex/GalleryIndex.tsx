@@ -56,21 +56,21 @@ const GalleryIndex: React.FC = () => {
             <div key={gallery.slug} className="col">
               <Link to={`/gallery/${gallery.slug}`} className={styles.cardLink}>
                 <Card cardRounded cardHover cardColor="altPrimary" cardClasses={styles.galleryCard}>
-                  {gallery.coverImage && (
-                    <div className={styles.imageWrapper}>
+                  <div className={styles.imageWrapper}>
+                    {gallery.coverImage && (
                       <img
                         src={gallery.coverImage}
                         className={styles.coverImage}
                         alt={gallery.title}
                       />
-                    </div>
-                  )}
-                  <div className={styles.cardBody}>
-                    <h5 className={styles.cardTitle}>{gallery.title}</h5>
-                    {gallery.description && (
-                      <p className={styles.cardDescription}>{gallery.description}</p>
                     )}
-                    <span className={styles.viewBtn}>View Gallery</span>
+                    <div className={styles.cardBody}>
+                      <h5 className={styles.cardTitle}>{gallery.title}</h5>
+                      {gallery.description && (
+                        <p className={styles.cardDescription}>{gallery.description}</p>
+                      )}
+                      <span className={styles.viewBtn}>View Gallery</span>
+                    </div>
                   </div>
                 </Card>
               </Link>
