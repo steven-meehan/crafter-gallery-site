@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet-async';
 
 import useHttp from '../../UseHttp/useHttp';
 import Card from '../../Card/Card';
-import GalleryIndexSkeleton from './GalleryIndexSkeleton';
+import GalleryIndexSkeleton, { getCachedGalleryCount } from './GalleryIndexSkeleton';
 import { GalleryManifest, GalleryEntry } from '../models/GalleryManifest';
 
 import siteConfig from '../../ConfigFiles/site.config.json';
@@ -39,14 +39,18 @@ function GalleryCard({ gallery, index }: { gallery: GalleryEntry; index: number 
   );
 }
 
+const GALLERIES_URL = `${siteConfig.dataBaseUrl}galleries.json`;
+const CACHE_KEY = `${siteConfig.cacheVersion}:${GALLERIES_URL}`;
+
 const GalleryIndex: React.FC = () => {
   const [galleries, setGalleries] = useState<GalleryEntry[]>([]);
   const [title, setTitle] = useState('');
   const { sendRequest, isLoading, error } = useHttp();
+  const skeletonCount = getCachedGalleryCount(CACHE_KEY);
 
   useEffect(() => {
     sendRequest(
-      { url: `${siteConfig.dataBaseUrl}galleries.json`, cacheAge: siteConfig.cacheAgeMs, cacheVersion: siteConfig.cacheVersion },
+      { url: GALLERIES_URL, cacheAge: siteConfig.cacheAgeMs, cacheVersion: siteConfig.cacheVersion },
       (data: GalleryManifest) => {
         setTitle(data.title);
         setGalleries(data.galleries);
@@ -54,7 +58,7 @@ const GalleryIndex: React.FC = () => {
     );
   }, [sendRequest]);
 
-  if (isLoading) return <div className="my-4"><GalleryIndexSkeleton /></div>;
+  if (isLoading) return <div className="my-4"><GalleryIndexSkeleton count={skeletonCount} /></div>;
   if (error.length > 0) return <p className="text-danger text-center my-4">{error[0]}</p>;
 
   const { siteName, defaultDescription, defaultImageUrl, defaultImageAltText } = siteConfig.seo;
