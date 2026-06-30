@@ -20,7 +20,7 @@ function GalleryCard({ gallery, index }: { gallery: GalleryEntry; index: number 
       style={{ transitionDelay: `${index * 80}ms` }}
     >
       <Link to={`/gallery/${gallery.slug}`} className={styles.cardLink}>
-        <Card cardRounded cardHover cardColor="altPrimary" cardClasses={styles.galleryCard}>
+        <Card cardRounded cardColor="altPrimary" cardClasses={styles.galleryCard}>
           <div className={styles.imageWrapper}>
             {gallery.coverImage && (
               <img src={gallery.coverImage} className={styles.coverImage} alt={gallery.title} />
