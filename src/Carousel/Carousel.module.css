@@ -113,6 +113,8 @@
 .thumbnails {
   display: flex;
   flex-wrap: nowrap;
+  justify-content: center; /* fallback for browsers without `safe`/`unsafe` support */
+  justify-content: safe center; /* keeps the first thumbnail reachable if the strip overflows */
   gap: var(--thumb-gap);
   overflow-x: auto;
   scroll-behavior: smooth;

@@ -2,6 +2,7 @@ import Image from './ImageFiles/SiteImage/SiteImage';
 import ImageSlider from './ImageSlider/ImageSlider';
 import type Component from '../Page/Models/Component';
 import type ImageData from './ImageData';
+import classes from './ImageProcessor.module.css';
 
 function prepareImageComponent(component: Component, images: ImageData[], pageName: string): JSX.Element | null {
   if (images.length === 0) return null;
@@ -12,7 +13,7 @@ function prepareImageComponent(component: Component, images: ImageData[], pageNa
   if (images.length === 1) {
     const img = images[0];
     return (
-      <div key={key} className="d-flex justify-content-center">
+      <div key={key} className={`d-flex justify-content-center ${classes.imageFrame}`}>
         <Image
           image={img}
           setHelmetInfo={false}

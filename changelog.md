@@ -2,6 +2,18 @@
 
 ## vNext
 
+### Routing
+- Added a `/galleries` route, rendered only when `site.config.json` defines a `homePage` — without it, the gallery index had no route at all once a custom home page took over `/`, making galleries unreachable
+- Gallery-dropdown auto-population in `Header.tsx` now targets `/galleries` instead of a hardcoded `/` when `homePage` is configured, so the nav's gallery submenu still populates correctly
+
+### Theming
+- New `--page-content-bg` token: background for the main content panel wrapping informational pages (`Page.tsx`) and the single-gallery view (`GalleryView.tsx`); independent of `--primary-color` (still used by the nav dropdown-menu panel). Set to `transparent` to remove the panel
+- New `--page-slider-height` token: fixed height for the on-page image slider and lone (non-slider) page images, so a page's images no longer grow/shrink as the slider cycles through images of different aspect ratios; images scale via `object-fit: contain` instead of being cropped. Set to `none` to restore natural per-image height
+- `Card` component gained an optional `style` prop for inline style overrides, needed to apply `--page-content-bg` independently of the existing `cardColor` variants
+
+### Carousel
+- Thumbnail strip now centers thumbnails (`justify-content: safe center`) instead of left-aligning when there are only a few
+
 ---
 
 ## 2.1.0

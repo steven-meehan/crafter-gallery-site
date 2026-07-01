@@ -22,3 +22,27 @@
   display: block;
   margin: 0 auto;
 }
+
+/*
+ * Keeps every slide the same height regardless of each image's own aspect
+ * ratio, so the slider doesn't grow/shrink as it cycles through images.
+ * The `img` descendant selector (higher specificity than a single class)
+ * reliably overrides HtmlImage.module.css's landscapeImage/portraitImage
+ * (height: auto) without needing to touch that shared, widely-used module.
+ * Set --page-slider-height to `none` (or delete it in theme.css) to go
+ * back to natural, per-image height.
+ */
+.slideFrame {
+  height: var(--page-slider-height, 400px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.slideFrame img {
+  width: auto;
+  height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+}

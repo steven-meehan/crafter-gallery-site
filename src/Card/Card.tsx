@@ -18,7 +18,7 @@ const Card: React.FC<CardProps> = (props) => {
     const cardClasses = `${props.cardClasses ? props.cardClasses : ''} ${classes.card} ${cardColoring} ${cardHover} ${cardRounded}`;
     
     return (
-        <div className={`${cardClasses}`}>{props.children}</div>
+        <div className={`${cardClasses}`} style={props.style}>{props.children}</div>
     );
 };
 

@@ -40,8 +40,8 @@ const SliderImages: React.FC<SliderImagesProps> = (props) => {
         </div>
     ) : images.map((slide, index) => {        
         return (
-            <div 
-                className={`${index === currentImageIndex ? 'slide active' : 'slide'}`}
+            <div
+                className={`${index === currentImageIndex ? 'slide active' : 'slide'} ${classes.slideFrame}`}
                 key={`main-image-${index}`} >
                 {index === currentImageIndex && (
                     <SiteImage 

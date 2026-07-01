@@ -1,0 +1,22 @@
+/*
+ * Keeps a lone (non-slider) page image capped to the same height as the
+ * on-page image slider (see SliderImages.module.css), so single-image and
+ * multi-image sections on the same page look visually consistent. Shares
+ * --page-slider-height (theme.css) with the slider — set that to `none`
+ * to remove the cap on both.
+ */
+.imageFrame {
+  height: var(--page-slider-height, 400px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  width: 100%;
+}
+
+.imageFrame img {
+  width: auto;
+  height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+}

@@ -1,0 +1,11 @@
+.contentCard {
+  padding: 1.5rem 2rem;
+  /*
+   * Card's cardColor="none" strips border/shadow with !important, so this
+   * needs !important too if you want a shadow back around the panel.
+   * The background itself comes from --page-content-bg (see theme.css) via
+   * an inline style on the Card, not from here — that keeps it independent
+   * of --primary-color, which is also used by the nav dropdown-menu panel.
+   */
+  box-shadow: 0 2px 8px var(--accent-color-dimmed) !important;
+}

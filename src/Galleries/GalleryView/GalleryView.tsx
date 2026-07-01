@@ -7,10 +7,12 @@ import Carousel from '../../Carousel/Carousel';
 import ImageData from '../../Images/ImageData';
 import GalleryActions from '../GalleryActions/GalleryActions';
 import Spinner from '../../Spinner/Spinner';
+import Card from '../../Card/Card';
 import { GalleryConfig, GalleryButtonLabels } from '../models/GalleryConfig';
 
 import siteConfig from '../../ConfigFiles/site.config.json';
 import { slugify } from '../../utils/slugify';
+import classes from './GalleryView.module.css';
 
 const DEFAULT_LABELS: GalleryButtonLabels = siteConfig.galleryButtonLabels;
 
@@ -107,13 +109,20 @@ const GalleryView: React.FC = () => {
         {ogImage && <meta name="twitter:image" content={ogImage} />}
         {ogImage && <meta name="twitter:image:alt" content={ogImageAlt} />}
       </Helmet>
-      {config.title && <h2 className="text-center my-3">{config.title}</h2>}
-      <Carousel images={images} initialIndex={currentIndex} onIndexChange={handleIndexChange} />
-      <GalleryActions
-        actions={currentItem?.actions}
-        labels={mergedLabels}
-        itemTitle={currentItem?.title ?? ''}
-      />
+      <Card
+        cardColor="none"
+        cardRounded
+        cardClasses={classes.contentCard}
+        style={{ backgroundColor: 'var(--page-content-bg, transparent)' }}
+      >
+        {config.title && <h2 className="text-center my-3">{config.title}</h2>}
+        <Carousel images={images} initialIndex={currentIndex} onIndexChange={handleIndexChange} />
+        <GalleryActions
+          actions={currentItem?.actions}
+          labels={mergedLabels}
+          itemTitle={currentItem?.title ?? ''}
+        />
+      </Card>
     </>
   );
 };

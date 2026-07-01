@@ -39,9 +39,11 @@ const Header: React.FC = () => {
     );
   }, [sendRequest]);
 
-  // Inject per-gallery child links under any nav item pointing to "/"
+  // Inject per-gallery child links under the nav item pointing at the gallery index
+  // ("/" normally, or "/galleries" when site.config.json defines a custom homePage)
+  const galleriesUrl = siteConfig.homePage ? '/galleries' : '/';
   const navlinksWithGalleries: NavLink[] = navigationLinks.map(link => {
-    if (link.url !== '/' || galleries.length < 2) return link;
+    if (link.url !== galleriesUrl || galleries.length < 2) return link;
     return {
       ...link,
       childLinks: galleries.map((g, i) => ({

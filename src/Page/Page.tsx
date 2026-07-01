@@ -7,8 +7,10 @@ import PageData from './Models/PageData';
 import useHttp from '../UseHttp/useHttp';
 import Spinner from '../Spinner/Spinner';
 import PageRow from './PageRow/PageRow';
+import Card from '../Card/Card';
 
 import siteConfig from '../ConfigFiles/site.config.json';
+import classes from './Page.module.css';
 
 const Page: React.FC<PageProps> = (props) => {
   const { sendRequest, isLoading, error } = useHttp();
@@ -66,18 +68,25 @@ const Page: React.FC<PageProps> = (props) => {
       </Helmet>
       {isLoading && <Spinner />}
       {!isLoading && error.length === 0 && pageRows.length > 0 && (
-        <div className="row">
-          <div className="col">
-            {header && (
-              <div className="row">
-                <div className="col">
-                  <h1 className="text-center">{header}</h1>
+        <Card
+          cardColor="none"
+          cardRounded
+          cardClasses={classes.contentCard}
+          style={{ backgroundColor: 'var(--page-content-bg, transparent)' }}
+        >
+          <div className="row">
+            <div className="col">
+              {header && (
+                <div className="row">
+                  <div className="col">
+                    <h1 className="text-center">{header}</h1>
+                  </div>
                 </div>
-              </div>
-            )}
-            {pageRows}
+              )}
+              {pageRows}
+            </div>
           </div>
-        </div>
+        </Card>
       )}
       {error.length > 0 && (
         <p className="text-danger text-center my-4">{error[0]}</p>
