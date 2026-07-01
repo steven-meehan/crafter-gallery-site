@@ -491,15 +491,15 @@ One file per gallery. Each item becomes a carousel slide with its own shareable 
 
 **`botEndpoint` modes:**
 
-*Token mode* — if the URL contains `{imageName}` or `{imageUrl}`, both are replaced at render time and the link opens in a new tab. Use this for pre-fillable request forms (Microsoft Forms, Typeform, Google Forms, etc.):
+*Token mode* — if the URL contains the literal strings `Image-Name` or `Image-Url`, both are replaced at render time and the link opens in a new tab. Use this for pre-fillable request forms (Microsoft Forms, Typeform, Google Forms, etc.):
 
 ```json
 "purchase": {
-  "botEndpoint": "https://forms.example.com/request?id=FORM_ID&name={imageName}&page={imageUrl}"
+  "botEndpoint": "https://forms.example.com/request?id=FORM_ID&name=Image-Name&page=Image-Url"
 }
 ```
 
-`{imageName}` is replaced with the piece's title (URL-encoded). `{imageUrl}` is replaced with the absolute URL of the piece's page on the site (URL-encoded) — use this so the reviewer knows exactly which piece is being requested.
+`Image-Name` is replaced with the piece's title (URL-encoded). `Image-Url` is replaced with the absolute URL of the piece's page on the site (URL-encoded) — use this so the reviewer knows exactly which piece is being requested.
 
 *Legacy mode* — no tokens: the string `?item={title}` is appended and the link opens in the same tab. Suitable for mailto links or simple chatbot endpoints:
 

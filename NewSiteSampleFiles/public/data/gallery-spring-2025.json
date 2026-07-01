@@ -63,7 +63,7 @@
       ],
       "actions": {
         "purchase": {
-          "botEndpoint": "https://your-form-provider.example.com/request?formId=YOUR_FORM_ID&name={imageName}&page={imageUrl}"
+          "botEndpoint": "https://your-form-provider.example.com/request?formId=YOUR_FORM_ID&name=Image-Name&page=Image-Url"
         }
       }
     }

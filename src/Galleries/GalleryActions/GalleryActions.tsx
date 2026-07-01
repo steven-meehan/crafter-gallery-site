@@ -4,7 +4,7 @@ interface GalleryActionsProps {
   actions: GalleryActionsConfig | undefined;
   labels: GalleryButtonLabels;
   itemTitle: string;
-  /** Canonical absolute URL of the current piece — used to fill {imageUrl} tokens in botEndpoint. */
+  /** Canonical absolute URL of the current piece — replaces the Image-Url placeholder in botEndpoint. */
   itemUrl?: string;
 }
 
@@ -18,8 +18,9 @@ interface ResolvedAction {
  * Builds the action URL for a slot.
  *
  * botEndpoint supports two modes:
- *   1. Token mode — if the endpoint contains {imageName} or {imageUrl}, both tokens are
- *      replaced with encoded values and the result opens in a new tab (it's a pre-filled form).
+ *   1. Token mode — if the endpoint contains the literal strings "Image-Name" or "Image-Url",
+ *      both are replaced with encoded values and the result opens in a new tab (pre-filled form).
+ *      Works with any form provider — Microsoft Forms, Typeform, Google Forms, etc.
  *   2. Legacy mode — no tokens: appends ?item={title} and opens in the same tab.
  */
 function resolveSlot(
@@ -37,11 +38,11 @@ function resolveSlot(
   const endpoint = slot.botEndpoint?.trim() ?? '';
   if (!endpoint) return null;
 
-  const hasTokens = endpoint.includes('{imageName}') || endpoint.includes('{imageUrl}');
+  const hasTokens = endpoint.includes('Image-Name') || endpoint.includes('Image-Url');
   if (hasTokens) {
     const url = endpoint
-      .replace('{imageName}', encodeURIComponent(itemTitle))
-      .replace('{imageUrl}', encodeURIComponent(itemUrl));
+      .replace('Image-Name', encodeURIComponent(itemTitle))
+      .replace('Image-Url', encodeURIComponent(itemUrl));
     return { label: bot, href: url, isBot: false };
   }
 
