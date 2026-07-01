@@ -809,7 +809,8 @@ Open `src/theme.css`. The active preset has an uncommented `:root { ... }` block
 
 | Token | Controls |
 |---|---|
-| `--body-bg` | Page background |
+| `--body-bg` | Page background — flat fallback, and the colour used when the gradient below is off |
+| `--body-bg-gradient` | Optional decorative gradient drawn over `--body-bg`; set to `none` to use a plain flat background instead |
 | `--primary-color` | Card background |
 | `--alt-primary-color` | Secondary card background |
 | `--accent-color` | Highlight colour — borders, button outlines, active states |
@@ -829,6 +830,8 @@ Open `src/theme.css`. The active preset has an uncommented `:root { ... }` block
 | `--caption-color` / `--caption-font-size` | Image title below the carousel |
 | `--desc-color` / `--desc-font-size` | Description paragraph text |
 | `--nav-mobile-dropdown-mx` | Mobile dropdown inset: `0rem` = full-bleed edge to edge, `1rem` = inset |
+| `--page-content-bg` | Background for the main content panel wrapping informational pages and the single-gallery view; set to `transparent` to remove the panel |
+| `--page-slider-height` | Fixed height for the on-page image slider (and a lone, non-slider page image); keeps images from growing/shrinking as the slider cycles. Set to `none` for each image's natural height |
 
 ### Creating a Custom Theme
 
