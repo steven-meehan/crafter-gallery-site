@@ -1,0 +1,5 @@
+.contentCard {
+  padding: 1.5rem 2rem;
+  /* See src/Page/Page.module.css for why !important + inline style are needed here. */
+  box-shadow: 0 2px 8px var(--accent-color-dimmed) !important;
+}

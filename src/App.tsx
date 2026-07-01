@@ -68,6 +68,7 @@ function App() {
                       : <GalleryIndex />
                   }
                 />
+                {siteConfig.homePage && <Route path="/galleries" element={<GalleryIndex />} />}
                 <Route path="/gallery/:slug/:imageSlug?" element={<GalleryView />} />
                 {siteConfig.pages.map(p => (
                   <Route
