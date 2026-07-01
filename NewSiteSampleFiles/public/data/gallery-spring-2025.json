@@ -46,6 +46,26 @@
         "purchase": { "botEndpoint": "mailto:you@example.com?subject=Purchase+Enquiry" },
         "sample": { "fileUrl": "https://your-cdn.example.com/samples/morning-dew-low-res.jpg" }
       }
+    },
+    {
+      "fileName": "piece-003.jpg",
+      "title": "Golden Hour",
+      "altText": "Landscape painting in warm amber and gold tones",
+      "landscape": true,
+      "description": [
+        {
+          "display": true,
+          "header": false,
+          "emphasis": false,
+          "text": "Oil on linen, 24x18 inches. Not yet listed in the shop — request to be notified when available.",
+          "alignment": "center"
+        }
+      ],
+      "actions": {
+        "purchase": {
+          "botEndpoint": "https://your-form-provider.example.com/request?formId=YOUR_FORM_ID&name={imageName}&page={imageUrl}"
+        }
+      }
     }
   ]
 }

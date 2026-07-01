@@ -487,7 +487,27 @@ One file per gallery. Each item becomes a carousel slide with its own shareable 
 | `actions.useCase` | No | Use-case button. Uses `useCaseDirect` or `useCaseBot` label. |
 | `actions.*.storeUrl` | No | Opens this URL directly in a new tab. Takes priority over `botEndpoint`. |
 | `actions.*.fileUrl` | No | Opens this file URL directly in a new tab. Takes priority over `botEndpoint`. |
-| `actions.*.botEndpoint` | No | Fallback URL (mailto, form, chatbot endpoint) when no direct URL is set. |
+| `actions.*.botEndpoint` | No | Fallback URL when no direct URL is set. Supports two modes — see below. |
+
+**`botEndpoint` modes:**
+
+*Token mode* — if the URL contains `{imageName}` or `{imageUrl}`, both are replaced at render time and the link opens in a new tab. Use this for pre-fillable request forms (Microsoft Forms, Typeform, Google Forms, etc.):
+
+```json
+"purchase": {
+  "botEndpoint": "https://forms.example.com/request?id=FORM_ID&name={imageName}&page={imageUrl}"
+}
+```
+
+`{imageName}` is replaced with the piece's title (URL-encoded). `{imageUrl}` is replaced with the absolute URL of the piece's page on the site (URL-encoded) — use this so the reviewer knows exactly which piece is being requested.
+
+*Legacy mode* — no tokens: the string `?item={title}` is appended and the link opens in the same tab. Suitable for mailto links or simple chatbot endpoints:
+
+```json
+"purchase": {
+  "botEndpoint": "mailto:you@example.com?subject=Purchase+Enquiry"
+}
+```
 
 ---
 
