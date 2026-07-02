@@ -121,6 +121,7 @@ const GalleryView: React.FC = () => {
           actions={currentItem?.actions}
           labels={mergedLabels}
           itemTitle={currentItem?.title ?? ''}
+          itemUrl={typeof window !== 'undefined' ? window.location.href : ''}
         />
       </Card>
     </>

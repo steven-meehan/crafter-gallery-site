@@ -487,7 +487,43 @@ One file per gallery. Each item becomes a carousel slide with its own shareable 
 | `actions.useCase` | No | Use-case button. Uses `useCaseDirect` or `useCaseBot` label. |
 | `actions.*.storeUrl` | No | Opens this URL directly in a new tab. Takes priority over `botEndpoint`. |
 | `actions.*.fileUrl` | No | Opens this file URL directly in a new tab. Takes priority over `botEndpoint`. |
-| `actions.*.botEndpoint` | No | Fallback URL (mailto, form, chatbot endpoint) when no direct URL is set. |
+| `actions.*.botEndpoint` | No | Fallback URL when no direct URL is set. Supports two modes — see below. |
+
+**`botEndpoint` modes:**
+
+*Token mode* — if the URL contains the literal strings `Image-Name` or `Image-Url`, both are replaced at render time and the link opens in a new tab. Use this for pre-fillable request forms (Microsoft Forms, Typeform, Google Forms, etc.):
+
+```json
+"purchase": {
+  "botEndpoint": "https://forms.example.com/request?id=FORM_ID&name=Image-Name&page=Image-Url"
+}
+```
+
+`Image-Name` is replaced with the piece's title (URL-encoded). `Image-Url` is replaced with the absolute URL of the piece's page on the site (URL-encoded) — use this so the reviewer knows exactly which piece is being requested.
+
+**Microsoft Forms example:** when you share a pre-fill link from Microsoft Forms, each question has its own variable name in the URL (a long alphanumeric string). Place `Image-Name` and `Image-Url` as the *values* for those variables:
+
+```json
+"purchase": {
+  "botEndpoint": "https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=YOUR_FORM_ID&IMAGE_NAME_VARIABLE=Image-Name&IMAGE_URL_VARIABLE=Image-Url"
+}
+```
+
+When a visitor clicks the button on a piece titled "Spring Bloom", the link becomes:
+
+```
+https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=YOUR_FORM_ID&IMAGE_NAME_VARIABLE=Spring%20Bloom&IMAGE_URL_VARIABLE=https%3A%2F%2Fyour-site.com%2Fgallery%2Fspring-2025%2Fspring-bloom
+```
+
+The form opens in a new tab with both fields pre-filled. `YOUR_FORM_ID`, `IMAGE_NAME_VARIABLE`, and `IMAGE_URL_VARIABLE` all come from your specific form — copy them directly from the pre-fill URL Microsoft Forms generates. One `botEndpoint` entry covers every item in the gallery; no per-item configuration is needed.
+
+*Legacy mode* — no tokens: the string `?item={title}` is appended and the link opens in the same tab. Suitable for mailto links or simple chatbot endpoints:
+
+```json
+"purchase": {
+  "botEndpoint": "mailto:you@example.com?subject=Purchase+Enquiry"
+}
+```
 
 ---
 

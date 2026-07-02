@@ -14,6 +14,11 @@
 ### Carousel
 - Thumbnail strip now centers thumbnails (`justify-content: safe center`) instead of left-aligning when there are only a few
 
+### Gallery Actions
+- `botEndpoint` on any action slot now supports token mode: if the URL contains the literal strings `Image-Name` or `Image-Url`, both are replaced at render time with the piece's title and canonical page URL (URL-encoded) and the link opens in a new tab — enabling pre-fillable request forms (Microsoft Forms, Typeform, Google Forms, etc.) with zero code changes
+- Legacy mode preserved: `botEndpoint` values without tokens continue to append `?item={title}` and open in the same tab
+- `itemUrl` prop added to `GalleryActions`; `GalleryView` now passes `window.location.href` as the canonical piece URL
+
 ---
 
 ## 2.1.0
